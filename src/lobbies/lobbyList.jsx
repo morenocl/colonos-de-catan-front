@@ -1,26 +1,40 @@
 import {
   Accordion, Button, Card,
 } from 'react-bootstrap';
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { getLobbies } from '../utils/requests';
+import { getLobbies, joinLobby } from '../utils/requests';
 
 
 function LobbyDetails(props) {
-  const { owner, players, maxPlayers } = props;
+  const {
+    owner, players, maxPlayers, selected,
+  } = props;
   const playerlist = players.reduce((x, y) => `${x}, ${y}`);
+  const [isLoading, setLoading] = useState(false);
+  const handleClick = () => {
+    setLoading(true);
+    selected();
+  };
 
   return (
     <div>
       <div>{`Owner: ${owner}`}</div>
       <div>{`Players: ${playerlist}`}</div>
       <div>{`Max players: ${maxPlayers}`}</div>
+      <Button
+        variant="primary"
+        onClick={handleClick}
+        disabled={isLoading}
+      >
+        Join
+      </Button>
     </div>
   );
 }
 
-function LobbyPreview(props) {
+function Lobby(props) {
   const { lobby } = props;
 
   return (
@@ -37,6 +51,7 @@ function LobbyPreview(props) {
             owner={lobby.owner}
             players={lobby.players}
             maxPlayers={lobby.max_players}
+            selected={() => joinLobby(lobby.id)}
           />
         </Card.Body>
       </Accordion.Collapse>
@@ -49,7 +64,7 @@ export default function LobbyList() {
 
   return (
     <Accordion>
-      {lobbies.map((x) => <LobbyPreview lobby={x} key={x.id} />)}
+      {lobbies.map((x) => <Lobby lobby={x} key={x.id} />)}
     </Accordion>
   );
 }
@@ -59,9 +74,10 @@ LobbyDetails.propTypes = {
   owner: PropTypes.string.isRequired,
   players: PropTypes.arrayOf(PropTypes.string).isRequired,
   maxPlayers: PropTypes.number.isRequired,
+  selected: PropTypes.func.isRequired,
 };
 
-LobbyPreview.propTypes = {
+Lobby.propTypes = {
   lobby: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
