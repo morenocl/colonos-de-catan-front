@@ -1,4 +1,4 @@
-export const getLobbies = () => [
+export const listLobbies = () => [
     {id: 1,
     name: "nombre1",
     owner: "owner1",

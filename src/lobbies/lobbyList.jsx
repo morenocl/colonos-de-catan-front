@@ -4,7 +4,7 @@ import {
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { getLobbies, joinLobby } from '../utils/requests';
+import { joinLobby } from '../utils/api';
 
 
 function LobbyDetails(props) {
@@ -40,7 +40,11 @@ function Lobby(props) {
   return (
     <Card key={lobby.id}>
       <Card.Header>
-        <Accordion.Toggle as={Button} variant="link" eventKey={lobby.id}>
+        <Accordion.Toggle
+          as={Button}
+          variant="link"
+          eventKey={lobby.id}
+        >
           {lobby.name}
         </Accordion.Toggle>
       </Card.Header>
@@ -59,8 +63,8 @@ function Lobby(props) {
   );
 }
 
-export default function LobbyList() {
-  const lobbies = getLobbies();
+export default function LobbyList(props) {
+  const { lobbies } = props;
 
   return (
     <Accordion>
@@ -85,4 +89,14 @@ Lobby.propTypes = {
     players: PropTypes.arrayOf(PropTypes.string).isRequired,
     max_players: PropTypes.number.isRequired,
   }).isRequired,
+};
+
+LobbyList.propTypes = {
+  lobbies: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    owner: PropTypes.string.isRequired,
+    players: PropTypes.arrayOf(PropTypes.string).isRequired,
+    max_players: PropTypes.number.isRequired,
+  })).isRequired,
 };
