@@ -7,7 +7,7 @@ import Lobby from './lobby';
 import { listLobbies } from '../utils/api';
 
 
-export default function LobbyScreen() {
+export default function LobbyList() {
   const [page, setPage] = useState(undefined);
 
   function setList(lobbies) {
