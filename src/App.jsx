@@ -1,16 +1,13 @@
 import React from 'react';
 
-import LobbyList from './lobbies/lobbyList';
-import { listLobbies } from './utils/api';
+import LobbyScreen from './lobbies/lobbyList';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-function App() {
+export default function App() {
   return (
-    <LobbyList lobbies={listLobbies()} />
+    <LobbyScreen />
   );
 }
-
-export default App;

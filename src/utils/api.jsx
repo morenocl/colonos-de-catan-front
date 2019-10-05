@@ -1,17 +1,12 @@
-export const listLobbies = () => [
-    {id: 1,
-    name: "nombre1",
-    owner: "owner1",
-    players: ["user1.1", "user1.2", "user1.3"],
-    max_players: 1
-    },
-    {id: 2,
-    name: "nombre2",
-    owner: "owner2",
-    players: ["user2.1", "user2.2"],
-    max_players: 2
-    }
-];
+const path = 'http://demo4861279.mockable.io/auxtmp';
+
+export function listLobbies(onSuccess, onFailure) {
+  const url = `${path}/rooms/`;
+  fetch(url)
+    .then(response => response.json())
+    .then(onSuccess)
+    .catch(onFailure);
+}
 
 export function joinLobby(id) {
   console.log(`Joined lobby ${id}`);
