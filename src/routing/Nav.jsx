@@ -1,50 +1,45 @@
-import React, {Fragment} from 'react';
-import {Navbar, Nav, NavItem } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { LinkContainer } from 'react-router-bootstrap';
+import React from "react";
+import { Navbar, Nav, NavItem } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 // lots of Bootstrap code here
 // Notice the use of <Fragment> to avoid adding useless <div>s
-const NavBar = ({isAuthenticated, username, handleLogout}) => {
-  return (
-		<Navbar inverse>
-			<Nav>
-          {isAuthenticated
-						?  <Fragment>
-                <LinkContainer to="/cards">
-                  <NavItem>Cards</NavItem>
-                </LinkContainer>
-                <LinkContainer to="/resources">
-                  <NavItem>Resources</NavItem>
-								</LinkContainer>
-								 <LinkContainer to="/board">
-                  <NavItem>Board</NavItem>
-								</LinkContainer>
-								 <LinkContainer to="/lobbys">
-                  <NavItem>Lobbys</NavItem>
-                </LinkContainer>
-							</Fragment>
+function NavBar(props) {
+  const { isAuthenticated, handleLogout } = props;
 
-            : <NavItem>DemoApp</NavItem>
-					}
-				</Nav>
-      <Navbar.Collapse>
-        <Nav pullRight>
-          {isAuthenticated
-            ? <NavItem onClick={handleLogout}>Logout</NavItem>
-            : <Fragment>
-                <LinkContainer to="/signup">
-                  <NavItem>Signup</NavItem>
-                </LinkContainer>
-                <LinkContainer to="/login">
-                  <NavItem>Login</NavItem>
-                </LinkContainer>
-              </Fragment>
-          }
+  return (
+    <Navbar bg="light" expand="lg">
+      <Nav>
+        {isAuthenticated ? (
+          <>
+            <Nav.Link href="/cards">Cards</Nav.Link>
+            <Nav.Link href="/resources">Resources</Nav.Link>
+            <Nav.Link href="/board">Boards</Nav.Link>
+            <Nav.Link href="/lobbys">Lobbys</Nav.Link>
+          </>
+        ) : (
+          <NavItem>DemoApp</NavItem>
+        )}
+      </Nav>
+      <Navbar.Collapse className="justify-content-end">
+        <Nav>
+          {isAuthenticated ? (
+            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+          ) : (
+            <>
+              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/signup">Signup</Nav.Link>
+            </>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
   );
 }
+
+NavBar.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  handleLogout: PropTypes.func.isRequired
+};
 
 export default NavBar;
