@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Accordion, Button, Card } from 'react-bootstrap';
+import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 
 import { joinLobby } from '../utils/api';
+
 
 function LobbyDetails(props) {
   const {
