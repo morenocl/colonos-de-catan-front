@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 import axios from 'axios'
 
 
-class DevelopmentCard extends React.Component {
+class resources extends React.Component {
     state = {
         card: []
       }
@@ -23,7 +23,7 @@ class DevelopmentCard extends React.Component {
            
          <Container>
              <ListGroup>
-                {this.state.card.map(infoCards => infoCards.cards.map(singleCard => <ListGroup.Item>{singleCard}</ListGroup.Item>))}
+                {this.state.card.map(infoCards => infoCards.resources.map(singleCard => <ListGroup.Item>{singleCard}</ListGroup.Item>))}
              </ListGroup>
          </Container>
            
@@ -31,4 +31,4 @@ class DevelopmentCard extends React.Component {
    }
 }
 
-export default DevelopmentCard
+export default resources
