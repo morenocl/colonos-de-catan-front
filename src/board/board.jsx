@@ -19,6 +19,7 @@ function drawBoard(hs) {
 
     draw.polygon(hexPath)
       .center(x, y)
+      .rotate(90)
       .fill(colour(resource));
 
     draw.text(token)
@@ -33,8 +34,7 @@ export default function Board(props) {
 
   // Runs only after mounted for the first time.
   // Must use [] to mimic componentDidMount.
-  // eslint-disable-next-line
-  useEffect(() => boardStatus(id, drawBoard, console.log), []);
+  useEffect(() => boardStatus(id, drawBoard, console.log));
 
   return (
     <div id="board" />
