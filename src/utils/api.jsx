@@ -36,7 +36,7 @@ export function joinLobby(id, onFailure) {
   const option = {
     method: 'PUT'
   };
-  request(url, option, ()=>{}, onFailure);
+  request(url, option, undefined, onFailure);
 }
 
 export function boardStatus(id, onSuccess, onFailure) {
