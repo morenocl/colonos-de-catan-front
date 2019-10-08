@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LobbyList from './lobbies/lobbyList';
+import LobbyList from './lobbies/LobbyList';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

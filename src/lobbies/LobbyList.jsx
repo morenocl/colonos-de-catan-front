@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 
-import Lobby from './lobby';
-import { listLobbies } from '../utils/api';
+import Lobby from './Lobby';
+import { listLobbies } from '../utils/Api';
 
 
 export default function LobbyList() {

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 
-import { joinLobby } from '../utils/api';
+import { joinLobby } from '../utils/Api';
 
 
 function LobbyDetails(props) {
