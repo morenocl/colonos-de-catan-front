@@ -1,6 +1,18 @@
 const path = 'http://localhost:3000';
 
+const onSuccess = (data) => { return data };
+
 const handleError = (response) => console.log(response);
+
+function request(url, options, onSuccess, onFailure) {
+  fetch(url, options)
+    .then((r) => {
+      if (!r.ok) onFailure(Error(r.statusText));
+      return r.json();
+    })
+    .then(onSuccess)
+    .catch(onFailure);
+}
 
 class Api {
   constructor() {
@@ -8,55 +20,48 @@ class Api {
   }
 
   login(username, password) {
-    const url = '${this.path}/users/login/';
+    const url = `${this.path}/users/login/`;
     const data = { user: username, pass: password };
-    const init = {
+    const option = {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json'
       }
     };
-    fetch(url, init)
-      .then((response) => {
-        return response.json();
-      })
-      .catch(handleError);
+    request(url, option, onSuccess, handleError);
   }
 
   listLobbies() {
-    const url = '${this.path}/rooms/';
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .catch(handleError);
+    const url = `${this.path}/rooms/`;
+    option = {
+      method: 'GET',
+    };
+    request(url, option, onSuccess, handleError);
   }
 
   joinLobby(id) {
-    const url = '${this.path}/rooms/${id}/';
-    fetch(url, {
+    const url = `${this.path}/rooms/${id}/`;
+    const option = {
       method: 'PUT'
-    })
-      .catch(handleError);
+    };
+    request(url, option, onSuccess, handleError);
   }
 
   boardStatus(id) {
-    const url = '${this.path}/games/${id}/board';
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .catch(handleError);
+    const url = `${this.path}/games/${id}/board`;
+    option = {
+      method: 'GET',
+    };
+    request(url, option, onSuccess, handleError);
   }
 
   playerCardsAndResource(id) {
-    const url = '${this.path}/games/${id}/player';
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .catch((response) => console.log(response));
+    const url = `${this.path}/games/${id}/player`;
+    option = {
+      method: 'GET',
+    };
+    request(url, option, onSuccess, handleError);
   }
 }
 
