@@ -1,9 +1,5 @@
 const path = 'http://localhost:3000';
 
-const onSuccess = (data) => { return data };
-
-const handleError = (response) => console.log(response);
-
 function request(url, options, onSuccess, onFailure) {
   fetch(url, options)
     .then((r) => {
@@ -14,8 +10,8 @@ function request(url, options, onSuccess, onFailure) {
     .catch(onFailure);
 }
 
-export function login(username, password) {
-  const url = `${this.path}/users/login/`;
+export function login(username, password, onSuccess, onFailure) {
+  const url = `${path}/users/login/`;
   const data = { user: username, pass: password };
   const option = {
     method: 'POST',
@@ -24,37 +20,37 @@ export function login(username, password) {
       'Content-Type': 'application/json'
     }
   };
-  request(url, option, onSuccess, handleError);
+  request(url, option, onSuccess, onFailure);
 }
 
-export function listLobbies() {
-  const url = `${this.path}/rooms/`;
+export function listLobbies(onSuccess, onFailure) {
+  const url = `${path}/rooms/`;
   option = {
     method: 'GET',
   };
-  request(url, option, onSuccess, handleError);
+  request(url, option, onSuccess, onFailure);
 }
 
-export function joinLobby(id) {
-  const url = `${this.path}/rooms/${id}/`;
+export function joinLobby(id, onFailure) {
+  const url = `${path}/rooms/${id}/`;
   const option = {
     method: 'PUT'
   };
-  request(url, option, onSuccess, handleError);
+  request(url, option, ()=>{}, onFailure);
 }
 
-export function boardStatus(id) {
-  const url = `${this.path}/games/${id}/board`;
+export function boardStatus(id, onSuccess, onFailure) {
+  const url = `${path}/games/${id}/board`;
   option = {
     method: 'GET',
   };
-  request(url, option, onSuccess, handleError);
+  request(url, option, onSuccess, onFailure);
 }
 
-export function playerCardsAndResource(id) {
-  const url = `${this.path}/games/${id}/player`;
+export function playerCardsAndResource(id, onSuccess, onFailure) {
+  const url = `${path}/games/${id}/player`;
   option = {
     method: 'GET',
   };
-  request(url, option, onSuccess, handleError);
+  request(url, option, onSuccess, onFailure);
 }
