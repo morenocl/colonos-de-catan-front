@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
@@ -36,6 +37,25 @@ function LobbyDetails(props) {
 
 export default function Lobby(props) {
   const { lobby } = props;
+  const error = (
+    <Alert variant="danger">
+      <Alert.Heading>
+        Error
+      </Alert.Heading>
+      There was an error requesting data from server.
+      Check your internet connection.
+    </Alert>
+  );
+
+  // Initial details.
+  const [page, setPage] = useState(
+    <LobbyDetails
+      owner={lobby.owner}
+      players={lobby.players}
+      maxPlayers={lobby.max_players}
+      selected={() => joinLobby(lobby.id, () => setPage(error))}
+    />,
+  );
 
   return (
     <Card key={lobby.id}>
@@ -51,12 +71,7 @@ export default function Lobby(props) {
 
       <Accordion.Collapse eventKey={lobby.id}>
         <Card.Body>
-          <LobbyDetails
-            owner={lobby.owner}
-            players={lobby.players}
-            maxPlayers={lobby.max_players}
-            selected={() => joinLobby(lobby.id)}
-          />
+          {page}
         </Card.Body>
       </Accordion.Collapse>
     </Card>
