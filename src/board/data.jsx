@@ -17,30 +17,35 @@ export function center(level, index) {
   const r = Math.sqrt(L ** 2 - (L / 2) ** 2); // Adjacent side.
   const k = L + L / 2;
 
-  if (level === '0') return ({ x: w, y: h });
+  const table = {
+    0: {
+      0: { x: w, y: h },
+    },
+    1: {
+      0: { x: w + r, y: h - k },
+      1: { x: w + 2 * r, y: h },
+      2: { x: w + r, y: h + k },
+      3: { x: w - r, y: h + k },
+      4: { x: w - 2 * r, y: h },
+      5: { x: w - r, y: h - k },
+    },
+  };
 
-  if (level === '1') {
-    switch (index) {
-      case '0': return ({ x: w + r, y: h - k });
-      case '1': return ({ x: w + 2 * r, y: h });
-      case '2': return ({ x: w + r, y: h + k });
-      case '3': return ({ x: w - r, y: h + k });
-      case '4': return ({ x: w - 2 * r, y: h });
-      case '5': return ({ x: w - r, y: h - k });
-      default: return (undefined);
-    }
-  }
+  if (level in table && index in table[level]) return (table[level][index]);
 
-  return (undefined);
+  throw Error('Invalid level or index.');
 }
 
 export function colour(resource) {
-  switch (resource) {
-    case 'brick': return ('#ff6600');
-    case 'lumber': return ('#663300');
-    case 'wool': return ('#ffffe6');
-    case 'grain': return ('#ffcc00');
-    case 'ore': return ('#c0c0c0');
-    default: return ('#000000');
-  }
+  const colours = {
+    brick: '#ff6600',
+    lumber: '#663300',
+    wool: '#ffffe6',
+    grain: '#ffcc00',
+    ore: '#c0c0c0',
+  };
+
+  if (resource in colours) return (colours[resource]);
+
+  return ('#000000');
 }

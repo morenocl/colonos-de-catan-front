@@ -3,7 +3,10 @@ const path = 'http://demo4861279.mockable.io/';
 export function boardStatus(id, onSuccess, onFailure) {
   const url = `${path}/games/${id}/board`;
   fetch(url)
-    .then(response => response.json())
+    .then((r) => {
+      if (!r.ok) onFailure(Error(r.statusText));
+      return r.json();
+    })
     .then(onSuccess)
     .catch(onFailure);
 }

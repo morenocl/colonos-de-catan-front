@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
+import Alert from 'react-bootstrap/Alert';
 import SVG from 'svg.js';
 
 import {
@@ -31,13 +32,26 @@ function drawBoard(hs) {
 
 export default function Board(props) {
   const { id } = props;
+  const [error, setError] = useState(undefined);
+
+  const showError = () => setError(
+    <Alert variant="danger">
+      <Alert.Heading>
+        Error
+      </Alert.Heading>
+        There was an error requesting data from server. Check your internet connection.
+    </Alert>,
+  );
 
   // Runs only after mounted for the first time.
   // Must use [] to mimic componentDidMount.
-  useEffect(() => boardStatus(id, drawBoard, console.log));
+  useEffect(() => boardStatus(id, drawBoard, showError), [id]);
 
   return (
-    <div id="board" />
+    <div>
+      {error}
+      <div id="board" />
+    </div>
   );
 }
 
