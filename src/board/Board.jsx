@@ -6,8 +6,8 @@ import SVG from 'svg.js';
 
 import {
   WIDTH, HEIGHT, hexPath, center, colour,
-} from './data';
-import { boardStatus } from '../utils/api';
+} from './boardUtils';
+import { boardStatus } from '../utils/Api';
 
 
 function drawBoard(hs) {

@@ -29,6 +29,20 @@ export function center(level, index) {
       4: { x: w - 2 * r, y: h },
       5: { x: w - r, y: h - k },
     },
+    2: {
+      0: { x: w, y: h - 3 * L },
+      1: { x: w + 2 * r, y: h - 3 * L },
+      2: { x: w + 3 * r, y: h - (3 / 2) * L },
+      3: { x: w + 4 * r, y: h },
+      4: { x: w + 3 * r, y: h + (3 / 2) * L },
+      5: { x: w + 2 * r, y: h + 3 * L },
+      6: { x: w, y: h + 3 * L },
+      7: { x: w - 2 * r, y: h + 3 * L },
+      8: { x: w - 3 * r, y: h + (3 / 2) * L },
+      9: { x: w - 4 * r, y: h },
+      10: { x: w - 3 * r, y: h - (3 / 2) * L },
+      11: { x: w - 2 * r, y: h - 3 * L },
+    },
   };
 
   if (level in table && index in table[level]) return (table[level][index]);
@@ -47,5 +61,5 @@ export function colour(resource) {
 
   if (resource in colours) return (colours[resource]);
 
-  return ('#000000');
+  throw Error('Invalid colour.');
 }
