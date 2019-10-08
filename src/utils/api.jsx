@@ -17,15 +17,15 @@ export function login(username, password, onSuccess, onFailure) {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   };
   request(url, option, onSuccess, onFailure);
 }
 
 export function listLobbies(onSuccess, onFailure) {
   const url = `${path}/rooms/`;
-  option = {
+  const option = {
     method: 'GET',
   };
   request(url, option, onSuccess, onFailure);
@@ -34,14 +34,14 @@ export function listLobbies(onSuccess, onFailure) {
 export function joinLobby(id, onFailure) {
   const url = `${path}/rooms/${id}/`;
   const option = {
-    method: 'PUT'
+    method: 'PUT',
   };
   request(url, option, undefined, onFailure);
 }
 
 export function boardStatus(id, onSuccess, onFailure) {
   const url = `${path}/games/${id}/board`;
-  option = {
+  const option = {
     method: 'GET',
   };
   request(url, option, onSuccess, onFailure);
@@ -49,7 +49,7 @@ export function boardStatus(id, onSuccess, onFailure) {
 
 export function playerCardsAndResource(id, onSuccess, onFailure) {
   const url = `${path}/games/${id}/player`;
-  option = {
+  const option = {
     method: 'GET',
   };
   request(url, option, onSuccess, onFailure);
