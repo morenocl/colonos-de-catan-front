@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import PropTypes from 'prop-types';
 
 import { joinLobby } from '../utils/Api';
 
