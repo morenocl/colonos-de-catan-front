@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 import { joinLobby } from '../utils/Api';
 
 
-function LobbyDetails(props) {
+export function LobbyDetails(props) {
   const {
     owner, players, maxPlayers, selected,
   } = props;
@@ -57,23 +57,30 @@ export default function Lobby(props) {
     />,
   );
 
+  const header = (
+    <Card.Header>
+      <Accordion.Toggle
+        as={Button}
+        variant="link"
+        eventKey={lobby.id}
+      >
+        {lobby.name}
+      </Accordion.Toggle>
+    </Card.Header>
+  );
+
+  const body = (
+    <Accordion.Collapse eventKey={lobby.id}>
+      <Card.Body>
+        {page}
+      </Card.Body>
+    </Accordion.Collapse>
+  );
+
   return (
     <Card key={lobby.id}>
-      <Card.Header>
-        <Accordion.Toggle
-          as={Button}
-          variant="link"
-          eventKey={lobby.id}
-        >
-          {lobby.name}
-        </Accordion.Toggle>
-      </Card.Header>
-
-      <Accordion.Collapse eventKey={lobby.id}>
-        <Card.Body>
-          {page}
-        </Card.Body>
-      </Accordion.Collapse>
+      {header}
+      {body}
     </Card>
   );
 }

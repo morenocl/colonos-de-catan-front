@@ -1,10 +1,7 @@
-import { expect, should } from 'chai';
+import { expect } from 'chai';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import nock from 'nock';
 import React from 'react';
-
-import Card from 'react-bootstrap/Card';
 
 import LobbyList from '../src/lobbies/LobbyList';
 
@@ -13,8 +10,13 @@ import LobbyList from '../src/lobbies/LobbyList';
 configure({ adapter: new Adapter() });
 
 describe('LobbyList', () => {
-  it('should show an empty list to start with', function() {
+  it('should render without crashing', () => {
     const l = shallow(<LobbyList />);
-    expect(l.children().isEmptyRender(), l.debug()).to.equal(true);
+    expect(l.isEmptyRender(), l.debug()).to.be.false;
+  });
+
+  it('should show an empty list to start with', () => {
+    const l = shallow(<LobbyList />);
+    expect(l.children().isEmptyRender(), l.debug()).to.be.true;
   });
 });
