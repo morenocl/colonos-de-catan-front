@@ -6,7 +6,7 @@ function request(url, options, onSuccess, onFailure) {
   fetch(url, options)
     .then((r) => {
       if (!r.ok) onFailure(Error(r.statusText));
-      return r.json();
+      else return r.json();
     })
     .then(onSuccess)
     .catch(onFailure);
@@ -62,26 +62,26 @@ login.PropTypes = {
   password: PropTypes.string.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
-}
+};
 
 listLobbies.PropTypes = {
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
-}
+};
 
 joinLobby.PropTypes = {
   id: PropTypes.number.isRequired,
   onFailure: PropTypes.func.isRequired,
-}
+};
 
 boardStatus.PropTypes = {
   id: PropTypes.number.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
-}
+};
 
 playerHand.PropTypes = {
   id: PropTypes.number.isRequired,
   onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,  
-}
+  onFailure: PropTypes.func.isRequired,
+};
