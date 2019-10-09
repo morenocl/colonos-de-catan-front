@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const path = 'http://localhost:3000';
 
 function request(url, options, onSuccess, onFailure) {
@@ -47,10 +49,39 @@ export function boardStatus(id, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
-export function playerCardsAndResource(id, onSuccess, onFailure) {
+export function playerHand(id, onSuccess, onFailure) {
   const url = `${path}/games/${id}/player`;
   const option = {
     method: 'GET',
   };
   request(url, option, onSuccess, onFailure);
+}
+
+login.PropTypes = {
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+}
+
+listLobbies.PropTypes = {
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+}
+
+joinLobby.PropTypes = {
+  id: PropTypes.number.isRequired,
+  onFailure: PropTypes.func.isRequired,
+}
+
+boardStatus.PropTypes = {
+  id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+}
+
+playerHand.PropTypes = {
+  id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,  
 }
