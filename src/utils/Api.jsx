@@ -1,4 +1,4 @@
-const path = 'https://demo4861279.mockable.io';
+const path = 'https://demo4861279.mockable.io/';
 
 function request(url, options, onSuccess, onFailure) {
   fetch(url, options)
