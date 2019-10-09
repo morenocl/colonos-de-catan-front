@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LobbyList from './lobbies/lobbyList';
+import Resources from './cards/resources';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <LobbyList />
+    <Resources></Resources>
   );
 }
 
