@@ -22,7 +22,13 @@ export function login(username, password, onSuccess, onFailure) {
       'Content-Type': 'application/json',
     },
   };
-  request(url, option, onSuccess, onFailure);
+  fetch(url, option)
+    .then((r) => {
+      if (!r.ok) onFailure(Error(r.statusText));
+      return r.json();
+    })
+    .then(onSuccess)
+    .catch(onFailure);
 }
 
 export function listLobbies(onSuccess, onFailure) {
