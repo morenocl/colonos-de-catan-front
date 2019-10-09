@@ -15,8 +15,8 @@ export function playerInfo(id, onSuccess, onFailure) {
 
 export function playerInfo(id, onSuccess, onFailure) {
   if (id === -1) onFailure('Error');
-  onSuccess({
-    resources = ["brick", "lumber", "wool", "grain", "ore"],
-    card = ["road_building", "year_of_plenty", "monopoly", "victory_point", "knight"],
+  return ({
+    resources: ["brick", "lumber", "wool", "grain", "ore"],
+    cards: ["road_building", "year_of_plenty", "monopoly", "victory_point", "knight"],
   });
 }
