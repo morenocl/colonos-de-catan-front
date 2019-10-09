@@ -1,12 +1,11 @@
 import React from "react";
 
-import Login from "./login/Login";
-
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import LoginScreen from "./login/LoginScreen";
 
 function App() {
-  return <Login />;
+  return <LoginScreen />;
 }
 
 export default App;
