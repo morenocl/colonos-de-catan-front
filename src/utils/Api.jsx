@@ -35,6 +35,9 @@ export function listLobbies(onSuccess, onFailure) {
   const url = `${path}/rooms/`;
   const option = {
     method: 'GET',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
   };
   request(url, option, onSuccess, onFailure);
 }
@@ -43,6 +46,9 @@ export function joinLobby(id, onFailure) {
   const url = `${path}/rooms/${id}/`;
   const option = {
     method: 'PUT',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
   };
   request(url, option, undefined, onFailure);
 }
@@ -51,6 +57,9 @@ export function boardStatus(id, onSuccess, onFailure) {
   const url = `${path}/games/${id}/board`;
   const option = {
     method: 'GET',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
   };
   request(url, option, onSuccess, onFailure);
 }
@@ -59,6 +68,9 @@ export function playerHand(id, onSuccess, onFailure) {
   const url = `${path}/games/${id}/player`;
   const option = {
     method: 'GET',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
   };
   request(url, option, onSuccess, onFailure);
 }
