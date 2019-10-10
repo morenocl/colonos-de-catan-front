@@ -21,7 +21,7 @@ export default function Cards(props) {
     return (
 	<div style={containerStyle}>
 	{resources.map((x) => <div style={elementStyle}><Card type={x} /></div>)}
-	{cards.map((x) => <div style={elementStyle}><Card type ={x} /></div>)}
+	{cards.map((x) => <div style={elementStyle}><Card type={x} /></div>)}
 	</div>
   );
 }
@@ -34,7 +34,7 @@ function Card(props) {
 	height: '400px',
 	backgroundColor: getColor(type),
     };
-  // Temporary
+
   return (
     <div style={cardStyle} ><b>{type}</b></div>
   );
