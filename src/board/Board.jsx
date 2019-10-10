@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-
 import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import SVG from 'svg.js';
 
 import {
   WIDTH, HEIGHT, hexPath, center, colour,
-} from './boardUtils';
+} from './BoardUtils';
 import { boardStatus } from '../utils/Api';
 
 
@@ -43,8 +42,6 @@ export default function Board(props) {
     </Alert>,
   );
 
-  // Runs only after mounted for the first time.
-  // Must use [] to mimic componentDidMount.
   useEffect(() => boardStatus(id, drawBoard, showError), [id]);
 
   return (
