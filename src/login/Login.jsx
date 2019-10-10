@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "./LoginScreen";
+import { login } from "../utils/Api";
 import "./Login.css";
 
 export const Login = () => {
-  const { dispatch } = React.useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
   const initialState = {
     username: "",
     password: "",
@@ -11,7 +12,7 @@ export const Login = () => {
     errorMessage: null
   };
 
-  const [data, setData] = React.useState(initialState);
+  const [data, setData] = useState(initialState);
 
   const handleInputChange = event => {
     setData({
@@ -27,35 +28,23 @@ export const Login = () => {
       isSubmitting: true,
       errorMessage: null
     });
-    fetch("http://demo3924168.mockable.io/users/login/", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: data.username,
-        password: data.password
-      })
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw res;
-      })
-      .then(resJson => {
+
+    const dispatchLogin = resJson => {
+      if (resJson.token) {
         dispatch({
           type: "LOGIN",
-          payload: resJson
+          payload: { ...resJson, user: data.username }
         });
-      })
-      .catch(error => {
-        setData({
-          ...data,
-          isSubmitting: false,
-          errorMessage: error.message || error.statusText
-        });
+      }
+    };
+    const setError = error => {
+      setData({
+        ...data,
+        isSubmitting: false,
+        errorMessage: error.message
       });
+    };
+    login(data.username, data.password, dispatchLogin, setError);
   };
 
   return (

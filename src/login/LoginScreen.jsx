@@ -1,9 +1,9 @@
-import React from "react";
+import React, { createContext } from "react";
 import Login from "./Login";
 import Home from "./Home";
 import Header from "./Header";
 
-export const AuthContext = React.createContext();
+export const AuthContext = createContext();
 
 const initialState = {
   isAuthenticated: false,

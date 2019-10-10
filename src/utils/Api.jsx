@@ -1,13 +1,14 @@
+import PropTypes from "prop-types";
+
 const path = "http://demo3924168.mockable.io";
 
-function request(url, options, onSuccess, onFailure) {
-  fetch(url, options)
-    .then(r => {
-      if (!r.ok) onFailure(Error(r.statusText));
-      return r.json();
-    })
-    .then(onSuccess)
-    .catch(onFailure);
+function timeout(ms, promise) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(function() {
+      reject(new Error("Login timeout"));
+    }, ms);
+    promise.then(resolve, reject);
+  });
 }
 
 export function login(username, password, onSuccess, onFailure) {
@@ -20,5 +21,18 @@ export function login(username, password, onSuccess, onFailure) {
       "Content-Type": "application/json"
     }
   };
-  request(url, option, onSuccess, onFailure);
+  timeout(5000, fetch(url, option))
+    .then(r => {
+      if (!r.ok) onFailure(Error(r.statusText));
+      return r.json();
+    })
+    .then(onSuccess)
+    .catch(onFailure);
 }
+
+login.PropTypes = {
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired
+};
