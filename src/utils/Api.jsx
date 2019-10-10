@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 
+
 const path = 'http://localhost:3000';
 
 function request(url, options, onSuccess, onFailure) {
   fetch(url, options)
     .then((r) => {
-      if (!r.ok) onFailure(Error(r.statusText));
-      else return r.json();
+      if (!r.ok) return (onFailure(Error(r.statusText)));
+      return (r.json());
     })
     .then(onSuccess)
     .catch(onFailure);
@@ -22,10 +23,11 @@ export function login(username, password, onSuccess, onFailure) {
       'Content-Type': 'application/json',
     },
   };
+
   fetch(url, option)
     .then((r) => {
       if (!r.ok) onFailure(Error(r.statusText));
-      return r.json();
+      return (r.json());
     })
     .then(onSuccess)
     .catch(onFailure);
@@ -39,6 +41,7 @@ export function listLobbies(onSuccess, onFailure) {
       Authorization: `JWT ${localStorage.getItem('token')}`,
     },
   };
+
   request(url, option, onSuccess, onFailure);
 }
 
@@ -50,6 +53,7 @@ export function joinLobby(id, onFailure) {
       Authorization: `JWT ${localStorage.getItem('token')}`,
     },
   };
+
   request(url, option, undefined, onFailure);
 }
 
@@ -61,6 +65,7 @@ export function boardStatus(id, onSuccess, onFailure) {
       Authorization: `JWT ${localStorage.getItem('token')}`,
     },
   };
+
   request(url, option, onSuccess, onFailure);
 }
 
@@ -72,8 +77,10 @@ export function playerHand(id, onSuccess, onFailure) {
       Authorization: `JWT ${localStorage.getItem('token')}`,
     },
   };
+
   request(url, option, onSuccess, onFailure);
 }
+
 
 login.PropTypes = {
   username: PropTypes.string.isRequired,
