@@ -1,6 +1,5 @@
 const path = 'http://demo4861279.mockable.io/';
 
-/*
 export function playerInfo(id, onSuccess, onFailure) {
     const url = `${path}/games/${id}/player`;
     fetch(url)
@@ -11,8 +10,8 @@ export function playerInfo(id, onSuccess, onFailure) {
       .then(onSuccess)
       .catch(onFailure);
 }
-*/
 
+/*
 export function playerInfo(id, onSuccess, onFailure) {
   if (id === -1) onFailure('Error');
   return ({
@@ -20,3 +19,4 @@ export function playerInfo(id, onSuccess, onFailure) {
     cards: ["road_building", "year_of_plenty", "monopoly", "victory_point", "knight"],
   });
 }
+*/
