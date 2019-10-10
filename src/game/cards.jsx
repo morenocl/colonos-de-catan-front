@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { playerInfo } from '../utils/Api';
@@ -10,7 +10,8 @@ export default function Cards(props) {
 
     const containerStyle = {
 	listStyleType: 'none',
-	display: 'inline',
+	display: 'flex',
+	width: '100%',
     };
 
     const elementStyle = {
@@ -18,10 +19,10 @@ export default function Cards(props) {
     };
     
     return (
-	<ul style={containerStyle}>
-	{resources.map((x) => <li style={elementStyle}><Card type={x} /></li>)}
-	{cards.map((x) => <li style={elementStyle}><Card type ={x} /></li>)}
-	</ul>
+	<div style={containerStyle}>
+	{resources.map((x) => <div style={elementStyle}><Card type={x} /></div>)}
+	{cards.map((x) => <div style={elementStyle}><Card type ={x} /></div>)}
+	</div>
   );
 }
 
@@ -29,8 +30,8 @@ function Card(props) {
     const { type } = props;
 
     const cardStyle = {
-	width: '50px',
-	height: '100px',
+	width: '200px',
+	height: '400px',
 	backgroundColor: getColor(type),
     };
   // Temporary
