@@ -1,13 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import LobbyList from './lobbies/LobbyList';
 import Board from './board/Board';
+import * as actions from './App.ducks';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-export default function App() {
+const mapStateToProps = (state) => ({
+  auth: state.App.auth,
+  username: state.App.username,
+});
+
+function App() {
   return (
     <div>
       <LobbyList />
@@ -15,3 +23,17 @@ export default function App() {
     </div>
   );
 }
+
+
+export default connect(
+  mapStateToProps,
+  actions,
+)(App);
+
+
+mapStateToProps.propTypes = {
+  state: PropTypes.shape({
+    auth: PropTypes.bool,
+    username: PropTypes.string,
+  }).isRequired,
+};
