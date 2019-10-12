@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as actions from './App.ducks';
+import { setAuth as dispatchAuth } from './App.ducks';
 import Routes from './Routes';
 import NavBar from './nav/NavBar';
 
@@ -12,6 +12,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const mapStateToProps = (state) => ({
   auth: state.App.auth,
+});
+
+const mapDispatchToProps = ({
+  setAuth: dispatchAuth,
 });
 
 const App = ({ auth, setAuth }) => {
@@ -33,7 +37,7 @@ const App = ({ auth, setAuth }) => {
 
 export default connect(
   mapStateToProps,
-  actions,
+  mapDispatchToProps,
 )(App);
 
 

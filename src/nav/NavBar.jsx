@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import PropTypes from 'prop-types';
 
-import * as actions from '../App.ducks';
-
 
 const mapStateToProps = (state) => ({
   auth: state.App.auth,
@@ -50,7 +48,6 @@ const NavBar = ({ auth, logout }) => {
 
 export default connect(
   mapStateToProps,
-  actions,
 )(NavBar);
 
 
