@@ -14,10 +14,9 @@ const mapStateToProps = (state) => ({
   auth: state.App.auth,
 });
 
-const App = ({ auth, setAuth, setUser }) => {
+const App = ({ auth, setAuth }) => {
   const logout = () => {
     setAuth(false);
-    setUser(null);
     localStorage.removeItem('token');
   };
 
@@ -41,7 +40,6 @@ export default connect(
 App.propTypes = {
   auth: PropTypes.bool.isRequired,
   setAuth: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired,
 };
 
 mapStateToProps.propTypes = {

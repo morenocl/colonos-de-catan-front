@@ -23,24 +23,24 @@ const NavBar = ({ auth, logout }) => {
     </>
   );
 
+  const logoutButton = (
+    <LinkContainer to="/">
+      <Nav.Item onClick={logout}>
+        Logout
+      </Nav.Item>
+    </LinkContainer>
+  );
+
   return (
     <Navbar>
       <Navbar.Brand>
-        {auth
-          ? (
-            <LinkContainer to="/">
-              <Nav.Link>
-                Lobbies
-              </Nav.Link>
-            </LinkContainer>
-          )
-          : 'TodoApp'}
+        <h1>Settlers of Catan</h1>
       </Navbar.Brand>
 
       <Navbar.Collapse>
         <Nav>
           {auth
-            ? <Nav.Item onClick={logout}>Logout</Nav.Item>
+            ? logoutButton
             : items}
         </Nav>
       </Navbar.Collapse>

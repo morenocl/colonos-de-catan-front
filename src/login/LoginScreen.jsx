@@ -11,18 +11,17 @@ const mapStateToProps = (state) => ({
   auth: state.App.auth,
 });
 
-const LoginScreen = ({ auth, setAuth, setUser }) => {
-  const authenticate = (value, name, token) => {
+const LoginScreen = ({ auth, setAuth }) => {
+  const authenticate = (value, token) => {
     setAuth(value);
-    setUser(name);
     localStorage.setItem('token', token);
   };
 
-  if (auth) return (<Redirect to="/" />);
+  if (auth) return (<Redirect to="/rooms" />);
 
   return (
     <Button
-      onClick={() => authenticate(true, 'user', 'token')}
+      onClick={() => authenticate(true, 'token')}
     >
     Login
     </Button>
@@ -35,5 +34,4 @@ export default connect(mapStateToProps, actions)(LoginScreen);
 LoginScreen.propTypes = {
   auth: PropTypes.bool.isRequired,
   setAuth: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired,
 };

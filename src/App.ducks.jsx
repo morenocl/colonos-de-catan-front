@@ -6,7 +6,7 @@ export const SET_AUTH = 'app/SET_AUTH';
 export const SET_USERNAME = 'app/SET_USERNAME';
 
 export const initialState = {
-  auth: false,
+  auth: !!localStorage.getItem('token'),
   username: null,
 };
 
