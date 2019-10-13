@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 import { joinLobby } from '../utils/Api';
+import Error from '../utils/Error';
 
 
 export function LobbyDetails(props) {
@@ -37,15 +37,6 @@ export function LobbyDetails(props) {
 
 export default function Lobby(props) {
   const { lobby } = props;
-  const error = (
-    <Alert variant="danger">
-      <Alert.Heading>
-        Error
-      </Alert.Heading>
-      There was an error requesting data from server.
-      Check your internet connection.
-    </Alert>
-  );
 
   // Initial details.
   const [page, setPage] = useState(
@@ -53,7 +44,7 @@ export default function Lobby(props) {
       owner={lobby.owner}
       players={lobby.players}
       maxPlayers={lobby.max_players}
-      selected={() => joinLobby(lobby.id, () => setPage(error))}
+      selected={() => joinLobby(lobby.id, () => setPage(<Error />))}
     />,
   );
 

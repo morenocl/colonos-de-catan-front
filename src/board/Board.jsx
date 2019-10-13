@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
 import SVG from 'svg.js';
 
 import {
   WIDTH, HEIGHT, hexPath, center, colour,
 } from './BoardUtils';
 import { boardStatus } from '../utils/Api';
+import Error from '../utils/Error';
 
 
 function drawBoard(hs) {
@@ -33,14 +33,7 @@ export default function Board(props) {
   const { id } = props;
   const [error, setError] = useState(undefined);
 
-  const showError = () => setError(
-    <Alert variant="danger">
-      <Alert.Heading>
-        Error
-      </Alert.Heading>
-        There was an error requesting data from server. Check your internet connection.
-    </Alert>,
-  );
+  const showError = () => setError(<Error />);
 
   useEffect(() => boardStatus(id, drawBoard, showError), [id]);
 

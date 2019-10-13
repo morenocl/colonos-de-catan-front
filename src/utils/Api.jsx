@@ -24,13 +24,7 @@ export function login(username, password, onSuccess, onFailure) {
     },
   };
 
-  fetch(url, option)
-    .then((r) => {
-      if (!r.ok) onFailure(Error(r.statusText));
-      return (r.json());
-    })
-    .then(onSuccess)
-    .catch(onFailure);
+  request(url, option, onSuccess, onFailure);
 }
 
 export function listLobbies(onSuccess, onFailure) {

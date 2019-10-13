@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-import Alert from 'react-bootstrap/Alert';
 
 import Lobby from './Lobby';
 import { listLobbies } from '../utils/Api';
+import Error from '../utils/Error';
 
 
 export default function LobbyList() {
@@ -15,18 +15,8 @@ export default function LobbyList() {
     </Accordion>,
   );
 
-  const showError = () => setPage(
-    <Alert variant="danger">
-      <Alert.Heading>
-        Error
-      </Alert.Heading>
-      There was an error requesting data from server.
-      Check your internet connection.
-    </Alert>,
-  );
-
   // Runs only after mounted for the first time.
-  useEffect(() => listLobbies(showList, showError), []);
+  useEffect(() => listLobbies(showList, () => setPage(<Error />)), []);
 
   return (
     <div>

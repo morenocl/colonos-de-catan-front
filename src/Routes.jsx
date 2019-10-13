@@ -6,7 +6,7 @@ import AppliedRoute from './nav/AppliedRoute';
 import AuthenticatedRoute from './nav/AuthenticatedRoute';
 import NotFound from './utils/NotFound';
 import Rooms from './lobbies/LobbyList';
-import Login from './login/LoginScreen';
+import Login from './login/Login';
 import Signup from './signup/Signup';
 import Landing from './utils/Landing';
 import CreateRoom from './lobbies/CreateRoom';
