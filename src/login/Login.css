@@ -1,33 +1,10 @@
-.login-container {
-  align-items: center;
-  height: calc(100vh - 70px);
-  padding-left: 5%;
-  padding-right: 5%;
-  margin-top: 70px;
-}
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 60px 0;
+  }
 
-.login-container .container {
-  padding-left: 7%;
-  padding-right: 7%;
-  height: 100%;
-}
-.login-container .container h1 {
-  font-size: 2.5rem;
-}
-.login-container .container form {
-  display: flex;
-  height: 80%;
-  flex-direction: column;
-  justify-content: space-around;
-  align-self: center;
-}
-
-.login-container button {
-  height: 40px;
-  width: 360px;
-  font-weight: bold;
-  font-size: 15px;
-  text-align: center;
-  display: block;
-  margin: 0 auto;
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
 }
