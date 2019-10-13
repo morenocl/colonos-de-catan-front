@@ -3,7 +3,7 @@ import Accordion from 'react-bootstrap/Accordion';
 
 import Lobby from './Lobby';
 import { listLobbies } from '../utils/Api';
-import Error from '../utils/Error';
+import Error from '../components/Error';
 
 
 export default function LobbyList() {

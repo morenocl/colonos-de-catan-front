@@ -6,7 +6,7 @@ import {
   WIDTH, HEIGHT, hexPath, center, colour,
 } from './BoardUtils';
 import { boardStatus } from '../utils/Api';
-import Error from '../utils/Error';
+import Error from '../components/Error';
 
 
 function drawBoard(hs) {

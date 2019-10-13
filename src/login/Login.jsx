@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { setAuth as dispatchAuth } from '../App.ducks';
+import { setAuth as dispatchAuth } from '../containers/Auth.ducks';
 import { login } from '../utils/Api';
 import LoginScreen from './LoginScreen';
 

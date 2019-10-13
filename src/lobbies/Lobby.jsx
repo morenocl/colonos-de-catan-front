@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 import { joinLobby } from '../utils/Api';
-import Error from '../utils/Error';
+import Error from '../components/Error';
 
 
 export function LobbyDetails(props) {

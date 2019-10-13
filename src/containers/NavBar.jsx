@@ -4,12 +4,23 @@ import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import PropTypes from 'prop-types';
 
+import { setAuth as dispatchAuth } from './Auth.ducks';
+
 
 const mapStateToProps = (state) => ({
-  auth: state.App.auth,
+  auth: state.Auth.auth,
 });
 
-const NavBar = ({ auth, logout }) => {
+const mapDispatchToProps = ({
+  setAuth: dispatchAuth,
+});
+
+const NavBar = ({ auth, setAuth }) => {
+  const logout = () => {
+    setAuth(false);
+    localStorage.removeItem('token');
+  };
+
   const items = (
     <>
       <LinkContainer to="/signup">
@@ -37,9 +48,7 @@ const NavBar = ({ auth, logout }) => {
 
       <Navbar.Collapse>
         <Nav>
-          {auth
-            ? logoutButton
-            : items}
+          {auth ? logoutButton : items}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
@@ -48,6 +57,7 @@ const NavBar = ({ auth, logout }) => {
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(NavBar);
 
 
@@ -59,5 +69,5 @@ mapStateToProps.propTypes = {
 
 NavBar.propTypes = {
   auth: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired,
+  setAuth: PropTypes.func.isRequired,
 };
