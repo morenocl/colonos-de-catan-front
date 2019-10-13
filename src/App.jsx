@@ -7,14 +7,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const App = () => {
-  return (
-    <div className="App">
-      <NavBar />
-      <Routes />
-    </div>
-  );
-};
+const App = () => (
+  <div className="App">
+    <NavBar />
+    <Routes />
+  </div>
+);
 
 
 export default (App);

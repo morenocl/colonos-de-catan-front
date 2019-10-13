@@ -10,7 +10,6 @@ export const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-
     case SET_AUTH:
       return { ...state, auth: action.payload };
 

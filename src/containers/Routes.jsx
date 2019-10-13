@@ -19,6 +19,9 @@ const mapStateToProps = (state) => ({
   auth: state.Auth.auth,
 });
 
+// Given a condition and a redirection url,
+// converts a component (and its path) into a
+// conditional route.
 const toCondRoute = (condition, redir) => (({ component, path }) => (
   <ConditionalRoute
     component={component}
@@ -32,18 +35,18 @@ const toCondRoute = (condition, redir) => (({ component, path }) => (
 
 const Routes = ({ auth }) => (
   <Switch>
-    {/* Always available. */}
-    {[{ path: '/', component: Landing },
-      { path: '/login', component: Login },
-      { path: '/signup', component: Signup },
-    ].map(toCondRoute(!auth, '/rooms'))}
-
     {/* Only if authenticated. */}
     {[{ auth, path: '/rooms', component: Rooms },
       { auth, path: '/create', component: CreateRoom },
       { auth, path: '/waiting', component: Waiting },
       { auth, path: '/game', component: Game },
     ].map(toCondRoute(auth, '/'))}
+
+    {/* Only if not authenticated. */}
+    {[{ path: '/', component: Landing },
+      { path: '/login', component: Login },
+      { path: '/signup', component: Signup },
+    ].map(toCondRoute(!auth, '/rooms'))}
 
     {/* Default. */}
     <Route component={NotFound} />
