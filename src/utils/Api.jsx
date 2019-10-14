@@ -31,6 +31,19 @@ export function login(username, password, onSuccess, onFailure) {
     .catch(onFailure);
 }
 
+export function register(username, password, onSuccess, onFailure) {
+  const url = `${path}/users/`;
+  const data = { user: username, pass: password };
+  const option = {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  request(url, option, onSuccess, onFailure);
+}
+
 export function listLobbies(onSuccess, onFailure) {
   const url = `${path}/rooms/`;
   const option = {
@@ -138,6 +151,13 @@ export function gameStatus(id, onSuccess, onFailure) {
 }
 
 login.PropTypes = {
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+register.PropTypes = {
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   onSuccess: PropTypes.func.isRequired,
