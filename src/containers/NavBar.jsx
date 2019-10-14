@@ -14,13 +14,13 @@ const mapDispatchToProps = ({
   setAuth: dispatchAuth,
 });
 
-const NavBar = ({ auth, setAuth }) => {
+export const NavBar = ({ auth, setAuth }) => {
   const logout = () => {
     setAuth(false);
     localStorage.removeItem('token');
   };
 
-  return <NavBarScreen auth={auth} logout={logout} />;
+  return (<NavBarScreen auth={auth} logout={logout} />);
 };
 
 

@@ -9,7 +9,7 @@ import Board from '../src/board/Board';
 // This connects enzyme to the react adapter.
 configure({ adapter: new Adapter() });
 
-describe('Lobby', () => {
+describe('Board', () => {
   it('should render without crashing', () => {
     const b = shallow(<Board id={1} />);
 
@@ -28,4 +28,3 @@ describe('Lobby', () => {
     expect(b.children().find('#board'), b.debug()).to.have.lengthOf(1);
   });
 });
-

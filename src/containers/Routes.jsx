@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import CreateRoom from '../lobbies/CreateRoom';
-import Game from '../game/Game';
+import CreateRoom from './Rooms/Create';
+import Game from './Game';
 import Login from '../login/Login';
-import Rooms from '../lobbies/LobbyList';
-import Signup from '../signup/Signup';
-import Waiting from '../lobbies/Waiting';
+import Rooms from './Rooms/Rooms';
+import Signup from './Signup';
+import Waiting from './Rooms/Waiting';
 
 import ConditionalRoute from '../components/ConditionalRoute';
 import Landing from '../components/Landing';
@@ -33,7 +33,7 @@ const toCondRoute = (condition, redir) => (({ component, path }) => (
   />
 ));
 
-const Routes = ({ auth }) => (
+export const Routes = ({ auth }) => (
   <Switch>
     {/* Only if authenticated. */}
     {[{ auth, path: '/rooms', component: Rooms },
