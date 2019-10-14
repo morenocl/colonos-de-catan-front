@@ -55,6 +55,19 @@ export function listLobbies(onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
+export function createLobby(name, id, onSuccess, onFailure) {
+  const url = `${path}/rooms/`;
+  const data = { name: name, board_id: id };
+  const option = {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  };
+  request(url, option, onSuccess, onFailure);
+}
+
 export function joinLobby(id, onFailure) {
   const url = `${path}/rooms/${id}/`;
   const option = {
@@ -165,6 +178,13 @@ register.PropTypes = {
 };
 
 listLobbies.PropTypes = {
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+createLobby.PropTypes = {
+  name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
