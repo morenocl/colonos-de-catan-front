@@ -57,7 +57,7 @@ export function listLobbies(onSuccess, onFailure) {
 
 export function createLobby(name, id, onSuccess, onFailure) {
   const url = `${path}/rooms/`;
-  const data = { name: name, board_id: id };
+  const data = { name, board_id: id };
   const option = {
     method: 'POST',
     body: JSON.stringify(data),
@@ -159,19 +159,32 @@ export function gameStatus(id, onSuccess, onFailure) {
         board: {
           hexagons: rs[1],
           robber: rs[3].robber,
-          settlements: settlements,
-          cities: cities,
-          roads: roads,
+          settlements,
+          cities,
+          roads,
         },
         hand: rs[2],
         info: {
-          players: players,
+          players,
           turn: rs[3].current_turn,
-          winner: rs[3].winner,      // Es opcional, fijarse como manejarlo
+          winner: rs[3].winner, // Es opcional, fijarse como manejarlo
         },
       });
     })
     .catch(onFailure);
+}
+
+export function playAction(id, action, payload, onSuccess, onFailure) {
+  const url = `${path}/games/${id}/player/actions`;
+  const data = { type: action, payload };
+  const option = {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  };
+  request(url, option, onSuccess, onFailure);
 }
 
 login.PropTypes = {
@@ -225,6 +238,14 @@ playerHand.PropTypes = {
 
 gameStatus.PropTypes = {
   id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+playAction.PropTypes = {
+  id: PropTypes.number.isRequired,
+  actions: PropTypes.string.isRequired,
+  payload: PropTypes.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
