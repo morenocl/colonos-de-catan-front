@@ -68,6 +68,17 @@ export function createLobby(name, id, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
+export function startGame(id, onSuccess, onFailure) {
+  const url = `${path}/rooms/${id}/`;
+  const option = {
+    method: 'PATCH',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  };
+  request(url, option, onSuccess, onFailure);
+}
+
 export function joinLobby(id, onFailure) {
   const url = `${path}/rooms/${id}/`;
   const option = {
@@ -184,6 +195,12 @@ listLobbies.PropTypes = {
 
 createLobby.PropTypes = {
   name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+startGame.PropTypes = {
   id: PropTypes.number.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
