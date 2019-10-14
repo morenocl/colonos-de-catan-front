@@ -5,12 +5,12 @@ import FormGroup from 'react-bootstrap/FormGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
 import PropTypes from 'prop-types';
 
-import Error from '../components/Error';
+import Error from '../Error';
 
 import './Login.css';
 
 
-const LoginScreen = (props) => {
+const Login = (props) => {
   const {
     data, handleSubmit, handleInputChange,
   } = props;
@@ -61,10 +61,10 @@ const LoginScreen = (props) => {
   );
 };
 
-export default LoginScreen;
+export default Login;
 
 
-LoginScreen.propTypes = {
+Login.propTypes = {
   data: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,

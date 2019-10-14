@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import CreateRoom from './Rooms/Create';
 import Game from './Game';
-import Login from '../login/Login';
+import Login from './Login/Login';
 import Rooms from './Rooms/Rooms';
 import Signup from './Signup';
 import Waiting from './Rooms/Waiting';
