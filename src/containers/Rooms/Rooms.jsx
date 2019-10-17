@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as dispatchObj from './Rooms.ducks';
-import useInterval from '../../utils/useInterval';
-import { getRooms } from '../../utils/Api';
 import Error from '../../components/Error';
 import RoomsScreen from '../../components/Rooms/Rooms';
+import { getRooms } from '../../utils/Api';
+import { RoomType, RoomsStateType } from '../../utils/ApiTypes';
+import useInterval from '../../utils/UseInterval';
 
 
 const mapStateToProps = (state) => ({
@@ -41,11 +42,11 @@ export default connect(mapStateToProps, dispatchObj)(Rooms);
 
 
 mapStateToProps.propTypes = {
-  state: dispatchObj.stateType,
+  state: RoomsStateType,
 };
 
 Rooms.propTypes = {
-  rooms: PropTypes.arrayOf(dispatchObj.roomType).isRequired,
+  rooms: PropTypes.arrayOf(RoomType).isRequired,
   stage: PropTypes.string.isRequired,
   setError: PropTypes.func.isRequired,
   setRunning: PropTypes.func.isRequired,

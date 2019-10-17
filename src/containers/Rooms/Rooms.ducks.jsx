@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 
+import { RoomType } from '../../utils/ApiTypes';
+
 
 // Actions.
 const SET_ERROR = 'rooms/SET_ERROR';
 const SET_FROZEN = 'rooms/SET_FROZEN';
-const SET_ROOM = 'rooms/SET_ROOM';
 const SET_REFRESH = 'rooms/SET_REFRESH';
 const SET_ROOMS = 'rooms/SET_ROOMS';
 const SET_RUNNING = 'rooms/SET_RUNNING';
@@ -16,11 +17,6 @@ export const setError = () => ({
 
 export const setFrozen = () => ({
   type: SET_FROZEN,
-});
-
-export const setChosenRoom = (room) => ({
-  type: SET_ROOM,
-  payload: room,
 });
 
 export const setRefresh = (refresh) => ({
@@ -41,7 +37,6 @@ export const initialState = {
   stage: 'empty',
   refresh: null,
   rooms: [],
-  chosen: {},
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -57,9 +52,6 @@ const reducer = (state = initialState, action = {}) => {
     case SET_REFRESH:
       return { ...state, refresh: payload };
 
-    case SET_ROOM:
-      return { ...state, chosen: payload };
-
     case SET_ROOMS:
       return { ...state, rooms: payload };
 
@@ -73,36 +65,18 @@ const reducer = (state = initialState, action = {}) => {
 export default reducer;
 
 
-export const roomType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  owner: PropTypes.string.isRequired,
-  players: PropTypes.arrayOf(PropTypes.string).isRequired,
-  max_players: PropTypes.number.isRequired,
-});
-
-export const stateType = PropTypes.shape({
-  stage: PropTypes.string.isRequired,
-  refresh: PropTypes.func.isRequired,
-  rooms: PropTypes.arrayOf(roomType).isRequired,
-});
-
-setChosenRoom.propTypes = {
-  room: roomType.isRequired,
-};
-
 setRefresh.propTypes = {
   refresh: PropTypes.func.isRequired,
 };
 
 setRooms.propTypes = {
-  rooms: PropTypes.arrayOf(roomType).isRequired,
+  rooms: PropTypes.arrayOf(RoomType).isRequired,
 };
 
 reducer.propTypes = {
   action: PropTypes.string.isRequired,
   payload: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.arrayOf(roomType),
+    PropTypes.arrayOf(RoomType),
   ]).isRequired,
 };

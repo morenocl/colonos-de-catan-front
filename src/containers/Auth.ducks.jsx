@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 
-// Actions.
 export const SET_AUTH = 'app/SET_AUTH';
 
 export const initialState = {

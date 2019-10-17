@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { joinRoom } from '../../utils/Api';
-import RoomBody from '../../components/Rooms/Body';
 import Error from '../../components/Error';
+import RoomBody from '../../components/Rooms/Body';
+import { joinRoom } from '../../utils/Api';
 
 
 export const Body = (props) => {

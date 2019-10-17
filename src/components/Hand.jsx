@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
 
 
-function counter(list, string) {
+const counter = (list, string) => {
   let count = 0;
   list.forEach((element) => {
     if (element === string) {
@@ -13,7 +14,7 @@ function counter(list, string) {
     }
   });
   return count;
-}
+};
 
 const resToTable = (resources) => {
   const lumber = counter(resources, 'lumber');
@@ -23,29 +24,33 @@ const resToTable = (resources) => {
   const brick = counter(resources, 'brick');
 
   return (
-    <Container>
-      <Row>Recursos</Row>
-      <Row>
-        <Col>lumber: </Col>
-        <Col>{lumber}</Col>
-      </Row>
-      <Row>
-        <Col>wool: </Col>
-        <Col>{wool}</Col>
-      </Row>
-      <Row>
-        <Col>ore: </Col>
-        <Col>{ore}</Col>
-      </Row>
-      <Row>
-        <Col>grain: </Col>
-        <Col>{grain}</Col>
-      </Row>
-      <Row>
-        <Col>brick: </Col>
-        <Col>{brick}</Col>
-      </Row>
-    </Container>
+    <tbody>
+      <tr>
+        <td>
+        Resources
+        </td>
+      </tr>
+      <tr>
+        <td>lumber: </td>
+        <td>{lumber}</td>
+      </tr>
+      <tr>
+        <td>wool: </td>
+        <td>{wool}</td>
+      </tr>
+      <tr>
+        <td>ore: </td>
+        <td>{ore}</td>
+      </tr>
+      <tr>
+        <td>grain: </td>
+        <td>{grain}</td>
+      </tr>
+      <tr>
+        <td>brick: </td>
+        <td>{brick}</td>
+      </tr>
+    </tbody>
   );
 };
 
@@ -57,29 +62,33 @@ const cardsToTable = (cards) => {
   const knight = counter(cards, 'knight');
 
   return (
-    <Container>
-      <Row>Cards</Row>
-      <Row>
-        <Col>road_building: </Col>
-        <Col>{roadBuilding}</Col>
-      </Row>
-      <Row>
-        <Col>year_of_plenty: </Col>
-        <Col>{yearOfPlenty}</Col>
-      </Row>
-      <Row>
-        <Col>monopoly: </Col>
-        <Col>{monopoly}</Col>
-      </Row>
-      <Row>
-        <Col>victory_point: </Col>
-        <Col>{victoryPoint}</Col>
-      </Row>
-      <Row>
-        <Col>knight: </Col>
-        <Col>{knight}</Col>
-      </Row>
-    </Container>
+    <tbody>
+      <tr>
+        <td>
+        Cards
+        </td>
+      </tr>
+      <tr>
+        <td>road_building: </td>
+        <td>{roadBuilding}</td>
+      </tr>
+      <tr>
+        <td>year_of_plenty: </td>
+        <td>{yearOfPlenty}</td>
+      </tr>
+      <tr>
+        <td>monopoly: </td>
+        <td>{monopoly}</td>
+      </tr>
+      <tr>
+        <td>victory_point: </td>
+        <td>{victoryPoint}</td>
+      </tr>
+      <tr>
+        <td>knight: </td>
+        <td>{knight}</td>
+      </tr>
+    </tbody>
   );
 };
 
@@ -89,11 +98,16 @@ export default function Hand({ cards, resources }) {
     <Container>
       <Row>
         <Col>
-          {resToTable(resources)}
+          <Table>
+            {resToTable(resources)}
+          </Table>
         </Col>
         <Col>
-          {cardsToTable(cards)}
+          <Table>
+            {cardsToTable(cards)}
+          </Table>
         </Col>
+
       </Row>
     </Container>
   );

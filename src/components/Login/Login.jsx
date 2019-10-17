@@ -20,7 +20,9 @@ const Login = (props) => {
 
   const userForm = (
     <FormGroup bssize="large">
-      <FormLabel>Username</FormLabel>
+      <FormLabel>
+        Username
+      </FormLabel>
       <FormControl
         autoFocus
         name="username"
@@ -33,7 +35,9 @@ const Login = (props) => {
 
   const passForm = (
     <FormGroup bssize="large">
-      <FormLabel>Password</FormLabel>
+      <FormLabel>
+        Password
+      </FormLabel>
       <FormControl
         name="password"
         onChange={handleInputChange}
@@ -44,7 +48,12 @@ const Login = (props) => {
   );
 
   const button = (
-    <Button block bssize="large" disabled={loading} type="submit">
+    <Button
+      block
+      bssize="large"
+      disabled={loading}
+      type="submit"
+    >
       {loading ? 'Loading...' : 'Login'}
     </Button>
   );

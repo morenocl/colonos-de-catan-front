@@ -1,17 +1,18 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
+import PropTypes from 'prop-types';
 
-import { roomType } from '../../containers/Rooms/Rooms.ducks';
+import { RoomType } from '../../utils/ApiTypes';
 import Header from './Header';
+// eslint-disable-next-line import/no-named-as-default
 import Body from '../../containers/Rooms/Body';
 
 
 const Rooms = ({ rooms }) => (
   <Accordion>
-    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
     {rooms.map(({
+      // eslint-disable-next-line camelcase
       id, max_players, name, owner, players,
     }) => (
       <Card key={id}>
@@ -21,6 +22,7 @@ const Rooms = ({ rooms }) => (
         />
         <Body
           id={id}
+          // eslint-disable-next-line camelcase
           maxPlayers={max_players}
           owner={owner}
           players={players}
@@ -34,5 +36,5 @@ export default Rooms;
 
 
 Rooms.propTypes = {
-  rooms: PropTypes.arrayOf(roomType).isRequired,
+  rooms: PropTypes.arrayOf(RoomType).isRequired,
 };

@@ -1,7 +1,9 @@
 import React from 'react';
 
-import Routes from './containers/Routes';
+// eslint-disable-next-line import/no-named-as-default
 import NavBar from './containers/NavBar';
+// eslint-disable-next-line import/no-named-as-default
+import Routes from './containers/Routes';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

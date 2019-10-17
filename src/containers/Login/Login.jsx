@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { setAuth as dispatchAuth } from '../Auth.ducks';
-import { login } from '../../utils/Api';
 import LoginScreen from '../../components/Login/Login';
+import { login } from '../../utils/Api';
 
 
 const mapDispatchToProps = ({

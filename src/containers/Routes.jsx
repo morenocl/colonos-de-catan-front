@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+/* eslint-disable import/no-named-as-default */
 import CreateRoom from './Rooms/Create';
-import Game from './Game';
+import Game from './Game/Game';
 import Login from './Login/Login';
 import Rooms from './Rooms/Rooms';
 import Signup from './Signup';
 import Waiting from './Rooms/Waiting';
+/* eslint-enable import/no-named-as-default */
 
 import ConditionalRoute from '../components/ConditionalRoute';
 import Landing from '../components/Landing';
@@ -39,7 +41,7 @@ export const Routes = ({ auth }) => (
     {[{ auth, path: '/rooms', component: Rooms },
       { auth, path: '/create', component: CreateRoom },
       { auth, path: '/waiting', component: Waiting },
-      { auth, path: '/game', component: Game },
+      { auth, path: '/game/:id', component: Game },
     ].map(toCondRoute(auth, '/'))}
 
     {/* Only if not authenticated. */}
