@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
 
-import App from './App.ducks';
+import Auth from './containers/Auth.ducks';
+import Rooms from './containers/Rooms/Rooms.ducks';
+import Game from './containers/Game/Game.ducks';
 
 export default combineReducers({
-  App,
+  Auth,
+  Rooms,
+  Game,
 });

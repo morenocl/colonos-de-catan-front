@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { setAuth as dispatchAuth } from '../App.ducks';
-import { login } from '../utils/Api';
-import LoginScreen from './LoginScreen';
+import { setAuth as dispatchAuth } from '../Auth.ducks';
+import LoginScreen from '../../components/Login/Login';
+import { login } from '../../utils/Api';
 
 
 const mapDispatchToProps = ({
@@ -42,10 +42,8 @@ const Login = ({ setAuth }) => {
     });
 
     const onSuccess = (res) => {
-      if (res) {
-        setAuth(true);
-        localStorage.setItem('token', JSON.stringify(res.token));
-      }
+      setAuth(true);
+      localStorage.setItem('token', JSON.stringify(res.token));
     };
 
     const onFailure = (err) => {

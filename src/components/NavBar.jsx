@@ -1,31 +1,28 @@
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
 import PropTypes from 'prop-types';
 
-
-const mapStateToProps = (state) => ({
-  auth: state.App.auth,
-});
 
 const NavBar = ({ auth, logout }) => {
   const items = (
     <>
       <LinkContainer to="/signup">
-        <Nav.Link>Signup</Nav.Link>
+        <Button>Signup</Button>
       </LinkContainer>
       <LinkContainer to="/login">
-        <Nav.Link>Login</Nav.Link>
+        <Button>Login</Button>
       </LinkContainer>
     </>
   );
 
   const logoutButton = (
     <LinkContainer to="/">
-      <Nav.Item onClick={logout}>
+      <Button onClick={logout}>
         Logout
-      </Nav.Item>
+      </Button>
     </LinkContainer>
   );
 
@@ -37,25 +34,15 @@ const NavBar = ({ auth, logout }) => {
 
       <Navbar.Collapse>
         <Nav>
-          {auth
-            ? logoutButton
-            : items}
+          {auth ? logoutButton : items}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
   );
 };
 
-export default connect(
-  mapStateToProps,
-)(NavBar);
+export default NavBar;
 
-
-mapStateToProps.propTypes = {
-  state: PropTypes.shape({
-    auth: PropTypes.bool,
-  }).isRequired,
-};
 
 NavBar.propTypes = {
   auth: PropTypes.bool.isRequired,

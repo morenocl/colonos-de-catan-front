@@ -3,6 +3,14 @@ export const HEIGHT = 1000;
 export const L = 100;
 const l = (Math.sqrt(3) / 2) * L;
 
+const colours = {
+  brick: '#ff6600',
+  lumber: '#663300',
+  wool: '#ffffe6',
+  grain: '#ffcc00',
+  ore: '#c0c0c0',
+};
+
 export const hexPath = [[-L / 2, -l],
   [L / 2, -l],
   [L, 0],
@@ -11,7 +19,7 @@ export const hexPath = [[-L / 2, -l],
   [-L, 0],
 ];
 
-export function center(level, index) {
+export const hexCenter = (level, index) => {
   const w = WIDTH / 2.0;
   const h = HEIGHT / 2.0;
   const r = Math.sqrt(L ** 2 - (L / 2) ** 2); // Adjacent side.
@@ -48,18 +56,10 @@ export function center(level, index) {
   if (level in table && index in table[level]) return (table[level][index]);
 
   throw Error('Invalid level or index.');
-}
+};
 
-export function colour(resource) {
-  const colours = {
-    brick: '#ff6600',
-    lumber: '#663300',
-    wool: '#ffffe6',
-    grain: '#ffcc00',
-    ore: '#c0c0c0',
-  };
-
+export const colour = (resource) => {
   if (resource in colours) return (colours[resource]);
 
   throw Error('Invalid colour.');
-}
+};

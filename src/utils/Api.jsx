@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 
 
-const path = 'http://demo4861279.mockable.io';
+const path = 'https://demo4861279.mockable.io';
 
 function request(url, options, onSuccess, onFailure) {
   fetch(url, options)
     .then((r) => {
-      if (!r.ok) return (onFailure(Error(r.statusText)));
-      return (r.json());
+      if (!r.ok) {
+        (onFailure(Error(r.statusText)));
+      } else {
+        r.json().then(onSuccess);
+      }
     })
-    .then(onSuccess)
     .catch(onFailure);
 }
 
@@ -27,7 +29,7 @@ export function login(username, password, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
-export function listLobbies(onSuccess, onFailure) {
+export function getRooms(onSuccess, onFailure) {
   const url = `${path}/rooms/`;
   const option = {
     method: 'GET',
@@ -39,7 +41,7 @@ export function listLobbies(onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
-export function joinLobby(id, onFailure) {
+export function joinRoom(id, onSuccess, onFailure) {
   const url = `${path}/rooms/${id}/`;
   const option = {
     method: 'PUT',
@@ -48,7 +50,7 @@ export function joinLobby(id, onFailure) {
     },
   };
 
-  request(url, option, undefined, onFailure);
+  request(url, option, onSuccess, onFailure);
 }
 
 export function boardStatus(id, onSuccess, onFailure) {
@@ -83,13 +85,14 @@ login.PropTypes = {
   onFailure: PropTypes.func.isRequired,
 };
 
-listLobbies.PropTypes = {
+getRooms.PropTypes = {
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
 
-joinLobby.PropTypes = {
+joinRoom.PropTypes = {
   id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
 

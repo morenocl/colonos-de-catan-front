@@ -5,12 +5,12 @@ import FormGroup from 'react-bootstrap/FormGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
 import PropTypes from 'prop-types';
 
-import Error from '../utils/Error';
+import Error from '../Error';
 
 import './Login.css';
 
 
-const LoginScreen = (props) => {
+const Login = (props) => {
   const {
     data, handleSubmit, handleInputChange,
   } = props;
@@ -20,7 +20,9 @@ const LoginScreen = (props) => {
 
   const userForm = (
     <FormGroup bssize="large">
-      <FormLabel>Username</FormLabel>
+      <FormLabel>
+        Username
+      </FormLabel>
       <FormControl
         autoFocus
         name="username"
@@ -33,7 +35,9 @@ const LoginScreen = (props) => {
 
   const passForm = (
     <FormGroup bssize="large">
-      <FormLabel>Password</FormLabel>
+      <FormLabel>
+        Password
+      </FormLabel>
       <FormControl
         name="password"
         onChange={handleInputChange}
@@ -44,7 +48,12 @@ const LoginScreen = (props) => {
   );
 
   const button = (
-    <Button block bssize="large" disabled={loading} type="submit">
+    <Button
+      block
+      bssize="large"
+      disabled={loading}
+      type="submit"
+    >
       {loading ? 'Loading...' : 'Login'}
     </Button>
   );
@@ -61,10 +70,10 @@ const LoginScreen = (props) => {
   );
 };
 
-export default LoginScreen;
+export default Login;
 
 
-LoginScreen.propTypes = {
+Login.propTypes = {
   data: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
