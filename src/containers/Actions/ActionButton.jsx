@@ -18,7 +18,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 // Renders the component C (a Button by default)
 // with the appropriate label, disable and onClick.
-const ActionButton = (props) => {
+export const ActionButton = (props) => {
   const { actions, C, type } = props;
   const { actionOnClick } = props;
   const { id } = useParams();
@@ -28,6 +28,7 @@ const ActionButton = (props) => {
 
   return (
     <C
+      disabled={!a}
       onClick={onClick}
       size="sm"
     >
