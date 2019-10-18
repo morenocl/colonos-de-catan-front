@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 
 import { Board } from '../src/containers/Board/Board';
-import { hexagons } from '../src/utils/Data'
+import { hexagons } from '../src/utils/Data';
 
 
 // This connects enzyme to the react adapter.
