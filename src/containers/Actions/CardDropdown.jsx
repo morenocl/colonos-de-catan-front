@@ -3,6 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+// eslint-disable-next-line import/no-named-as-default
 import ActionButton from './ActionButton';
 import { cardTypes } from './ActionUtils';
 import { ActionType } from '../../utils/ApiTypes';
