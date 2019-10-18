@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 /* eslint-disable import/no-named-as-default */
-import Actions from '../Actions/Actions';
+import Actions from '../../containers/Actions/Actions';
 import Board from '../../containers/Board/Board';
 import Hand from '../../containers/Hand';
 import Info from '../../containers/Info';

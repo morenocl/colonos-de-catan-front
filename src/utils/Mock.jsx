@@ -29,3 +29,9 @@ export const getGameStatus = (id, onSuccess, onFailure) => {
     },
   );
 };
+
+export const buyCard = (id, onSuccess, onFailure) => {
+  console.log('Bought card', id);
+  if (configs.buyCard) onFailure();
+  else onSuccess();
+};
