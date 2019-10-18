@@ -12,19 +12,23 @@ export const HexagonType = PropTypes.shape({
   token: PropTypes.number.isRequired,
 }).isRequired;
 
-export const ActionsType = PropTypes.arrayOf(
+export const ActionType = PropTypes.oneOfType([
   PropTypes.shape({
-    type: PropTypes.string,
-    payload: PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.arrayOf(
-          PropTypes.number,
-        ),
-      ]),
-    ),
+    type: PropTypes.string.isRequired,
+    payload:
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          HexagonType,
+          PropTypes.arrayOf(
+            HexagonType,
+          ),
+        ]),
+      ),
+  }).isRequired,
+  PropTypes.shape({
+    type: PropTypes.string.isRequired,
   }),
-).isRequired;
+]).isRequired;
 
 export const BoardType = PropTypes.shape({
   hexagons: PropTypes.arrayOf(PropTypes.shape({
@@ -42,7 +46,7 @@ export const InfoType = PropTypes.shape({
 }).isRequired;
 
 export const GameStateType = PropTypes.shape({
-  actions: ActionsType,
+  actions: PropTypes.arrayOf(ActionType),
   board: BoardType,
   hand: HandType,
   info: InfoType,

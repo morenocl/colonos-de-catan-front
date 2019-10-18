@@ -176,3 +176,30 @@ export const rooms = [
     max_players: 3,
   },
 ];
+
+export const actions = [
+  {
+    type: 'upgrade_city',
+    payload: [
+      {
+        level: 2,
+        index: 1,
+      },
+    ],
+  },
+  {
+    type: 'build_settlement',
+    payload: [
+      {
+        level: 1,
+        index: 1,
+      },
+    ],
+  },
+  {
+    type: 'bank_trade',
+  },
+  {
+    type: 'buy_card',
+  },
+];
