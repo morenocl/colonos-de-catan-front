@@ -8,7 +8,7 @@ import { buyCard } from '../../utils/Mock';
 // Returns a function that, given refresh and setError,
 // takes the action's id and type and returns the
 // appropriate onClick function (given its payload).
-export const actionOnClick = (refresh, setError) => ((id, type) => {
+export const actionOnClick = (id, refresh, setError) => ((type) => {
   switch (type) {
     case 'build_settlement':
       return (ps) => (() => { console.log(type, ps); });
@@ -36,5 +36,6 @@ export default actionOnClick;
 
 actionOnClick.propTypes = {
   id: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
+  refresh: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired,
 };

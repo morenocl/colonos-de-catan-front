@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // eslint-disable-next-line import/no-named-as-default
@@ -21,10 +20,9 @@ const mapStateToProps = (state, ownProps) => ({
 export const ActionButton = (props) => {
   const { actions, C, type } = props;
   const { actionOnClick } = props;
-  const { id } = useParams();
 
   const a = actions.find((x) => x.type === type);
-  const onClick = actionOnClick(id, type)(a && a.payload);
+  const onClick = actionOnClick(type)(a && a.payload);
 
   return (
     <C

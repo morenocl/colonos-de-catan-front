@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
@@ -29,9 +30,10 @@ export const Actions = (props) => {
   const {
     refresh, setError, setOnClick, setRunning,
   } = props;
+  const { id } = useParams();
 
   // Set onClick generators for buttons.
-  setOnClick(actionOnClick(refresh, setError));
+  setOnClick(actionOnClick(id, refresh, setError));
 
   // On error, show a dismissible Alert.
   // When dismissed, show actions and refresh.
