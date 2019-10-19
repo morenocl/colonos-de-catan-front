@@ -29,6 +29,20 @@ export function login(username, password, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
+export function signup(username, password, onSuccess, onFailure) {
+  const url = `${path}/users/`;
+  const data = { user: username, pass: password };
+  const option = {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  request(url, option, onSuccess, onFailure);
+}
+
 export function getRooms(onSuccess, onFailure) {
   const url = `${path}/rooms/`;
   const option = {

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
+import FormText from 'react-bootstrap/FormText';
 import PropTypes from 'prop-types';
 
 import Error from '../Error';
@@ -15,7 +16,7 @@ const Login = (props) => {
     data, handleSubmit, handleInputChange,
   } = props;
   const {
-    username, password, loading, errorMessage,
+    username, password, loading, errorMessage, formErrors,
   } = data;
 
   const userForm = (
@@ -30,6 +31,9 @@ const Login = (props) => {
         type="text"
         value={username}
       />
+      <FormText className="text-muted">
+        {formErrors.username}
+      </FormText>
     </FormGroup>
   );
 
@@ -44,6 +48,9 @@ const Login = (props) => {
         type="password"
         value={password}
       />
+      <FormText className="text-muted">
+        {formErrors.password}
+      </FormText>
     </FormGroup>
   );
 
@@ -79,6 +86,10 @@ Login.propTypes = {
     password: PropTypes.string.isRequired,
     loading: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string.isRequired,
+    formErrors: PropTypes.shape({
+      username: PropTypes.string.isRequired,
+      password: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,

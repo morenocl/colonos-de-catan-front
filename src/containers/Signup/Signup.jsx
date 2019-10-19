@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-
-import { setAuth as dispatchAuth } from '../Auth.ducks';
-import LoginScreen from '../../components/Login/Login';
-import { login } from '../../utils/Api';
-
-
-const mapDispatchToProps = ({
-  setAuth: dispatchAuth,
-});
+import SignupScreen from '../../components/Signup/Signup';
+import { signup } from '../../utils/Api';
 
 const initialState = {
   username: '',
@@ -44,7 +35,7 @@ const formValid = ({ formErrors, ...rest }) => {
   return valid;
 };
 
-const Login = ({ setAuth }) => {
+const Signup = () => {
   const [data, setData] = useState(initialState);
 
   // Handles username and password changes.
@@ -86,10 +77,7 @@ const Login = ({ setAuth }) => {
         errorMessage: '',
       });
 
-      const onSuccess = (res) => {
-        setAuth(true);
-        localStorage.setItem('token', JSON.stringify(res.token));
-      };
+      const onSuccess = () => { };
 
       const onFailure = (err) => {
         setData({
@@ -98,12 +86,12 @@ const Login = ({ setAuth }) => {
         });
       };
 
-      login(username, password, onSuccess, onFailure);
+      signup(username, password, onSuccess, onFailure);
     }
   };
 
   return (
-    <LoginScreen
+    <SignupScreen
       data={data}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
@@ -111,12 +99,4 @@ const Login = ({ setAuth }) => {
   );
 };
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(Login);
-
-
-Login.propTypes = {
-  setAuth: PropTypes.func.isRequired,
-};
+export default Signup;

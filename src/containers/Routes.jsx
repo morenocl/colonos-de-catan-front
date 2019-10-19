@@ -8,6 +8,7 @@ import CreateRoom from './Rooms/Create';
 import Game from './Game/Game';
 import Login from './Login/Login';
 import Rooms from './Rooms/Rooms';
+import Signup from './Signup/Signup';
 import Signup from './Signup';
 import Waiting from './Rooms/Waiting';
 /* eslint-enable import/no-named-as-default */
@@ -39,15 +40,15 @@ export const Routes = ({ auth }) => (
   <Switch>
     {/* Only if authenticated. */}
     {[{ auth, path: '/rooms', component: Rooms },
-      { auth, path: '/create', component: CreateRoom },
-      { auth, path: '/waiting', component: Waiting },
-      { auth, path: '/game/:id', component: Game },
+    { auth, path: '/create', component: CreateRoom },
+    { auth, path: '/waiting', component: Waiting },
+    { auth, path: '/game/:id', component: Game },
     ].map(toCondRoute(auth, '/'))}
 
     {/* Only if not authenticated. */}
     {[{ path: '/', component: Landing },
-      { path: '/login', component: Login },
-      { path: '/signup', component: Signup },
+    { path: '/login', component: Login },
+    { path: '/signup', component: Signup },
     ].map(toCondRoute(!auth, '/rooms'))}
 
     {/* Default. */}
