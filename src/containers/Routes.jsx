@@ -40,7 +40,7 @@ export const Routes = ({ auth }) => (
     {/* Only if authenticated. */}
     {[{ auth, path: '/rooms', component: Rooms },
       { auth, path: '/create', component: CreateRoom },
-      { auth, path: '/waiting', component: Waiting },
+      { auth, path: '/waiting/:id', component: Waiting },
       { auth, path: '/game/:id', component: Game },
     ].map(toCondRoute(auth, '/'))}
 
