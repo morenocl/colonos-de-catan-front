@@ -49,5 +49,5 @@ export default Waiting;
 
 Waiting.propTypes = {
   room: RoomType.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
