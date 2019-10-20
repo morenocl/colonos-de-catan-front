@@ -20,6 +20,16 @@ export const HexagonType = PropTypes.shape({
   token: PropTypes.number.isRequired,
 });
 
+export const BuildingType = PropTypes.shape({
+  colour: PropTypes.string.isRequired,
+  positions: PropTypes.arrayOf(BuildingPosition).isRequired,
+});
+
+export const RoadType = PropTypes.shape({
+  colour: PropTypes.string.isRequired,
+  positions: PropTypes.arrayOf(RoadPosition).isRequired,
+});
+
 export const ActionsType = PropTypes.arrayOf(
   PropTypes.shape({
     type: PropTypes.string,
@@ -33,11 +43,6 @@ export const ActionsType = PropTypes.arrayOf(
     ),
   }),
 );
-
-export const BuildingType = PropTypes.shape({
-  colour: PropTypes.string.isRequired,
-  positions: PropTypes.arrayOf(HexagonPosition).isRequired,
-});
 
 export const BoardType = PropTypes.shape({
   cities: PropTypes.arrayOf(BuildingType).isRequired,

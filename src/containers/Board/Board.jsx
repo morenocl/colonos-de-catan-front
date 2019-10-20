@@ -12,7 +12,7 @@ import showRobber from '../../components/Board/ShowRobber';
 import showEdges from '../../components/Board/ShowEdges';
 import showVertices from '../../components/Board/ShowVertices';
 import {
-  BuildingType, HexagonPosition, HexagonType, RoadPosition,
+  BuildingType, HexagonPosition, HexagonType, RoadType,
 } from '../../utils/ApiTypes';
 
 
@@ -72,7 +72,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Board);
 Board.propTypes = {
   cities: PropTypes.arrayOf(BuildingType).isRequired,
   hexagons: PropTypes.arrayOf(HexagonType).isRequired,
-  roads: PropTypes.arrayOf(RoadPosition).isRequired,
+  roads: PropTypes.arrayOf(RoadType).isRequired,
   robber: HexagonPosition.isRequired,
   settlements: PropTypes.arrayOf(BuildingType).isRequired,
   setDraw: PropTypes.func.isRequired,
