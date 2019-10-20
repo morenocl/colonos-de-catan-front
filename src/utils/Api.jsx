@@ -68,6 +68,17 @@ export function createLobby(name, id, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
+export function getLobby(id, onSuccess, onFailure) {
+  const url = `${path}/rooms/${id}/`;
+  const option = {
+    method: 'GET',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  };
+  request(url, option, onSuccess, onFailure);
+}
+
 export function startGame(id, onSuccess, onFailure) {
   const url = `${path}/rooms/${id}/`;
   const option = {
@@ -149,7 +160,7 @@ export function gameStatus(id, onSuccess, onFailure) {
   });
 
   return Promise.all(endPoint.map((e) => fetch(e, option)))
-    .then((rs) => rs.map((r) => r.ok ? r.json() : onFailure(Error(r.statusText))))
+    .then((rs) => rs.map((r) => (r.ok ? r.json() : onFailure(Error(r.statusText)))))
 
     .then((rs) => {
       const { settlements, cities, roads, players } = getFromPlayers(rs[3].players);
@@ -208,6 +219,12 @@ listLobbies.PropTypes = {
 
 createLobby.PropTypes = {
   name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+getLobby.PropTypes = {
   id: PropTypes.number.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
