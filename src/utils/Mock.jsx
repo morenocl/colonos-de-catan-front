@@ -1,4 +1,6 @@
-import { hexagons } from './Data';
+import {
+  cities, hexagons, robber, settlements,
+} from './BoardData';
 
 
 export const configs = {};
@@ -6,7 +8,9 @@ const TIMEOUT = 100;
 
 export const getGameStatus = (id, onSuccess, onFailure) => {
   const actions = [];
-  const board = { hexagons };
+  const board = {
+    cities, hexagons, robber, settlements,
+  };
   const hand = { resources: [], cards: [] };
   const info = {};
 

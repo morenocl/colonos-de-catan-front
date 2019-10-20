@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 
 /* Game */
 
+export const HexagonPosition = PropTypes.shape({
+  level: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+});
+
 export const HexagonType = PropTypes.shape({
-  position: PropTypes.shape({
-    level: PropTypes.number.isRequired,
-    index: PropTypes.number.isRequired,
-  }).isRequired,
+  position: HexagonPosition.isRequired,
   resource: PropTypes.string.isRequired,
   token: PropTypes.number.isRequired,
-}).isRequired;
+});
 
 export const ActionsType = PropTypes.arrayOf(
   PropTypes.shape({
@@ -24,22 +26,30 @@ export const ActionsType = PropTypes.arrayOf(
       ]),
     ),
   }),
-).isRequired;
+);
+
+export const BuildingType = PropTypes.shape({
+  colour: PropTypes.string.isRequired,
+  positions: PropTypes.arrayOf(HexagonPosition).isRequired,
+});
 
 export const BoardType = PropTypes.shape({
+  cities: PropTypes.arrayOf(BuildingType).isRequired,
   hexagons: PropTypes.arrayOf(PropTypes.shape({
     level: PropTypes.number.isRequired,
     index: PropTypes.number.isRequired,
   })).isRequired,
-}).isRequired;
+  robber: HexagonPosition.isRequired,
+  settlements: PropTypes.arrayOf(BuildingType).isRequired,
+});
 
 export const HandType = PropTypes.shape({
   resources: PropTypes.arrayOf(PropTypes.string).isRequired,
   cards: PropTypes.arrayOf(PropTypes.string).isRequired,
-}).isRequired;
+});
 
 export const InfoType = PropTypes.shape({
-}).isRequired;
+});
 
 export const GameStateType = PropTypes.shape({
   actions: ActionsType,
@@ -47,7 +57,7 @@ export const GameStateType = PropTypes.shape({
   hand: HandType,
   info: InfoType,
   stage: PropTypes.string,
-}).isRequired;
+});
 
 
 /* Rooms */

@@ -1,3 +1,28 @@
+export const cities = [
+  {
+    colour: '#f0f0f0',
+    positions: [
+      {
+        level: 1,
+        index: 3,
+      },
+      {
+        level: 2,
+        index: 5,
+      },
+    ],
+  },
+  {
+    colour: '#0f0f0f',
+    positions: [
+      {
+        level: 2,
+        index: 16,
+      },
+    ],
+  },
+];
+
 export const hexagons = [
   {
     position: {
@@ -153,26 +178,41 @@ export const hexagons = [
   },
 ];
 
-export const rooms = [
+export const robber = {
+  level: 0,
+  index: 0,
+};
+
+export const settlements = [
   {
-    id: 1,
-    name: 'nombre1',
-    owner: 'owner1',
-    players: ['user 1.1'],
-    max_players: 1,
+    colour: '#f0f0f0',
+    positions: [
+      {
+        level: 0,
+        index: 0,
+      },
+      {
+        level: 1,
+        index: 2,
+      },
+    ],
   },
   {
-    id: 2,
-    name: 'nombre2',
-    owner: 'owner2',
-    players: ['user 2.1', 'user 2.2'],
-    max_players: 2,
+    colour: '#fff000',
+    positions: [
+      {
+        level: 2,
+        index: 4,
+      },
+    ],
   },
   {
-    id: 3,
-    name: 'nombre3',
-    owner: 'owner3',
-    players: ['user 3.1', 'user 3.2', 'user 3.3'],
-    max_players: 3,
+    colour: '#000fff',
+    positions: [
+      {
+        level: 2,
+        index: 11,
+      },
+    ],
   },
 ];
