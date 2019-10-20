@@ -29,6 +29,21 @@ export function login(username, password, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
+export function createRoom(roomName, boardId, onSuccess, onFailure) {
+  const url = `${path}/rooms/`;
+  const data = { name: roomName, board_id: boardId };
+  const option = {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  };
+
+  request(url, option, onSuccess, onFailure);
+}
+
 export function getRooms(onSuccess, onFailure) {
   const url = `${path}/rooms/`;
   const option = {
@@ -40,6 +55,19 @@ export function getRooms(onSuccess, onFailure) {
 
   request(url, option, onSuccess, onFailure);
 }
+
+export function getBoards(onSuccess, onFailure) {
+  const url = `${path}/boards/`;
+  const option = {
+    method: 'GET',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  };
+
+  request(url, option, onSuccess, onFailure);
+}
+
 
 export function joinRoom(id, onSuccess, onFailure) {
   const url = `${path}/rooms/${id}/`;
