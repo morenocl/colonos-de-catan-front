@@ -8,6 +8,12 @@ export const HexagonPosition = PropTypes.shape({
   index: PropTypes.number.isRequired,
 });
 
+export const BuildingPosition = HexagonPosition;
+
+export const RoadPosition = PropTypes.arrayOf(
+  BuildingPosition,
+);
+
 export const HexagonType = PropTypes.shape({
   position: HexagonPosition.isRequired,
   resource: PropTypes.string.isRequired,

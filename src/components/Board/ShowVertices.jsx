@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 import { buildingShape, buildingSize, vertexCenter } from './BoardUtils';
+import { BuildingPosition } from '../../utils/ApiTypes';
 
 
 const showVertices = (draw, colour, ps, type, onClickMaker = () => null) => {
@@ -24,7 +25,7 @@ showVertices.proptypes = {
     type: PropTypes.string.isRequired,
   }),
   colour: PropTypes.string.isRequired,
-  ps: PropTypes.arrayOf().isRequired,
+  ps: PropTypes.arrayOf(BuildingPosition).isRequired,
   onClickMaker: PropTypes.func,
   type: PropTypes.oneOf([
     'city',

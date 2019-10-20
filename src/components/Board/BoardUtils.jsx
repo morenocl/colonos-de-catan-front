@@ -19,6 +19,11 @@ export const buildingSize = {
   settlement: [50],
 };
 
+export const roadStroke = (colour) => ({
+  color: colour,
+  width: 10,
+});
+
 export const colour = {
   brick: '#ff6600',
   lumber: '#663300',

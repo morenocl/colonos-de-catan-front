@@ -1,5 +1,5 @@
 import {
-  cities, hexagons, robber, settlements,
+  cities, hexagons, roads, robber, settlements,
 } from './BoardData';
 
 
@@ -9,21 +9,21 @@ const TIMEOUT = 100;
 export const getGameStatus = (id, onSuccess, onFailure) => {
   const actions = [];
   const board = {
-    cities, hexagons, robber, settlements,
+    cities, hexagons, roads, robber, settlements,
   };
   const hand = { resources: [], cards: [] };
   const info = {};
 
-  const p0 = new Promise((res, rej) => {
+  const p0 = new Promise((res) => {
     setTimeout(() => res(actions), configs.timeout || TIMEOUT);
   });
-  const p1 = new Promise((res, rej) => {
+  const p1 = new Promise((res) => {
     setTimeout(() => res(board), configs.timeout || TIMEOUT);
   });
-  const p2 = new Promise((res, rej) => {
+  const p2 = new Promise((res) => {
     setTimeout(() => res(hand), configs.timeout || TIMEOUT);
   });
-  const p3 = new Promise((res, rej) => {
+  const p3 = new Promise((res) => {
     setTimeout(() => res(info), configs.timeout || TIMEOUT);
   });
 

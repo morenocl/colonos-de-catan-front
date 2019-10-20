@@ -1,6 +1,6 @@
 export const cities = [
   {
-    colour: '#f0f0f0',
+    colour: '#ff0000',
     positions: [
       {
         level: 1,
@@ -13,11 +13,20 @@ export const cities = [
     ],
   },
   {
-    colour: '#0f0f0f',
+    colour: '#00ff00',
     positions: [
       {
         level: 2,
         index: 16,
+      },
+    ],
+  },
+  {
+    colour: '#0000ff',
+    positions: [
+      {
+        level: 2,
+        index: 18,
       },
     ],
   },
@@ -178,6 +187,64 @@ export const hexagons = [
   },
 ];
 
+export const roads = [
+  {
+    colour: '#ff0000',
+    positions: [
+      [
+        {
+          level: 0,
+          index: 0,
+        },
+        {
+          level: 0,
+          index: 1,
+        },
+      ],
+    ],
+  },
+  {
+    colour: '#00ff00',
+    positions: [
+      [
+        {
+          level: 1,
+          index: 1,
+        },
+        {
+          level: 1,
+          index: 2,
+        },
+      ],
+      [
+        {
+          level: 2,
+          index: 1,
+        },
+        {
+          level: 2,
+          index: 2,
+        },
+      ],
+    ],
+  },
+  {
+    colour: '#0000ff',
+    positions: [
+      [
+        {
+          level: 2,
+          index: 6,
+        },
+        {
+          level: 2,
+          index: 7,
+        },
+      ],
+    ],
+  },
+];
+
 export const robber = {
   level: 0,
   index: 0,
@@ -185,7 +252,7 @@ export const robber = {
 
 export const settlements = [
   {
-    colour: '#f0f0f0',
+    colour: '#ff0000',
     positions: [
       {
         level: 0,
@@ -198,7 +265,7 @@ export const settlements = [
     ],
   },
   {
-    colour: '#fff000',
+    colour: '#00ff00',
     positions: [
       {
         level: 2,
@@ -207,7 +274,7 @@ export const settlements = [
     ],
   },
   {
-    colour: '#000fff',
+    colour: '#0000ff',
     positions: [
       {
         level: 2,

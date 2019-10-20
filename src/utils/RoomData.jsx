@@ -1,4 +1,4 @@
-export const rooms = [
+const rooms = [
   {
     id: 1,
     name: 'nombre1',
@@ -21,3 +21,5 @@ export const rooms = [
     max_players: 3,
   },
 ];
+
+export default rooms;
