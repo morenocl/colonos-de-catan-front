@@ -6,9 +6,8 @@ function request(url, options, onSuccess, onFailure) {
   fetch(url, options)
     .then((r) => {
       if (!r.ok) onFailure(Error(r.statusText));
-      else return r.json();
+      else return r.json().then(onSuccess);
     })
-    .then(onSuccess)
     .catch(onFailure);
 }
 
