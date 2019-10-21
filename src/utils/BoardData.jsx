@@ -1,3 +1,37 @@
+export const cities = [
+  {
+    colour: '#ff0000',
+    positions: [
+      {
+        level: 1,
+        index: 3,
+      },
+      {
+        level: 2,
+        index: 5,
+      },
+    ],
+  },
+  {
+    colour: '#00ff00',
+    positions: [
+      {
+        level: 2,
+        index: 16,
+      },
+    ],
+  },
+  {
+    colour: '#0000ff',
+    positions: [
+      {
+        level: 2,
+        index: 18,
+      },
+    ],
+  },
+];
+
 export const hexagons = [
   {
     position: {
@@ -153,53 +187,99 @@ export const hexagons = [
   },
 ];
 
-export const rooms = [
+export const roads = [
   {
-    id: 1,
-    name: 'nombre1',
-    owner: 'owner1',
-    players: ['user 1.1'],
-    max_players: 1,
+    colour: '#ff0000',
+    positions: [
+      [
+        {
+          level: 0,
+          index: 0,
+        },
+        {
+          level: 0,
+          index: 1,
+        },
+      ],
+    ],
   },
   {
-    id: 2,
-    name: 'nombre2',
-    owner: 'owner2',
-    players: ['user 2.1', 'user 2.2'],
-    max_players: 2,
+    colour: '#00ff00',
+    positions: [
+      [
+        {
+          level: 1,
+          index: 1,
+        },
+        {
+          level: 1,
+          index: 2,
+        },
+      ],
+      [
+        {
+          level: 2,
+          index: 1,
+        },
+        {
+          level: 2,
+          index: 2,
+        },
+      ],
+    ],
   },
   {
-    id: 3,
-    name: 'nombre3',
-    owner: 'owner3',
-    players: ['user 3.1', 'user 3.2', 'user 3.3'],
-    max_players: 3,
+    colour: '#0000ff',
+    positions: [
+      [
+        {
+          level: 2,
+          index: 6,
+        },
+        {
+          level: 2,
+          index: 7,
+        },
+      ],
+    ],
   },
 ];
 
-export const actions = [
+export const robber = {
+  level: 0,
+  index: 0,
+};
+
+export const settlements = [
   {
-    type: 'upgrade_city',
-    payload: [
+    colour: '#ff0000',
+    positions: [
       {
-        level: 2,
-        index: 1,
+        level: 0,
+        index: 0,
       },
-    ],
-  },
-  {
-    type: 'build_settlement',
-    payload: [
       {
         level: 1,
-        index: 1,
+        index: 2,
       },
     ],
   },
   {
-    type: 'bank_trade',
+    colour: '#00ff00',
+    positions: [
+      {
+        level: 2,
+        index: 4,
+      },
+    ],
   },
   {
-    type: 'buy_card',
+    colour: '#0000ff',
+    positions: [
+      {
+        level: 2,
+        index: 11,
+      },
+    ],
   },
 ];
