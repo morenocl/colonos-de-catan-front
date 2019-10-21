@@ -44,7 +44,7 @@ export function register(username, password, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
-export function listLobbies(onSuccess, onFailure) {
+export function listRooms(onSuccess, onFailure) {
   const url = `${path}/rooms/`;
   const option = {
     method: 'GET',
@@ -55,7 +55,7 @@ export function listLobbies(onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
-export function createLobby(name, id, onSuccess, onFailure) {
+export function createRoom(name, id, onSuccess, onFailure) {
   const url = `${path}/rooms/`;
   const data = { name, board_id: id };
   const option = {
@@ -68,7 +68,7 @@ export function createLobby(name, id, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
-export function getLobby(id, onSuccess, onFailure) {
+export function getRoom(id, onSuccess, onFailure) {
   const url = `${path}/rooms/${id}/`;
   const option = {
     method: 'GET',
@@ -90,7 +90,7 @@ export function startGame(id, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
-export function joinLobby(id, onFailure) {
+export function joinRoom(id, onFailure) {
   const url = `${path}/rooms/${id}/`;
   const option = {
     method: 'PUT',
@@ -212,19 +212,19 @@ register.PropTypes = {
   onFailure: PropTypes.func.isRequired,
 };
 
-listLobbies.PropTypes = {
+listRooms.PropTypes = {
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
 
-createLobby.PropTypes = {
+createRoom.PropTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
 
-getLobby.PropTypes = {
+getRoom.PropTypes = {
   id: PropTypes.number.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
@@ -236,7 +236,7 @@ startGame.PropTypes = {
   onFailure: PropTypes.func.isRequired,
 };
 
-joinLobby.PropTypes = {
+joinRoom.PropTypes = {
   id: PropTypes.number.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
