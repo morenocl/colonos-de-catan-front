@@ -10,7 +10,7 @@ const GameInfo = (turn, winner) => {
     ? (
       <Row>
         <Col>
-          Ganador:
+          Winner:
         </Col>
         <Col>
           {winner}
@@ -25,7 +25,7 @@ const GameInfo = (turn, winner) => {
     <Card>
       <Row>
         <Col>
-          Turno:
+          Turn:
         </Col>
         <Col>
           {turn.user}
@@ -33,7 +33,7 @@ const GameInfo = (turn, winner) => {
       </Row>
       <Row>
         <Col>
-          Dado:
+          Dice:
         </Col>
         <Col>
           {turn.dice}

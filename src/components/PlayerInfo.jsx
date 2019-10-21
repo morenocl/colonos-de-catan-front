@@ -7,19 +7,27 @@ import PropTypes from 'prop-types';
 
 const PlayerInfo = ({ player }) => {
   const {
-    username, colour, development_cards, resources_cards, last_gained,
+    username, colour, development_cards, resources_cards, victoryPoints, last_gained,
   } = player;
 
   return (
     <Card>
       <Card.Title>
-        Jugador:
+        Player:
         {username}
       </Card.Title>
       <Card.Body>
+      <Row>
+          <Col>
+            Victory Points:
+          </Col>
+          <Col>
+            {victoryPoints}
+          </Col>
+        </Row>
         <Row>
           <Col>
-            color:
+            Colour:
           </Col>
           <Col>
             {colour}
@@ -27,7 +35,7 @@ const PlayerInfo = ({ player }) => {
         </Row>
         <Row>
           <Col>
-            Desarrollo:
+            Development Cards:
           </Col>
           <Col>
             {development_cards.join(', ')}
@@ -35,7 +43,7 @@ const PlayerInfo = ({ player }) => {
         </Row>
         <Row>
           <Col>
-            Recursos:
+            Resources:
           </Col>
           <Col>
             {resources_cards.join(', ')}
@@ -43,7 +51,7 @@ const PlayerInfo = ({ player }) => {
         </Row>
         <Row>
           <Col>
-            Obtuvo:
+            Gained:
           </Col>
           <Col>
             {last_gained.join(', ')}
