@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types';
 
 
+const SET_BUILDING = 'actions/SET_BUILDING';
+const SET_BUYING = 'actions/SET_BUYING';
 const SET_CLICK = 'action/SET_CLICK';
 const SET_ERROR = 'actions/SET_ERROR';
 const SET_RUNNING = 'actions/SET_RUNNING';
+
+export const dispatchBuying = () => ({
+  type: SET_BUYING,
+});
+
+export const dispatchBuilding = () => ({
+  type: SET_BUILDING,
+});
 
 export const dispatchOnClick = (actionOnClick) => ({
   type: SET_CLICK,
@@ -25,6 +35,12 @@ export const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_BUYING:
+      return { ...state, stage: 'buying' };
+
+    case SET_BUILDING:
+      return { ...state, stage: 'building' };
+
     case SET_CLICK:
       return { ...state, actionOnClick: action.payload.actionOnClick };
 
