@@ -10,6 +10,7 @@ import {
   dispatchError,
   dispatchRunning,
 } from './Actions.ducks';
+import { setFrozen as dispatchFrozen } from '../Game/Game.ducks';
 /* eslint-disable import/no-named-as-default */
 import actionOnClick from './ActionsOnClick';
 import ActionsScreen from '../../components/Actions/Actions';
@@ -29,13 +30,14 @@ const mapDispatchToProps = ({
   setError: dispatchError,
   setOnClick: dispatchOnClick,
   setRunning: dispatchRunning,
+  setFrozen: dispatchFrozen,
 });
 
 export const Actions = (props) => {
   const { stage } = props;
   const {
     draw, refresh, setBuilding, setBuying,
-    setError, setOnClick, setRunning,
+    setError, setOnClick, setRunning, setFrozen,
   } = props;
   const { id } = useParams();
 
@@ -46,6 +48,7 @@ export const Actions = (props) => {
     setBuilding,
     setBuying,
     setError,
+    setFrozen,
     setRunning,
   };
   setOnClick(actionOnClick(id, eventHandlers));
@@ -80,6 +83,7 @@ Actions.propTypes = {
   setBuilding: PropTypes.func.isRequired,
   setBuying: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
+  setFrozen: PropTypes.func.isRequired,
   setOnClick: PropTypes.func.isRequired,
   setRunning: PropTypes.func.isRequired,
   stage: PropTypes.string.isRequired,

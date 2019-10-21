@@ -3,9 +3,24 @@ export const actions = [
     type: 'upgrade_city',
     payload: [
       {
-        level: 0,
-        index: 0,
+        level: 2,
+        index: 13,
       },
+    ],
+  },
+  {
+    type: 'build_road',
+    payload: [
+      [
+        {
+          level: 2,
+          index: 16,
+        },
+        {
+          level: 2,
+          index: 17,
+        },
+      ],
     ],
   },
   {
@@ -13,7 +28,7 @@ export const actions = [
     payload: [
       {
         level: 2,
-        index: 1,
+        index: 15,
       },
     ],
   },

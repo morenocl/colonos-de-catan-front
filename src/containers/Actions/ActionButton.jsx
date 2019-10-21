@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // eslint-disable-next-line import/no-named-as-default
-import { actionLabels } from './ActionUtils';
+import { actionLabels } from './ActionsUtils';
 import { ActionType } from '../../utils/ApiTypes';
 
 

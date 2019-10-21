@@ -8,8 +8,12 @@ export const configs = {};
 const TIMEOUT = 100;
 
 export const getGameStatus = (id, onSuccess, onFailure) => {
+  const c = configs.cities || cities;
+  const r = configs.roads || roads;
+  const s = configs.settlements || settlements;
+
   const board = {
-    cities, hexagons, roads, robber, settlements,
+    cities: c, hexagons, roads: r, robber, settlements: s,
   };
   const hand = { resources: [], cards: [] };
   const info = {};
@@ -38,5 +42,53 @@ export const getGameStatus = (id, onSuccess, onFailure) => {
 export const buyCard = (id, onSuccess, onFailure) => {
   console.log('Bought card', id);
   if (configs.buyCard) onFailure();
+  else onSuccess();
+};
+
+export const buildCity = (id, pos, onSuccess, onFailure) => {
+  console.log('Built city', id, pos);
+
+  // Update response.
+  configs.cities = [...cities];
+  configs.cities[0].positions.push({
+    level: 2,
+    index: 13,
+  });
+
+  if (configs.buildCity) onFailure();
+  else onSuccess();
+};
+
+export const buildRoad = (id, pos, onSuccess, onFailure) => {
+  console.log('Built road', id, pos);
+
+  // Update response.
+  configs.roads = [...roads];
+  configs.roads[0].positions.push([
+    {
+      level: 2,
+      index: 16,
+    },
+    {
+      level: 2,
+      index: 17,
+    },
+  ]);
+
+  if (configs.buildRoad) onFailure();
+  else onSuccess();
+};
+
+export const buildSettlement = (id, pos, onSuccess, onFailure) => {
+  console.log('Built settlement', id, pos);
+
+  // Update response.
+  configs.settlements = [...settlements];
+  configs.settlements[0].positions.push({
+    level: 2,
+    index: 15,
+  });
+
+  if (configs.buildSettlement) onFailure();
   else onSuccess();
 };

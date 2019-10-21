@@ -31,8 +31,8 @@ const mapDispatchToProps = ({
 
 // Show cities, roads or settlements for each player.
 const showConstructions = (display, draw, constructions, type) => {
-  constructions.forEach(x => {
-    display(draw, x.colour, x.positions, type)
+  constructions.forEach((x) => {
+    display(draw, x.colour, x.positions, type);
   });
 };
 
