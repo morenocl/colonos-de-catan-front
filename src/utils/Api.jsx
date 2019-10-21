@@ -101,28 +101,6 @@ export function joinRoom(id, onFailure) {
   request(url, option, undefined, onFailure);
 }
 
-export function boardStatus(id, onSuccess, onFailure) {
-  const url = `${path}/games/${id}/board`;
-  const option = {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-  request(url, option, onSuccess, onFailure);
-}
-
-export function playerHand(id, onSuccess, onFailure) {
-  const url = `${path}/games/${id}/player`;
-  const option = {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-  request(url, option, onSuccess, onFailure);
-}
-
 export function gameStatus(id, onSuccess, onFailure) {
   const actions = `${path}/games/${id}/player/actions`;
   const board = `${path}/games/${id}/board`;
@@ -238,18 +216,6 @@ startGame.PropTypes = {
 
 joinRoom.PropTypes = {
   id: PropTypes.number.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-boardStatus.PropTypes = {
-  id: PropTypes.number.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-playerHand.PropTypes = {
-  id: PropTypes.number.isRequired,
-  onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
 
