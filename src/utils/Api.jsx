@@ -132,6 +132,7 @@ export function gameStatus(id, onSuccess, onFailure) {
       colour: player.colour,
       developmentCards: player.development_cards,
       resourceCards: player.resources_cards,
+      victoryPoints: player.victory_points,
       lastGained: player.last_gained,
     })),
   });
