@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { RoomType } from '../../utils/ApiTypes';
@@ -13,31 +13,41 @@ export const Waiting = ({ room, onClick }) => {
 
   return (
     <div>
-      <Container>
-        <Row>
-          <Col>
+      <Table>
+        <thead>
+        <tr>
+          <th colSpan="2">
             {name}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
             Propietario:
+          </td>
+          <td>
             {owner}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          </td>
+        </tr>
+        <tr>
+          <td>
             Maximo jugadores:
+          </td>
+          <td>
             {max_players}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          </td>
+        </tr>
+        <tr>
+          <td>
             Jugadores:
+          </td>
+          <td>
             {players.join(', ')}
-          </Col>
-        </Row>
-      </Container>
+          </td>
+        </tr>
+      </tbody>
+      </Table>
       <Button disabled={!onClick} onClick={onClick}>
         Start game
       </Button>
