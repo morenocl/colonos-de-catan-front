@@ -6,7 +6,8 @@ import Table from 'react-bootstrap/Table';
 
 import { Hand } from '../src/containers/Hand';
 import HandScreen, {resToTable, cardsToTable} from '../src/components/Hand';
-import { cardTypes, resources } from '../src/containers/Actions/ActionsUtils';
+import { cardTypes } from '../src/containers/Actions/ActionsUtils';
+import { resourceNames } from '../src/utils/Constants';
 
 
 // This connects enzyme to the react adapter.
@@ -55,7 +56,7 @@ describe('Hand', () => {
     const h = mk(initialHand).dive();
     // Should render two entries for each card,
     // and two title entries.
-    const expected = 2 * (cardTypes.length + resources.length + 1);
+    const expected = 2 * (cardTypes.length + resourceNames.length + 1);
     expect(h.find('td'), h.debug()).to.have.lengthOf(expected);
   });
 });
