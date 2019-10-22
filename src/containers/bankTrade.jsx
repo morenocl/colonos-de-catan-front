@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import BankTradeComponent from '../containers/bankTradeComponent';
+import BankTradeComponent from '../components/bankTradeComponent';
 import { playAction } from '../utils/Api';
 
 const BankTrade = (props) => {
