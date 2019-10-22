@@ -6,7 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import { CardDropdown } from '../src/containers/Actions/CardDropdown';
 import ActionButton from '../src/containers/Actions/ActionButton';
-import { cardTypes } from '../src/containers/Actions/ActionUtils';
+import { cardTypes } from '../src/containers/Actions/ActionsUtils';
 
 
 // This connects enzyme to the react adapter.

@@ -16,7 +16,7 @@ const counter = (list, string) => {
   return count;
 };
 
-const resToTable = (resources) => {
+export const resToTable = (resources) => {
   const lumber = counter(resources, 'lumber');
   const wool = counter(resources, 'wool');
   const ore = counter(resources, 'ore');
@@ -54,7 +54,7 @@ const resToTable = (resources) => {
   );
 };
 
-const cardsToTable = (cards) => {
+export const cardsToTable = (cards) => {
   const roadBuilding = counter(cards, 'road_building');
   const yearOfPlenty = counter(cards, 'year_of_plenty');
   const monopoly = counter(cards, 'monopoly');
@@ -93,8 +93,7 @@ const cardsToTable = (cards) => {
 };
 
 
-export default function Hand({ cards, resources }) {
-  console.log(cards, resources);
+const Hand = ({ cards, resources }) => {
   return (
     <Container>
       <Row>
@@ -113,6 +112,8 @@ export default function Hand({ cards, resources }) {
     </Container>
   );
 }
+
+export default Hand;
 
 
 Hand.propTypes = {
