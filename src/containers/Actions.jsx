@@ -17,21 +17,27 @@ const possibleActions = [
     }
 ];
 
-function is_available(hand, action) {
+function is_available(resources, action) {
     var counts = {};
-    for (var resource in hand.resources) {
+    for (var resource in resources) {
 	if (resource in counts) {
 	    counts[resource]++
 	} else {
 	    counts[resource] = 1
 	}
     }
-    return action.Costs.reduce((acc, c) => acc && counts[c.resource] >= c.value);
+    return action.Costs.reduce((acc, c) => acc && counts[c.resource] >= c.value, true);
 }
 
-const Actions = (props) => (
-  <h1>Actions</h1>
-);
+function Actions({ cards, resources }) {
+    return (<ul>
+    {possibleActions.map((action) => (
+	<li color={is_available(resources, action) ? 'black' : 'grey'} >
+	    {action.Name}
+	</li>
+    ))}
+    </ul>);
+}
 
 Actions.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.string).isRequired,
