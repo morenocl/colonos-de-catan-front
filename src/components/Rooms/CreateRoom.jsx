@@ -52,6 +52,9 @@ const CreateRoom = (props) => {
         onChange={changeBoardId}
         isInvalid={!!boardIdError}
       >
+        <option value="">
+          -- Please choose a board --
+        </option>
         {options}
       </FormControl>
       <FormControl.Feedback type="invalid">

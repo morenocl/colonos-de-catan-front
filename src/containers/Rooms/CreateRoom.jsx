@@ -22,7 +22,9 @@ const CreateRoom = () => {
   const [formData, setFormData] = useState(initialState);
 
   const onSuccess = (res) => { setBoards(res); };
-  const onFailure = () => { setBoards([]); };
+  const onFailure = () => {
+    setError('Connection error, the boards could not be obtained');
+  };
 
   useEffect(() => {
     getBoards(onSuccess, onFailure);
@@ -62,7 +64,7 @@ const CreateRoom = () => {
     if (!boardId) {
       boardId = '';
       valid = false;
-      error = 'This field is required';
+      error = 'Choose a board is required';
     }
 
     setFormData({
