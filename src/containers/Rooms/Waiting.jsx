@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Error from '../../components/Error';
 import WaitingScreen from '../../components/Rooms/Waiting';
-import { getLobby, startGame } from '../../utils/Api';
+import { getRoom, startGame } from '../../utils/Api';
 import useInterval from '../../utils/UseInterval';
 
 
-export const Waiting = () => {
+const mapStateToProps = (state) => ({
+  user: state.Auth.user,
+});
+
+
+export const Waiting = ({ user }) => {
   const { id } = useParams();
   const [error, setError] = useState(false);
   const [room, setRoom] = useState({
@@ -25,7 +31,7 @@ export const Waiting = () => {
   const onFailure = () => { setError(true); };
 
   const gameId = room.game_has_started ? room.game_id : undefined;
-  const iAmOwner = room.owner === localStorage.getItem('user');
+  const iAmOwner = room.owner === user;
 
   const onClick = () => {
     startGame(id, undefined, onFailure);
@@ -33,7 +39,7 @@ export const Waiting = () => {
 
   const refresh = () => {
     if (!room.game_has_started) {
-      getLobby(id, onSuccess, onFailure);
+      getRoom(id, onSuccess, onFailure);
     }
   };
   useInterval(refresh, 2000);
@@ -50,4 +56,8 @@ export const Waiting = () => {
   );
 };
 
-export default Waiting;
+export default connect(mapStateToProps)(Waiting);
+
+Waiting.propTypes = {
+  user: PropTypes.string.isRequired,
+};
