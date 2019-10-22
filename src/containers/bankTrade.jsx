@@ -17,7 +17,7 @@ const BankTrade = (props) => {
   };
 
   const trade = () => {
-    playAction(id, 'bank_trade', { give: offer, recive: requested }, onSuccess, onFailure);
+    playAction(id, 'bank_trade', { give: offer, receive: requested }, onSuccess, onFailure);
   };
 
   return (

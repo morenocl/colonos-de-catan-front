@@ -31,7 +31,7 @@ const BankTradeComponent = ({
       </DropdownButton>
     </Col>
     <Col xs={4}>
-      <Button variant="success" onClick={trader} disabled={gives === '' || takes === ''}>Trade</Button>
+      <Button variant="success" onClick={trader} disabled={gives === '' || takes === '' || gives === takes}>Trade</Button>
     </Col>
   </Row>
 );
