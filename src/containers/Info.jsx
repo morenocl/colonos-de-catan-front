@@ -9,17 +9,17 @@ import { InfoType } from '../utils/ApiTypes';
 
 const mapStateToProps = (state) => ({
   players: state.Game.info.players,
-  current_turn: state.Game.info.current_turn,
+  turn: state.Game.info.current_turn,
   winner: state.Game.info.winner,
 });
 
 export const Info = (props) => {
-  const { players, current_turn, winner } = props;
+  const { players, turn, winner } = props;
 
   return (
     <div>
       { players.map((player) => <PlayerInfo player={player} />) }
-      <GameInfo turn={current_turn} winner={winner} />
+      <GameInfo turn={turn} winner={winner} />
     </div>
   );
 };
@@ -32,6 +32,6 @@ mapStateToProps.propTypes = {
 
 Info.propTypes = {
   players: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  current_turn: PropTypes.shape({}).isRequired,
+  turn: PropTypes.shape({}).isRequired,
   winner: PropTypes.string,
 };

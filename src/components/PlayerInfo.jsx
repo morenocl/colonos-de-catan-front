@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const PlayerInfo = ({ player }) => {
   const {
-    username, colour, development_cards, resources_cards, victoryPoints, last_gained,
+    username, colour, developmentCards, resourcesCards, victoryPoints, lastGained,
   } = player;
 
   return (
@@ -17,7 +17,7 @@ const PlayerInfo = ({ player }) => {
         {username}
       </Card.Title>
       <Card.Body>
-      <Row>
+        <Row>
           <Col>
             Victory Points:
           </Col>
@@ -38,7 +38,7 @@ const PlayerInfo = ({ player }) => {
             Development Cards:
           </Col>
           <Col>
-            {development_cards.join(', ')}
+            {developmentCards.join(', ')}
           </Col>
         </Row>
         <Row>
@@ -46,7 +46,7 @@ const PlayerInfo = ({ player }) => {
             Resources:
           </Col>
           <Col>
-            {resources_cards.join(', ')}
+            {resourcesCards.join(', ')}
           </Col>
         </Row>
         <Row>
@@ -54,7 +54,7 @@ const PlayerInfo = ({ player }) => {
             Gained:
           </Col>
           <Col>
-            {last_gained.join(', ')}
+            {lastGained.join(', ')}
           </Col>
         </Row>
       </Card.Body>
@@ -69,8 +69,9 @@ PlayerInfo.propTypes = {
   player: PropTypes.shape({
     username: PropTypes.string.isRequired,
     colour: PropTypes.string.isRequired,
-    development_cards: PropTypes.number.isRequired,
-    resources_cards: PropTypes.number.isRequired,
-    last_gained: PropTypes.arrayOf(PropTypes.string).isRequired,
+    developmentCards: PropTypes.number.isRequired,
+    resourcesCards: PropTypes.number.isRequired,
+    victoryPoints: PropTypes.number.isRequired,
+    lastGained: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
