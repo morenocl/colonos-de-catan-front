@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import * as dispatchObj from './Rooms.ducks';
 import Error from '../../components/Error';
 import RoomsScreen from '../../components/Rooms/Rooms';
-import { getRooms } from '../../utils/Api';
+import { getRooms } from '../../utils/Mock';
 import { RoomType, RoomsStateType } from '../../utils/ApiTypes';
 import useInterval from '../../utils/UseInterval';
 

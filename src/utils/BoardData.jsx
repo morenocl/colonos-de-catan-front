@@ -194,7 +194,14 @@ export const hexagons = [
   },
 ];
 
-export const resources = [];
+export const resources = [
+  'lumber',
+  'lumber',
+  'ore',
+  'ore',
+  'wool',
+  'grain',
+];
 
 export const roads = [
   {
