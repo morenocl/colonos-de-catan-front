@@ -30,7 +30,7 @@ function is_available(resources, action) {
 	    counts[resource] = 1
 	}
     }
-    return action.Costs.reduce((acc, c) => acc && counts[c.resource] >= c.value, true);
+    return action.Costs.reduce((acc, c) => (acc && counts[c.resource] >= c.value), true);
 }
 
 function Actions({ cards, resources }) {
