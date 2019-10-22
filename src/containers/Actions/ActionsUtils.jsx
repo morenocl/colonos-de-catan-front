@@ -47,3 +47,11 @@ export const cardTypes = [
   'play_monopoly_card',
   'play_year_of_plenty_card',
 ];
+
+export const resources = [
+  'brick',
+  'lumber',
+  'wool',
+  'grain',
+  'ore',
+];

@@ -13,7 +13,7 @@ import { buildingColour, buildingRequests } from './ActionsUtils';
 // appropriate onClick function (given its payload).
 export const actionOnClick = (id, eventHandlers) => ((type) => {
   const {
-    draw, refresh, setBuilding,
+    draw, refresh, setBuilding, setBuying,
     setError, setFrozen, setRunning,
   } = eventHandlers;
 
@@ -44,7 +44,7 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
       });
 
     case 'bank_trade':
-      return () => (() => { console.log(type); });
+      return () => (() => { setBuying(); });
 
     case 'buy_card':
       return () => (() => { buyCard(id, refresh, setError); });
@@ -66,6 +66,7 @@ actionOnClick.propTypes = {
     }).isRequired,
     refresh: PropTypes.func.isRequired,
     setBuilding: PropTypes.func.isRequired,
+    setBuying: PropTypes.func.isRequired,
     setError: PropTypes.func.isRequired,
     setFrozen: PropTypes.func.isRequired,
     setRunning: PropTypes.func.isRequired,

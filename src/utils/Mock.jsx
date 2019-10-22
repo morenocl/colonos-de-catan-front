@@ -94,3 +94,10 @@ export const buildSettlement = (id, pos, onSuccess, onFailure) => {
   if (data.buildSettlement) onFailure();
   else onSuccess();
 };
+
+export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
+  console.log('Bank trade', offer, request, id);
+
+  if (data.bankTrade) onFailure();
+  else onSuccess();
+};

@@ -13,6 +13,7 @@ import {
 import { setFrozen as dispatchFrozen } from '../Game/Game.ducks';
 /* eslint-disable import/no-named-as-default */
 import actionOnClick from './ActionsOnClick';
+import BankTrade from './BankTrade';
 import ActionsScreen from '../../components/Actions/Actions';
 import Error from '../../components/Error';
 /* eslint-enable import/no-named-as-default */
@@ -63,9 +64,9 @@ export const Actions = (props) => {
     );
   }
 
-  if (stage === 'building') return (<h1> Choose position </h1>);
+  if (stage === 'buying') return (<BankTrade />);
 
-  if (stage === 'buying') return (<h1> Buying </h1>);
+  if (stage === 'building') return (<h1> Buying </h1>);
 
   return (
     <ActionsScreen />
