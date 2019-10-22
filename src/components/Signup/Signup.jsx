@@ -3,94 +3,96 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
-import FormText from 'react-bootstrap/FormText';
 import PropTypes from 'prop-types';
 
 import Error from '../Error';
-
 import './Signup.css';
 
 
 const Signup = (props) => {
-    const {
-        data, handleSubmit, handleInputChange,
-    } = props;
-    const {
-        username, password, loading, errorMessage, formErrors,
-    } = data;
+  const {
+    values, error, validate, loading,
+    handleSubmit, changeUsername, changePassword,
+  } = props;
+  const {
+    username, password, usernameError, passwordError,
+  } = values;
 
-    const userForm = (
-        <FormGroup bssize="large">
-            <FormLabel>
-                Username
+  const userForm = (
+    <FormGroup bssize="large">
+      <FormLabel>
+        Username
       </FormLabel>
-            <FormControl
-                autoFocus
-                name="username"
-                onChange={handleInputChange}
-                type="text"
-                value={username}
-            />
-            <FormText className="text-muted">
-                {formErrors.username}
-            </FormText>
-        </FormGroup>
-    );
+      <FormControl
+        autoFocus
+        name="username"
+        isInvalid={!!usernameError}
+        onChange={changeUsername}
+        type="text"
+        value={username}
+      />
+      <FormControl.Feedback type="invalid">
+        {usernameError}
+      </FormControl.Feedback>
+    </FormGroup>
+  );
 
-    const passForm = (
-        <FormGroup bssize="large">
-            <FormLabel>
-                Password
+  const passForm = (
+    <FormGroup bssize="large">
+      <FormLabel>
+        Password
       </FormLabel>
-            <FormControl
-                name="password"
-                onChange={handleInputChange}
-                type="password"
-                value={password}
-            />
-            <FormText className="text-muted">
-                {formErrors.password}
-            </FormText>
-        </FormGroup>
-    );
+      <FormControl
+        name="password"
+        isInvalid={!!passwordError}
+        onChange={changePassword}
+        type="password"
+        value={password}
+      />
+      <FormControl.Feedback type="invalid">
+        {passwordError}
+      </FormControl.Feedback>
+    </FormGroup>
+  );
 
-    const button = (
-        <Button
-            block
-            bssize="large"
-            disabled={loading}
-            type="submit"
-        >
-            {loading ? 'Loading...' : 'Registrar'}
-        </Button>
-    );
+  const button = (
+    <Button
+      block
+      bssize="large"
+      disabled={!validate()}
+      type="submit"
+    >
+      {loading ? 'Loading...' : 'Signup'}
+    </Button>
+  );
 
-    return (
-        <div className="Signup">
-            {errorMessage && <Error message={errorMessage} />}
-            <form onSubmit={handleSubmit}>
-                {userForm}
-                {passForm}
-                {button}
-            </form>
-        </div>
-    );
+  return (
+    <div className="Signup">
+      <h1>Signup</h1>
+      {error && <Error message={error} />}
+      <form onSubmit={handleSubmit}>
+        {userForm}
+        {passForm}
+        {button}
+      </form>
+    </div>
+  );
 };
 
 export default Signup;
 
 
 Signup.propTypes = {
-    data: PropTypes.shape({
-        username: PropTypes.string.isRequired,
-        password: PropTypes.string.isRequired,
-        loading: PropTypes.bool.isRequired,
-        errorMessage: PropTypes.string.isRequired,
-        formErrors: PropTypes.shape({
-            username: PropTypes.string.isRequired,
-            password: PropTypes.string.isRequired,
-        }).isRequired,
-    }).isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    handleInputChange: PropTypes.func.isRequired,
+  values: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    usernameError: PropTypes.string.isRequired,
+    passwordError: PropTypes.string.isRequired,
+  }).isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  changeUsername: PropTypes.func.isRequired,
+  changePassword: PropTypes.func.isRequired,
+  validate: PropTypes.func.isRequired,
 };

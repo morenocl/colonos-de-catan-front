@@ -3,21 +3,20 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
-import FormText from 'react-bootstrap/FormText';
 import PropTypes from 'prop-types';
 
 import Error from '../Error';
-
 import './Login.css';
 
 
 const Login = (props) => {
   const {
-    data, handleSubmit, handleInputChange,
+    values, error, validate, loading,
+    handleSubmit, changeUsername, changePassword,
   } = props;
   const {
-    username, password, loading, errorMessage, formErrors,
-  } = data;
+    username, password, usernameError, passwordError,
+  } = values;
 
   const userForm = (
     <FormGroup bssize="large">
@@ -27,13 +26,14 @@ const Login = (props) => {
       <FormControl
         autoFocus
         name="username"
-        onChange={handleInputChange}
+        isInvalid={!!usernameError}
+        onChange={changeUsername}
         type="text"
         value={username}
       />
-      <FormText className="text-muted">
-        {formErrors.username}
-      </FormText>
+      <FormControl.Feedback type="invalid">
+        {usernameError}
+      </FormControl.Feedback>
     </FormGroup>
   );
 
@@ -44,13 +44,14 @@ const Login = (props) => {
       </FormLabel>
       <FormControl
         name="password"
-        onChange={handleInputChange}
+        isInvalid={!!passwordError}
+        onChange={changePassword}
         type="password"
         value={password}
       />
-      <FormText className="text-muted">
-        {formErrors.password}
-      </FormText>
+      <FormControl.Feedback type="invalid">
+        {passwordError}
+      </FormControl.Feedback>
     </FormGroup>
   );
 
@@ -58,7 +59,7 @@ const Login = (props) => {
     <Button
       block
       bssize="large"
-      disabled={loading}
+      disabled={!validate()}
       type="submit"
     >
       {loading ? 'Loading...' : 'Login'}
@@ -67,7 +68,8 @@ const Login = (props) => {
 
   return (
     <div className="Login">
-      {errorMessage && <Error message={errorMessage} />}
+      <h1>Login</h1>
+      {error && <Error message={error} />}
       <form onSubmit={handleSubmit}>
         {userForm}
         {passForm}
@@ -81,16 +83,16 @@ export default Login;
 
 
 Login.propTypes = {
-  data: PropTypes.shape({
+  values: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    loading: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string.isRequired,
-    formErrors: PropTypes.shape({
-      username: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
-    }).isRequired,
+    usernameError: PropTypes.string.isRequired,
+    passwordError: PropTypes.string.isRequired,
   }).isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
+  changeUsername: PropTypes.func.isRequired,
+  changePassword: PropTypes.func.isRequired,
+  validate: PropTypes.func.isRequired,
 };
