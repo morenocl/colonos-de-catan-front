@@ -18,7 +18,7 @@ export const Info = (props) => {
 
   return (
     <div>
-      { players.map((player) => <PlayerInfo player={player} />) }
+      { players.map((player) => <PlayerInfo player={player} key={player.username} />) }
       <GameInfo turn={turn} winner={winner} />
     </div>
   );
@@ -35,3 +35,5 @@ Info.propTypes = {
   turn: PropTypes.shape({}).isRequired,
   winner: PropTypes.string,
 };
+
+Info.defaultProps = null;

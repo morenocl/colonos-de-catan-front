@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table';
+import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 
 
@@ -9,8 +9,8 @@ const PlayerInfo = ({ player }) => {
   } = player;
 
   return (
-    <Table>
-      <thead>
+    <Card>
+      <Card.Title>
         <tr>
           <th>
             Player:
@@ -19,8 +19,8 @@ const PlayerInfo = ({ player }) => {
             {username}
           </th>
         </tr>
-      </thead>
-      <tbody>
+      </Card.Title>
+      <Card.Body>
         <tr>
           <td>
             Victory Points:
@@ -61,8 +61,8 @@ const PlayerInfo = ({ player }) => {
             {lastGained.join(', ')}
           </td>
         </tr>
-      </tbody>
-    </Table>
+      </Card.Body>
+    </Card>
   );
 };
 

@@ -3,9 +3,9 @@ import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
 
-const GameInfo = (turn, winner) => {
-  const win = winner
-    ? (
+const GameInfo = ({ turn, winner }) => {
+  if (winner) {
+    return (
       <Table>
         <tr>
           <td>
@@ -16,34 +16,33 @@ const GameInfo = (turn, winner) => {
           </td>
         </tr>
       </Table>
-    )
-    : undefined;
-
-  return (
-    win
-    || (
-    <Table>
-      <tbody>
-        <tr>
-          <td>
-            Turn:
-          </td>
-          <td>
-            {turn.user}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Dice:
-          </td>
-          <td>
-            {turn.dice}
-          </td>
-        </tr>
-      </tbody>
-    </Table>
-    )
-  );
+    );
+  } else {
+    return (
+      <Table>
+        <tbody>
+          <tr>
+            <td>
+              Turn:
+            </td>
+            <td>
+              {turn.user}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Dice:
+            </td>
+            <td>
+              {turn.dice[0]}
+              ,
+              {turn.dice[1]}
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+  }
 };
 
 export default GameInfo;
