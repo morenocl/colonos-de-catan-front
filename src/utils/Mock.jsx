@@ -98,6 +98,16 @@ export const buildSettlement = (id, pos, onSuccess, onFailure) => {
 export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
   console.log('Bank trade', offer, request, id);
 
+  // Decrement number of resources to buy.
+  data.resourcesToBuy -= 1;
+  if (data.resourcesToBuy === 0) {
+    // Find action index and remove it.
+    const actionId = data.actions.findIndex((x) => x && x.type === 'bank_trade');
+    delete data.actions[actionId];
+  }
+
+  data.actions = [...data.actions];
+
   if (data.bankTrade) onFailure();
   else onSuccess();
 };
