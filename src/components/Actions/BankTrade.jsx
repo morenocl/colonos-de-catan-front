@@ -5,7 +5,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
-import { resources } from '../../containers/Actions/ActionsUtils';
+import { resourceNames } from '../../utils/Constants';
 
 
 const BankTrade = ({
@@ -34,7 +34,7 @@ const BankTrade = ({
         id="offer"
         onSelect={setOffer}
       >
-        {resources.map((s) => item(s, 4))}
+        {resourceNames.map((s) => item(s, 4))}
       </DropdownButton>
     </td>
   );
@@ -46,7 +46,7 @@ const BankTrade = ({
         id="request"
         onSelect={setRequest}
       >
-        {resources.map((s) => item(s, 1))}
+        {resourceNames.map((s) => item(s, 1))}
       </DropdownButton>
     </td>
   );

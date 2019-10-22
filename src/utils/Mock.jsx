@@ -71,7 +71,6 @@ export const buildRoad = (id, pos, onSuccess, onFailure) => {
   data.actions[actionId].payload.splice(posId, 1);
   if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
 
-  console.log(data.board.roads);
   if (data.buildRoad) onFailure();
   else onSuccess();
 };

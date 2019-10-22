@@ -21,7 +21,7 @@ const st = {
   roads,
   robber,
   settlements,
-  setDraw: () => {}
+  setDraw: () => {},
 };
 
 describe('Board', () => {

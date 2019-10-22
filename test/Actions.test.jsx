@@ -5,9 +5,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
 import { Actions } from '../src/containers/Actions/Actions';
-import ActionsScreen from '../src/components/Actions/Actions';
-import Error from '../src/components/Error';
-import { initialState, errorState } from './data/Actions.ducks';
+import { initialState } from './data/Actions.ducks';
 
 
 // This connects enzyme to the react adapter.

@@ -39,11 +39,3 @@ export const buildingRequests = (id, refresh, setError, setRunning) => {
     cBuild, rBuild, sBuild,
   });
 };
-
-export const cardTypes = [
-  'buy_card',
-  'play_knight_card',
-  'play_road_building_card',
-  'play_monopoly_card',
-  'play_year_of_plenty_card',
-];

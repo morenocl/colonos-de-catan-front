@@ -93,25 +93,23 @@ export const cardsToTable = (cards) => {
 };
 
 
-const Hand = ({ cards, resources }) => {
-  return (
-    <Container>
-      <Row>
-        <Col>
-          <Table>
-            {resToTable(resources)}
-          </Table>
-        </Col>
-        <Col>
-          <Table>
-            {cardsToTable(cards)}
-          </Table>
-        </Col>
+const Hand = ({ cards, resources }) => (
+  <Container>
+    <Row>
+      <Col>
+        <Table>
+          {resToTable(resources)}
+        </Table>
+      </Col>
+      <Col>
+        <Table>
+          {cardsToTable(cards)}
+        </Table>
+      </Col>
 
-      </Row>
-    </Container>
-  );
-}
+    </Row>
+  </Container>
+);
 
 export default Hand;
 
