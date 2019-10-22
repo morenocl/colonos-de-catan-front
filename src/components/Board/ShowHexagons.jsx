@@ -1,36 +1,36 @@
 import PropTypes from 'prop-types';
-import SVG from 'svg.js';
 
 import {
-  WIDTH, HEIGHT, hexPath, hexCenter, colour,
+  colour, hexCenter, hexPath,
 } from './BoardUtils';
 import { HexagonType } from '../../utils/ApiTypes';
 
 
-const drawBoard = (hexagons) => {
-  const draw = SVG('board').size(WIDTH, HEIGHT);
-
-  const drawHexagon = (hexagon) => {
+const showHexagons = (draw, hexagons) => {
+  const showHexagon = (hexagon) => {
     const { position, resource, token } = hexagon;
     const { level, index } = position;
-    const { x, y } = hexCenter(level, index);
+    const { x, y } = hexCenter[level][index];
 
     draw.polygon(hexPath)
       .center(x, y)
       .rotate(90)
-      .fill(colour(resource));
+      .fill(colour[resource]);
 
     draw.text(String(token))
       .center(x, y);
   };
 
-  hexagons.forEach(drawHexagon);
+  hexagons.forEach(showHexagon);
 };
 
-export default drawBoard;
+export default showHexagons;
 
 
-drawBoard.propTypes = {
+showHexagons.propTypes = {
+  draw: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+  }).isRequired,
   hexagons: PropTypes.arrayOf(
     HexagonType,
   ).isRequired,

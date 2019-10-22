@@ -27,7 +27,7 @@ describe('Room body', () => {
   it('should render a body', () => {
     const b = mk();
     const {
-    id, owner, players, maxPlayers,
+      id, owner, players, maxPlayers,
     } = room;
     const expected = (
       <RoomBody

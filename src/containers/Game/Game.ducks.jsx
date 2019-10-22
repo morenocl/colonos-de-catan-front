@@ -1,16 +1,14 @@
 import PropTypes from 'prop-types';
 
 import {
-  ActionsType, BoardType, HandType, InfoType,
+  ActionType, BoardType, HandType, InfoType,
 } from '../../utils/ApiTypes';
 
-// Actions.
 const SET_ERROR = 'game/SET_ERROR';
 const SET_FROZEN = 'game/SET_FROZEN';
 const SET_REFRESH = 'game/SET_REFRESH';
 const SET_STATE = 'game/SET_STATE';
 
-// Action creators.
 export const setError = () => ({
   type: SET_ERROR,
 });
@@ -72,7 +70,7 @@ setRefresh.propTypes = {
 };
 
 setRunningStage.propTypes = {
-  actions: ActionsType,
+  actions: PropTypes.arrayOf(ActionType),
   board: BoardType,
   hand: HandType,
   info: InfoType,
@@ -84,7 +82,7 @@ reducer.propTypes = {
     PropTypes.func,
     PropTypes.shape({
       stage: PropTypes.string.isRequired,
-      actions: ActionsType,
+      actions: PropTypes.arrayOf(ActionType),
       board: BoardType,
       hand: HandType,
       info: InfoType,
