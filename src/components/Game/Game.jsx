@@ -14,10 +14,10 @@ import Info from '../../containers/Info';
 const GameScreen = () => (
   <Container>
     <Row>
-      <Col xs={9}>
+      <Col xs={10}>
         <Board />
       </Col>
-      <Col xs={3}>
+      <Col xs={2}>
         <Info />
       </Col>
     </Row>

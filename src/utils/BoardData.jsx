@@ -259,35 +259,35 @@ export const info = {
     {
       username: 'user0',
       colour: '#ff0000',
-      development_cards: 0,
-      resources_cards: 0,
-      victory_points: 0,
-      last_gained: [
+      developmentCards: 0,
+      resourcesCards: 0,
+      victoryPoints: 0,
+      lastGained: [
       ],
     },
     {
       username: 'user2',
       colour: '#00ff00',
-      development_cards: 1,
-      resources_cards: 1,
-      victory_points: 1,
-      last_gained: [
+      developmentCards: 1,
+      resourcesCards: 1,
+      victoryPoints: 1,
+      lastGained: [
         'lumber',
       ],
     },
     {
       username: 'user3',
       colour: '#0000ff',
-      development_cards: 2,
-      resources_cards: 2,
-      victory_points: 2,
-      last_gained: [
+      developmentCards: 2,
+      resourcesCards: 2,
+      victoryPoints: 2,
+      lastGained: [
         'wool',
         'ore',
       ],
     },
   ],
-  current_turn: {
+  currentTurn: {
     user: 'user1',
     dice: [1, 1],
   },

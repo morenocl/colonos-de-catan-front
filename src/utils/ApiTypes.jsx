@@ -64,7 +64,10 @@ export const HandType = PropTypes.shape({
 });
 
 export const InfoType = PropTypes.shape({
-});
+  players: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  currentTurn: PropTypes.shape({}).isRequired,
+  winner: PropTypes.string,
+}).isRequired;
 
 export const GameStateType = PropTypes.shape({
   actions: PropTypes.arrayOf(ActionType),
