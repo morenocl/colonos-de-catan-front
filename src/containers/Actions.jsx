@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 class Cost {
     constructor(resource, value) {
@@ -30,13 +34,20 @@ function is_available(resources, action) {
 }
 
 function Actions({ cards, resources }) {
-    return (<ul>
-    {possibleActions.map((action) => (
-	<li color={is_available(resources, action) ? 'black' : 'grey'} >
-	    {action.Name}
-	</li>
-    ))}
-    </ul>);
+    return (
+	<Container>
+	<Row>
+	{possibleActions.map((action) => (
+	    <Col>
+	    <Button
+   	        variant="primary"
+	        disabled={is_available(resources, action)}
+	    />
+	    </Col>
+	))}
+	</Row>
+	</Container>
+    );
 }
 
 Actions.propTypes = {
