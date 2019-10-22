@@ -1,7 +1,5 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
 
@@ -11,54 +9,60 @@ const PlayerInfo = ({ player }) => {
   } = player;
 
   return (
-    <Card>
-      <Card.Title>
-        Player:
-        {username}
-      </Card.Title>
-      <Card.Body>
-        <Row>
-          <Col>
+    <Table>
+      <thead>
+        <tr>
+          <th>
+            Player:
+          </th>
+          <th>
+            {username}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
             Victory Points:
-          </Col>
-          <Col>
+          </td>
+          <td>
             {victoryPoints}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          </td>
+        </tr>
+        <tr>
+          <td>
             Colour:
-          </Col>
-          <Col>
+          </td>
+          <td>
             {colour}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          </td>
+        </tr>
+        <tr>
+          <td>
             Development Cards:
-          </Col>
-          <Col>
-            {developmentCards.join(', ')}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          </td>
+          <td>
+            {developmentCards}
+          </td>
+        </tr>
+        <tr>
+          <td>
             Resources:
-          </Col>
-          <Col>
-            {resourcesCards.join(', ')}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          </td>
+          <td>
+            {resourcesCards}
+          </td>
+        </tr>
+        <tr>
+          <td>
             Gained:
-          </Col>
-          <Col>
+          </td>
+          <td>
             {lastGained.join(', ')}
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
+          </td>
+        </tr>
+      </tbody>
+    </Table>
   );
 };
 

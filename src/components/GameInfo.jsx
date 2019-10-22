@@ -1,45 +1,47 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
 
 const GameInfo = (turn, winner) => {
   const win = winner
     ? (
-      <Row>
-        <Col>
-          Winner:
-        </Col>
-        <Col>
-          {winner}
-        </Col>
-      </Row>
+      <Table>
+        <tr>
+          <td>
+            Winner:
+          </td>
+          <td>
+            {winner}
+          </td>
+        </tr>
+      </Table>
     )
     : undefined;
 
   return (
     win
     || (
-    <Card>
-      <Row>
-        <Col>
-          Turn:
-        </Col>
-        <Col>
-          {turn.user}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          Dice:
-        </Col>
-        <Col>
-          {turn.dice}
-        </Col>
-      </Row>
-    </Card>
+    <Table>
+      <tbody>
+        <tr>
+          <td>
+            Turn:
+          </td>
+          <td>
+            {turn.user}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Dice:
+          </td>
+          <td>
+            {turn.dice}
+          </td>
+        </tr>
+      </tbody>
+    </Table>
     )
   );
 };
@@ -51,6 +53,6 @@ GameInfo.propType = {
   turn: PropTypes.shape({
     user: PropTypes.string.isRequired,
     dice: PropTypes.arrayOf(PropTypes.number).isRequired,
-  }),
+  }).isRequired,
   winner: PropTypes.string,
 };
