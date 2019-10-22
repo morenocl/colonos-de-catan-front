@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
+import PropTypes from 'prop-types';
 
 
 const counter = (list, string) => {
@@ -94,6 +94,7 @@ const cardsToTable = (cards) => {
 
 
 export default function Hand({ cards, resources }) {
+  console.log(cards, resources);
   return (
     <Container>
       <Row>

@@ -1,4 +1,9 @@
-export const cards = [];
+export const cards = [
+  'road_building',
+  'road_building',
+  'knight',
+  'monopoly',
+];
 
 export const cities = [
   {
