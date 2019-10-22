@@ -22,9 +22,9 @@ const useForm = () => {
       username = '';
       valid = false;
       error = 'This field is required';
-    } else if (username.length < 4) {
+    } else if (!/^[\S]+$/.test(username)) {
       valid = false;
-      error = 'Please enter at leaset 4 characters';
+      error = 'Space characters are not allowed';
     }
 
     setValues({
@@ -49,9 +49,15 @@ const useForm = () => {
     } else if (password.length < 8) {
       valid = false;
       error = 'Please enter at leaset 8 characters';
-    } else if (!/^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/.test(password)) {
+    } else if (/^[^a-z]{8,}$/.test(password)) {
       valid = false;
-      error = 'Please provide a valid password';
+      error = 'Password requires at least one lowercase';
+    } else if (/^[^A-Z]{8,}$/.test(password)) {
+      valid = false;
+      error = 'Password requiere at least one uppercase';
+    } else if (/^[a-zA-Z\d]{8,}$/.test(password)) {
+      valid = false;
+      error = 'Password requiere at least one special character';
     }
 
     setValues({
