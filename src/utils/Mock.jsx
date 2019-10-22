@@ -1,47 +1,39 @@
-import {
-  cities, hexagons, roads, robber, settlements,
-} from './BoardData';
-import { actions } from './ActionsData';
+/* eslint-disable no-console */
+import data from './Data';
 
-
-export const configs = {};
-const TIMEOUT = 100;
+const mkPromise = (x) => (
+  new Promise((res) => {
+    setTimeout(() => res(data[x]), data.timeout);
+  })
+);
 
 export const getGameStatus = (id, onSuccess, onFailure) => {
-  const c = configs.cities || cities;
-  const r = configs.roads || roads;
-  const s = configs.settlements || settlements;
+  const p0 = mkPromise('actions');
+  const p1 = mkPromise('board');
+  const p2 = mkPromise('hand');
+  const p3 = mkPromise('info');
 
-  const board = {
-    cities: c, hexagons, roads: r, robber, settlements: s,
-  };
-  const hand = { resources: [], cards: [] };
-  const info = {};
-
-  const p0 = new Promise((res) => {
-    setTimeout(() => res(actions), configs.timeout || TIMEOUT);
-  });
-  const p1 = new Promise((res) => {
-    setTimeout(() => res(board), configs.timeout || TIMEOUT);
-  });
-  const p2 = new Promise((res) => {
-    setTimeout(() => res(hand), configs.timeout || TIMEOUT);
-  });
-  const p3 = new Promise((res) => {
-    setTimeout(() => res(info), configs.timeout || TIMEOUT);
-  });
-
-  Promise.all([p0, p1, p2, p3]).then(
-    (rs) => {
-      if (configs.getGameStatus) onFailure();
+  Promise.all([p0, p1, p2, p3])
+    .then((rs) => {
+      if (data.getGameStatus) onFailure();
       else onSuccess(...rs);
-    },
-  );
+    });
 };
 
 export const buyCard = (id, onSuccess, onFailure) => {
   console.log('Bought card', id);
-  if (configs.buyCard) onFailure();
+
+  // Decrement number of cards to buy.
+  data.cardsToBuy -= 1;
+  if (data.cardsToBuy === 0) {
+    // Find action index and remove it.
+    const actionId = data.actions.findIndex((x) => x && x.type === 'buy_card');
+    delete data.actions[actionId];
+  }
+
+  data.actions = [...data.actions];
+
+  if (data.buyCard) onFailure();
   else onSuccess();
 };
 
@@ -49,13 +41,18 @@ export const buildCity = (id, pos, onSuccess, onFailure) => {
   console.log('Built city', id, pos);
 
   // Update response.
-  configs.cities = [...cities];
-  configs.cities[0].positions.push({
-    level: 2,
-    index: 13,
-  });
+  data.board.cities = [...data.board.cities];
+  data.board.cities[0].positions.push(pos);
 
-  if (configs.buildCity) onFailure();
+  // Find action index.
+  const actionId = data.actions.findIndex((x) => x && x.type === 'upgrade_city');
+  // Find payload index.
+  const posId = data.actions[actionId].payload.indexOf(pos);
+  // Remove from available positions.
+  data.actions[actionId].payload.splice(posId, 1);
+  if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
+
+  if (data.buildCity) onFailure();
   else onSuccess();
 };
 
@@ -63,19 +60,19 @@ export const buildRoad = (id, pos, onSuccess, onFailure) => {
   console.log('Built road', id, pos);
 
   // Update response.
-  configs.roads = [...roads];
-  configs.roads[0].positions.push([
-    {
-      level: 2,
-      index: 16,
-    },
-    {
-      level: 2,
-      index: 17,
-    },
-  ]);
+  data.board.roads = [...data.board.roads];
+  data.board.roads[0].positions.push(pos);
 
-  if (configs.buildRoad) onFailure();
+  // Find action index.
+  const actionId = data.actions.findIndex((x) => x && x.type === 'build_road');
+  // Find payload index.
+  const posId = data.actions[actionId].payload.indexOf(pos);
+  // Remove from available positions.
+  data.actions[actionId].payload.splice(posId, 1);
+  if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
+
+  console.log(data.board.roads);
+  if (data.buildRoad) onFailure();
   else onSuccess();
 };
 
@@ -83,12 +80,17 @@ export const buildSettlement = (id, pos, onSuccess, onFailure) => {
   console.log('Built settlement', id, pos);
 
   // Update response.
-  configs.settlements = [...settlements];
-  configs.settlements[0].positions.push({
-    level: 2,
-    index: 15,
-  });
+  data.board.settlements = [...data.board.settlements];
+  data.board.settlements[0].positions.push(pos);
 
-  if (configs.buildSettlement) onFailure();
+  // Find action index.
+  const actionId = data.actions.findIndex((x) => x && x.type === 'build_settlement');
+  // Find payload index.
+  const posId = data.actions[actionId].payload.indexOf(pos);
+  // Remove from available positions.
+  data.actions[actionId].payload.splice(posId, 1);
+  if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
+
+  if (data.buildSettlement) onFailure();
   else onSuccess();
 };

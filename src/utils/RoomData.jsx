@@ -1,4 +1,4 @@
-const rooms = [
+export const rooms = [
   {
     id: 1,
     name: 'nombre1',
@@ -22,4 +22,4 @@ const rooms = [
   },
 ];
 
-export default rooms;
+export const room = {};

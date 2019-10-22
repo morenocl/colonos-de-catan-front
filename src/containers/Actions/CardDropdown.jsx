@@ -24,7 +24,7 @@ const mapStateToProps = (state) => ({
 // Renders a dropdown view of the available actions
 // related to development cards.
 export const CardDropdown = ({ actions }) => {
-  const cardActions = actions.filter(((x) => cardTypes.includes(x.type)));
+  const cardActions = actions.filter(((x) => x && cardTypes.includes(x.type)));
 
   return (
     <Dropdown>

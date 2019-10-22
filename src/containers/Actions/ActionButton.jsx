@@ -21,7 +21,7 @@ export const ActionButton = (props) => {
   const { actions, C, type } = props;
   const { actionOnClick } = props;
 
-  const a = actions.find((x) => x.type === type);
+  const a = actions.find((x) => x && x.type === type);
   const onClick = actionOnClick(type)(a && a.payload);
 
   return (

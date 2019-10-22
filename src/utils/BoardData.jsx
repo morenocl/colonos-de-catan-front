@@ -1,3 +1,5 @@
+export const cards = [];
+
 export const cities = [
   {
     colour: '#ff0000',
@@ -187,6 +189,8 @@ export const hexagons = [
   },
 ];
 
+export const resources = [];
+
 export const roads = [
   {
     colour: '#ff0000',
@@ -244,6 +248,45 @@ export const roads = [
     ],
   },
 ];
+
+export const info = {
+  players: [
+    {
+      username: 'user0',
+      colour: '#ff0000',
+      development_cards: 0,
+      resources_cards: 0,
+      victory_points: 0,
+      last_gained: [
+      ],
+    },
+    {
+      username: 'user2',
+      colour: '#00ff00',
+      development_cards: 1,
+      resources_cards: 1,
+      victory_points: 1,
+      last_gained: [
+        'lumber',
+      ],
+    },
+    {
+      username: 'user3',
+      colour: '#0000ff',
+      development_cards: 2,
+      resources_cards: 2,
+      victory_points: 2,
+      last_gained: [
+        'wool',
+        'ore',
+      ],
+    },
+  ],
+  current_turn: {
+    user: 'user1',
+    dice: [1, 1],
+  },
+};
 
 export const robber = {
   level: 0,

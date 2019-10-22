@@ -77,6 +77,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Board);
 Board.propTypes = {
   cities: PropTypes.arrayOf(BuildingType).isRequired,
   oldDraw: PropTypes.shape({
+    clear: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
   }),
   hexagons: PropTypes.arrayOf(HexagonType).isRequired,

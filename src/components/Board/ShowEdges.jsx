@@ -14,7 +14,7 @@ const showEdges = (draw, colour, ps, onClickMaker = () => null) => {
 
     draw.line(x0, y0, x1, y1)
       .stroke(roadStroke(colour))
-      .click(onClickMaker(p0, p1));
+      .click(onClickMaker([p0, p1]));
   };
 
   ps.forEach(drawEdge);
