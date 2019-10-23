@@ -7,7 +7,7 @@ const request = (url, options, onSuccess, onFailure) => {
   fetch(url, options)
     .then((r) => {
       if (!r.ok) return onFailure(Error(r.statusText));
-      else return r.json().then(onSuccess);
+      return r.json().then(onSuccess);
     })
     .catch(onFailure);
 };
@@ -26,7 +26,7 @@ export const login = (username, password, onSuccess, onFailure) => {
   request(url, option, onSuccess, onFailure);
 };
 
-export const register = (username, password, onSuccess, onFailure) => {
+export const signup = (username, password, onSuccess, onFailure) => {
   const url = `${path}/users/`;
   const data = { user: username, pass: password };
   const option = {
@@ -39,7 +39,7 @@ export const register = (username, password, onSuccess, onFailure) => {
   request(url, option, onSuccess, onFailure);
 };
 
-export const listRooms = (onSuccess, onFailure) => {
+export const getRooms = (onSuccess, onFailure) => {
   const url = `${path}/rooms/`;
   const option = {
     method: 'GET',
@@ -47,6 +47,19 @@ export const listRooms = (onSuccess, onFailure) => {
       Authorization: `JWT ${localStorage.getItem('token')}`,
     },
   };
+
+  request(url, option, onSuccess, onFailure);
+};
+
+export const getBoards = (onSuccess, onFailure) => {
+  const url = `${path}/boards/`;
+  const option = {
+    method: 'GET',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  };
+
   request(url, option, onSuccess, onFailure);
 };
 
@@ -93,15 +106,39 @@ export const joinRoom = (id, onFailure) => {
       Authorization: `JWT ${localStorage.getItem('token')}`,
     },
   };
-  request(url, option, undefined, onFailure);
+
+  request(url, option, () => {}, onFailure);
 };
+
+const getFromPlayers = (ps) => ({
+  settlements: ps.map((player) => ({
+    colour: player.colour,
+    settlements: player.settlements,
+  })),
+  cities: ps.map((player) => ({
+    colour: player.colour,
+    cities: player.cities,
+  })),
+  roads: ps.map((player) => ({
+    colour: player.colour,
+    roads: player.roads,
+  })),
+  players: ps.map((player) => ({
+    username: player.username,
+    colour: player.colour,
+    developmentCards: player.development_cards,
+    resourceCards: player.resources_cards,
+    victoryPoints: player.victory_points,
+    lastGained: player.last_gained,
+  })),
+});
 
 export const gameStatus = (id, onSuccess, onFailure) => {
   const actions = `${path}/games/${id}/player/actions`;
   const board = `${path}/games/${id}/board`;
   const hand = `${path}/games/${id}/player`;
   const info = `${path}/games/${id}`;
-  const endPoint = [actions, board, hand, info];
+  const endPoints = [actions, board, hand, info];
 
   const option = {
     method: 'GET',
@@ -110,32 +147,8 @@ export const gameStatus = (id, onSuccess, onFailure) => {
     },
   };
 
-  const getFromPlayers = (ps) => ({
-    settlements: ps.map((player) => ({
-      colour: player.colour,
-      settlements: player.settlements,
-    })),
-    cities: ps.map((player) => ({
-      colour: player.colour,
-      cities: player.cities,
-    })),
-    roads: ps.map((player) => ({
-      colour: player.colour,
-      roads: player.roads,
-    })),
-    players: ps.map((player) => ({
-      username: player.username,
-      colour: player.colour,
-      developmentCards: player.development_cards,
-      resourceCards: player.resources_cards,
-      victoryPoints: player.victory_points,
-      lastGained: player.last_gained,
-    })),
-  });
-
-  return Promise.all(endPoint.map((e) => fetch(e, option)))
+  Promise.all(endPoints.map((e) => fetch(e, option)))
     .then((rs) => rs.map((r) => (r.ok ? r.json() : onFailure(Error(r.statusText)))))
-
     .then((rs) => {
       const {
         settlements, cities, roads, players,
@@ -154,7 +167,7 @@ export const gameStatus = (id, onSuccess, onFailure) => {
         info: {
           players,
           turn: rs[3].current_turn,
-          winner: rs[3].winner, // Es opcional, fijarse como manejarlo
+          winner: rs[3].winner,
         },
       });
     })
@@ -171,8 +184,10 @@ export const playAction = (id, action, payload, onSuccess, onFailure) => {
       Authorization: `JWT ${localStorage.getItem('token')}`,
     },
   };
+
   request(url, option, onSuccess, onFailure);
 };
+
 
 login.PropTypes = {
   username: PropTypes.string.isRequired,
@@ -181,14 +196,9 @@ login.PropTypes = {
   onFailure: PropTypes.func.isRequired,
 };
 
-register.PropTypes = {
+signup.PropTypes = {
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-listRooms.PropTypes = {
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
@@ -196,6 +206,11 @@ listRooms.PropTypes = {
 createRoom.PropTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+getRooms.PropTypes = {
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
@@ -214,6 +229,7 @@ startGame.PropTypes = {
 
 joinRoom.PropTypes = {
   id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
 
@@ -227,6 +243,11 @@ playAction.PropTypes = {
   id: PropTypes.number.isRequired,
   actions: PropTypes.string.isRequired,
   payload: PropTypes.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+getBoards.PropTypes = {
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
 };
