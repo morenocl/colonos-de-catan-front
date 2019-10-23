@@ -17,7 +17,7 @@ export const Body = (props) => {
 
   const onClick = () => {
     setLoading(true);
-    const onSuccess = () => { setResult(<Redirect to="/waiting" />); };
+    const onSuccess = () => { setResult(<Redirect to={`/waiting/${id}`} />); };
     const onFailure = () => { setResult(<Error />); };
     joinRoom(id, onSuccess, onFailure);
   };
