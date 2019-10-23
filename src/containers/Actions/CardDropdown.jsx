@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 // eslint-disable-next-line import/no-named-as-default
 import ActionButton from './ActionButton';
-import { cardNames } from '../../utils/Constants';
+import { cardActionNames } from '../../utils/Constants';
 import { ActionType } from '../../utils/ApiTypes';
 
 
@@ -24,7 +24,7 @@ const mapStateToProps = (state) => ({
 // Renders a dropdown view of the available actions
 // related to development cards.
 export const CardDropdown = ({ actions }) => {
-  const cardActions = actions.filter(((x) => x && cardNames.includes(x.type)));
+  const cardActions = actions.filter(((x) => x && cardActionNames.includes(x.type)));
 
   return (
     <Dropdown>

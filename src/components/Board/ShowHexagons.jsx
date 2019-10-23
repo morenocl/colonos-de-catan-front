@@ -8,14 +8,14 @@ import { HexagonType } from '../../utils/ApiTypes';
 
 const showHexagons = (draw, hexagons) => {
   const showHexagon = (hexagon) => {
-    const { position, resource, token } = hexagon;
+    const { position, terrain, token } = hexagon;
     const { level, index } = position;
     const { x, y } = hexCenter[level][index];
 
     draw.polygon(hexPath)
       .center(x, y)
       .rotate(90)
-      .fill(colour[resource]);
+      .fill(colour[terrain]);
 
     draw.text(String(token))
       .center(x, y);

@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+import { resourceNames } from './Constants';
+
 
 /* Game */
 
@@ -16,7 +18,7 @@ export const RoadPosition = PropTypes.arrayOf(
 
 export const HexagonType = PropTypes.shape({
   position: HexagonPosition.isRequired,
-  resource: PropTypes.string.isRequired,
+  terrain: PropTypes.oneOf(resourceNames.concat(['desert'])).isRequired,
   token: PropTypes.number.isRequired,
 });
 
@@ -59,7 +61,7 @@ export const BoardType = PropTypes.shape({
 });
 
 export const HandType = PropTypes.shape({
-  resources: PropTypes.arrayOf(PropTypes.string).isRequired,
+  resources: PropTypes.arrayOf(PropTypes.oneOf(resourceNames)).isRequired,
   cards: PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 
