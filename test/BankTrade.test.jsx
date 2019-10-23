@@ -56,4 +56,14 @@ describe('BankTrade', () => {
 	    return item.prop('disabled') === false
 	}), r.debug()).to.have.lengthOf(1);
     });
+
+    it('should send the payload', () => {
+	var success = false;
+	const id = 1; // TODO get a valid id to the server that will work for the demo.
+
+	const onSuccess = () => { success = true; };
+	const onFailure = () => {};
+	const _ = <BankTrade id={id} onSuccess={onSuccess} onFailure={onFailure} />
+	expect(success).to.equal(true);
+    });
 });
