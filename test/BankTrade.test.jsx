@@ -63,7 +63,7 @@ describe('BankTrade', () => {
 
 	const onSuccess = () => { success = true; };
 	const onFailure = () => {};
-	const _ = <BankTrade id={id} onSuccess={onSuccess} onFailure={onFailure} />
+	const _ = shallow(<BankTrade id={id} onSuccess={onSuccess} onFailure={onFailure} />);
 	expect(success).to.equal(true);
     });
 });
