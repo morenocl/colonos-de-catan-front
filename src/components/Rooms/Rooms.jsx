@@ -18,18 +18,18 @@ const Rooms = ({ rooms, onClick }) => (
         id, max_players, name, owner, players,
       }) => (
         <Card key={id}>
-            <Header
-              id={id}
-              name={name}
-            />
-            <Body
-              id={id}
+          <Header
+            id={id}
+            name={name}
+          />
+          <Body
+            id={id}
               // eslint-disable-next-line camelcase
-              maxPlayers={max_players}
-              owner={owner}
-              players={players}
-            />
-          </Card>
+            maxPlayers={max_players}
+            owner={owner}
+            players={players}
+          />
+        </Card>
       ))}
     </Accordion>
     <Button

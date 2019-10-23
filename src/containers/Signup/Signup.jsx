@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import SignupScreen from '../../components/Signup/Signup';
-import { signup } from '../../utils/Api';
+import { signup } from '../../utils/Mock';
 import useForm from '../UseForm';
 
 const Signup = () => {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { setAuth as dispatchAuth } from '../Auth.ducks';
 import LoginScreen from '../../components/Login/Login';
-import { login } from '../../utils/Api';
+import { login } from '../../utils/Mock';
 import useForm from '../UseForm';
 
 
