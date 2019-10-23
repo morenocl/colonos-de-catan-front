@@ -45,7 +45,7 @@ export const hexagons = [
       level: 0,
       index: 0,
     },
-    resource: 'grain',
+    terrain: 'desert',
     token: 0,
   },
   {
@@ -53,7 +53,7 @@ export const hexagons = [
       level: 1,
       index: 0,
     },
-    resource: 'lumber',
+    terrain: 'lumber',
     token: 1,
   },
   {
@@ -61,7 +61,7 @@ export const hexagons = [
       level: 1,
       index: 1,
     },
-    resource: 'wool',
+    terrain: 'wool',
     token: 2,
   },
   {
@@ -69,7 +69,7 @@ export const hexagons = [
       level: 1,
       index: 2,
     },
-    resource: 'brick',
+    terrain: 'brick',
     token: 3,
   },
   {
@@ -77,7 +77,7 @@ export const hexagons = [
       level: 1,
       index: 3,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 4,
   },
   {
@@ -85,7 +85,7 @@ export const hexagons = [
       level: 1,
       index: 4,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 5,
   },
   {
@@ -93,7 +93,7 @@ export const hexagons = [
       level: 1,
       index: 5,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 6,
   },
   {
@@ -101,7 +101,7 @@ export const hexagons = [
       level: 2,
       index: 0,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 7,
   },
   {
@@ -109,7 +109,7 @@ export const hexagons = [
       level: 2,
       index: 1,
     },
-    resource: 'ore',
+    terrain: 'grain',
     token: 8,
   },
   {
@@ -117,7 +117,7 @@ export const hexagons = [
       level: 2,
       index: 2,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 9,
   },
   {
@@ -125,7 +125,7 @@ export const hexagons = [
       level: 2,
       index: 3,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 10,
   },
   {
@@ -133,7 +133,7 @@ export const hexagons = [
       level: 2,
       index: 4,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 11,
   },
   {
@@ -141,7 +141,7 @@ export const hexagons = [
       level: 2,
       index: 5,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 12,
   },
   {
@@ -149,7 +149,7 @@ export const hexagons = [
       level: 2,
       index: 6,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 13,
   },
   {
@@ -157,7 +157,7 @@ export const hexagons = [
       level: 2,
       index: 7,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 14,
   },
   {
@@ -165,7 +165,7 @@ export const hexagons = [
       level: 2,
       index: 8,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 15,
   },
   {
@@ -173,7 +173,7 @@ export const hexagons = [
       level: 2,
       index: 9,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 16,
   },
   {
@@ -181,7 +181,7 @@ export const hexagons = [
       level: 2,
       index: 10,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 17,
   },
   {
@@ -189,7 +189,7 @@ export const hexagons = [
       level: 2,
       index: 11,
     },
-    resource: 'ore',
+    terrain: 'ore',
     token: 18,
   },
 ];

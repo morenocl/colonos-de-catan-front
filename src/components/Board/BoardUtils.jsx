@@ -30,6 +30,7 @@ export const colour = {
   wool: '#ffffe6',
   grain: '#ffcc00',
   ore: '#c0c0c0',
+  desert: '#ffff00',
 };
 
 export const hexPath = [[-L / 2, -l],
