@@ -9,6 +9,7 @@ const SET_FROZEN = 'rooms/SET_FROZEN';
 const SET_REFRESH = 'rooms/SET_REFRESH';
 const SET_ROOMS = 'rooms/SET_ROOMS';
 const SET_RUNNING = 'rooms/SET_RUNNING';
+const SET_CREATE = 'rooms/SET_CREATE';
 
 // Action creators.
 export const setError = () => ({
@@ -31,6 +32,10 @@ export const setRooms = (rooms) => ({
 
 export const setRunning = () => ({
   type: SET_RUNNING,
+});
+
+export const setCreate = () => ({
+  type: SET_CREATE,
 });
 
 export const initialState = {
@@ -57,6 +62,9 @@ const reducer = (state = initialState, action = {}) => {
 
     case SET_RUNNING:
       return { ...state, stage: 'running' };
+
+    case SET_CREATE:
+      return { ...state, stage: 'create' };
 
     default: return state;
   }
