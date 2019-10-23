@@ -8,6 +8,7 @@ import { room, rooms } from './RoomData';
 
 const data = {
   timeout: 100,
+  waiting: 5,
   cardsToBuy: 3,
   resourcesToBuy: 3,
   actions,
