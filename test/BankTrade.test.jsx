@@ -21,9 +21,24 @@ describe('BankTrade', () => {
 	    requestH: (_) => {},
 	    trader: (_) => {},
 	    gives: 'wool',
-	    takes: 'wool'
+	    takes: 'wool',
 	}
 	);
 	expect(r.isEmptyRender(), r.debug()).to.be.false;
+    });
+
+    it('should block trade when both resources are unselected', () => {
+	const r = mock(
+	{
+	    offerH: (_) => {},
+	    requestH: (_) => {},
+	    trader: (_) => {},
+	    gives: '',
+	    takes: '',
+	}
+	);
+	expect(r.find('Button').filterWhere((item) => {
+	    return item.prop('disabled') === true
+	}), r.debug()).to.have.lengthOf(1);
     });
 });
