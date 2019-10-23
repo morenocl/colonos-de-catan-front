@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { setAuth as dispatchAuth } from '../Auth.ducks';
+import {
+  setAuth as dispatchAuth,
+  setUser as dispatchUser,
+} from '../Auth.ducks';
 import LoginScreen from '../../components/Login/Login';
 import { login } from '../../utils/Mock';
 import useForm from '../UseForm';
@@ -10,9 +13,10 @@ import useForm from '../UseForm';
 
 const mapDispatchToProps = ({
   setAuth: dispatchAuth,
+  setUser: dispatchUser,
 });
 
-const Login = ({ setAuth }) => {
+const Login = ({ setAuth, setUser }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const {
@@ -27,8 +31,11 @@ const Login = ({ setAuth }) => {
     event.preventDefault();
     setLoading(true);
 
+    const { username, password } = values;
+
     const onSuccess = (res) => {
       setAuth(true);
+      setUser(username);
       localStorage.setItem('token', JSON.stringify(res.token));
     };
 
@@ -36,7 +43,6 @@ const Login = ({ setAuth }) => {
       setError(err.message);
     };
 
-    const { username, password } = values;
     login(username, password, onSuccess, onFailure);
   };
 
