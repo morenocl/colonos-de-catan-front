@@ -5,7 +5,6 @@ import React from 'react';
 
 import BankTrade from '../src/containers/bankTrade';
 import BankTradeComponent from '../src/components/bankTradeComponent';
-import Error from '../src/components/Error'; // maybe
 
 
 // This connects enzyme to the react adapter.
