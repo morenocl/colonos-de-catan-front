@@ -110,3 +110,23 @@ export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
   if (data.bankTrade) onFailure();
   else onSuccess();
 };
+
+export const getRoom = (id, onSuccess, onFailure) => {
+  console.log('Got room', id);
+
+  if (data.getRoom) onFailure();
+  else onSuccess(data.rooms.find((room) => room && room.id === id));
+};
+
+export const startGame = (id, onSuccess, onFailure) => {
+  console.log('Started game');
+
+  // Start game
+  const room = data.rooms.find((room) => room && room.id === id);
+  room.game_has_started = true;
+  room.game_id = 1;
+  data.rooms = [...data.rooms];
+
+  if (data.startGame) onFailure();
+  else onSuccess();
+};
