@@ -24,7 +24,7 @@ export const Waiting = ({ room, onClick }) => {
         <tbody>
           <tr>
             <td>
-              Propietario:
+              Owner:
             </td>
             <td>
               {owner}
@@ -32,7 +32,7 @@ export const Waiting = ({ room, onClick }) => {
           </tr>
           <tr>
             <td>
-              Maximo jugadores:
+              Max Players:
             </td>
             <td>
               {max_players}
@@ -40,7 +40,7 @@ export const Waiting = ({ room, onClick }) => {
           </tr>
           <tr>
             <td>
-              Jugadores:
+              Players:
             </td>
             <td>
               {players.join(', ')}
@@ -60,4 +60,8 @@ export default Waiting;
 Waiting.propTypes = {
   room: RoomType.isRequired,
   onClick: PropTypes.func,
+};
+
+Waiting.defaultProps = {
+  onClick: null,
 };
