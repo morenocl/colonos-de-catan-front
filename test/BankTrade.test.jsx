@@ -41,4 +41,20 @@ describe('BankTrade', () => {
 	    return item.prop('disabled') === true
 	}), r.debug()).to.have.lengthOf(1);
     });
+
+    
+    it('should enable trade when both resources are selected', () => {
+	const r = mock(
+	{
+	    offerH: (_) => {},
+	    requestH: (_) => {},
+	    trader: (_) => {},
+	    gives: 'wool',
+	    takes: 'lumber',
+	}
+	);
+	expect(r.find('Button').filterWhere((item) => {
+	    return item.prop('disabled') === false
+	}), r.debug()).to.have.lengthOf(1);
+    });
 });
