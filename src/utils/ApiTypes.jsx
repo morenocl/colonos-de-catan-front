@@ -93,3 +93,11 @@ export const RoomsStateType = PropTypes.shape({
   refresh: PropTypes.func.isRequired,
   rooms: PropTypes.arrayOf(RoomType).isRequired,
 });
+
+
+/* Boards */
+
+export const BoardListType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+});

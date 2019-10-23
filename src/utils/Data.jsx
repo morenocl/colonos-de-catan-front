@@ -4,6 +4,7 @@ import {
 } from './BoardData';
 import { actions } from './ActionsData';
 import { room, rooms } from './RoomData';
+import { users } from './UsersData';
 
 
 const data = {
@@ -21,6 +22,7 @@ const data = {
   info,
   rooms,
   room,
+  users,
 };
 
 export default data;

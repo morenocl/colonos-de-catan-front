@@ -110,3 +110,67 @@ export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
   if (data.bankTrade) onFailure();
   else onSuccess();
 };
+
+export const getBoards = (onSuccess, onFailure) => {
+  setTimeout(() => {
+    onSuccess([
+      {
+        id: 1,
+        name: 'board1',
+      },
+      {
+        id: 2,
+        name: 'board2',
+      },
+      {
+        id: 3,
+        name: 'board3',
+      },
+    ]);
+  }, 10);
+};
+
+export const createRoom = (name, boardId, onSuccess, onFailure) => {
+  console.log(name, boardId);
+  setTimeout(() => {
+    onSuccess({ id: 1 });
+  }, 100);
+};
+
+
+export const signup = (username, password, onSuccess, onFailure) => {
+  console.log('Register User: ', username, password);
+
+  // Search if the user currently exists
+  mkPromise()
+    .then(() => {
+      const found = data.users.find((user) => user.username === username);
+      if (!found) {
+        // New user registration
+        data.users = [...data.users, { username, password }];
+        onSuccess();
+      } else {
+        onFailure(Error('User is already registered'));
+      }
+    });
+};
+
+export const login = (username, password, onSuccess, onFailure) => {
+  console.log('Login User: ', username, password);
+
+  // Search if the user currently exists
+  mkPromise()
+    .then(() => {
+      const findUser = data.users.find((user) => user.username === username);
+      const findPass = data.users.find((user) => user.password === password);
+      if (findUser && findPass) {
+        // User is registered
+        data.users = [...data.users, { username, password }];
+        onSuccess({ token: 'token' });
+      } else if (!findUser) {
+        onFailure(Error('Failed to login: You are not registered'));
+      } else if (!findPass) {
+        onFailure(Error('Failed to login: Password Invalid'));
+      }
+    });
+};
