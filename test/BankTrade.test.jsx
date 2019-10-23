@@ -42,7 +42,6 @@ describe('BankTrade', () => {
 	}), r.debug()).to.have.lengthOf(1);
     });
 
-    
     it('should enable trade when both resources are selected', () => {
 	const r = mock(
 	{
