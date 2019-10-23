@@ -91,6 +91,12 @@ export function playerHand(id, onSuccess, onFailure) {
   request(url, option, onSuccess, onFailure);
 }
 
+export const getRoom = () => {
+};
+
+export const startGame = () => {
+};
+
 
 login.PropTypes = {
   username: PropTypes.string.isRequired,
