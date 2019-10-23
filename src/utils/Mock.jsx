@@ -114,8 +114,17 @@ export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
 export const getRoom = (id, onSuccess, onFailure) => {
   console.log('Got room', id);
 
+  const room = data.rooms.find((room) => room && room.id === id);
+
+  data.waiting -= 1;
+  if(data.waiting === 0){
+    room.game_has_started = true;
+    room.game_id = 1;
+    data.rooms[data.rooms.indexOf(room)] = {...room};
+  }
+
   if (data.getRoom) onFailure();
-  else onSuccess(data.rooms.find((room) => room && room.id === id));
+  else return onSuccess(room);
 };
 
 export const startGame = (id, onSuccess, onFailure) => {
