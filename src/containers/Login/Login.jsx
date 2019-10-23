@@ -5,41 +5,27 @@ import PropTypes from 'prop-types';
 import { setAuth as dispatchAuth } from '../Auth.ducks';
 import LoginScreen from '../../components/Login/Login';
 import { login } from '../../utils/Api';
+import useForm from '../UseForm';
 
 
 const mapDispatchToProps = ({
   setAuth: dispatchAuth,
 });
 
-const initialState = {
-  username: '',
-  password: '',
-  loading: false,
-  errorMessage: '',
-};
-
 const Login = ({ setAuth }) => {
-  const [data, setData] = useState(initialState);
-
-  // Handles username and password changes.
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const {
+    values,
+    validate,
+    changeUsername,
+    changePassword,
+  } = useForm();
 
   // Send data via API.
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setData({
-      ...data,
-      loading: true,
-      errorMessage: '',
-    });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setLoading(true);
 
     const onSuccess = (res) => {
       setAuth(true);
@@ -47,21 +33,22 @@ const Login = ({ setAuth }) => {
     };
 
     const onFailure = (err) => {
-      setData({
-        ...initialState,
-        errorMessage: err.message,
-      });
+      setError(err.message);
     };
 
-    const { username, password } = data;
+    const { username, password } = values;
     login(username, password, onSuccess, onFailure);
   };
 
   return (
     <LoginScreen
-      data={data}
+      values={values}
+      error={error}
+      loading={loading}
+      validate={validate}
       handleSubmit={handleSubmit}
-      handleInputChange={handleInputChange}
+      changeUsername={changeUsername}
+      changePassword={changePassword}
     />
   );
 };

@@ -8,7 +8,7 @@ import CreateRoom from './Rooms/Create';
 import Game from './Game/Game';
 import Login from './Login/Login';
 import Rooms from './Rooms/Rooms';
-import Signup from './Signup';
+import Signup from './Signup/Signup';
 import Waiting from './Rooms/Waiting';
 /* eslint-enable import/no-named-as-default */
 

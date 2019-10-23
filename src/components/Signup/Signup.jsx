@@ -6,10 +6,10 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import PropTypes from 'prop-types';
 
 import Error from '../Error';
-import './Login.css';
+import './Signup.css';
 
 
-const Login = (props) => {
+const Signup = (props) => {
   const {
     values, error, validate, loading,
     handleSubmit, changeUsername, changePassword,
@@ -62,13 +62,13 @@ const Login = (props) => {
       disabled={!validate()}
       type="submit"
     >
-      {loading ? 'Loading...' : 'Login'}
+      {loading ? 'Loading...' : 'Signup'}
     </Button>
   );
 
   return (
-    <div className="Login">
-      <h1>Login</h1>
+    <div className="Signup">
+      <h1>Signup</h1>
       {error && <Error message={error} />}
       <form onSubmit={handleSubmit}>
         {userForm}
@@ -79,10 +79,10 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Signup;
 
 
-Login.propTypes = {
+Signup.propTypes = {
   values: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
