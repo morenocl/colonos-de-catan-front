@@ -32,10 +32,6 @@ export const Rooms = (props) => {
     }
   };
 
-  const onClick = () => {
-    setCreate();
-  };
-
   // Refresh every 5 seconds.
   useInterval(refresh, 5000);
 
@@ -48,7 +44,7 @@ export const Rooms = (props) => {
   return (
     <RoomsScreen
       rooms={rooms}
-      onClick={onClick}
+      onClick={setCreate}
     />
   );
 };
