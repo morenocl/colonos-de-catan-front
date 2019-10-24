@@ -23,7 +23,7 @@ const mapDispatchToProps = ({
   setRunning: dispatchRunning,
 });
 
-const CreateRoom = ({ setRunning }) => {
+export const CreateRoom = ({ setRunning }) => {
   const [boards, setBoards] = useState([]);
   const [error, setError] = useState('');
   const [response, setResponse] = useState(undefined);
