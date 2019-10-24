@@ -24,7 +24,10 @@ export const Rooms = (props) => {
 
   const refresh = () => {
     if (stage !== 'frozen') {
-      const onSuccess = (rs) => { setRunning(); setRooms(rs); };
+      const onSuccess = (rs) => {
+        setRunning();
+        setRooms(rs.filter((r) => r && !r.game_has_started));
+      };
       getRooms(onSuccess, setError);
     }
   };

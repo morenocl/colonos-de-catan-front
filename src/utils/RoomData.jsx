@@ -23,6 +23,15 @@ export const rooms = [
     max_players: 3,
     game_has_started: false,
   },
+  {
+    id: 4,
+    name: 'nombre4',
+    owner: 'owner4',
+    players: ['user 4'],
+    max_players: 4,
+    game_has_started: true,
+    game_id: 1,
+  },
 ];
 
 export const room = {};

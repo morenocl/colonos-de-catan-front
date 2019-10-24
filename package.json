@@ -22,8 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "NODE_ENV=test mocha --require @babel/register --require ignore-styles test/*.test.*",
-    "jest": "jest",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

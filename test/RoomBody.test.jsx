@@ -3,7 +3,6 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 
-
 import { Body } from '../src/containers/Rooms/Body';
 import RoomBody from '../src/components/Rooms/Body';
 
@@ -12,7 +11,11 @@ import RoomBody from '../src/components/Rooms/Body';
 configure({ adapter: new Adapter() });
 
 const room = {
-  id: 1, name: 'name', owner: 'owner', players: ['player'], maxPlayers: 1,
+  id: 1,
+  name: 'name',
+  owner: 'owner',
+  players: ['player'],
+  maxPlayers: 1,
 };
 
 // eslint-disable-next-line react/jsx-props-no-spreading

@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 
 import { Rooms } from '../src/containers/Rooms/Rooms';
 import RoomsScreen from '../src/components/Rooms/Rooms';
@@ -31,9 +32,21 @@ describe('Rooms', () => {
     expect(r.equals(<Error />), r.debug()).to.be.true;
   });
 
+  it('should show an enabled button', () => {
+    const r = mk(runningState).dive();
+    const button = (
+      <Button disabled={false}>
+        Create
+      </Button>
+    );
+    expect(r.find('Button').matchesElement(button), r.debug()).to.be.true;
+  });
+
   it('should show two rooms', () => {
-    const r = mk(runningState);
-    const expected = <RoomsScreen rooms={runningState.rooms} />;
-    expect(r.equals(expected), r.debug()).to.be.true;
+    const r = mk(runningState).dive();
+    const expected = runningState.rooms.length;
+    expect(r.find('Card'), r.debug()).to.have.lengthOf(expected);
+    expect(r.find('Header'), r.debug()).to.have.lengthOf(expected);
+    expect(r.find('Body'), r.debug()).to.have.lengthOf(expected);
   });
 });

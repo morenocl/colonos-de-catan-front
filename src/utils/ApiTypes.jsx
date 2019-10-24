@@ -88,6 +88,8 @@ export const RoomType = PropTypes.shape({
   owner: PropTypes.string.isRequired,
   players: PropTypes.arrayOf(PropTypes.string).isRequired,
   max_players: PropTypes.number.isRequired,
+  game_has_started: PropTypes.bool.isRequired,
+  game_id: PropTypes.number,
 });
 
 export const RoomsStateType = PropTypes.shape({
