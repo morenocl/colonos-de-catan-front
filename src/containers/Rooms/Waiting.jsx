@@ -5,59 +5,52 @@ import PropTypes from 'prop-types';
 
 import Error from '../../components/Error';
 import WaitingScreen from '../../components/Rooms/Waiting';
-import { getRoom, startGame } from '../../utils/Api';
+import { getRoom, startGame } from '../../utils/Mock';
 import useInterval from '../../utils/UseInterval';
 
 
 const mapStateToProps = (state) => ({
-  user: state.Auth.user,
+  username: state.Auth.username,
 });
 
 
-export const Waiting = ({ user }) => {
-  const { id } = useParams();
-  const [error, setError] = useState(false);
-  const [room, setRoom] = useState({
-    id: 0,
-    name: '',
-    players: [],
-    max_layers: 0,
-    game_has_started: false,
-    owner: '',
-    game_id: 0,
-  });
+export const Waiting = ({ username }) => {
+  const id = Number(useParams().id);
+  const [stage, setStage] = useState('empty');
+  const [room, setRoom] = useState(null);
 
-  const onSuccess = (r) => { setRoom(r); };
-  const onFailure = () => { setError(true); };
+  const onSuccess = (r) => { setRoom(r); setStage('running'); };
+  const onFailure = () => { setStage('error'); };
 
-  const gameId = room.game_has_started ? room.game_id : undefined;
-  const iAmOwner = room.owner === user;
-
+  const gameId = !!room && room.game_has_started ? room.game_id : null;
+  const iAmOwner = !!room && room.owner === username;
   const onClick = () => {
-    startGame(id, undefined, onFailure);
+    startGame(id, onFailure);
   };
 
   const refresh = () => {
-    if (!room.game_has_started) {
+    if (!gameId) {
       getRoom(id, onSuccess, onFailure);
     }
   };
-  useInterval(refresh, 2000);
 
-  if (error) {
-    return (<Error />);
-  }
-  if (gameId) {
-    return (<Redirect to={`/game/${gameId}`} />);
+  useInterval(refresh, 4000);
+
+  if (stage === 'empty') return <></>;
+
+  if (gameId) return (<Redirect to={`/game/${gameId}`} />);
+
+  if (stage === 'running') {
+    return (
+      <WaitingScreen room={room} onClick={iAmOwner ? onClick : null} />
+    );
   }
 
-  return (
-    <WaitingScreen room={room} onClick={iAmOwner ? onClick : null} />
-  );
+  return (<Error />);
 };
 
 export default connect(mapStateToProps)(Waiting);
 
 Waiting.propTypes = {
-  user: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
 };

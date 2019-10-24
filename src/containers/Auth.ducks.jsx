@@ -14,6 +14,7 @@ const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_AUTH:
       return { ...state, auth: action.payload };
+
     case SET_USERNAME:
       return { ...state, username: action.payload };
 

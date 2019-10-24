@@ -25,7 +25,7 @@ export const getGameStatus = (id, onSuccess, onFailure) => {
 };
 
 export const buyCard = (id, onSuccess, onFailure) => {
-  console.log('Bought card', id);
+  console.log('Buying card', id);
 
   mkPromise()
     .then(() => {
@@ -45,7 +45,7 @@ export const buyCard = (id, onSuccess, onFailure) => {
 };
 
 export const buildCity = (id, pos, onSuccess, onFailure) => {
-  console.log('Built city', id, pos);
+  console.log('Building city', id, pos);
 
   mkPromise()
     .then(() => {
@@ -67,7 +67,7 @@ export const buildCity = (id, pos, onSuccess, onFailure) => {
 };
 
 export const buildRoad = (id, pos, onSuccess, onFailure) => {
-  console.log('Built road', id, pos);
+  console.log('Building road', id, pos);
 
   mkPromise()
     .then(() => {
@@ -89,7 +89,7 @@ export const buildRoad = (id, pos, onSuccess, onFailure) => {
 };
 
 export const buildSettlement = (id, pos, onSuccess, onFailure) => {
-  console.log('Built settlement', id, pos);
+  console.log('Building settlement', id, pos);
 
   mkPromise()
     .then(() => {
@@ -111,7 +111,7 @@ export const buildSettlement = (id, pos, onSuccess, onFailure) => {
 };
 
 export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
-  console.log('Bank trade', offer, request, id);
+  console.log('Buying resource', offer, request, id);
 
   mkPromise()
     .then(() => {
@@ -179,38 +179,65 @@ export const createRoom = (name, boardId, onSuccess, onFailure) => {
 
 
 export const signup = (username, password, onSuccess, onFailure) => {
-  console.log('Register User: ', username, password);
+  console.log('Signing up', username, password);
 
-  // Search if the user currently exists
   mkPromise()
     .then(() => {
+      // Check if user is registered.
       const found = data.users.find((user) => user.username === username);
-      if (!found) {
-        // New user registration
+      if (found) {
+        onFailure(Error('User is already registered'));
+      } else {
+        // Register.
         data.users = [...data.users, { username, password }];
         onSuccess();
-      } else {
-        onFailure(Error('User is already registered'));
       }
     });
 };
 
 export const login = (username, password, onSuccess, onFailure) => {
-  console.log('Login User: ', username, password);
+  console.log('Logging in', username, password);
 
-  // Search if the user currently exists
   mkPromise()
     .then(() => {
-      const findUser = data.users.find((user) => user.username === username);
-      const findPass = data.users.find((user) => user.password === password);
-      if (findUser && findPass) {
-        // User is registered
-        data.users = [...data.users, { username, password }];
+      // Check if user is registered.
+      const user = data.users.find((x) => x.username === username);
+      const pass = data.users.find((x) => x.password === password);
+      if (user && pass) {
         onSuccess({ token: 'token' });
-      } else if (!findUser) {
+      } else if (!user) {
         onFailure(Error('Failed to login: You are not registered'));
-      } else if (!findPass) {
-        onFailure(Error('Failed to login: Password Invalid'));
+      } else if (!pass) {
+        onFailure(Error('Failed to login: Password invalid'));
       }
     });
+};
+
+export const getRoom = (id, onSuccess, onFailure) => {
+  console.log('Got room', id);
+
+  const room = data.rooms.find((room) => room && room.id === id);
+
+  data.waiting -= 1;
+  if (data.waiting === 0) {
+    room.game_has_started = true;
+    room.game_id = 1;
+    data.rooms[data.rooms.indexOf(room)] = { ...room };
+  }
+
+  if (data.getRoom) onFailure();
+  else return onSuccess(room);
+};
+
+export const startGame = (id, onSuccess, onFailure) => {
+  console.log('Started game');
+
+  // Start game
+  const room = data.rooms.find((room) => room && room.id === id);
+  room.game_has_started = true;
+  room.game_id = 1;
+  data.rooms = [...data.rooms];
+
+  if (data.startGame) onFailure();
+  else onSuccess();
 };

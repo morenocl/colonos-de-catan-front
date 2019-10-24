@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
+import { cardNames, resourceNames } from '../utils/Constants';
+
 
 const counter = (list, string) => {
   let count = 0;
@@ -115,6 +117,6 @@ export default Hand;
 
 
 Hand.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.string).isRequired,
-  resources: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cards: PropTypes.arrayOf(PropTypes.oneOf(cardNames)).isRequired,
+  resources: PropTypes.arrayOf(PropTypes.oneOf(resourceNames)).isRequired,
 };
