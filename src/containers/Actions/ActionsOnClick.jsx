@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import showVertices from '../../components/Board/ShowVertices';
 import showEdges from '../../components/Board/ShowEdges';
 import { buyCard } from '../../utils/Mock';
-import { buildingColour, buildingRequests } from './ActionsUtils';
+import { buildingRequests } from './ActionsUtils';
 import { colours } from '../../utils/Constants';
 
 
