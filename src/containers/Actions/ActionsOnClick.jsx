@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import showVertices from '../../components/Board/ShowVertices';
 import showEdges from '../../components/Board/ShowEdges';
 import { buyCard } from '../../utils/Mock';
-import { buildingColour, buildingRequests } from './ActionsUtils';
+import { buildingRequests } from './ActionsUtils';
+import { colours } from '../../utils/Constants';
 
 
 // Returns a function that, given refresh and setError,
@@ -26,21 +27,21 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
       return (ps) => (() => {
         setBuilding();
         setFrozen();
-        showVertices(draw, buildingColour, ps, 'settlement', sBuild);
+        showVertices(draw, colours.building, ps, 'settlement', sBuild);
       });
 
     case 'build_road':
       return (ps) => (() => {
         setBuilding();
         setFrozen();
-        showEdges(draw, buildingColour, ps, rBuild);
+        showEdges(draw, colours.building, ps, rBuild);
       });
 
     case 'upgrade_city':
       return (ps) => (() => {
         setBuilding();
         setFrozen();
-        showVertices(draw, buildingColour, ps, 'city', cBuild);
+        showVertices(draw, colours.building, ps, 'city', cBuild);
       });
 
     case 'bank_trade':

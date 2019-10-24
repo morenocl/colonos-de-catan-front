@@ -21,3 +21,12 @@ export const resourceNames = [
   'grain',
   'ore',
 ];
+
+export const colours = {
+  red: '#f44336',
+  green: '#7cdc39',
+  blue: '#3f51b5',
+  yellow: '#ffeb3b',
+  robber: '#666666',
+  building: '#8a4af3',
+};
