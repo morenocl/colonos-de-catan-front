@@ -79,10 +79,7 @@ describe('BankTrade', () => {
 	}
 	);
 	let list = r.find('#offer');
-	let elem = list.children().filterWhere((elem) => {
-	    return elem.prop('eventKey') === 'brick'
-	});
-	elem.simulate('click');
+	list.simulate('change', {target: {value: 'brick'}});
 	expect(selected, r.debug()).to.equal(true);
     });
 });

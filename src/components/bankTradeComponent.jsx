@@ -13,7 +13,7 @@ const BankTradeComponent = ({
 }) => (
   <Row>
     <Col xs={4}>
-      <DropdownButton title="Offer" id="offer" onSelect={offerH}>
+      <DropdownButton title="Offer" id="offer" onChange={offerH}>
         <Dropdown.Item eventKey="brick">Brick (x4)</Dropdown.Item>
         <Dropdown.Item eventKey="lumber">Lumber (x4)</Dropdown.Item>
         <Dropdown.Item eventKey="wool">Wool (x4)</Dropdown.Item>
@@ -22,7 +22,7 @@ const BankTradeComponent = ({
       </DropdownButton>
     </Col>
     <Col xs={4}>
-      <DropdownButton title="Request" id="request" onSelect={requestH}>
+      <DropdownButton title="Request" id="request" onChange={requestH}>
         <Dropdown.Item eventKey="brick">Brick (x1)</Dropdown.Item>
         <Dropdown.Item eventKey="lumber">Lumber (x1)</Dropdown.Item>
         <Dropdown.Item eventKey="wool">Wool (x1)</Dropdown.Item>
