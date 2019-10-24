@@ -66,4 +66,23 @@ describe('BankTrade', () => {
 	const _ = shallow(<BankTrade id={id} onSuccess={onSuccess} onFailure={onFailure} />);
 	expect(success).to.equal(true);
     });
+
+    it('should change the selected item accordingly', () => {
+	var selected = false;
+	const r = mock(
+	{
+	    offerH: (_) => { selected = true; },
+	    requestH: (_) => {},
+	    trader: (_) => {},
+	    gives: '',
+	    takes: '',
+	}
+	);
+	let list = r.find('#offer');
+	let elem = list.children().filterWhere((elem) => {
+	    return elem.prop('eventKey') === 'brick'
+	});
+	elem.simulate('click');
+	expect(selected, r.debug()).to.equal(true);
+    });
 });
