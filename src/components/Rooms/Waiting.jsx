@@ -8,6 +8,7 @@ import { RoomType } from '../../utils/ApiTypes';
 
 export const Waiting = ({ room, onClick }) => {
   const {
+    // eslint-disable-next-line camelcase
     max_players, name, owner, players,
   } = room;
 
@@ -35,6 +36,7 @@ export const Waiting = ({ room, onClick }) => {
               Max Players:
             </td>
             <td>
+              {/* eslint-disable-next-line camelcase */}
               {max_players}
             </td>
           </tr>

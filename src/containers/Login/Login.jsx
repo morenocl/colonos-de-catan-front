@@ -67,4 +67,5 @@ export default connect(
 
 Login.propTypes = {
   setAuth: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
 };

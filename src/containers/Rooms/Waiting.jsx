@@ -34,7 +34,6 @@ export const Waiting = ({ username, room, setRoom }) => {
   };
 
   const refresh = () => {
-    console.log(gameId);
     if (!gameId) {
       getRoom(id, onSuccess, onFailure);
     }
@@ -64,4 +63,8 @@ Waiting.propTypes = {
   username: PropTypes.string.isRequired,
   room: RoomType,
   setRoom: PropTypes.func.isRequired,
+};
+
+Waiting.defaultProps = {
+  room: null,
 };
