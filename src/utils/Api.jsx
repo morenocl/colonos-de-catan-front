@@ -6,7 +6,6 @@ const path = 'http://demo7974963.mockable.io';
 const request = (url, options, onSuccess, onFailure) => {
   fetch(url, options)
     .then((r) => {
-      console.log(r);
       if (!r.ok) return onFailure(Error(r.statusText));
       return r.json().then(onSuccess);
     })

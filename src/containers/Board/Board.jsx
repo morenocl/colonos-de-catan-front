@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
   roads: state.Game.board.roads,
   robber: state.Game.board.robber,
   settlements: state.Game.board.settlements,
-  oldDraw: state.Board.draw,
+  draw: state.Board.draw,
 });
 
 const mapDispatchToProps = ({
@@ -40,32 +40,30 @@ export const Board = (props) => {
   const {
     cities, hexagons, roads, robber, settlements,
   } = props;
-  const { oldDraw, setDraw } = props;
+  const { draw, setDraw } = props;
+
+  // Set draw when component has mounted.
+  // This must be done exactly one time.
+  useEffect(() => {
+    setDraw(SVG('board').size(WIDTH, HEIGHT));
+  }, [setDraw]);
 
   useEffect(() => {
-    // We need to update SVG instance if it is null,
-    // or if it lost reference to current node.
-    const needToUpdate = !oldDraw || !oldDraw.clear;
-
-    // Choose proper instance.
-    const draw = needToUpdate ? SVG('board').size(WIDTH, HEIGHT) : oldDraw;
-
-    // If an update is needed, store it.
-    if (needToUpdate) setDraw(draw);
-
+    if (draw) {
     // Clear current board.
-    draw.clear();
-    // Show hexagons and tokens.
-    showHexagons(draw, hexagons);
-    // Show robber.
-    showRobber(draw, robber);
-    // Show roads for each player.
-    // Roads need to be drawn first, for aesthetic purposes.
-    showConstructions(showEdges, draw, roads);
-    // Show settlements for each player.
-    showConstructions(showVertices, draw, settlements, 'settlement');
-    // Show cities for each player.
-    showConstructions(showVertices, draw, cities, 'city');
+      draw.clear();
+      // Show hexagons and tokens.
+      showHexagons(draw, hexagons);
+      // Show robber.
+      showRobber(draw, robber);
+      // Show roads for each player.
+      // Roads need to be drawn first, for aesthetic purposes.
+      showConstructions(showEdges, draw, roads);
+      // Show settlements for each player.
+      showConstructions(showVertices, draw, settlements, 'settlement');
+      // Show cities for each player.
+      showConstructions(showVertices, draw, cities, 'city');
+    }
   });
 
   return (<div id="board" />);
@@ -76,7 +74,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Board);
 
 Board.propTypes = {
   cities: PropTypes.arrayOf(BuildingType).isRequired,
-  oldDraw: PropTypes.shape({
+  draw: PropTypes.shape({
     clear: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
   }),
@@ -88,5 +86,5 @@ Board.propTypes = {
 };
 
 Board.defaultProps = {
-  oldDraw: null,
+  draw: null,
 };
