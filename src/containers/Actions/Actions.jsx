@@ -66,7 +66,7 @@ export const Actions = (props) => {
 
   if (stage === 'buying') return (<BankTrade />);
 
-  if (stage === 'building') return (<h1> Buying </h1>);
+  if (stage === 'building') return (<h1> Choose a position </h1>);
 
   return (
     <ActionsScreen />
