@@ -78,7 +78,8 @@ export const buildRoad = (id, pos, onSuccess, onFailure) => {
       // Find action index.
       const actionId = data.actions.findIndex((x) => x && x.type === 'build_road');
       // Find payload index.
-      const posId = data.actions[actionId].payload.indexOf(pos);
+      const posId = data.actions[actionId].payload
+        .findIndex((x) => x && x[0] === pos[0] && x[1] === pos[1]);
       // Remove from available positions.
       data.actions[actionId].payload.splice(posId, 1);
       if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
@@ -216,27 +217,26 @@ export const login = (username, password, onSuccess, onFailure) => {
 export const getRoom = (id, onSuccess, onFailure) => {
   console.log('Got room', id);
 
-  const room = data.rooms.find((room) => room && room.id === id);
+  const room = data.rooms.find((r) => r && r.id === id);
 
-  if (!data.waiting.id)
-    data.waiting.id = data.totalWait;
+  if (!data.waiting.id) data.waiting.id = data.totalWait;
 
-  data.waiting.id -= 1;
-  if (data.waiting.id === 0) {
+  data.waiting -= 1;
+  if (data.waiting === 0) {
     room.game_has_started = true;
     room.game_id = 1;
     data.rooms[data.rooms.indexOf(room)] = { ...room };
   }
 
   if (data.getRoom) onFailure();
-  else return onSuccess(room);
+  else onSuccess(room);
 };
 
 export const startGame = (id, onSuccess, onFailure) => {
   console.log('Started game');
 
   // Start game
-  const room = data.rooms.find((room) => room && room.id === id);
+  const room = data.rooms.find((r) => r && r.id === id);
   room.game_has_started = true;
   room.game_id = 1;
   data.rooms = [...data.rooms];
