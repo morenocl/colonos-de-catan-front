@@ -4,11 +4,9 @@ import {
   render, wait, waitForElement, fireEvent
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { FetchMock } from '@react-mock/fetch';
 import { Redirect as MockRedirect } from 'react-router-dom';
 
 import CreateRoom from '../src/containers/Rooms/CreateRoom';
-import { mocks } from './data/CreateRoom.ducks';
 
 // mock out Redirect so that we can assert on it
 // eslint-disable-next-line no-undef
@@ -21,19 +19,14 @@ jest.mock('react-router-dom', () => ({
 describe('Create Rooms', () => {
   it('insert lobby name, select board', async () => {
     const { getAllByTestId, getByTestId } = render(
-      // eslint-disable-next-line react/jsx-filename-extension
-      <FetchMock mocks={mocks}>
-        <CreateRoom />
-      </FetchMock>
+      <CreateRoom />
     );
 
-    // Api Get Mock /boards/
-    const get = mocks[0];
 
     const boardList = await waitForElement(
       () => getAllByTestId('board-name')
     );
-    expect(boardList.length).toBe(get.response.length);
+    expect(boardList.length).toBe(3);
     expect(getByTestId('button')).toBeDisabled();
 
     const roomInput = getByTestId('room-name');
@@ -51,10 +44,7 @@ describe('Create Rooms', () => {
 
   it('insert lobby, select board and redirect', async () => {
     const { getAllByTestId, getByTestId } = render(
-      // eslint-disable-next-line react/jsx-filename-extension
-      <FetchMock mocks={mocks}>
-        <CreateRoom />
-      </FetchMock>
+      <CreateRoom />
     );
 
     await waitForElement(() => getAllByTestId('board-name'));
@@ -71,11 +61,8 @@ describe('Create Rooms', () => {
       expect(MockRedirect).toHaveBeenCalledTimes(1);
     });
 
-    // Api Post Mock /rooms/
-    const post = mocks[1];
-
     // assert that our redirect was called with the correct path for redirection
-    const redirect = `/waiting/${post.response.id}`;
+    const redirect = '/waiting/1';
     expect(MockRedirect).toHaveBeenCalledWith({ to: redirect }, {});
   });
 });
