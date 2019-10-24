@@ -1,3 +1,18 @@
+export const boards = [
+      {
+        id: 1,
+        name: 'board1',
+      },
+      {
+        id: 2,
+        name: 'board2',
+      },
+      {
+        id: 3,
+        name: 'board3',
+      },
+    ];
+
 export const cards = [
   'road_building',
   'road_building',
