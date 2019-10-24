@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 import { hexCenter, robberShape, robberSize } from './BoardUtils';
 import { HexagonPosition } from '../../utils/ApiTypes';
+import { colours } from '../../utils/Constants';
 
 
 const showRobber = (draw, position) => {
@@ -10,7 +11,7 @@ const showRobber = (draw, position) => {
 
   draw[robberShape](robberSize)
     .center(x, y)
-    .fill('#000000');
+    .fill(colours.robber);
 };
 
 export default showRobber;

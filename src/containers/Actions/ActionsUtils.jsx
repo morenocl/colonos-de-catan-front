@@ -15,7 +15,6 @@ export const actionLabels = {
   play_year_of_plenty_card: 'Play year of plenty',
 };
 
-export const buildingColour = '#000000';
 
 export const buildingRequests = (id, refresh, setError, setRunning) => {
   const onSuccess = () => {

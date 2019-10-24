@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { colours } from './Constants';
 
 
 const path = 'http://demo7974963.mockable.io';
@@ -113,20 +114,20 @@ export const joinRoom = (id, onFailure) => {
 
 const getFromPlayers = (ps) => ({
   settlements: ps.map((player) => ({
-    colour: player.colour,
+    colour: colours[player.colour],
     settlements: player.settlements,
   })),
   cities: ps.map((player) => ({
-    colour: player.colour,
+    colour: colours[player.colour],
     cities: player.cities,
   })),
   roads: ps.map((player) => ({
-    colour: player.colour,
+    colour: colours[player.colour],
     roads: player.roads,
   })),
   players: ps.map((player) => ({
     username: player.username,
-    colour: player.colour,
+    colour: colours[player.colour],
     developmentCards: player.development_cards,
     resourceCards: player.resources_cards,
     victoryPoints: player.victory_points,
