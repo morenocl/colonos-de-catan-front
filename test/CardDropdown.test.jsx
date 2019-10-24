@@ -6,7 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import { CardDropdown } from '../src/containers/Actions/CardDropdown';
 import ActionButton from '../src/containers/Actions/ActionButton';
-import { cardNames } from '../src/utils/Constants';
+import { cardActionNames } from '../src/utils/Constants';
 
 
 // This connects enzyme to the react adapter.
@@ -39,7 +39,7 @@ describe('CardDropdown', () => {
   });
 
   it('should show each card separately', () => {
-    cardNames.forEach((type) => {
+    cardActionNames.forEach((type) => {
       const r = mk([{ type }]);
       const expected = (
         <Dropdown>
@@ -56,14 +56,14 @@ describe('CardDropdown', () => {
   });
 
   it('should show all cards', () => {
-    const r = mk(cardNames.map((type) => ({ type })));
+    const r = mk(cardActionNames.map((type) => ({ type })));
     const expected = (
       <Dropdown>
         <Dropdown.Toggle disabled={false}>
             Development Cards
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          { cardNames.map((type) => (
+          { cardActionNames.map((type) => (
             <ActionButton C={Dropdown.Item} key={type} type={type} />
           ))}
         </Dropdown.Menu>
