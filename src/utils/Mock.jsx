@@ -153,29 +153,23 @@ export const joinRoom = (id, onSuccess, onFailure) => {
 };
 
 export const getBoards = (onSuccess, onFailure) => {
-  setTimeout(() => {
-    onSuccess([
-      {
-        id: 1,
-        name: 'board1',
-      },
-      {
-        id: 2,
-        name: 'board2',
-      },
-      {
-        id: 3,
-        name: 'board3',
-      },
-    ]);
-  }, 10);
+  console.log('Getting boards');
+
+  mkPromise('boards')
+    .then((b) => {
+      if (data.joinRoom) onFailure();
+      else onSuccess(b);
+    });
 };
 
 export const createRoom = (name, boardId, onSuccess, onFailure) => {
-  console.log(name, boardId);
-  setTimeout(() => {
-    onSuccess({ id: 1 });
-  }, 100);
+  console.log('Creating room', name, boardId);
+
+  mkPromise()
+    .then(() => {
+      if (data.joinRoom) onFailure();
+      else onSuccess(data.rooms[0]);
+    });
 };
 
 
@@ -217,12 +211,14 @@ export const login = (username, password, onSuccess, onFailure) => {
 export const getRoom = (id, onSuccess, onFailure) => {
   console.log('Got room', id);
 
+  const key = String(id);
   const room = data.rooms.find((r) => r && r.id === id);
 
-  if (!data.waiting.id) data.waiting.id = data.totalWait;
+  console.log(data.waiting, data.waiting.id, data.totalWait, id);
+  if (!data.waiting[key]) data.waiting[key] = data.totalWait;
 
-  data.waiting -= 1;
-  if (data.waiting === 0) {
+  data.waiting[key] -= 1;
+  if (data.waiting[key] <= 0) {
     room.game_has_started = true;
     room.game_id = 1;
     data.rooms[data.rooms.indexOf(room)] = { ...room };

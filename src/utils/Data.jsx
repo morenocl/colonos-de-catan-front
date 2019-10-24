@@ -1,5 +1,5 @@
 import {
-  cards, cities, hexagons,
+  boards, cards, cities, hexagons,
   resources, roads, robber, settlements, info,
 } from './BoardData';
 import { actions } from './ActionsData';
@@ -14,6 +14,7 @@ const data = {
   cardsToBuy: 3,
   resourcesToBuy: 3,
   actions,
+  boards,
   board: {
     cities, hexagons, roads, robber, settlements,
   },
