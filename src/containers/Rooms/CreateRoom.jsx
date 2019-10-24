@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import CreateScreen from '../../components/Rooms/CreateRoom';
 import { getBoards, createRoom } from '../../utils/Mock';
+import { setRunning as dispatchRunning } from './Rooms.ducks';
+
 
 const initialState = {
   roomName: '',
@@ -15,7 +19,11 @@ const initialState = {
 
 };
 
-const CreateRoom = () => {
+const mapDispatchToProps = ({
+  setRunning: dispatchRunning,
+});
+
+const CreateRoom = ({ setRunning }) => {
   const [boards, setBoards] = useState([]);
   const [error, setError] = useState('');
   const [response, setResponse] = useState(undefined);
@@ -84,6 +92,7 @@ const CreateRoom = () => {
     const onSuccess = (res) => {
       const path = `/waiting/${res.id}`;
       setResponse(<Redirect to={path} />);
+      setRunning();
     };
 
     // eslint-disable-next-line no-shadow
@@ -123,4 +132,9 @@ const CreateRoom = () => {
   );
 };
 
-export default CreateRoom;
+export default connect(null, mapDispatchToProps)(CreateRoom);
+
+
+CreateRoom.propTypes = {
+  setRunning: PropTypes.func.isRequired,
+};

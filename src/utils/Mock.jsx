@@ -214,7 +214,6 @@ export const getRoom = (id, onSuccess, onFailure) => {
   const key = String(id);
   const room = data.rooms.find((r) => r && r.id === id);
 
-  console.log(data.waiting, data.waiting.id, data.totalWait, id);
   if (!data.waiting[key]) data.waiting[key] = data.totalWait;
 
   data.waiting[key] -= 1;
