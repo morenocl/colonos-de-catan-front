@@ -4,11 +4,11 @@ import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /* eslint-disable import/no-named-as-default */
-import CreateRoom from './Rooms/Create';
+import CreateRoom from './Rooms/CreateRoom';
 import Game from './Game/Game';
 import Login from './Login/Login';
 import Rooms from './Rooms/Rooms';
-import Signup from './Signup';
+import Signup from './Signup/Signup';
 import Waiting from './Rooms/Waiting';
 /* eslint-enable import/no-named-as-default */
 
@@ -40,7 +40,7 @@ export const Routes = ({ auth }) => (
     {/* Only if authenticated. */}
     {[{ auth, path: '/rooms', component: Rooms },
       { auth, path: '/create', component: CreateRoom },
-      { auth, path: '/waiting', component: Waiting },
+      { auth, path: '/waiting/:id', component: Waiting },
       { auth, path: '/game/:id', component: Game },
     ].map(toCondRoute(auth, '/'))}
 

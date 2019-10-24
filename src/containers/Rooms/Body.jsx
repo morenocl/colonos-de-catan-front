@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Error from '../../components/Error';
 import RoomBody from '../../components/Rooms/Body';
-import { joinRoom } from '../../utils/Api';
+import { joinRoom } from '../../utils/Mock';
 
 
 export const Body = (props) => {
@@ -17,7 +17,7 @@ export const Body = (props) => {
 
   const onClick = () => {
     setLoading(true);
-    const onSuccess = () => { setResult(<Redirect to="/waiting" />); };
+    const onSuccess = () => { setResult(<Redirect to={`/waiting/${id}`} />); };
     const onFailure = () => { setResult(<Error />); };
     joinRoom(id, onSuccess, onFailure);
   };

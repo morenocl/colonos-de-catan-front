@@ -1,32 +1,241 @@
-import { hexagons } from './Data';
+/* eslint-disable no-console */
+import data from './Data';
 
 
-export const configs = {};
-const TIMEOUT = 100;
+const mkPromise = (x) => (
+  new Promise((res) => {
+    setTimeout(() => res(data[x]), data.timeout);
+  })
+);
 
+/* Game */
 export const getGameStatus = (id, onSuccess, onFailure) => {
-  const actions = [];
-  const board = { hexagons };
-  const hand = { resources: [], cards: [] };
-  const info = {};
+  console.log('Getting game status', id);
 
-  const p0 = new Promise((res, rej) => {
-    setTimeout(() => res(actions), configs.timeout || TIMEOUT);
-  });
-  const p1 = new Promise((res, rej) => {
-    setTimeout(() => res(board), configs.timeout || TIMEOUT);
-  });
-  const p2 = new Promise((res, rej) => {
-    setTimeout(() => res(hand), configs.timeout || TIMEOUT);
-  });
-  const p3 = new Promise((res, rej) => {
-    setTimeout(() => res(info), configs.timeout || TIMEOUT);
-  });
+  const p0 = mkPromise('actions');
+  const p1 = mkPromise('board');
+  const p2 = mkPromise('hand');
+  const p3 = mkPromise('info');
 
-  Promise.all([p0, p1, p2, p3]).then(
-    (rs) => {
-      if (configs.getGameStatus) onFailure();
+  Promise.all([p0, p1, p2, p3])
+    .then((rs) => {
+      if (data.getGameStatus) onFailure();
       else onSuccess(...rs);
-    },
-  );
+    });
+};
+
+export const buyCard = (id, onSuccess, onFailure) => {
+  console.log('Buying card', id);
+
+  mkPromise()
+    .then(() => {
+    // Decrement number of cards to buy.
+      data.cardsToBuy -= 1;
+      if (data.cardsToBuy === 0) {
+      // Find action index and remove it.
+        const actionId = data.actions.findIndex((x) => x && x.type === 'buy_card');
+        delete data.actions[actionId];
+      }
+
+      data.actions = [...data.actions];
+
+      if (data.buyCard) onFailure();
+      else onSuccess();
+    });
+};
+
+export const buildCity = (id, pos, onSuccess, onFailure) => {
+  console.log('Building city', id, pos);
+
+  mkPromise()
+    .then(() => {
+      // Update response.
+      data.board.cities = [...data.board.cities];
+      data.board.cities[0].positions.push(pos);
+
+      // Find action index.
+      const actionId = data.actions.findIndex((x) => x && x.type === 'upgrade_city');
+      // Find payload index.
+      const posId = data.actions[actionId].payload.indexOf(pos);
+      // Remove from available positions.
+      data.actions[actionId].payload.splice(posId, 1);
+      if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
+
+      if (data.buildCity) onFailure();
+      else onSuccess();
+    });
+};
+
+export const buildRoad = (id, pos, onSuccess, onFailure) => {
+  console.log('Building road', id, pos);
+
+  mkPromise()
+    .then(() => {
+      // Update response.
+      data.board.roads = [...data.board.roads];
+      data.board.roads[0].positions.push(pos);
+
+      // Find action index.
+      const actionId = data.actions.findIndex((x) => x && x.type === 'build_road');
+      // Find payload index.
+      const posId = data.actions[actionId].payload
+        .findIndex((x) => x && x[0] === pos[0] && x[1] === pos[1]);
+      // Remove from available positions.
+      data.actions[actionId].payload.splice(posId, 1);
+      if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
+
+      if (data.buildRoad) onFailure();
+      else onSuccess();
+    });
+};
+
+export const buildSettlement = (id, pos, onSuccess, onFailure) => {
+  console.log('Building settlement', id, pos);
+
+  mkPromise()
+    .then(() => {
+      // Update response.
+      data.board.settlements = [...data.board.settlements];
+      data.board.settlements[0].positions.push(pos);
+
+      // Find action index.
+      const actionId = data.actions.findIndex((x) => x && x.type === 'build_settlement');
+      // Find payload index.
+      const posId = data.actions[actionId].payload.indexOf(pos);
+      // Remove from available positions.
+      data.actions[actionId].payload.splice(posId, 1);
+      if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
+
+      if (data.buildSettlement) onFailure();
+      else onSuccess();
+    });
+};
+
+export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
+  console.log('Buying resource', offer, request, id);
+
+  mkPromise()
+    .then(() => {
+      // Decrement number of resources to buy.
+      data.resourcesToBuy -= 1;
+      if (data.resourcesToBuy === 0) {
+        // Find action index and remove it.
+        const actionId = data.actions.findIndex((x) => x && x.type === 'bank_trade');
+        delete data.actions[actionId];
+      }
+
+      data.actions = [...data.actions];
+
+      if (data.bankTrade) onFailure();
+      else onSuccess();
+    });
+};
+
+/* Rooms */
+export const getRooms = (onSuccess, onFailure) => {
+  console.log('Getting rooms');
+
+  mkPromise('rooms')
+    .then((rooms) => {
+      if (data.getRooms) onFailure();
+      else onSuccess(rooms);
+    });
+};
+
+export const joinRoom = (id, onSuccess, onFailure) => {
+  console.log('Joining room', id);
+
+  mkPromise()
+    .then(() => {
+      if (data.joinRoom) onFailure();
+      else onSuccess();
+    });
+};
+
+export const getBoards = (onSuccess, onFailure) => {
+  console.log('Getting boards');
+
+  mkPromise('boards')
+    .then((b) => {
+      if (data.joinRoom) onFailure();
+      else onSuccess(b);
+    });
+};
+
+export const createRoom = (name, boardId, onSuccess, onFailure) => {
+  console.log('Creating room', name, boardId);
+
+  mkPromise()
+    .then(() => {
+      if (data.joinRoom) onFailure();
+      else onSuccess(data.rooms[0]);
+    });
+};
+
+
+export const signup = (username, password, onSuccess, onFailure) => {
+  console.log('Signing up', username, password);
+
+  mkPromise()
+    .then(() => {
+      // Check if user is registered.
+      const found = data.users.find((user) => user.username === username);
+      if (found) {
+        onFailure(Error('User is already registered'));
+      } else {
+        // Register.
+        data.users = [...data.users, { username, password }];
+        onSuccess();
+      }
+    });
+};
+
+export const login = (username, password, onSuccess, onFailure) => {
+  console.log('Logging in', username, password);
+
+  mkPromise()
+    .then(() => {
+      // Check if user is registered.
+      const user = data.users.find((x) => x.username === username);
+      const pass = data.users.find((x) => x.password === password);
+      if (user && pass) {
+        onSuccess({ token: 'token' });
+      } else if (!user) {
+        onFailure(Error('Failed to login: You are not registered'));
+      } else if (!pass) {
+        onFailure(Error('Failed to login: Password invalid'));
+      }
+    });
+};
+
+export const getRoom = (id, onSuccess, onFailure) => {
+  console.log('Got room', id);
+
+  const key = String(id);
+  const room = data.rooms.find((r) => r && r.id === id);
+
+  if (!data.waiting[key]) data.waiting[key] = data.totalWait;
+
+  data.waiting[key] -= 1;
+  if (data.waiting[key] <= 0) {
+    room.game_has_started = true;
+    room.game_id = 1;
+    data.rooms[data.rooms.indexOf(room)] = { ...room };
+  }
+
+  if (data.getRoom) onFailure();
+  else onSuccess(room);
+};
+
+export const startGame = (id, onSuccess, onFailure) => {
+  console.log('Started game');
+
+  // Start game
+  const room = data.rooms.find((r) => r && r.id === id);
+  room.game_has_started = true;
+  room.game_id = 1;
+  data.rooms = [...data.rooms];
+
+  if (data.startGame) onFailure();
+  else onSuccess();
 };

@@ -3,19 +3,21 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import Actions from '../../containers/Actions';
+/* eslint-disable import/no-named-as-default */
+import Actions from '../../containers/Actions/Actions';
 import Board from '../../containers/Board/Board';
 import Hand from '../../containers/Hand';
 import Info from '../../containers/Info';
+/* eslint-enable import/no-named-as-default */
 
 
 const GameScreen = () => (
   <Container>
     <Row>
-      <Col xs={9}>
+      <Col xs={10}>
         <Board />
       </Col>
-      <Col xs={3}>
+      <Col xs={2}>
         <Info />
       </Col>
     </Row>

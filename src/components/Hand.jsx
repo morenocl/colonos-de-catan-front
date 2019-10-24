@@ -1,9 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
+import PropTypes from 'prop-types';
+
+import { cardNames, resourceNames } from '../utils/Constants';
 
 
 const counter = (list, string) => {
@@ -16,7 +18,7 @@ const counter = (list, string) => {
   return count;
 };
 
-const resToTable = (resources) => {
+export const resToTable = (resources) => {
   const lumber = counter(resources, 'lumber');
   const wool = counter(resources, 'wool');
   const ore = counter(resources, 'ore');
@@ -54,7 +56,7 @@ const resToTable = (resources) => {
   );
 };
 
-const cardsToTable = (cards) => {
+export const cardsToTable = (cards) => {
   const roadBuilding = counter(cards, 'road_building');
   const yearOfPlenty = counter(cards, 'year_of_plenty');
   const monopoly = counter(cards, 'monopoly');
@@ -93,28 +95,28 @@ const cardsToTable = (cards) => {
 };
 
 
-export default function Hand({ cards, resources }) {
-  return (
-    <Container>
-      <Row>
-        <Col>
-          <Table>
-            {resToTable(resources)}
-          </Table>
-        </Col>
-        <Col>
-          <Table>
-            {cardsToTable(cards)}
-          </Table>
-        </Col>
+const Hand = ({ cards, resources }) => (
+  <Container>
+    <Row>
+      <Col>
+        <Table>
+          {resToTable(resources)}
+        </Table>
+      </Col>
+      <Col>
+        <Table>
+          {cardsToTable(cards)}
+        </Table>
+      </Col>
 
-      </Row>
-    </Container>
-  );
-}
+    </Row>
+  </Container>
+);
+
+export default Hand;
 
 
 Hand.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.string).isRequired,
-  resources: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cards: PropTypes.arrayOf(PropTypes.oneOf(cardNames)).isRequired,
+  resources: PropTypes.arrayOf(PropTypes.oneOf(resourceNames)).isRequired,
 };

@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import * as dispatchObj from './Rooms.ducks';
 import Error from '../../components/Error';
 import RoomsScreen from '../../components/Rooms/Rooms';
-import { getRooms } from '../../utils/Api';
+import { getRooms } from '../../utils/Mock';
 import { RoomType, RoomsStateType } from '../../utils/ApiTypes';
 import useInterval from '../../utils/UseInterval';
 
@@ -17,11 +18,16 @@ const mapStateToProps = (state) => ({
 
 export const Rooms = (props) => {
   const { rooms, stage } = props;
-  const { setError, setRunning, setRooms } = props;
+  const {
+    setError, setRunning, setRooms, setCreate,
+  } = props;
 
   const refresh = () => {
     if (stage !== 'frozen') {
-      const onSuccess = (rs) => { setRunning(); setRooms(rs); };
+      const onSuccess = (rs) => {
+        setRunning();
+        setRooms(rs.filter((r) => r && !r.game_has_started));
+      };
       getRooms(onSuccess, setError);
     }
   };
@@ -33,8 +39,13 @@ export const Rooms = (props) => {
 
   if (stage === 'error') return (<Error />);
 
+  if (stage === 'create') return (<Redirect to="/create" />);
+
   return (
-    <RoomsScreen rooms={rooms} />
+    <RoomsScreen
+      rooms={rooms}
+      onClick={setCreate}
+    />
   );
 };
 
@@ -51,4 +62,5 @@ Rooms.propTypes = {
   setError: PropTypes.func.isRequired,
   setRunning: PropTypes.func.isRequired,
   setRooms: PropTypes.func.isRequired,
+  setCreate: PropTypes.func.isRequired,
 };
