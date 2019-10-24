@@ -10,6 +10,7 @@ const SET_REFRESH = 'rooms/SET_REFRESH';
 const SET_ROOMS = 'rooms/SET_ROOMS';
 const SET_RUNNING = 'rooms/SET_RUNNING';
 const SET_CREATE = 'rooms/SET_CREATE';
+const SET_ROOM = 'create/room';
 
 // Action creators.
 export const setError = () => ({
@@ -23,6 +24,11 @@ export const setFrozen = () => ({
 export const setRefresh = (refresh) => ({
   type: SET_REFRESH,
   payload: refresh,
+});
+
+export const dispatchRoom = (room) => ({
+  type: SET_ROOM,
+  payload: room,
 });
 
 export const setRooms = (rooms) => ({
@@ -42,6 +48,7 @@ export const initialState = {
   stage: 'empty',
   refresh: null,
   rooms: [],
+  room: null,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -56,6 +63,9 @@ const reducer = (state = initialState, action = {}) => {
 
     case SET_REFRESH:
       return { ...state, refresh: payload };
+
+    case SET_ROOM:
+      return { ...state, room: payload };
 
     case SET_ROOMS:
       return { ...state, rooms: payload };
@@ -80,6 +90,11 @@ setRefresh.propTypes = {
 setRooms.propTypes = {
   rooms: PropTypes.arrayOf(RoomType).isRequired,
 };
+
+dispatchRoom.propTypes = {
+  room: RoomType.isRequired,
+};
+
 
 reducer.propTypes = {
   action: PropTypes.string.isRequired,

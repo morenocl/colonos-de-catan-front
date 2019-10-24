@@ -7,17 +7,22 @@ import Error from '../../components/Error';
 import WaitingScreen from '../../components/Rooms/Waiting';
 import { getRoom, startGame } from '../../utils/Mock';
 import useInterval from '../../utils/UseInterval';
+import { dispatchRoom } from './Rooms.ducks';
+import { RoomType } from '../../utils/ApiTypes';
 
 
 const mapStateToProps = (state) => ({
   username: state.Auth.username,
+  room: state.Rooms.room,
 });
 
+const mapDispatchToProps = ({
+  setRoom: dispatchRoom,
+});
 
-export const Waiting = ({ username }) => {
+export const Waiting = ({ username, room, setRoom }) => {
   const id = Number(useParams().id);
   const [stage, setStage] = useState('empty');
-  const [room, setRoom] = useState(null);
 
   const onSuccess = (r) => { setRoom(r); setStage('running'); };
   const onFailure = () => { setStage('error'); };
@@ -29,6 +34,7 @@ export const Waiting = ({ username }) => {
   };
 
   const refresh = () => {
+    console.log(gameId);
     if (!gameId) {
       getRoom(id, onSuccess, onFailure);
     }
@@ -38,7 +44,10 @@ export const Waiting = ({ username }) => {
 
   if (stage === 'empty') return <></>;
 
-  if (gameId) return (<Redirect to={`/game/${gameId}`} />);
+  if (gameId) {
+    setRoom(null);
+    return (<Redirect to={`/game/${gameId}`} />);
+  }
 
   if (stage === 'running') {
     return (
@@ -49,8 +58,10 @@ export const Waiting = ({ username }) => {
   return (<Error />);
 };
 
-export default connect(mapStateToProps)(Waiting);
+export default connect(mapStateToProps, mapDispatchToProps)(Waiting);
 
 Waiting.propTypes = {
   username: PropTypes.string.isRequired,
+  room: RoomType,
+  setRoom: PropTypes.func.isRequired,
 };

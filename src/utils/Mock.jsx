@@ -218,8 +218,11 @@ export const getRoom = (id, onSuccess, onFailure) => {
 
   const room = data.rooms.find((room) => room && room.id === id);
 
-  data.waiting -= 1;
-  if (data.waiting === 0) {
+  if (!data.waiting.id)
+    data.waiting.id = data.totalWait;
+
+  data.waiting.id -= 1;
+  if (data.waiting.id === 0) {
     room.game_has_started = true;
     room.game_id = 1;
     data.rooms[data.rooms.indexOf(room)] = { ...room };
