@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -33,7 +33,8 @@ export const Game = (props) => {
     }
   };
 
-  // Refresh every 5 seconds.
+  // Refresh every 5 seconds and when mounted.
+  useEffect(refresh, []);
   useInterval(refresh, 5000);
   setRefresh(refresh);
 
