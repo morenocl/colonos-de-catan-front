@@ -14,11 +14,10 @@ const PlayerInfo = ({ player }) => {
   return (
     <Card bg={colourCard[colour]}>
       <Card.Title>
-        Player:
         {username}
       </Card.Title>
       <Card.Body>
-        <Table>
+        <Table responsive size='sm'>
           <tbody>
             <tr>
               <td>
@@ -30,7 +29,7 @@ const PlayerInfo = ({ player }) => {
             </tr>
             <tr>
               <td>
-            Development Cards:
+            Dev Cards:
               </td>
               <td>
                 {developmentCards}
