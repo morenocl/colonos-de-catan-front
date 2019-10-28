@@ -6,66 +6,39 @@ const initialState = {
   usernameError: '',
   passwordError: '',
 };
-const useForm = () => {
+const useForm = (validateUsername, validatePassword) => {
   const [values, setValues] = useState(initialState);
   const [usernameValid, setUsernameValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
 
   // Handles Username changes.
   const changeUsername = (e) => {
-    let username = e.target.value;
-    let valid = true;
-    let error = '';
+    const username = e.target.value;
 
     // Validation
-    if (!username) {
-      username = '';
-      valid = false;
-      error = 'This field is required';
-    } else if (!/^[\S]+$/.test(username)) {
-      valid = false;
-      error = 'Space characters are not allowed';
-    }
+    const error = validateUsername(username);
 
     setValues({
       ...values,
       username,
       usernameError: error,
     });
-    setUsernameValid(valid);
+    setUsernameValid(error === '');
   };
 
   // Handles Username changes.
   const changePassword = (e) => {
-    let password = e.target.value;
-    let valid = true;
-    let error = '';
+    const password = e.target.value;
 
     // Validation
-    if (!password) {
-      password = '';
-      valid = false;
-      error = 'This field is required';
-    } else if (password.length < 8) {
-      valid = false;
-      error = 'Please enter at leaset 8 characters';
-    } else if (/^[^a-z]{8,}$/.test(password)) {
-      valid = false;
-      error = 'Password requires at least one lowercase';
-    } else if (/^[^A-Z]{8,}$/.test(password)) {
-      valid = false;
-      error = 'Password requiere at least one uppercase';
-    } else if (/^[a-zA-Z\d]{8,}$/.test(password)) {
-      valid = false;
-      error = 'Password requiere at least one special character';
-    }
+    const error = validatePassword(password);
 
     setValues({
       ...values,
       password,
       passwordError: error,
     });
-    setPasswordValid(valid);
+    setPasswordValid(error === '');
   };
 
   const validate = () => (usernameValid && passwordValid);
