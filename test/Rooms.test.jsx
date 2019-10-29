@@ -5,7 +5,6 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 
 import { Rooms } from '../src/containers/Rooms/Rooms';
-import RoomsScreen from '../src/components/Rooms/Rooms';
 import Error from '../src/components/Error';
 import { initialState, errorState, runningState } from './data/Rooms.ducks';
 
@@ -42,11 +41,11 @@ describe('Rooms', () => {
     expect(r.find('Button').matchesElement(button), r.debug()).to.be.true;
   });
 
-  it('should show two rooms', () => {
+  it('should show three rooms', () => {
     const r = mk(runningState).dive();
     const expected = runningState.rooms.length;
-    expect(r.find('Card'), r.debug()).to.have.lengthOf(expected);
-    expect(r.find('Header'), r.debug()).to.have.lengthOf(expected);
-    expect(r.find('Body'), r.debug()).to.have.lengthOf(expected);
+    expect(r.find('Card')).to.have.lengthOf(expected);
+    expect(r.find('Header')).to.have.lengthOf(expected);
+    expect(r.find('Connect(Body)')).to.have.lengthOf(expected);
   });
 });

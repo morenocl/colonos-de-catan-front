@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 
 const Body = ({
-  id, loading, maxPlayers, onClick, owner, players,
+  id, disabled, maxPlayers, onClick, owner, players,
 }) => (
   <Accordion.Collapse eventKey={id}>
     <Card.Body>
@@ -32,7 +32,7 @@ const Body = ({
         <Button
           variant="primary"
           onClick={onClick}
-          disabled={loading}
+          disabled={disabled}
         >
         Join
         </Button>
@@ -46,7 +46,7 @@ export default Body;
 
 Body.propTypes = {
   id: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   maxPlayers: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
   owner: PropTypes.string.isRequired,

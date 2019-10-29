@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 
 import { Body } from '../src/containers/Rooms/Body';
-import RoomBody from '../src/components/Rooms/Body';
+import BodyScreen from '../src/components/Rooms/Body';
 
 
 // This connects enzyme to the react adapter.
@@ -15,7 +15,8 @@ const room = {
   name: 'name',
   owner: 'owner',
   players: ['player'],
-  maxPlayers: 1,
+  maxPlayers: 2,
+  username: 'player',
 };
 
 // eslint-disable-next-line react/jsx-props-no-spreading
@@ -33,14 +34,14 @@ describe('Room body', () => {
       id, owner, players, maxPlayers,
     } = room;
     const expected = (
-      <RoomBody
+      <BodyScreen
         id={id}
-        loading={false}
+        disabled={false}
         maxPlayers={maxPlayers}
         owner={owner}
         players={players.join(', ')}
       />
     );
-    expect(b.matchesElement(expected), b.debug()).to.be.true;
+    expect(b.matchesElement(expected)).to.be.true;
   });
 });
