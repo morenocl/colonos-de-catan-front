@@ -39,7 +39,7 @@ export const buyCard = (id, onSuccess, onFailure) => {
         delete data.actions[actionId];
       }
 
-      data.actions = [...data.actions];
+      data.actions = JSON.parse(JSON.stringify(data.actions));
 
       if (data.buyCard) onFailure();
       else onSuccess();
@@ -52,7 +52,7 @@ export const buildCity = (id, pos, onSuccess, onFailure) => {
   mkPromise()
     .then(() => {
       // Update response.
-      data.board.cities = [...data.board.cities];
+      data.board.cities = JSON.parse(JSON.stringify(data.board.cities));
       data.board.cities[0].positions.push(pos);
 
       // Find action index.
@@ -74,14 +74,18 @@ export const buildRoad = (id, pos, onSuccess, onFailure) => {
   mkPromise()
     .then(() => {
       // Update response.
-      data.board.roads = [...data.board.roads];
+      data.board.roads = JSON.parse(JSON.stringify(data.board.roads));
       data.board.roads[0].positions.push(pos);
 
       // Find action index.
       const actionId = data.actions.findIndex((x) => x && x.type === 'build_road');
+
       // Find payload index.
       const posId = data.actions[actionId].payload
-        .findIndex((x) => x && x[0] === pos[0] && x[1] === pos[1]);
+        .findIndex((x) => (x
+          && x[0].level === pos[0].level && x[0].index === pos[0].index
+          && x[1].level === pos[1].level && x[1].index === pos[1].index));
+
       // Remove from available positions.
       data.actions[actionId].payload.splice(posId, 1);
       if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
@@ -97,7 +101,7 @@ export const buildSettlement = (id, pos, onSuccess, onFailure) => {
   mkPromise()
     .then(() => {
       // Update response.
-      data.board.settlements = [...data.board.settlements];
+      data.board.settlements = JSON.parse(JSON.stringify(data.board.settlements));
       data.board.settlements[0].positions.push(pos);
 
       // Find action index.
@@ -126,7 +130,7 @@ export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
         delete data.actions[actionId];
       }
 
-      data.actions = [...data.actions];
+      data.actions = JSON.parse(JSON.stringify(data.actions));
 
       if (data.bankTrade) onFailure();
       else onSuccess();
@@ -170,7 +174,7 @@ export const createRoom = (name, boardId, onSuccess, onFailure) => {
   mkPromise()
     .then(() => {
       if (data.joinRoom) onFailure();
-      else onSuccess(data.rooms[0]);
+      else onSuccess(JSON.parse(JSON.stringify(data.rooms[0])));
     });
 };
 
@@ -222,7 +226,7 @@ export const getRoom = (id, onSuccess, onFailure) => {
   if (data.waiting[key] <= 0) {
     room.game_has_started = true;
     room.game_id = 1;
-    data.rooms[data.rooms.indexOf(room)] = { ...room };
+    data.rooms[data.rooms.indexOf(room)] = JSON.parse(JSON.stringify(room));
   }
 
   if (data.getRoom) onFailure();
@@ -236,7 +240,7 @@ export const startGame = (id, onSuccess, onFailure) => {
   const room = data.rooms.find((r) => r && r.id === id);
   room.game_has_started = true;
   room.game_id = 1;
-  data.rooms = [...data.rooms];
+  data.rooms = JSON.parse(JSON.stringify(data.rooms));
 
   if (data.startGame) onFailure();
   else onSuccess();

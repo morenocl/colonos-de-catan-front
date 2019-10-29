@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -74,7 +75,18 @@ export const Actions = (props) => {
 
   if (stage === 'buying') return (<BankTrade />);
 
-  if (stage === 'building') return (<h1> Choose a position </h1>);
+  if (stage === 'building') {
+    return (
+      <>
+        <h1>
+      Choose a position
+        </h1>
+        <Button onClick={() => { setRunning(); refresh(); }}>
+      Cancel
+        </Button>
+      </>
+    );
+  }
 
   return (
     <ActionsScreen />
