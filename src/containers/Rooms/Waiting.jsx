@@ -39,8 +39,9 @@ export const Waiting = ({ username, room, setRoom }) => {
     }
   };
 
+  // Refresh every 5 seconds and when mounted.
   useEffect(refresh, []);
-  useInterval(refresh, 4000);
+  useInterval(refresh, 5000);
 
   if (stage === 'empty') return <></>;
 
