@@ -26,12 +26,13 @@ export const BankTrade = (props) => {
   const [offer, setOffer] = useState('');
   const [request, setRequest] = useState('');
 
+  const refresh = () => {
+    setRunning();
+    getGameStatus(id, setRunningStage, setError);
+  };
+
   const trade = () => {
-    const onSuccess = () => {
-      setRunning();
-      getGameStatus(id, setRunningStage, setError);
-    };
-    bankTrade(id, offer, request, onSuccess, setError);
+    bankTrade(id, offer, request, refresh, setError);
   };
 
   return (
@@ -41,6 +42,7 @@ export const BankTrade = (props) => {
       trade={trade}
       offer={offer}
       request={request}
+      cancel={refresh}
     />
   );
 };

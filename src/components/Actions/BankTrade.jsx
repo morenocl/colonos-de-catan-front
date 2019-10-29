@@ -8,15 +8,18 @@ import PropTypes from 'prop-types';
 import { resourceNames } from '../../utils/Constants';
 
 
-const BankTrade = ({
-  setOffer, setRequest, trade, offer, request,
-}) => {
-  const format = (string, n) => {
-    const initial = string.charAt(0).toUpperCase();
-    const rest = string.slice(1);
-    const number = ` (x${n})`;
-    return (initial + rest + number);
-  };
+const format = (string, n) => {
+  const initial = string.charAt(0).toUpperCase();
+  const rest = string.slice(1);
+  const number = ` (x${n})`;
+  return (initial + rest + number);
+};
+
+const BankTrade = (props) => {
+  const { trade, offer } = props;
+  const {
+    setOffer, setRequest, request, cancel,
+  } = props;
 
   const item = (s, n) => (
     <Dropdown.Item
@@ -63,6 +66,16 @@ const BankTrade = ({
     </td>
   );
 
+  const cancelTrade = (
+    <td>
+      <Button
+        onClick={cancel}
+      >
+        Cancel
+      </Button>
+    </td>
+  );
+
   return (
     <Table>
       <thead>
@@ -79,6 +92,7 @@ const BankTrade = ({
         </tr>
         <tr>
           {confirmTrade}
+          {cancelTrade}
         </tr>
       </tbody>
     </Table>
@@ -94,4 +108,5 @@ BankTrade.propTypes = {
   trade: PropTypes.func.isRequired,
   offer: PropTypes.string.isRequired,
   request: PropTypes.string.isRequired,
+  cancel: PropTypes.func.isRequired,
 };
