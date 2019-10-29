@@ -22,20 +22,17 @@ const mapStateToProps = (state) => ({
 export const Game = (props) => {
   const { stage } = props;
   const {
-    setError, setRunningStage, setRefresh,
+    setError, setRunningStage,
   } = props;
   const { id } = useParams();
 
   // Fetch data from API.
   const refresh = () => {
-    if (stage !== 'frozen') {
-      getGameStatus(id, setRunningStage, setError);
-    }
+    getGameStatus(id, setRunningStage, setError);
   };
 
   // Refresh every 5 seconds.
-  useInterval(refresh, 5000);
-  setRefresh(refresh);
+  useInterval(() => { if (stage !== 'frozen') refresh(); }, 5000);
 
   if (stage === 'empty') return (<></>);
 
@@ -57,5 +54,4 @@ Game.propTypes = PropTypes.shape({
   stage: PropTypes.string,
   setError: PropTypes.func,
   setRunningStage: PropTypes.func,
-  setRefresh: PropTypes.func,
 }).isRequired;

@@ -10,18 +10,21 @@ import {
   dispatchError,
   dispatchRunning,
 } from './Actions.ducks';
-import { setFrozen as dispatchFrozen } from '../Game/Game.ducks';
+import {
+  setFrozen as dispatchFrozen,
+  setRunningStage as dispatchRunningStage,
+} from '../Game/Game.ducks';
 /* eslint-disable import/no-named-as-default */
 import actionOnClick from './ActionsOnClick';
 import BankTrade from './BankTrade';
 import ActionsScreen from '../../components/Actions/Actions';
 import Error from '../../components/Error';
 /* eslint-enable import/no-named-as-default */
+import { getGameStatus } from '../../utils/Mock';
 
 
 const mapStateToProps = (state) => ({
   draw: state.Board.draw,
-  refresh: state.Game.refresh,
   stage: state.Actions.stage,
 });
 
@@ -32,15 +35,20 @@ const mapDispatchToProps = ({
   setOnClick: dispatchOnClick,
   setRunning: dispatchRunning,
   setFrozen: dispatchFrozen,
+  setRunningStage: dispatchRunningStage,
 });
 
 export const Actions = (props) => {
   const { stage } = props;
   const {
-    draw, refresh, setBuilding, setBuying,
-    setError, setOnClick, setRunning, setFrozen,
+    draw, setBuilding, setBuying, setError,
+    setOnClick, setRunning, setRunningStage, setFrozen,
   } = props;
   const { id } = useParams();
+
+  const refresh = () => {
+    getGameStatus(id, setRunningStage, setError);
+  };
 
   // Set onClick generators for buttons.
   const eventHandlers = {
@@ -80,13 +88,13 @@ Actions.propTypes = {
   draw: PropTypes.shape({
     type: PropTypes.string.isRequired,
   }),
-  refresh: PropTypes.func.isRequired,
   setBuilding: PropTypes.func.isRequired,
   setBuying: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
   setFrozen: PropTypes.func.isRequired,
   setOnClick: PropTypes.func.isRequired,
   setRunning: PropTypes.func.isRequired,
+  setRunningStage: PropTypes.func.isRequired,
   stage: PropTypes.string.isRequired,
 };
 
