@@ -24,7 +24,7 @@ const Login = ({ setAuth, setUser }) => {
     validate,
     changeUsername,
     changePassword,
-  } = useForm();
+  } = useForm(() => '', () => '');
 
   // Send data via API.
   const handleSubmit = (event) => {
@@ -41,6 +41,7 @@ const Login = ({ setAuth, setUser }) => {
 
     const onFailure = (err) => {
       setError(err.message);
+      setLoading(false);
     };
 
     login(username, password, onSuccess, onFailure);
