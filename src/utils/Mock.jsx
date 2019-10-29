@@ -4,7 +4,9 @@ import data from './Data';
 
 const mkPromise = (x) => (
   new Promise((res) => {
-    setTimeout(() => res(data[x]), data.timeout);
+    setTimeout(() => {
+      res(x && JSON.parse(JSON.stringify(data[x])));
+    }, data.timeout);
   })
 );
 
