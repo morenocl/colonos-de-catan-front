@@ -29,7 +29,7 @@ export const Waiting = ({ username, room, setRoom }) => {
 
   const gameId = !!room && room.game_has_started ? room.game_id : null;
   const iAmOwner = !!room && room.owner === username;
-  const onClick = () => {
+  const onStart = () => {
     startGame(id, onFailure);
   };
 
@@ -50,7 +50,7 @@ export const Waiting = ({ username, room, setRoom }) => {
 
   if (stage === 'running') {
     return (
-      <WaitingScreen room={room} onClick={iAmOwner ? onClick : null} />
+      <WaitingScreen room={room} onStart={iAmOwner ? onStart : null} />
     );
   }
 

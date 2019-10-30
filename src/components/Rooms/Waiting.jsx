@@ -6,12 +6,13 @@ import Table from 'react-bootstrap/Table';
 import { RoomType } from '../../utils/ApiTypes';
 
 
-export const Waiting = ({ room, onClick }) => {
+export const Waiting = ({ room, onStart }) => {
   const {
     // eslint-disable-next-line camelcase
     max_players, name, owner, players,
   } = room;
 
+const onCancel = null;
   return (
     <div>
       <Table>
@@ -50,8 +51,11 @@ export const Waiting = ({ room, onClick }) => {
           </tr>
         </tbody>
       </Table>
-      <Button disabled={!onClick} onClick={onClick}>
+      <Button disabled={!onStart} onClick={onStart}>
         Start game
+      </Button>
+      <Button disabled={!onCancel} onClick={onCancel}>
+        Cancel Room
       </Button>
     </div>
   );
