@@ -32,6 +32,7 @@ export const Waiting = ({ username, room, setRoom }) => {
   const onStart = () => {
     startGame(id, onFailure);
   };
+  const onCancel = () => null;
 
   const refresh = () => {
     if (!gameId) {
@@ -50,7 +51,11 @@ export const Waiting = ({ username, room, setRoom }) => {
 
   if (stage === 'running') {
     return (
-      <WaitingScreen room={room} onStart={iAmOwner ? onStart : null} />
+      <WaitingScreen
+        room={room}
+        onStart={iAmOwner ? onStart : null}
+        onCancel={iAmOwner ? onCancel : null}
+      />
     );
   }
 

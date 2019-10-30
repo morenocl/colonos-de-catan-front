@@ -6,13 +6,12 @@ import Table from 'react-bootstrap/Table';
 import { RoomType } from '../../utils/ApiTypes';
 
 
-export const Waiting = ({ room, onStart }) => {
+export const Waiting = ({ room, onStart, onCancel }) => {
   const {
     // eslint-disable-next-line camelcase
     max_players, name, owner, players,
   } = room;
 
-const onCancel = null;
   return (
     <div>
       <Table>
