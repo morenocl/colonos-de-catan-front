@@ -19,42 +19,40 @@ export const Body = (props) => {
   } = props;
   const { username } = props;
 
-  const [result, setResult] = useState(undefined);
+  const [stage, setStage] = useState('running');
   const [loading, setLoading] = useState(false);
 
+  const joined = players.includes(username);
+  const full = players.length >= maxPlayers;
+
+  const redir = () => { setStage('redirect'); };
   const join = () => {
     setLoading(true);
-    const onSuccess = () => { setResult(<Redirect to={`/waiting/${id}`} />); };
-    const onFailure = () => { setResult(<Error />); };
-    joinRoom(id, onSuccess, onFailure);
+    joinRoom(id, redir, () => { setStage('error'); });
   };
-
-  const enter = () => {
-    setResult(<Redirect to={`/waiting/${id}`} />);
-  };
-
-  const joined = players.includes(username);
-  const full = maxPlayers <= players.length;
 
   let onClick;
-  if (joined) onClick = enter;
+  if (joined) onClick = redir;
   else if (!gameHasStarted && !full) onClick = join;
   else onClick = null;
 
-  return (
-    result
-    || (
-    <RoomBody
-      id={id}
-      disabled={loading}
-      maxPlayers={maxPlayers}
-      onClick={onClick}
-      owner={owner}
-      players={players.join(', ')}
-      label={joined ? 'Enter' : 'Join'}
-    />
-    )
-  );
+  if (stage === 'running') {
+    return (
+      <RoomBody
+        id={id}
+        disabled={loading}
+        maxPlayers={maxPlayers}
+        onClick={onClick}
+        owner={owner}
+        players={players.join(', ')}
+        label={joined ? 'Enter' : 'Join'}
+      />
+    );
+  }
+
+  if (stage === 'redirect') return (<Redirect to={`/waiting/${id}`} />);
+
+  return (<Error />);
 };
 
 export default connect(mapStateToProps)(Body);
@@ -66,4 +64,5 @@ Body.propTypes = {
   owner: PropTypes.string.isRequired,
   players: PropTypes.arrayOf(PropTypes.string).isRequired,
   username: PropTypes.string.isRequired,
+  gameHasStarted: PropTypes.bool.isRequired,
 };
