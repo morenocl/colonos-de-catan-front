@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Error from '../../components/Error';
 import WaitingScreen from '../../components/Rooms/Waiting';
-import { getRoom, startGame } from '../../utils/Mock';
+import { getRoom, startGame, cancelRoom } from '../../utils/Mock';
 import useInterval from '../../utils/UseInterval';
 import { dispatchRoom } from './Rooms.ducks';
 import { RoomType } from '../../utils/ApiTypes';
@@ -32,7 +32,9 @@ export const Waiting = ({ username, room, setRoom }) => {
   const onStart = () => {
     startGame(id, onFailure);
   };
-  const onCancel = () => null;
+  const onCancel = () => {
+    cancelRoom(id);
+  };
 
   const refresh = () => {
     if (!gameId) {
