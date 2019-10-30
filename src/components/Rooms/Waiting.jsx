@@ -64,9 +64,11 @@ export default Waiting;
 
 Waiting.propTypes = {
   room: RoomType.isRequired,
-  onClick: PropTypes.func,
+  onStart: PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
 Waiting.defaultProps = {
-  onClick: null,
+  onStart: null,
+  onCancel: null,
 };

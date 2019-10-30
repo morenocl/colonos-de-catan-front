@@ -222,9 +222,9 @@ export const getRoom = (id, onSuccess, onFailure) => {
     onFailure();
   } else {
     if (data.waiting[key] <= 0) {
-    room.game_has_started = true;
-    room.game_id = 1;
-    data.rooms[data.rooms.indexOf(room)] = { ...room };
+      room.game_has_started = true;
+      room.game_id = 1;
+      data.rooms[data.rooms.indexOf(room)] = { ...room };
     }
     onSuccess(room);
   }
@@ -243,10 +243,9 @@ export const startGame = (id, onSuccess, onFailure) => {
   else onSuccess();
 };
 
-export const cancelRoom = (id, onSuccess, onFailure) => {
+export const cancelRoom = (id) => {
   console.log('Room canceled', id);
 
   const room = data.rooms.find((r) => r && r.id === id);
-  data.rooms.splice(room);
-  console.log("Eliminado: ", room);
-}
+  data.rooms.splice(data.rooms.indexOf(room), 1);
+};
