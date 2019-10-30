@@ -15,31 +15,43 @@ const mapStateToProps = (state, ownProps) => ({
 
 export const Body = (props) => {
   const {
-    id, owner, players, maxPlayers, username,
+    id, owner, players, maxPlayers, gameHasStarted,
   } = props;
+  const { username } = props;
 
   const [result, setResult] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
-  const onClick = () => {
+  const join = () => {
     setLoading(true);
     const onSuccess = () => { setResult(<Redirect to={`/waiting/${id}`} />); };
     const onFailure = () => { setResult(<Error />); };
     joinRoom(id, onSuccess, onFailure);
   };
 
-  const disabled = !players.includes(username) && maxPlayers <= players.length;
+  const enter = () => {
+    setResult(<Redirect to={`/waiting/${id}`} />);
+  };
+
+  const joined = players.includes(username);
+  const full = maxPlayers <= players.length;
+
+  let onClick;
+  if (joined) onClick = enter;
+  else if (!gameHasStarted && !full) onClick = join;
+  else onClick = null;
 
   return (
     result
     || (
     <RoomBody
       id={id}
-      disabled={disabled || loading}
+      disabled={loading}
       maxPlayers={maxPlayers}
       onClick={onClick}
       owner={owner}
       players={players.join(', ')}
+      label={joined ? 'Enter' : 'Join'}
     />
     )
   );

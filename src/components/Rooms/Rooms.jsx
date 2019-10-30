@@ -15,7 +15,7 @@ const Rooms = ({ rooms, onClick }) => (
     <Accordion>
       {rooms.map(({
         // eslint-disable-next-line camelcase
-        id, max_players, name, owner, players,
+        id, max_players, name, owner, players, game_has_started,
       }) => (
         <Card key={id}>
           <Header
@@ -24,10 +24,12 @@ const Rooms = ({ rooms, onClick }) => (
           />
           <Body
             id={id}
-              // eslint-disable-next-line camelcase
+            // eslint-disable-next-line camelcase
             maxPlayers={max_players}
             owner={owner}
             players={players}
+            // eslint-disable-next-line camelcase
+            gameHasStarted={game_has_started}
           />
         </Card>
       ))}
