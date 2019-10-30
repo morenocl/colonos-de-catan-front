@@ -36,4 +36,4 @@ export const colourCard = {
   '#00ff00': 'success',
   '#0000ff': 'primary',
   '#ff8000': 'warning',
-}
+};

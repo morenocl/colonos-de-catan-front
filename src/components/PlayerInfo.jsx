@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
-import { colourCard } from '../utils/Constants'
+import { colourCard } from '../utils/Constants';
 
 
 const PlayerInfo = ({ player }) => {
@@ -17,7 +17,7 @@ const PlayerInfo = ({ player }) => {
         {username}
       </Card.Title>
       <Card.Body>
-        <Table responsive size='sm'>
+        <Table responsive size="sm">
           <tbody>
             <tr>
               <td>
