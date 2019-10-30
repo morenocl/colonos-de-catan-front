@@ -21,38 +21,41 @@ const mapDispatchToProps = ({
 });
 
 export const Waiting = ({ username, room, setRoom }) => {
-  const id = Number(useParams().id);
+  const { id } = useParams();
+
   const [stage, setStage] = useState('empty');
 
-  const onSuccess = (r) => { setRoom(r); setStage('running'); };
+  const onSuccess = (r) => {
+    setRoom(r);
+    setStage(r.game_has_started ? 'started' : 'running');
+  };
   const onFailure = () => { setStage('error'); };
 
-  const gameId = !!room && room.game_has_started ? room.game_id : null;
-  const iAmOwner = !!room && room.owner === username;
-  const onClick = () => {
-    startGame(id, onFailure);
-  };
-
-  const refresh = () => {
-    if (!gameId) {
-      getRoom(id, onSuccess, onFailure);
-    }
-  };
-
   // Refresh every 5 seconds and when mounted.
+  const refresh = () => { getRoom(id, onSuccess, onFailure); };
   useEffect(refresh, []);
-  useInterval(refresh, 5000);
+  useInterval(() => { if (stage !== 'started') refresh(); }, 5000);
+
+  const onClick = () => {
+    startGame(id, refresh, onFailure);
+  };
 
   if (stage === 'empty') return <></>;
 
-  if (gameId) {
-    setRoom(null);
-    return (<Redirect to={`/game/${gameId}`} />);
+  if (stage === 'started') {
+    return (
+      <Redirect
+        to={`/game/${room.game_id}`}
+      />
+    );
   }
 
   if (stage === 'running') {
     return (
-      <WaitingScreen room={room} onClick={iAmOwner ? onClick : null} />
+      <WaitingScreen
+        room={room}
+        onClick={room.owner === username ? onClick : null}
+      />
     );
   }
 
@@ -60,6 +63,7 @@ export const Waiting = ({ username, room, setRoom }) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Waiting);
+
 
 Waiting.propTypes = {
   username: PropTypes.string.isRequired,
