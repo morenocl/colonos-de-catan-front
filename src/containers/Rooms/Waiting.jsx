@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -39,7 +39,9 @@ export const Waiting = ({ username, room, setRoom }) => {
     }
   };
 
-  useInterval(refresh, 4000);
+  // Refresh every 5 seconds and when mounted.
+  useEffect(refresh, []);
+  useInterval(refresh, 5000);
 
   if (stage === 'empty') return <></>;
 
