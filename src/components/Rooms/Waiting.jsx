@@ -12,44 +12,36 @@ export const Waiting = ({ room, onClick }) => {
     max_players, name, owner, players,
   } = room;
 
+  const head = (
+    <thead>
+      <tr>
+        <th colSpan="2">{name}</th>
+      </tr>
+    </thead>
+  );
+
+  const body = (
+    <tbody>
+      <tr>
+        <td>{`Owner: ${owner}`}</td>
+      </tr>
+      <tr>
+        <td>{`Players: ${players.join(', ')}`}</td>
+      </tr>
+      <tr>
+        {/* eslint-disable-next-line camelcase */}
+        <td>{`Max players: ${max_players}`}</td>
+      </tr>
+    </tbody>
+  );
+
   return (
     <div>
-      <Table>
-        <thead>
-          <tr>
-            <th colSpan="2">
-              {name}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              Owner:
-            </td>
-            <td>
-              {owner}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Max Players:
-            </td>
-            <td>
-              {/* eslint-disable-next-line camelcase */}
-              {max_players}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Players:
-            </td>
-            <td>
-              {players.join(', ')}
-            </td>
-          </tr>
-        </tbody>
+      <Table borderless size="sm">
+        {head}
+        {body}
       </Table>
+
       <Button disabled={!onClick} onClick={onClick}>
         Start game
       </Button>

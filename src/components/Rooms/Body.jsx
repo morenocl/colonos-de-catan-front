@@ -2,9 +2,7 @@ import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
 
@@ -18,7 +16,6 @@ const Body = (props) => {
 
   const button = (
     <Button
-      variant="primary"
       onClick={onClick}
       disabled={disabled}
     >
@@ -29,24 +26,20 @@ const Body = (props) => {
   return (
     <Accordion.Collapse eventKey={id}>
       <Card.Body>
-        <Container>
-          <Row>
-            <Col>
-              {`Owner: ${owner}`}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              {`Players: ${players}`}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              {`Max players: ${maxPlayers}`}
-            </Col>
-          </Row>
-          { onClick && button }
-        </Container>
+        <Table borderless size="sm">
+          <tbody>
+            <tr>
+              <td>{`Owner: ${owner}`}</td>
+            </tr>
+            <tr>
+              <td>{`Players: ${players}`}</td>
+            </tr>
+            <tr>
+              <td>{`Max players: ${maxPlayers}`}</td>
+            </tr>
+          </tbody>
+        </Table>
+        { onClick && button }
       </Card.Body>
     </Accordion.Collapse>
   );

@@ -50,7 +50,7 @@ export const Rooms = (props) => {
     return (
       <RoomsScreen
         rooms={rooms}
-        onClick={setCreate}
+        createRoom={setCreate}
       />
     );
   }

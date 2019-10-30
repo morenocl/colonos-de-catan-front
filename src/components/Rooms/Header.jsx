@@ -9,8 +9,8 @@ const Header = ({ id, name }) => (
   <Card.Header>
     <Accordion.Toggle
       as={Button}
-      variant="link"
       eventKey={id}
+      variant="link"
     >
       {name}
     </Accordion.Toggle>

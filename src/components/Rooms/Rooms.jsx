@@ -10,8 +10,14 @@ import Header from './Header';
 import Body from '../../containers/Rooms/Body';
 
 
-const Rooms = ({ rooms, onClick }) => (
-  <div>
+const Rooms = ({ rooms, createRoom }) => (
+  <>
+    <Button
+      onClick={createRoom}
+    >
+      Create
+    </Button>
+
     <Accordion>
       {rooms.map(({
         // eslint-disable-next-line camelcase
@@ -34,13 +40,7 @@ const Rooms = ({ rooms, onClick }) => (
         </Card>
       ))}
     </Accordion>
-    <Button
-      variant="primary"
-      onClick={onClick}
-    >
-      Create
-    </Button>
-  </div>
+  </>
 );
 
 export default Rooms;
@@ -48,5 +48,5 @@ export default Rooms;
 
 Rooms.propTypes = {
   rooms: PropTypes.arrayOf(RoomType).isRequired,
-  onClick: PropTypes.func.isRequired,
+  createRoom: PropTypes.func.isRequired,
 };
