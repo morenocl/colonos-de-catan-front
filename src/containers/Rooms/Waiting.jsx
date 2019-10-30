@@ -34,6 +34,7 @@ export const Waiting = ({ username, room, setRoom }) => {
   };
   const onCancel = () => {
     cancelRoom(id);
+    setStage('canceled');
   };
 
   const refresh = () => {
@@ -46,6 +47,10 @@ export const Waiting = ({ username, room, setRoom }) => {
 
   if (stage === 'empty') return <></>;
 
+  if (stage === 'canceled') {
+    setRoom(null);
+    return (<Redirect to="/rooms" />);
+  }
   if (gameId) {
     setRoom(null);
     return (<Redirect to={`/game/${gameId}`} />);
