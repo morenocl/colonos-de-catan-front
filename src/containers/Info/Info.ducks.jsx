@@ -7,8 +7,12 @@ export const dispatchOnClick = (playerOnClick) => ({
   payload: { playerOnClick },
 });
 
+const playerOnClick = () => ((player) => (() => {
+  console.log(`Clicked by:${player.username}`);
+}));
+
 export const initialState = {
-  playerOnClick: null,
+  playerOnClick: playerOnClick(),
 };
 
 const reducer = (state = initialState, action = {}) => {

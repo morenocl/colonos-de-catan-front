@@ -1,22 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import './PlayerInfo.css';
 
-const mapStateToProps = (state) => ({
-  playerOnClick: state.Info.playerOnClick,
-});
 
 const PlayerInfo = ({ player, playerOnClick }) => {
   const {
     username, colour, developmentCards, resourcesCards, victoryPoints, lastGained,
   } = player;
 
-  const onClick = playerOnClick(player);
 
   return (
-    <a className="card-clickable" onClick={onClick}>
+    <a className="card-clickable" onClick={playerOnClick}>
       <Card>
         <Card.Title>
           Player:
@@ -72,7 +67,7 @@ const PlayerInfo = ({ player, playerOnClick }) => {
 };
 
 
-export default connect(mapStateToProps)(PlayerInfo);
+export default PlayerInfo;
 
 PlayerInfo.propTypes = {
   player: PropTypes.shape({
