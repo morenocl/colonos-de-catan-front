@@ -1,36 +1,33 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 
 /* eslint-disable import/no-named-as-default */
 import Actions from '../../containers/Actions/Actions';
 import Board from '../../containers/Board/Board';
 import Hand from '../../containers/Hand';
-import Info from '../../containers/Info';
+import Info from '../../containers/Info/Info';
 /* eslint-enable import/no-named-as-default */
 
 
 const GameScreen = () => (
-  <Container>
-    <Row>
-      <Col xs={10}>
+  <div>
+    <div className="d-flex flex-row justify-content-center">
+      <div className="p-5">
         <Board />
-      </Col>
-      <Col xs={2}>
+      </div>
+      <div className="p-5">
         <Info />
-      </Col>
-    </Row>
+      </div>
+    </div>
 
-    <Row>
-      <Col>
+    <div className="d-flex flex-row justify-content-center">
+      <div className="p-5">
         <Hand />
-      </Col>
-      <Col>
+      </div>
+      <div className="p-5">
         <Actions />
-      </Col>
-    </Row>
-  </Container>
+      </div>
+    </div>
+  </div>
 );
 
 export default GameScreen;

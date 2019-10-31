@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import GameInfo from '../components/GameInfo';
-import PlayerInfo from '../components/PlayerInfo';
-import { InfoType } from '../utils/ApiTypes';
+import GameInfo from '../../components/GameInfo';
+import PlayerInfo from '../../components/Info/PlayerInfo';
+import { InfoType } from '../../utils/ApiTypes';
 import { dispatchOnClick } from './Info.ducks';
 
 const mapStateToProps = (state) => ({
@@ -17,7 +17,7 @@ const mapDispatchToProps = ({
   setOnClick: dispatchOnClick,
 });
 
-const playerOnClick = () => ((player) => () => (() => { console.log(`Clicked by:${player.username}`); }));
+const playerOnClick = () => ((player) => (() => { console.log(`Clicked by:${player.username}`); }));
 
 export const Info = (props) => {
   const {
