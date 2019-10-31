@@ -5,8 +5,9 @@ import data from './Data';
 const mkPromise = (x) => (
   new Promise((res) => {
     setTimeout(() => {
+      console.log('Got response');
       res(x && JSON.parse(JSON.stringify(data[x])));
-    }, data.timeout);
+    }, Math.random() * data.timeout);
   })
 );
 
