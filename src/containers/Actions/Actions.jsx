@@ -12,8 +12,9 @@ import {
   dispatchRunning,
 } from './Actions.ducks';
 import {
-  setFrozen as dispatchFrozen,
-  setRunningStage as dispatchRunningStage,
+  setFrozen as dispatchGameFrozen,
+  setRunning as dispatchGameRunning,
+  setState as dispatchGameState,
 } from '../Game/Game.ducks';
 /* eslint-disable import/no-named-as-default */
 import actionOnClick from './ActionsOnClick';
@@ -35,20 +36,25 @@ const mapDispatchToProps = ({
   setError: dispatchError,
   setOnClick: dispatchOnClick,
   setRunning: dispatchRunning,
-  setFrozen: dispatchFrozen,
-  setRunningStage: dispatchRunningStage,
+  setGameFrozen: dispatchGameFrozen,
+  setGameRunning: dispatchGameRunning,
+  setGameState: dispatchGameState,
 });
 
 export const Actions = (props) => {
-  const { stage } = props;
+  const { stage, draw } = props;
   const {
-    draw, setBuilding, setBuying, setError,
-    setOnClick, setRunning, setRunningStage, setFrozen,
+    setBuilding, setBuying, setError, setOnClick, setRunning,
+  } = props;
+  const {
+    setGameFrozen, setGameRunning, setGameState,
   } = props;
   const { id } = useParams();
 
   const refresh = () => {
-    getGameStatus(id, setRunningStage, setError);
+    setRunning();
+    setGameRunning();
+    getGameStatus(id, setGameState, setError);
   };
 
   // Set onClick generators for buttons.
@@ -58,19 +64,14 @@ export const Actions = (props) => {
     setBuilding,
     setBuying,
     setError,
-    setFrozen,
-    setRunning,
+    setGameFrozen,
   };
   setOnClick(actionOnClick(id, eventHandlers));
 
   // On error, show a dismissible Alert.
   // When dismissed, show actions and refresh.
   if (stage === 'error') {
-    return (
-      <Error
-        onClose={() => { setRunning(); refresh(); }}
-      />
-    );
+    return (<Error onClose={refresh} />);
   }
 
   if (stage === 'buying') return (<BankTrade />);
@@ -78,19 +79,15 @@ export const Actions = (props) => {
   if (stage === 'building') {
     return (
       <>
-        <h1>
-      Choose a position
-        </h1>
-        <Button onClick={() => { setRunning(); refresh(); }}>
-      Cancel
+        <h1>Choose a position</h1>
+        <Button onClick={refresh}>
+          Cancel
         </Button>
       </>
     );
   }
 
-  return (
-    <ActionsScreen />
-  );
+  return (<ActionsScreen />);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Actions);
@@ -100,14 +97,15 @@ Actions.propTypes = {
   draw: PropTypes.shape({
     type: PropTypes.string.isRequired,
   }),
+  stage: PropTypes.string.isRequired,
   setBuilding: PropTypes.func.isRequired,
   setBuying: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
-  setFrozen: PropTypes.func.isRequired,
   setOnClick: PropTypes.func.isRequired,
   setRunning: PropTypes.func.isRequired,
-  setRunningStage: PropTypes.func.isRequired,
-  stage: PropTypes.string.isRequired,
+  setGameFrozen: PropTypes.func.isRequired,
+  setGameRunning: PropTypes.func.isRequired,
+  setGameState: PropTypes.func.isRequired,
 };
 
 Actions.defaultProps = {

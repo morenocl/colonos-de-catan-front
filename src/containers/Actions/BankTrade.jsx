@@ -8,7 +8,7 @@ import {
   dispatchRunning,
 } from './Actions.ducks';
 import {
-  setRunningStage as dispatchRunningStage,
+  setRunning as dispatchGameRunning,
 } from '../Game/Game.ducks';
 import BankTradeScreen from '../../components/Actions/BankTrade';
 import { bankTrade, getGameStatus } from '../../utils/Mock';
@@ -17,18 +17,21 @@ import { bankTrade, getGameStatus } from '../../utils/Mock';
 const mapDispatchToProps = ({
   setError: dispatchError,
   setRunning: dispatchRunning,
-  setRunningStage: dispatchRunningStage,
+  setGameRunning: dispatchGameRunning,
 });
 
 export const BankTrade = (props) => {
-  const { setError, setRunning, setRunningStage } = props;
+  const {
+    setError, setRunning, setGameRunning, setGameState,
+  } = props;
   const { id } = useParams();
   const [offer, setOffer] = useState('');
   const [request, setRequest] = useState('');
 
   const refresh = () => {
     setRunning();
-    getGameStatus(id, setRunningStage, setError);
+    setGameRunning();
+    getGameStatus(id, setGameState, setError);
   };
 
   const trade = () => {
@@ -49,8 +52,10 @@ export const BankTrade = (props) => {
 
 export default connect(null, mapDispatchToProps)(BankTrade);
 
+
 BankTrade.propTypes = {
   setError: PropTypes.func.isRequired,
   setRunning: PropTypes.func.isRequired,
-  setRunningStage: PropTypes.func.isRequired,
+  setGameRunning: PropTypes.func.isRequired,
+  setGameState: PropTypes.func.isRequired,
 };
