@@ -8,7 +8,7 @@ import {
   WIDTH, HEIGHT,
 } from '../../components/Board/BoardUtils';
 import showHexagons from '../../components/Board/ShowHexagons';
-import showRobber from '../../components/Board/ShowRobber';
+import showRobber from '../../components/Board/ShowHCenter';
 import showEdges from '../../components/Board/ShowEdges';
 import showVertices from '../../components/Board/ShowVertices';
 import {
@@ -55,7 +55,7 @@ export const Board = (props) => {
       // Show hexagons and tokens.
       showHexagons(draw, hexagons);
       // Show robber.
-      showRobber(draw, robber);
+      showRobber(draw, [robber]);
       // Show roads for each player.
       // Roads need to be drawn first, for aesthetic purposes.
       showConstructions(showEdges, draw, roads);

@@ -27,7 +27,8 @@ export const colours = {
   green: '#7cdc39',
   blue: '#3f51b5',
   yellow: '#ffeb3b',
-  robber: '#666666',
+  robber: '#333333',
+  robberPositioning: '#999999',
   building: '#8a4af3',
 };
 
