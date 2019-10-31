@@ -4,7 +4,7 @@ import { buildingShape, buildingSize, vertexCenter } from './BoardUtils';
 import { BuildingPosition } from '../../utils/ApiTypes';
 
 
-const showVertices = (draw, colour, ps, type, onClickMaker = () => null) => {
+const showVertices = (draw, ps, colour, type, onClickMaker = () => null) => {
   const drawVertex = ({ level, index }) => {
     const { x, y } = vertexCenter[level][index];
 
