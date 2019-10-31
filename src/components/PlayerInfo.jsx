@@ -3,6 +3,8 @@ import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
+import { colourCard } from '../utils/Constants';
+
 
 const PlayerInfo = ({ player }) => {
   const {
@@ -10,13 +12,12 @@ const PlayerInfo = ({ player }) => {
   } = player;
 
   return (
-    <Card>
+    <Card bg={colourCard[colour]}>
       <Card.Title>
-        Player:
         {username}
       </Card.Title>
       <Card.Body>
-        <Table>
+        <Table responsive size="sm">
           <tbody>
             <tr>
               <td>
@@ -28,15 +29,7 @@ const PlayerInfo = ({ player }) => {
             </tr>
             <tr>
               <td>
-            Colour:
-              </td>
-              <td>
-                {colour}
-              </td>
-            </tr>
-            <tr>
-              <td>
-            Development Cards:
+            Dev Cards:
               </td>
               <td>
                 {developmentCards}
