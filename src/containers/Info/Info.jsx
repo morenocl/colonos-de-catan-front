@@ -19,12 +19,14 @@ export const Info = (props) => {
     players, turn, winner, playerOnClick,
   } = props;
 
+
   return (
     <div>
       {players.map((player) => (
         <PlayerInfo
           player={player}
           key={player.username}
+          onTurn={player.username === turn.user}
           playerOnClick={playerOnClick(player)}
         />
       ))}

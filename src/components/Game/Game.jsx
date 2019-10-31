@@ -1,4 +1,7 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 /* eslint-disable import/no-named-as-default */
 import Actions from '../../containers/Actions/Actions';
@@ -9,25 +12,25 @@ import Info from '../../containers/Info/Info';
 
 
 const GameScreen = () => (
-  <div>
-    <div className="d-flex flex-row justify-content-center">
-      <div className="p-5">
+  <Container>
+    <Row>
+      <Col xs={9}>
         <Board />
-      </div>
-      <div className="p-5">
+      </Col>
+      <Col xs={3}>
         <Info />
-      </div>
-    </div>
+      </Col>
+    </Row>
 
-    <div className="d-flex flex-row justify-content-center">
-      <div className="p-5">
+    <Row>
+      <Col>
         <Hand />
-      </div>
-      <div className="p-5">
+      </Col>
+      <Col>
         <Actions />
-      </div>
-    </div>
-  </div>
+      </Col>
+    </Row>
+  </Container>
 );
 
 export default GameScreen;

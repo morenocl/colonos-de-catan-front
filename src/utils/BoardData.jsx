@@ -310,7 +310,7 @@ export const info = {
     },
   ],
   currentTurn: {
-    user: 'user1',
+    user: 'user3',
     dice: [1, 1],
   },
 };
