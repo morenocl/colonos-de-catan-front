@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import SignupScreen from '../components/Signup';
 import { signup } from '../utils/Mock';
 import useForm from './UseForm';
+import { validateUsername, validatePassword } from './FormValid';
 
 const Signup = () => {
   const [error, setError] = useState('');
@@ -13,7 +14,8 @@ const Signup = () => {
     validate,
     changeUsername,
     changePassword,
-  } = useForm();
+  } = useForm(validateUsername, validatePassword);
+
 
   // Send data via API.
   const handleSubmit = (e) => {

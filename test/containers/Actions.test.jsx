@@ -4,8 +4,8 @@ import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { Actions } from '../src/containers/Actions/Actions';
-import { initialState } from './data/Actions.ducks';
+import { Actions } from '../../src/containers/Actions/Actions';
+import { initialState } from '../data/Actions.ducks';
 
 
 // This connects enzyme to the react adapter.
