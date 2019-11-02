@@ -16,7 +16,9 @@ const format = (string, n) => {
 };
 
 const BankTrade = (props) => {
-  const { trade, offer } = props;
+  const {
+    trade, offer, resources, disabled,
+  } = props;
   const {
     setOffer, setRequest, request, cancel,
   } = props;
@@ -30,6 +32,7 @@ const BankTrade = (props) => {
     </Dropdown.Item>
   );
 
+
   const offerOpts = (
     <td>
       <DropdownButton
@@ -37,7 +40,7 @@ const BankTrade = (props) => {
         id="offer"
         onSelect={setOffer}
       >
-        {resourceNames.map((s) => item(s, 4))}
+        {resources.map((s) => item(s, 4))}
       </DropdownButton>
     </td>
   );
@@ -59,7 +62,7 @@ const BankTrade = (props) => {
       <Button
         variant="success"
         onClick={trade}
-        disabled={offer === '' || request === '' || offer === request}
+        disabled={disabled}
       >
         Trade
       </Button>
@@ -109,4 +112,6 @@ BankTrade.propTypes = {
   offer: PropTypes.string.isRequired,
   request: PropTypes.string.isRequired,
   cancel: PropTypes.func.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.string).isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
