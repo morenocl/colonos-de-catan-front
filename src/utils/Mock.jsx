@@ -218,31 +218,35 @@ export const login = (username, password, onSuccess, onFailure) => {
 export const getRoom = (id, onSuccess, onFailure) => {
   console.log('Got room', id);
 
-  const key = String(id);
-  const room = data.rooms.find((r) => r && r.id === id);
+  mkPromise()
+    .then(() => {
+      const room = data.rooms.find((r) => r && r.id === Number(id));
 
-  if (!data.waiting[key]) data.waiting[key] = data.totalWait;
+      if (!data.waiting[id]) data.waiting[id] = data.totalWait;
 
-  data.waiting[key] -= 1;
-  if (data.waiting[key] <= 0) {
-    room.game_has_started = true;
-    room.game_id = 1;
-    data.rooms[data.rooms.indexOf(room)] = JSON.parse(JSON.stringify(room));
-  }
+      data.waiting[id] -= 1;
+      if (data.waiting[id] <= 0) {
+        room.game_has_started = true;
+        room.game_id = 1;
+        data.rooms[data.rooms.indexOf(room)] = { ...room };
+      }
 
-  if (data.getRoom) onFailure();
-  else onSuccess(room);
+      if (data.getRoom) onFailure();
+      else onSuccess(room);
+    });
 };
 
 export const startGame = (id, onSuccess, onFailure) => {
   console.log('Started game');
 
-  // Start game
-  const room = data.rooms.find((r) => r && r.id === id);
-  room.game_has_started = true;
-  room.game_id = 1;
-  data.rooms = JSON.parse(JSON.stringify(data.rooms));
+  mkPromise()
+    .then(() => {
+      const room = data.rooms.find((r) => r && r.id === Number(id));
+      room.game_has_started = true;
+      room.game_id = 2;
+      data.rooms = [...data.rooms];
 
-  if (data.startGame) onFailure();
-  else onSuccess();
+      if (data.startGame) onFailure();
+      else onSuccess();
+    });
 };

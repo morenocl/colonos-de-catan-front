@@ -10,12 +10,18 @@ import Header from './Header';
 import Body from '../../containers/Rooms/Body';
 
 
-const Rooms = ({ rooms, onClick }) => (
-  <div>
+const Rooms = ({ rooms, createRoom }) => (
+  <>
+    <Button
+      onClick={createRoom}
+    >
+      Create
+    </Button>
+
     <Accordion>
       {rooms.map(({
         // eslint-disable-next-line camelcase
-        id, max_players, name, owner, players,
+        id, max_players, name, owner, players, game_has_started,
       }) => (
         <Card key={id}>
           <Header
@@ -24,21 +30,17 @@ const Rooms = ({ rooms, onClick }) => (
           />
           <Body
             id={id}
-              // eslint-disable-next-line camelcase
+            // eslint-disable-next-line camelcase
             maxPlayers={max_players}
             owner={owner}
             players={players}
+            // eslint-disable-next-line camelcase
+            gameHasStarted={game_has_started}
           />
         </Card>
       ))}
     </Accordion>
-    <Button
-      variant="primary"
-      onClick={onClick}
-    >
-      Create
-    </Button>
-  </div>
+  </>
 );
 
 export default Rooms;
@@ -46,5 +48,5 @@ export default Rooms;
 
 Rooms.propTypes = {
   rooms: PropTypes.arrayOf(RoomType).isRequired,
-  onClick: PropTypes.func.isRequired,
+  createRoom: PropTypes.func.isRequired,
 };

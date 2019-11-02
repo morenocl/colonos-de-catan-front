@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import * as dispatchObj from './Rooms.ducks';
+import {
+  dispatchError,
+  dispatchRunning,
+  dispatchRooms,
+  dispatchCreate,
+} from './Rooms.ducks';
 import Error from '../../components/Error';
 import RoomsScreen from '../../components/Rooms/Rooms';
 import { getRooms } from '../../utils/Mock';
@@ -16,6 +21,13 @@ const mapStateToProps = (state) => ({
   stage: state.Rooms.stage,
 });
 
+const mapDispatchToProps = ({
+  setError: dispatchError,
+  setRunning: dispatchRunning,
+  setRooms: dispatchRooms,
+  setCreate: dispatchCreate,
+});
+
 export const Rooms = (props) => {
   const { rooms, stage } = props;
   const {
@@ -23,13 +35,7 @@ export const Rooms = (props) => {
   } = props;
 
   const refresh = () => {
-    if (stage !== 'frozen') {
-      const onSuccess = (rs) => {
-        setRunning();
-        setRooms(rs);
-      };
-      getRooms(onSuccess, setError);
-    }
+    getRooms((rs) => { setRunning(); setRooms(rs); }, setError);
   };
 
   // Refresh every 5 seconds and when mounted.
@@ -38,19 +44,21 @@ export const Rooms = (props) => {
 
   if (stage === 'empty') return (<></>);
 
-  if (stage === 'error') return (<Error />);
-
   if (stage === 'create') return (<Redirect to="/create" />);
 
-  return (
-    <RoomsScreen
-      rooms={rooms}
-      onClick={setCreate}
-    />
-  );
+  if (stage === 'running') {
+    return (
+      <RoomsScreen
+        rooms={rooms}
+        createRoom={setCreate}
+      />
+    );
+  }
+
+  return (<Error />);
 };
 
-export default connect(mapStateToProps, dispatchObj)(Rooms);
+export default connect(mapStateToProps, mapDispatchToProps)(Rooms);
 
 
 mapStateToProps.propTypes = {
@@ -61,7 +69,7 @@ Rooms.propTypes = {
   rooms: PropTypes.arrayOf(RoomType).isRequired,
   stage: PropTypes.string.isRequired,
   setError: PropTypes.func.isRequired,
-  setRunning: PropTypes.func.isRequired,
   setRooms: PropTypes.func.isRequired,
+  setRunning: PropTypes.func.isRequired,
   setCreate: PropTypes.func.isRequired,
 };
