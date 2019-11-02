@@ -17,6 +17,7 @@ const Body = (props) => {
   const button = (
     <Button
       onClick={onClick}
+      data-testid="room-body-button"
       disabled={disabled}
     >
       {label}
@@ -24,7 +25,7 @@ const Body = (props) => {
   );
 
   return (
-    <Accordion.Collapse eventKey={id}>
+    <Accordion.Collapse eventKey={id} data-testid="room-body">
       <Card.Body>
         <Table borderless size="sm">
           <tbody>
