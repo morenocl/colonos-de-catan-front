@@ -13,6 +13,7 @@ const PlayerInfo = ({ player, onTurn, playerOnClick }) => {
 
   return (
     <Card
+      data-testid="card"
       style={{
         borderColor: colour,
         backgroundColor: onTurn ? colour : 'white',

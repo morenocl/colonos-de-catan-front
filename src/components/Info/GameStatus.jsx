@@ -26,7 +26,7 @@ const GameStatus = ({ turn, winner }) => {
           <td>
             Turn:
           </td>
-          <td>
+          <td data-testid="turn-user">
             {turn.user}
           </td>
         </tr>
