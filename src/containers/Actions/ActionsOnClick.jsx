@@ -28,21 +28,21 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
       return (ps) => (() => {
         setBuilding();
         setGameFrozen();
-        showVertices(draw, colours.building, ps, 'settlement', sBuild);
+        showVertices(draw, ps, colours.building, 'settlement', sBuild);
       });
 
     case 'build_road':
       return (ps) => (() => {
         setBuilding();
         setGameFrozen();
-        showEdges(draw, colours.building, ps, rBuild);
+        showEdges(draw, ps, colours.building, rBuild);
       });
 
     case 'upgrade_city':
       return (ps) => (() => {
         setBuilding();
         setGameFrozen();
-        showVertices(draw, colours.building, ps, 'city', cBuild);
+        showVertices(draw, ps, colours.building, 'city', cBuild);
       });
 
     case 'bank_trade':

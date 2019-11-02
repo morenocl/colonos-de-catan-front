@@ -8,7 +8,7 @@ import { users } from './UsersData';
 
 
 const data = {
-  timeout: 1000,
+  timeout: 500,
   waiting: {},
   totalWait: 5,
   cardsToBuy: 3,
