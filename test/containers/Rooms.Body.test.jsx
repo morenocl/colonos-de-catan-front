@@ -1,13 +1,30 @@
 import React from 'react';
 import {
-  render, wait, waitForElement, fireEvent,
+  render, wait, fireEvent,
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { Redirect } from 'react-router-dom';
 
 import { Body, mapStateToProps } from '../../src/containers/Rooms/Body';
-import BodyScreen from '../../src/components/Rooms/Body';
-import { rooms } from '../../src/utils/RoomData'
+import { rooms } from '../../src/utils/RoomData';
+import { joinRoom } from '../../src/utils/Mock';
 
+
+jest.mock('react-router-dom', () => ({
+  Redirect: jest.fn(() => null),
+}));
+
+jest.mock('../../src/utils/Mock', () => ({
+  joinRoom: jest.fn((id, onSuccess, onFailure) => {
+    if (id === 1) onSuccess();
+    else onFailure();
+  }),
+}));
+
+afterEach(() => {
+  Redirect.mockClear();
+  joinRoom.mockClear();
+});
 
 const mk = (props) => render(
   <Body
@@ -17,9 +34,8 @@ const mk = (props) => render(
     maxPlayers={props.max_players}
     gameHasStarted={props.game_has_started}
     username="test"
-  />
+  />,
 );
-
 
 test('returns a room and a username', () => {
   const state = { Auth: { username: 'test' } };
@@ -59,7 +75,7 @@ test('renders without crashing', () => {
  * And room is not full
  * And user is not joined
  * And game has not started */
-test('is be able to join', () => {
+test('is able to join', async () => {
   const { queryByTestId } = mk(rooms[0]);
   const button = queryByTestId('room-body-button');
 
@@ -68,13 +84,21 @@ test('is be able to join', () => {
 
   // User should be able to join.
   expect(button).toHaveTextContent('Join');
+
+  // Should redirect.
+  fireEvent.click(button);
+  await wait(() => {
+    expect(joinRoom).toHaveBeenCalledTimes(1);
+    expect(Redirect).toHaveBeenCalledTimes(1);
+    expect(Redirect).toHaveBeenCalledWith({ to: '/waiting/1' }, {});
+  });
 });
 
 /* When user is not the owner
  * And room is not full
  * And user is not joined
  * And game has started */
-test('is not be able to join or enter', () => {
+test('is not able to join or enter', () => {
   const { queryAllByTestId } = mk(rooms[1]);
 
   // It should not have a button.
@@ -85,7 +109,7 @@ test('is not be able to join or enter', () => {
  * And room is full
  * And user is not joined
  * And game has not started */
-test('is not be able to join or enter', () => {
+test('is not able to join or enter', () => {
   const { queryAllByTestId } = mk(rooms[2]);
 
   // It should not have a button.
@@ -96,7 +120,7 @@ test('is not be able to join or enter', () => {
  * And room is full
  * And user is not joined
  * And game has started */
-test('is not be able to join or enter', () => {
+test('is not able to join or enter', () => {
   const { queryAllByTestId } = mk(rooms[3]);
 
   // It should not have a button.
@@ -221,4 +245,28 @@ test('is able to enter', () => {
 
   // User should be able to enter.
   expect(button).toHaveTextContent('Enter');
+});
+
+/* When user is not the owner
+ * And room is not full
+ * And user is not joined
+ * And game has not started */
+test('is able to join, but shows an error', async () => {
+  const { queryByTestId } = mk({ ...rooms[0], id: 2 });
+  const button = queryByTestId('room-body-button');
+
+  // It should be enabled.
+  expect(button).toBeEnabled();
+
+  // User should be able to join.
+  expect(button).toHaveTextContent('Join');
+
+  // Should show an error.
+  fireEvent.click(button);
+  await wait(() => {
+    expect(joinRoom).toHaveBeenCalledTimes(1);
+    const error = queryByTestId('error');
+    expect(error).toBeInTheDocument();
+    expect(error).not.toBeEmpty();
+  });
 });

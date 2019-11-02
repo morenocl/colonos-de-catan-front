@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 
 const Error = ({ message, onClose }) => (
   <Alert
-    variant="danger"
+    data-testid="error"
     dismissible={!!onClose}
     onClose={onClose}
+    variant="danger"
   >
     <Alert.Heading>
         Error
