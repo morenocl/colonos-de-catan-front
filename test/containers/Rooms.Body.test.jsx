@@ -4,7 +4,7 @@ import {
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import { Body } from '../../src/containers/Rooms/Body';
+import { Body, mapStateToProps } from '../../src/containers/Rooms/Body';
 import BodyScreen from '../../src/components/Rooms/Body';
 import { rooms } from '../../src/utils/RoomData'
 
@@ -19,6 +19,25 @@ const mk = (props) => render(
     username="test"
   />
 );
+
+
+test('returns a room and a username', () => {
+  const state = { Auth: { username: 'test' } };
+  const room = rooms[0];
+  const ownProps = {
+    id: room.id,
+    owner: room.owner,
+    players: room.players,
+    maxPlayers: room.max_players,
+    gameHasStarted: room.game_has_started,
+  };
+  const expected = {
+    username: state.Auth.username,
+    ...ownProps,
+  };
+
+  expect(mapStateToProps(state, ownProps)).toEqual(expected);
+});
 
 /* When body is mounted */
 test('renders without crashing', () => {

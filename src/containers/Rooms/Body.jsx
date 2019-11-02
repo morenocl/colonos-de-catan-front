@@ -8,7 +8,7 @@ import RoomBody from '../../components/Rooms/Body';
 import { joinRoom } from '../../utils/Mock';
 
 
-const mapStateToProps = (state, ownProps) => ({
+export const mapStateToProps = (state, ownProps) => ({
   username: state.Auth.username,
   ...ownProps,
 });
