@@ -243,9 +243,15 @@ export const startGame = (id, onSuccess, onFailure) => {
   else onSuccess();
 };
 
-export const cancelRoom = (id) => {
+export const cancelRoom = (id, onSuccess = ()=>{}, onFailure) => {
   console.log('Room canceled', id);
 
-  const room = data.rooms.find((r) => r && r.id === id);
-  data.rooms.splice(data.rooms.indexOf(room), 1);
+  mkPromise()
+    .then(() => {
+      const room = data.rooms.find((r) => r && r.id === id);
+      data.rooms.splice(data.rooms.indexOf(room), 1);
+
+      if (data.cancelRoom) onFailure();
+      else onSuccess();
+    });
 };
