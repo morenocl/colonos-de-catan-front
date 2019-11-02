@@ -212,9 +212,16 @@ export const hexagons = [
 export const resources = [
   'lumber',
   'lumber',
+  'lumber',
+  'lumber',
   'ore',
   'ore',
   'wool',
+  'grain',
+  'grain',
+  'grain',
+  'grain',
+  'grain',
   'grain',
 ];
 

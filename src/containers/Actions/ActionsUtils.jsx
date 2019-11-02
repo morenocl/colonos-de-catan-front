@@ -16,22 +16,17 @@ export const actionLabels = {
 };
 
 
-export const buildingRequests = (id, refresh, setError, setRunning) => {
-  const onSuccess = () => {
-    setRunning();
-    refresh();
-  };
-
+export const buildingRequests = (id, refresh, setError) => {
   const cBuild = (position) => () => {
-    buildCity(id, position, onSuccess, setError);
+    buildCity(id, position, refresh, setError);
   };
 
   const rBuild = (position) => () => {
-    buildRoad(id, position, onSuccess, setError);
+    buildRoad(id, position, refresh, setError);
   };
 
   const sBuild = (position) => () => {
-    buildSettlement(id, position, onSuccess, setError);
+    buildSettlement(id, position, refresh, setError);
   };
 
   return ({

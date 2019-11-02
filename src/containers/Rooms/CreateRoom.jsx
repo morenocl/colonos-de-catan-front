@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import CreateScreen from '../../components/Rooms/CreateRoom';
 import { getBoards, createRoom } from '../../utils/Mock';
-import { setRunning as dispatchRunning } from './Rooms.ducks';
+import { dispatchRunning } from './Rooms.ducks';
 
 
 const initialState = {

@@ -30,3 +30,10 @@ export const colours = {
   robber: '#666666',
   building: '#8a4af3',
 };
+
+export const colourCard = {
+  '#ff0000': 'danger',
+  '#00ff00': 'success',
+  '#0000ff': 'primary',
+  '#ff8000': 'warning',
+};

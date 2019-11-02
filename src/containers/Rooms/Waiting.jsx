@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -21,10 +21,14 @@ const mapDispatchToProps = ({
 });
 
 export const Waiting = ({ username, room, setRoom }) => {
-  const id = Number(useParams().id);
+  const { id } = useParams();
+
   const [stage, setStage] = useState('empty');
 
-  const onSuccess = (r) => { setRoom(r); setStage('running'); };
+  const onSuccess = (r) => {
+    setRoom(r);
+    setStage(r.game_has_started ? 'started' : 'running');
+  };
   const onFailure = () => { setStage('error'); };
 
   const gameId = !!room && room.game_has_started ? room.game_id : null;
@@ -36,23 +40,21 @@ export const Waiting = ({ username, room, setRoom }) => {
     cancelRoom(id);
     setStage('canceled');
   };
+  // Refresh every 5 seconds and when mounted.
+  const refresh = () => { getRoom(id, onSuccess, onFailure); };
+  useEffect(refresh, []);
+  useInterval(() => { if (stage !== 'started') refresh(); }, 5000);
 
-  const refresh = () => {
-    if (!gameId) {
-      getRoom(id, onSuccess, onFailure);
-    }
+  const onClick = () => {
+    startGame(id, refresh, onFailure);
   };
-
-  useInterval(refresh, 4000);
 
   if (stage === 'empty') return <></>;
 
   if (stage === 'canceled') {
-    setRoom(null);
     return (<Redirect to="/rooms" />);
   }
-  if (gameId) {
-    setRoom(null);
+  if (stage === 'started') {
     return (<Redirect to={`/game/${gameId}`} />);
   }
 
@@ -70,6 +72,7 @@ export const Waiting = ({ username, room, setRoom }) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Waiting);
+
 
 Waiting.propTypes = {
   username: PropTypes.string.isRequired,

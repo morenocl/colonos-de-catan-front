@@ -43,7 +43,7 @@ export const runningState = {
       game_has_started: true,
     },
   ],
-  stage: 'runnig',
+  stage: 'running',
   setError: () => {},
   setRunning: () => {},
   setRooms: () => {},

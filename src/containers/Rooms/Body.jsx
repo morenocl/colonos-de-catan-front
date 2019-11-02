@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -7,37 +8,54 @@ import RoomBody from '../../components/Rooms/Body';
 import { joinRoom } from '../../utils/Mock';
 
 
+const mapStateToProps = (state, ownProps) => ({
+  username: state.Auth.username,
+  ...ownProps,
+});
+
 export const Body = (props) => {
   const {
-    id, owner, players, maxPlayers,
+    id, owner, players, maxPlayers, gameHasStarted,
   } = props;
+  const { username } = props;
 
-  const [result, setResult] = useState(undefined);
+  const [stage, setStage] = useState('running');
   const [loading, setLoading] = useState(false);
 
-  const onClick = () => {
+  const joined = players.includes(username);
+  const full = players.length >= maxPlayers;
+
+  const redir = () => { setStage('redirect'); };
+  const join = () => {
     setLoading(true);
-    const onSuccess = () => { setResult(<Redirect to={`/waiting/${id}`} />); };
-    const onFailure = () => { setResult(<Error />); };
-    joinRoom(id, onSuccess, onFailure);
+    joinRoom(id, redir, () => { setStage('error'); });
   };
 
-  return (
-    result
-    || (
-    <RoomBody
-      id={id}
-      loading={loading}
-      maxPlayers={maxPlayers}
-      onClick={onClick}
-      owner={owner}
-      players={players.join(', ')}
-    />
-    )
-  );
+  let onClick;
+  if (joined) onClick = redir;
+  else if (!gameHasStarted && !full) onClick = join;
+  else onClick = null;
+
+  if (stage === 'running') {
+    return (
+      <RoomBody
+        id={id}
+        disabled={loading}
+        maxPlayers={maxPlayers}
+        onClick={onClick}
+        owner={owner}
+        players={players.join(', ')}
+        label={joined ? 'Enter' : 'Join'}
+      />
+    );
+  }
+
+  if (stage === 'redirect') return (<Redirect to={`/waiting/${id}`} />);
+
+  return (<Error />);
 };
 
-export default Body;
+export default connect(mapStateToProps)(Body);
 
 
 Body.propTypes = {
@@ -45,4 +63,6 @@ Body.propTypes = {
   maxPlayers: PropTypes.number.isRequired,
   owner: PropTypes.string.isRequired,
   players: PropTypes.arrayOf(PropTypes.string).isRequired,
+  username: PropTypes.string.isRequired,
+  gameHasStarted: PropTypes.bool.isRequired,
 };
