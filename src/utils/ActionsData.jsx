@@ -48,6 +48,20 @@ export const actions = [
   {
     type: 'buy_card',
   },
+  {
+    type: 'play_knight_card',
+    payload: [
+      {
+        position: {
+          level: 1,
+          index: 8,
+        },
+        players: [
+          'user2',
+        ],
+      },
+    ],
+  },
 ];
 
 export default actions;

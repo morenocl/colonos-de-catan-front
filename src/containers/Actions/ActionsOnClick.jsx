@@ -15,7 +15,7 @@ import { colours } from '../../utils/Constants';
 export const actionOnClick = (id, eventHandlers) => ((type) => {
   const { draw, refresh } = eventHandlers;
   const {
-    setBuilding, setBuying, setError,
+    setBuilding, setBuying, setError, setRobbing,
   } = eventHandlers;
   const { setGameFrozen } = eventHandlers;
 
@@ -50,6 +50,12 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
 
     case 'buy_card':
       return () => (() => { buyCard(id, refresh, setError); });
+
+    case 'play_knight_card':
+      return () => (() => {
+        setGameFrozen();
+        setRobbing();
+      });
 
     default:
       return () => (() => { console.log('default', type); });

@@ -76,5 +76,9 @@ PlayerInfo.propTypes = {
     lastGained: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   onTurn: PropTypes.bool.isRequired,
-  playerOnClick: PropTypes.func.isRequired,
+  playerOnClick: PropTypes.func,
+};
+
+PlayerInfo.defaultProps = {
+  playerOnClick: null,
 };

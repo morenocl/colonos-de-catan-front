@@ -9,6 +9,7 @@ import {
   dispatchBuying,
   dispatchOnClick,
   dispatchError,
+  dispatchRobbing,
   dispatchRunning,
 } from './Actions.ducks';
 import {
@@ -19,6 +20,7 @@ import {
 /* eslint-disable import/no-named-as-default */
 import actionOnClick from './ActionsOnClick';
 import BankTrade from './BankTrade';
+import Robbing from './Robbing';
 import ActionsScreen from '../../components/Actions/Actions';
 import Error from '../../components/Error';
 /* eslint-enable import/no-named-as-default */
@@ -35,6 +37,7 @@ const mapDispatchToProps = ({
   setBuying: dispatchBuying,
   setError: dispatchError,
   setOnClick: dispatchOnClick,
+  setRobbing: dispatchRobbing,
   setRunning: dispatchRunning,
   setGameFrozen: dispatchGameFrozen,
   setGameRunning: dispatchGameRunning,
@@ -44,7 +47,8 @@ const mapDispatchToProps = ({
 export const Actions = (props) => {
   const { stage, draw } = props;
   const {
-    setBuilding, setBuying, setError, setOnClick, setRunning,
+    setBuilding, setBuying, setError,
+    setOnClick, setRunning, setRobbing,
   } = props;
   const {
     setGameFrozen, setGameRunning, setGameState,
@@ -65,14 +69,9 @@ export const Actions = (props) => {
     setBuying,
     setError,
     setGameFrozen,
+    setRobbing,
   };
   setOnClick(actionOnClick(id, eventHandlers));
-
-  // On error, show a dismissible Alert.
-  // When dismissed, show actions and refresh.
-  if (stage === 'error') {
-    return (<Error onClose={refresh} />);
-  }
 
   if (stage === 'buying') return (<BankTrade />);
 
@@ -87,7 +86,12 @@ export const Actions = (props) => {
     );
   }
 
-  return (<ActionsScreen />);
+  if (stage === 'robbing') return (<Robbing type="play_knight_card" />);
+  if (stage === 'running') return (<ActionsScreen />);
+
+  // On error, show a dismissible Alert.
+  // When dismissed, show actions and refresh.
+  return (<Error onClose={refresh} />);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Actions);
@@ -102,6 +106,7 @@ Actions.propTypes = {
   setBuying: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
   setOnClick: PropTypes.func.isRequired,
+  setRobbing: PropTypes.func.isRequired,
   setRunning: PropTypes.func.isRequired,
   setGameFrozen: PropTypes.func.isRequired,
   setGameRunning: PropTypes.func.isRequired,
