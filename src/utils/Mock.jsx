@@ -32,10 +32,10 @@ export const buyCard = (id, onSuccess, onFailure) => {
 
   mkPromise()
     .then(() => {
-    // Decrement number of cards to buy.
+      // Decrement number of cards to buy.
       data.cardsToBuy -= 1;
       if (data.cardsToBuy === 0) {
-      // Find action index and remove it.
+        // Find action index and remove it.
         const actionId = data.actions.findIndex((x) => x && x.type === 'buy_card');
         delete data.actions[actionId];
       }
@@ -144,8 +144,10 @@ export const getRooms = (onSuccess, onFailure) => {
 
   mkPromise('rooms')
     .then((rooms) => {
-      if (data.getRooms) onFailure();
-      else onSuccess(rooms);
+      if (data.getRooms) {
+        const message = Math.floor(Math.random() * data.getRooms.length);
+        onFailure(Error(data.getRooms[message]));
+      } else onSuccess(rooms);
     });
 };
 
@@ -164,7 +166,7 @@ export const getBoards = (onSuccess, onFailure) => {
 
   mkPromise('boards')
     .then((b) => {
-      if (data.joinRoom) onFailure();
+      if (!b.length) onFailure();
       else onSuccess(b);
     });
 };
@@ -174,8 +176,10 @@ export const createRoom = (name, boardId, onSuccess, onFailure) => {
 
   mkPromise()
     .then(() => {
-      if (data.joinRoom) onFailure();
-      else onSuccess(JSON.parse(JSON.stringify(data.rooms[0])));
+      if (data.getRooms) {
+        const message = Math.floor(Math.random() * data.getRooms.length);
+        onFailure(Error(data.getRooms[message]));
+      } else onSuccess(JSON.parse(JSON.stringify(data.rooms[0])));
     });
 };
 
@@ -251,7 +255,7 @@ export const startGame = (id, onSuccess, onFailure) => {
     });
 };
 
-export const cancelRoom = (id, onSuccess = () => {}, onFailure) => {
+export const cancelRoom = (id, onSuccess = () => { }, onFailure) => {
   console.log('Room canceled', id);
 
   mkPromise()

@@ -26,6 +26,11 @@ const data = {
   rooms,
   room,
   users,
+  getRooms: [
+    "Oops! That page couldn't be found",
+    'The server was unable to complete your request',
+    'Sorry, something went wrong',
+  ],
 };
 
 export default data;

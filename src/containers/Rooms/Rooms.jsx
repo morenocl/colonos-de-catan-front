@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -34,8 +34,19 @@ export const Rooms = (props) => {
     setError, setRunning, setRooms, setCreate,
   } = props;
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const refresh = () => {
-    getRooms((rs) => { setRunning(); setRooms(rs); }, setError);
+    const onSuccess = (res) => {
+      setRunning();
+      setRooms(res);
+    };
+    const onFailure = (err) => {
+      setError();
+      setErrorMessage(err.message);
+    };
+
+    getRooms(onSuccess, onFailure);
   };
 
   // Refresh every 5 seconds and when mounted.
@@ -55,7 +66,7 @@ export const Rooms = (props) => {
     );
   }
 
-  return (<Error />);
+  return (<Error message={errorMessage} />);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rooms);
