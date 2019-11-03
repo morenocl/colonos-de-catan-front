@@ -27,7 +27,7 @@ test('should show previously rolled value', () => {
   expect(mapStateToProps(initialState).players).toEqual(players);
 });
 
-test('should dispatch ROLL_DICE action', () => {
+test('should dispatch info/SET_CLICK action', () => {
   expect(dispatchOnClick(playerOnClick)).toEqual({
     type: 'info/SET_CLICK',
     payload: { playerOnClick },
