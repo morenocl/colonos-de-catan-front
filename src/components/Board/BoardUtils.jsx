@@ -1,13 +1,13 @@
-export const WIDTH = 1000;
-export const HEIGHT = 1000;
-export const L = 100;
-
-// Helper constants.
-const w = WIDTH / 2.0;
-const h = HEIGHT / 2.0;
+export const L = 90;
 const r = Math.sqrt(L ** 2 - (L / 2) ** 2); // Adjacent side.
 const k = L + L / 2;
 const l = (Math.sqrt(3) / 2) * L;
+
+// Should fit 5 hexagons.
+export const WIDTH = (2 * 5 + 1) * r;
+export const HEIGHT = WIDTH;
+const w = WIDTH / 2;
+const h = HEIGHT / 2;
 
 export const buildingShape = {
   city: 'rect',
@@ -15,13 +15,13 @@ export const buildingShape = {
 };
 
 export const buildingSize = {
-  city: [50, 50],
-  settlement: [50],
+  city: [L / 2, L / 2],
+  settlement: [L / 2],
 };
 
 export const roadStroke = (colour) => ({
   color: colour,
-  width: 10,
+  width: L / 5,
 });
 
 export const colour = {
@@ -71,7 +71,7 @@ export const hexCenter = {
 
 export const robberShape = 'circle';
 
-export const robberSize = 60;
+export const robberSize = (3 / 5) * L;
 
 export const vertexCenter = {
   0: {
