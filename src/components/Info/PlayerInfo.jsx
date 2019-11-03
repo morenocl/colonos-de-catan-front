@@ -43,14 +43,6 @@ const PlayerInfo = ({ player, onTurn, playerOnClick }) => {
           </tr>
           <tr>
             <td>
-              Colour:
-            </td>
-            <td>
-              {colour}
-            </td>
-          </tr>
-          <tr>
-            <td>
               Development Cards:
             </td>
             <td>

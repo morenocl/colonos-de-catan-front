@@ -7,14 +7,16 @@ const GameStatus = ({ turn, winner }) => {
   if (winner) {
     return (
       <Table>
-        <tr>
-          <td>
-            Winner:
-          </td>
-          <td>
-            {winner}
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>
+              Winner:
+            </td>
+            <td data-testid="winner">
+              {winner}
+            </td>
+          </tr>
+        </tbody>
       </Table>
     );
   }

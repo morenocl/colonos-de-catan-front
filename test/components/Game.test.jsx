@@ -11,7 +11,7 @@ import Game from '../../src/components/Game/Game';
 import Actions from '../../src/containers/Actions/Actions';
 import Board from '../../src/containers/Board/Board';
 import Hand from '../../src/containers/Hand';
-import Info from '../../src/containers/Info';
+import Info from '../../src/containers/Info/Info';
 /* eslint-enable import/no-named-as-default */
 
 
