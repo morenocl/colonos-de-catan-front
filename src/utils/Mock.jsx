@@ -251,7 +251,7 @@ export const startGame = (id, onSuccess, onFailure) => {
     });
 };
 
-export const cancelRoom = (id, onSuccess = ()=>{}, onFailure) => {
+export const cancelRoom = (id, onSuccess = () => {}, onFailure) => {
   console.log('Room canceled', id);
 
   mkPromise()

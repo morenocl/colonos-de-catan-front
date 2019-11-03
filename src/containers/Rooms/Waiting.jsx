@@ -33,30 +33,19 @@ export const Waiting = ({ username, room, setRoom }) => {
 
   const gameId = !!room && room.game_has_started ? room.game_id : null;
   const iAmOwner = !!room && room.owner === username;
-  const onStart = () => {
-    startGame(id, onFailure);
-  };
-  const onCancel = () => {
-    cancelRoom(id);
-    setStage('canceled');
-  };
+  const onStart = () => { startGame(id, onFailure); };
+  const onCancel = () => { cancelRoom(id); setStage('canceled'); };
+
   // Refresh every 5 seconds and when mounted.
   const refresh = () => { getRoom(id, onSuccess, onFailure); };
   useEffect(refresh, []);
   useInterval(() => { if (stage !== 'started') refresh(); }, 5000);
 
-  const onClick = () => {
-    startGame(id, refresh, onFailure);
-  };
+  if (stage === 'empty') return (<></>);
 
-  if (stage === 'empty') return <></>;
+  if (stage === 'canceled') return (<Redirect to="/rooms" />);
 
-  if (stage === 'canceled') {
-    return (<Redirect to="/rooms" />);
-  }
-  if (stage === 'started') {
-    return (<Redirect to={`/game/${gameId}`} />);
-  }
+  if (stage === 'started') return (<Redirect to={`/game/${gameId}`} />);
 
   if (stage === 'running') {
     return (

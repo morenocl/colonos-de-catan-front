@@ -41,10 +41,18 @@ export const Waiting = ({ room, onStart, onCancel }) => {
         {head}
         {body}
       </Table>
-      <Button disabled={!onStart} onClick={onStart} className='start'>
+      <Button
+        disabled={!onStart}
+        onClick={onStart}
+        className="start"
+      >
         Start game
       </Button>
-      <Button disabled={!onCancel} onClick={onCancel} className='cancel'>
+      <Button
+        disabled={!onCancel}
+        onClick={onCancel}
+        className="cancel"
+      >
         Cancel Room
       </Button>
     </div>
