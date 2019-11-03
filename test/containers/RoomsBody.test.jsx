@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  render, wait, fireEvent,
+  render, fireEvent,
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Redirect } from 'react-router-dom';
@@ -75,7 +75,7 @@ test('renders without crashing', () => {
  * And room is not full
  * And user is not joined
  * And game has not started */
-test('is able to join', async () => {
+test('is able to join', () => {
   const { queryByTestId } = mk(rooms[0]);
   const button = queryByTestId('room-body-button');
 
@@ -87,11 +87,9 @@ test('is able to join', async () => {
 
   // Should redirect.
   fireEvent.click(button);
-  await wait(() => {
-    expect(joinRoom).toHaveBeenCalledTimes(1);
-    expect(Redirect).toHaveBeenCalledTimes(1);
-    expect(Redirect).toHaveBeenCalledWith({ to: '/waiting/1' }, {});
-  });
+  expect(joinRoom).toHaveBeenCalledTimes(1);
+  expect(Redirect).toHaveBeenCalledTimes(1);
+  expect(Redirect).toHaveBeenCalledWith({ to: '/waiting/1' }, {});
 });
 
 /* When user is not the owner
@@ -251,7 +249,7 @@ test('is able to enter', () => {
  * And room is not full
  * And user is not joined
  * And game has not started */
-test('is able to join, but shows an error', async () => {
+test('is able to join, but shows an error', () => {
   const { queryByTestId } = mk({ ...rooms[0], id: 2 });
   const button = queryByTestId('room-body-button');
 
@@ -263,10 +261,8 @@ test('is able to join, but shows an error', async () => {
 
   // Should show an error.
   fireEvent.click(button);
-  await wait(() => {
-    expect(joinRoom).toHaveBeenCalledTimes(1);
-    const error = queryByTestId('error');
-    expect(error).toBeInTheDocument();
-    expect(error).not.toBeEmpty();
-  });
+  expect(joinRoom).toHaveBeenCalledTimes(1);
+  const error = queryByTestId('error');
+  expect(error).toBeInTheDocument();
+  expect(error).not.toBeEmpty();
 });
