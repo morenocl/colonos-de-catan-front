@@ -53,8 +53,8 @@ export const actions = [
     payload: [
       {
         position: {
-          level: 1,
-          index: 8,
+          level: 2,
+          index: 1,
         },
         players: [
           'user2',
