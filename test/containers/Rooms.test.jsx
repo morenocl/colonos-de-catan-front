@@ -123,7 +123,7 @@ test('redirects to /create', () => {
 test('shows no rooms', () => {
   const { queryAllByTestId } = mk([], 'running');
 
-  // It should show rooms, a button and an accordion.
+  // It should show the rooms screen, a button and an accordion.
   expect(queryAllByTestId('rooms').length).toBe(1);
   expect(queryAllByTestId('rooms-button').length).toBe(1);
   expect(queryAllByTestId('rooms-accordion').length).toBe(1);

@@ -14,11 +14,11 @@ const room = {
   players: 'owner, not owner',
 };
 
-const mockFn = jest.fn(() => null);
+const onClick = jest.fn(() => null);
 
 const extra = {
   label: 'button label',
-  onClick: mockFn,
+  onClick: onClick,
 };
 
 const mk = (disabled) => render(
@@ -30,7 +30,7 @@ const mk = (disabled) => render(
 );
 
 afterEach(() => {
-  mockFn.mockClear();
+  onClick.mockClear();
 });
 
 const testBody = (body) => {
@@ -73,7 +73,7 @@ test('shows a body with a enabled button', () => {
   expect(button).toBeEnabled();
 
   fireEvent.click(button);
-  expect(mockFn).toHaveBeenCalledTimes(1);
+  expect(onClick).toHaveBeenCalledTimes(1);
 });
 
 test('shows a body with a disabled button', () => {
@@ -96,7 +96,7 @@ test('shows a body with a disabled button', () => {
   expect(button).toBeDisabled();
 
   fireEvent.click(button);
-  expect(mockFn).toHaveBeenCalledTimes(0);
+  expect(onClick).toHaveBeenCalledTimes(0);
 });
 
 test('shows a body with no button', () => {
