@@ -11,19 +11,20 @@ import Body from '../../containers/Rooms/Body';
 
 
 const Rooms = ({ rooms, createRoom }) => (
-  <>
+  <div data-testid="rooms">
     <Button
+      data-testid="rooms-button"
       onClick={createRoom}
     >
       Create
     </Button>
 
-    <Accordion>
+    <Accordion data-testid="rooms-accordion">
       {rooms.map(({
         // eslint-disable-next-line camelcase
         id, max_players, name, owner, players, game_has_started,
       }) => (
-        <Card key={id}>
+        <Card key={id} data-testid="rooms-card">
           <Header
             id={id}
             name={name}
@@ -40,7 +41,7 @@ const Rooms = ({ rooms, createRoom }) => (
         </Card>
       ))}
     </Accordion>
-  </>
+  </div>
 );
 
 export default Rooms;
