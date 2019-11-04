@@ -37,6 +37,7 @@ const Login = ({ setAuth, setUser }) => {
       setAuth(true);
       setUser(username);
       localStorage.setItem('token', JSON.stringify(res.token));
+      localStorage.setItem('username', username);
     };
 
     const onFailure = (err) => {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { setAuth as dispatchAuth } from './Auth.ducks';
+import { setUser } from './Auth.ducks';
 import NavBarScreen from '../components/NavBar';
 
 
@@ -17,7 +18,9 @@ const mapDispatchToProps = ({
 export const NavBar = ({ auth, setAuth }) => {
   const logout = () => {
     setAuth(false);
+    setUser(null);
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
   };
 
   return (<NavBarScreen auth={auth} logout={logout} />);
