@@ -145,8 +145,8 @@ export const getRooms = (onSuccess, onFailure) => {
   mkPromise('rooms')
     .then((rooms) => {
       if (data.getRooms) {
-        const message = Math.floor(Math.random() * data.getRooms.length);
-        onFailure(Error(data.getRooms[message]));
+        const message = Math.floor(Math.random() * data.getRoomsErrors.length);
+        onFailure(Error(data.getRoomsErrors[message]));
       } else onSuccess(rooms);
     });
 };
@@ -176,9 +176,9 @@ export const createRoom = (name, boardId, onSuccess, onFailure) => {
 
   mkPromise()
     .then(() => {
-      if (data.getRooms) {
-        const message = Math.floor(Math.random() * data.getRooms.length);
-        onFailure(Error(data.getRooms[message]));
+      if (data.createRoom) {
+        const message = Math.floor(Math.random() * data.createRoomsErrors.length);
+        onFailure(Error(data.createRoomsErrors[message]));
       } else onSuccess(JSON.parse(JSON.stringify(data.rooms[0])));
     });
 };
@@ -235,7 +235,7 @@ export const getRoom = (id, onSuccess, onFailure) => {
         data.rooms[data.rooms.indexOf(room)] = { ...room };
       }
 
-      if (data.getRoom) onFailure();
+      if (data.getRoom) onFailure(data.getRoomCanceled ? { status: 404 } : { status: 500 });
       else onSuccess(room);
     });
 };
