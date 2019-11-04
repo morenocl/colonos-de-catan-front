@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Error from '../../components/Error';
 import WaitingScreen from '../../components/Rooms/Waiting';
-import { getRoom, startGame } from '../../utils/Mock';
+import { getRoom, startGame, cancelRoom } from '../../utils/Mock';
 import useInterval from '../../utils/UseInterval';
 import { dispatchRoom } from './Rooms.ducks';
 import { RoomType } from '../../utils/ApiTypes';
@@ -31,30 +31,28 @@ export const Waiting = ({ username, room, setRoom }) => {
   };
   const onFailure = () => { setStage('error'); };
 
+  const gameId = !!room && room.game_has_started ? room.game_id : null;
+  const iAmOwner = !!room && room.owner === username;
+  const onStart = () => { startGame(id, onFailure); };
+  const onCancel = () => { cancelRoom(id); setStage('canceled'); };
+
   // Refresh every 5 seconds and when mounted.
   const refresh = () => { getRoom(id, onSuccess, onFailure); };
   useEffect(refresh, []);
   useInterval(() => { if (stage !== 'started') refresh(); }, 5000);
 
-  const onClick = () => {
-    startGame(id, refresh, onFailure);
-  };
+  if (stage === 'empty') return (<></>);
 
-  if (stage === 'empty') return <></>;
+  if (stage === 'canceled') return (<Redirect to="/rooms" />);
 
-  if (stage === 'started') {
-    return (
-      <Redirect
-        to={`/game/${room.game_id}`}
-      />
-    );
-  }
+  if (stage === 'started') return (<Redirect to={`/game/${gameId}`} />);
 
   if (stage === 'running') {
     return (
       <WaitingScreen
         room={room}
-        onClick={room.owner === username ? onClick : null}
+        onStart={iAmOwner ? onStart : null}
+        onCancel={iAmOwner ? onCancel : null}
       />
     );
   }

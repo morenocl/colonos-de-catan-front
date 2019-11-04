@@ -79,6 +79,11 @@ export const GameStateType = PropTypes.shape({
   stage: PropTypes.string,
 });
 
+export const PlayerType = PropTypes.shape({
+  username: PropTypes.string,
+  colour: PropTypes.string,
+});
+
 
 /* Rooms */
 

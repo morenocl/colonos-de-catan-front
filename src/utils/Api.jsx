@@ -99,6 +99,17 @@ export const startGame = (id, onSuccess, onFailure) => {
   request(url, option, onSuccess, onFailure);
 };
 
+export const cancelRoom = (id, onSuccess, onFailure) => {
+  const url = `${path}/rooms/${id}/`;
+  const option = {
+    method: 'DELETE',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  };
+  request(url, option, onSuccess, onFailure);
+};
+
 export const joinRoom = (id, onFailure) => {
   const url = `${path}/rooms/${id}/`;
   const option = {
@@ -243,6 +254,12 @@ getRoom.PropTypes = {
 };
 
 startGame.PropTypes = {
+  id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+cancelRoom.PropTypes = {
   id: PropTypes.number.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,
