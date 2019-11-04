@@ -16,12 +16,12 @@ import { RoomType, RoomsStateType } from '../../utils/ApiTypes';
 import useInterval from '../../utils/UseInterval';
 
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   rooms: state.Rooms.rooms,
   stage: state.Rooms.stage,
 });
 
-const mapDispatchToProps = ({
+export const mapDispatchToProps = ({
   setError: dispatchError,
   setRunning: dispatchRunning,
   setRooms: dispatchRooms,
@@ -42,9 +42,17 @@ export const Rooms = (props) => {
   useEffect(refresh, []);
   useInterval(refresh, 5000);
 
-  if (stage === 'empty') return (<></>);
+  if (stage === 'empty') {
+    return (<div data-testid="rooms-empty" />);
+  }
 
-  if (stage === 'create') return (<Redirect to="/create" />);
+  if (stage === 'create') {
+    return (
+      <Redirect
+        to="/create"
+      />
+    );
+  }
 
   if (stage === 'running') {
     return (

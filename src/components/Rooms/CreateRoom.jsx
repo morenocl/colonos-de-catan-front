@@ -80,7 +80,7 @@ const CreateRoom = (props) => {
   );
 
   return (
-    <>
+    <div data-testid="rooms-create">
       <h1>Create Room</h1>
       {error && <Error message={error} />}
       <form onSubmit={handleSubmit}>
@@ -88,7 +88,7 @@ const CreateRoom = (props) => {
         {selectForm}
         {button}
       </form>
-    </>
+    </div>
   );
 };
 
