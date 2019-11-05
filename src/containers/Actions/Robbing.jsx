@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -15,9 +15,14 @@ import {
 import RobbingScreen from '../../components/Actions/Robbing';
 import showHCenter from '../../components/Board/ShowHCenter';
 import { colours } from '../../utils/Constants';
-import { getGameStatus } from '../../utils/Mock';
+import { getGameStatus, moveRobber, playKnight } from '../../utils/Mock';
 import { HexagonPosition } from '../../utils/ApiTypes';
 
+
+const request = {
+  move_robber: moveRobber,
+  play_knight_card: playKnight,
+};
 
 export const mapStateToProps = (state, ownProps) => {
   const { type } = ownProps;
@@ -48,20 +53,15 @@ export const Robbing = (props) => {
   const { setError, setRobberPayload, setRunning } = props;
   const { setGameRunning, setGameState } = props;
 
-  // Clean previous states.
-  useEffect(() => { setRobberPayload(null); }, [setRobberPayload]);
-
   const refresh = () => {
     setRunning();
     setGameRunning();
     getGameStatus(id, setGameState, setError);
   };
   const onConfirm = () => {
-    console.log('Confirm', type, position, username);
-    refresh();
+    request[type](id, position, username, refresh, setError);
   };
   const onCancel = () => {
-    console.log('Canceled');
     refresh();
   };
 
@@ -73,7 +73,6 @@ export const Robbing = (props) => {
   };
   // Makes players clickable.
   const showPlayers = (players) => {
-    console.log('Showing players');
     setRobberPayload(position, players[1]);
   };
 
@@ -98,7 +97,7 @@ export const Robbing = (props) => {
   return (
     <RobbingScreen
       onCancel={onCancel}
-      onConfirm={onConfirm}
+      onConfirm={position && onConfirm}
     />
   );
 };

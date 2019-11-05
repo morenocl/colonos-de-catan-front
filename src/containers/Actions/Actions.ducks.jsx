@@ -65,7 +65,7 @@ const reducer = (state = initialState, action = {}) => {
       return { ...state, robberPayload: payload };
 
     case SET_ROBBING:
-      return { ...state, stage: 'robbing' };
+      return { ...state, stage: 'robbing', robberPayload: {} };
 
     case SET_RUNNING:
       return { ...state, stage: 'running' };

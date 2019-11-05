@@ -15,6 +15,8 @@ export const boards = [
 
 export const cards = [
   'knight',
+  'knight',
+  'knight',
 ];
 
 export const cities = [
@@ -283,10 +285,10 @@ export const roads = [
 export const info = {
   players: [
     {
-      username: 'user0',
+      username: 'test',
       colour: '#ff0000',
-      developmentCards: 0,
-      resourcesCards: 0,
+      developmentCards: 3,
+      resourcesCards: 13,
       victoryPoints: 0,
       lastGained: [
       ],
@@ -314,7 +316,7 @@ export const info = {
     },
   ],
   currentTurn: {
-    user: 'user0',
+    user: 'test',
     dice: [1, 1],
   },
 };

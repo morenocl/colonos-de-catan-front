@@ -14,7 +14,7 @@ const Robbing = ({ onCancel, onConfirm }) => {
   const body = (
     <Row>
       <Col>
-        <Button onClick={onConfirm}>
+        <Button disabled={!onConfirm} onClick={onConfirm}>
           Confirm
         </Button>
       </Col>
@@ -39,6 +39,10 @@ export default Robbing;
 
 
 Robbing.propTypes = {
+  onConfirm: PropTypes.func,
   onCancel: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
+};
+
+Robbing.defaultProps = {
+  onConfirm: null,
 };

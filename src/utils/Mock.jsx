@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import data from './Data';
+import { resourceNames } from './Constants';
 
 
 const mkPromise = (x) => (
@@ -260,6 +261,81 @@ export const cancelRoom = (id, onSuccess = () => {}, onFailure) => {
       data.rooms.splice(data.rooms.indexOf(room), 1);
 
       if (data.cancelRoom) onFailure();
+      else onSuccess();
+    });
+};
+
+const robber = (position, username) => mkPromise().then(() => {
+  data.board.robber = position;
+
+  const targetUser = data.info.players.find((p) => (
+    p && p.username === username));
+
+  if (username && targetUser.resourcesCards >= 1) {
+  // Remove resource from opponent's hand.
+    targetUser.resourcesCards -= 1;
+
+    // Get random resource.
+    const resourceId = Math.floor(Math.random() * resourceNames.length);
+    data.hand.resources.push(resourceNames[resourceId]);
+
+    // Update info.
+    const localUsername = localStorage.getItem('username') || 'test';
+    const localUser = data.info.players.find((p) => (
+      p && p.username === localUsername));
+    localUser.resourcesCards += 1;
+  }
+});
+
+export const moveRobber = (id, position, username, onSuccess, onFailure) => {
+  console.log('Moving robber', id);
+
+  // Remove action.
+  const aId = data.actions.findIndex((x) => x && x.type === 'move_robber');
+  data.actions.splice(aId, 1);
+
+  robber(position, username)
+    .then(() => {
+      if (data.moveRobber) onFailure();
+      else onSuccess();
+    });
+};
+
+export const playKnight = (id, position, username, onSuccess, onFailure) => {
+  console.log('Playing knight card', id);
+
+  // Update info.
+  const localUsername = localStorage.getItem('username') || 'test';
+  const localUser = data.info.players.find((p) => (
+    p && p.username === localUsername));
+  localUser.developmentCards -= 1;
+
+  // Remove card.
+  const cId = data.hand.cards.findIndex((x) => x === 'knight');
+  data.hand.cards.splice(cId, 1);
+
+  const aId = data.actions.findIndex(
+    (x) => x && x.type === 'play_knight_card',
+  );
+
+  // Remove action or position.
+  if (!data.hand.cards.find(((x) => x === 'knight'))) {
+    data.actions.splice(aId, 1);
+  } else {
+    const posId = data.actions[aId].payload.findIndex((x) => (x
+      && x.position.level === position.level
+      && x.position.index === position.index));
+
+    // Remove chosen position.
+    data.actions[aId].payload.splice(posId, 1);
+
+    // Add previous position.
+    data.actions[aId].payload.push({ position: data.board.robber, players: [] });
+  }
+
+  robber(position, username)
+    .then(() => {
+      if (data.moveRobber) onFailure();
       else onSuccess();
     });
 };
