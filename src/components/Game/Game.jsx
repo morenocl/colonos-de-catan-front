@@ -8,6 +8,7 @@ import Actions from '../../containers/Actions/Actions';
 import Board from '../../containers/Board/Board';
 import Hand from '../../containers/Hand';
 import Info from '../../containers/Info';
+import ActionList from '../ActionList';
 /* eslint-enable import/no-named-as-default */
 
 
@@ -22,6 +23,10 @@ const GameScreen = () => (
       </Col>
     </Row>
 
+    <Row>
+      <ActionList actions={['Build Road', 'Build Road']} />
+    </Row>
+    
     <Row>
       <Col>
         <Hand />
