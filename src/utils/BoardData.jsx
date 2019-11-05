@@ -297,7 +297,7 @@ export const info = {
       username: 'user2',
       colour: '#00ff00',
       developmentCards: 1,
-      resourcesCards: 1,
+      resourcesCards: 6,
       victoryPoints: 1,
       lastGained: [
         'lumber',
@@ -307,7 +307,7 @@ export const info = {
       username: 'user3',
       colour: '#0000ff',
       developmentCards: 2,
-      resourcesCards: 2,
+      resourcesCards: 5,
       victoryPoints: 2,
       lastGained: [
         'wool',

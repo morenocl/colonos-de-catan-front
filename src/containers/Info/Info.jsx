@@ -26,7 +26,7 @@ export const Info = (props) => {
           player={player}
           key={player.username}
           onTurn={player.username === turn.user}
-          playerOnClick={playerOnClick(player)}
+          playerOnClick={playerOnClick(player.username)}
         />
       ))}
       <GameStatus turn={turn} winner={winner} />

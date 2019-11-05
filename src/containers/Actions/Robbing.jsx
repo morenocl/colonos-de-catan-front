@@ -12,6 +12,7 @@ import {
   setRunning as dispatchGameRunning,
   setState as dispatchGameState,
 } from '../Game/Game.ducks';
+import { dispatchOnClick } from '../Info/Info.ducks';
 import RobbingScreen from '../../components/Actions/Robbing';
 import showHCenter from '../../components/Board/ShowHCenter';
 import { colours } from '../../utils/Constants';
@@ -43,6 +44,7 @@ export const mapDispatchToProps = {
   setGameRunning: dispatchGameRunning,
   setGameState: dispatchGameState,
   setRobberPayload: dispatchRobberPayload,
+  setInfoOnClick: dispatchOnClick,
 };
 
 export const Robbing = (props) => {
@@ -52,6 +54,7 @@ export const Robbing = (props) => {
   const { id } = useParams();
   const { setError, setRobberPayload, setRunning } = props;
   const { setGameRunning, setGameState } = props;
+  const { setInfoOnClick } = props;
 
   const refresh = () => {
     setRunning();
@@ -59,6 +62,8 @@ export const Robbing = (props) => {
     getGameStatus(id, setGameState, setError);
   };
   const onConfirm = () => {
+    // Force update
+    setInfoOnClick(() => null);
     request[type](id, position, username, refresh, setError);
   };
   const onCancel = () => {
@@ -73,7 +78,11 @@ export const Robbing = (props) => {
   };
   // Makes players clickable.
   const showPlayers = (players) => {
-    setRobberPayload(position, players[1]);
+    setInfoOnClick((player) => {
+      // If user can be chosen, make them clickable.
+      if (players.includes(player)) return () => { setRobberPayload(position, player); };
+      return null;
+    });
   };
 
   // First set a position. Then, show available players, if needed.
@@ -118,6 +127,7 @@ Robbing.propTypes = {
   setRunning: PropTypes.func.isRequired,
   setGameRunning: PropTypes.func.isRequired,
   setGameState: PropTypes.func.isRequired,
+  setInfoOnClick: PropTypes.func.isRequired,
   type: PropTypes.oneOf(['move_robber', 'play_knight_card']).isRequired,
 };
 
