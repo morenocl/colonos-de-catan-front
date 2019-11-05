@@ -5,6 +5,7 @@ const SET_BUILDING = 'actions/SET_BUILDING';
 const SET_BUYING = 'actions/SET_BUYING';
 const SET_CLICK = 'action/SET_CLICK';
 const SET_ERROR = 'actions/SET_ERROR';
+const SET_ROBBER_PAYLOAD = 'actions/SET_ROBBER_PAYLOAD';
 const SET_ROBBING = 'actions/SET_ROBBING';
 const SET_RUNNING = 'actions/SET_RUNNING';
 
@@ -25,6 +26,11 @@ export const dispatchError = () => ({
   type: SET_ERROR,
 });
 
+export const dispatchRobberPayload = (position, username) => ({
+  type: SET_ROBBER_PAYLOAD,
+  payload: { position, username },
+});
+
 export const dispatchRobbing = () => ({
   type: SET_ROBBING,
 });
@@ -36,6 +42,7 @@ export const dispatchRunning = () => ({
 export const initialState = {
   stage: 'running',
   actionOnClick: null,
+  robberPayload: {},
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -53,6 +60,9 @@ const reducer = (state = initialState, action = {}) => {
 
     case SET_ERROR:
       return { ...state, stage: 'error' };
+
+    case SET_ROBBER_PAYLOAD:
+      return { ...state, robberPayload: payload };
 
     case SET_ROBBING:
       return { ...state, stage: 'robbing' };
