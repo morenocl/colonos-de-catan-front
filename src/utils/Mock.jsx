@@ -138,6 +138,28 @@ export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
     });
 };
 
+export const endTurn = (id, onSuccess, onFailure) => {
+  console.log('Next turn');
+
+  mkPromise()
+    .then(() => {
+      /* eslint-disable prefer-destructuring */
+      const players = data.info.players;
+      const currentTurn = data.info.currentTurn;
+
+      const next = (players.findIndex((p) => p.username === currentTurn.user) + 1) % players.length;
+
+      currentTurn.user = players[next].username;
+      currentTurn.dice = [Math.ceil(Math.random() * 6), Math.ceil(Math.random() * 6)];
+      // Comment next lines to see a fluid game.
+      const actionId = data.actions.findIndex((x) => x && x.type === 'end_turn');
+      delete data.actions[actionId];
+
+      if (data.endTurn) onFailure();
+      else onSuccess();
+    });
+};
+
 /* Rooms */
 export const getRooms = (onSuccess, onFailure) => {
   console.log('Getting rooms');
