@@ -312,6 +312,21 @@ export const moveRobber = (id, position, username, onSuccess, onFailure) => {
   const aId = data.actions.findIndex((x) => x && x.type === 'move_robber');
   data.actions.splice(aId, 1);
 
+  // If knight card is available, update positions.
+  const kId = data.actions.findIndex((x) => x && x.type === 'play_knight_card');
+
+  if (kId !== -1) {
+    const posId = data.actions[kId].payload.findIndex((x) => (x
+      && x.position.level === position.level
+      && x.position.index === position.index));
+
+    // Remove chosen position.
+    data.actions[kId].payload.splice(posId, 1);
+
+    // Add previous position.
+    data.actions[kId].payload.push({ position: data.board.robber, players: [] });
+  }
+
   robber(position, username)
     .then(() => {
       if (data.moveRobber) onFailure();

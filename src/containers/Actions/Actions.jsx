@@ -19,8 +19,6 @@ import {
 } from '../Game/Game.ducks';
 /* eslint-disable import/no-named-as-default */
 import actionOnClick from './ActionsOnClick';
-import BankTrade from './BankTrade';
-import Robbing from './Robbing';
 import ActionsScreen from '../../components/Actions/Actions';
 import Error from '../../components/Error';
 /* eslint-enable import/no-named-as-default */
@@ -76,7 +74,7 @@ export const Actions = (props) => {
   setOnClick(actionOnClick(id, eventHandlers));
 
   if (stage.startsWith('running')) {
-    if (stage.endsWith('buying')) return (<BankTrade />);
+    if (stage.endsWith('buying')) return (actionsContainers.buying);
 
     if (stage.endsWith('building')) {
       return (
@@ -90,14 +88,12 @@ export const Actions = (props) => {
     }
 
     if (stage.endsWith('robbing')) {
-      const type = moveRobber ? 'move_robber' : 'play_knight_card';
-      return (<Robbing type={type} />);
+      if (moveRobber) return (actionsContainers.robberRobbing);
+      return (actionsContainers.knightRobbing);
     }
   }
 
-  if (moveRobber) {
-    return (actionsContainers.moveRobber);
-  }
+  if (moveRobber) return (actionsContainers.moveRobber);
 
   if (stage === 'waiting') return (<ActionsScreen />);
 
