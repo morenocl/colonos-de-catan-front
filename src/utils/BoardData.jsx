@@ -25,12 +25,8 @@ export const cities = [
     colour: '#ff0000',
     positions: [
       {
-        level: 1,
-        index: 3,
-      },
-      {
         level: 2,
-        index: 5,
+        index: 15,
       },
     ],
   },
@@ -38,8 +34,8 @@ export const cities = [
     colour: '#00ff00',
     positions: [
       {
-        level: 2,
-        index: 16,
+        level: 1,
+        index: 17,
       },
     ],
   },
@@ -47,8 +43,8 @@ export const cities = [
     colour: '#0000ff',
     positions: [
       {
-        level: 2,
-        index: 18,
+        level: 1,
+        index: 1,
       },
     ],
   },
@@ -231,12 +227,62 @@ export const roads = [
     positions: [
       [
         {
-          level: 0,
-          index: 0,
+          level: 1,
+          index: 12,
         },
         {
-          level: 0,
-          index: 1,
+          level: 1,
+          index: 13,
+        },
+      ],
+      [
+        {
+          level: 1,
+          index: 13,
+        },
+        {
+          level: 2,
+          index: 21,
+        },
+      ],
+      [
+        {
+          level: 1,
+          index: 8,
+        },
+        {
+          level: 2,
+          index: 14,
+        },
+      ],
+      [
+        {
+          level: 2,
+          index: 14,
+        },
+        {
+          level: 2,
+          index: 15,
+        },
+      ],
+      [
+        {
+          level: 2,
+          index: 15,
+        },
+        {
+          level: 2,
+          index: 16,
+        },
+      ],
+      [
+        {
+          level: 2,
+          index: 16,
+        },
+        {
+          level: 2,
+          index: 17,
         },
       ],
     ],
@@ -246,22 +292,32 @@ export const roads = [
     positions: [
       [
         {
-          level: 1,
-          index: 1,
+          level: 0,
+          index: 2,
         },
         {
-          level: 1,
-          index: 2,
+          level: 0,
+          index: 3,
         },
       ],
       [
         {
-          level: 2,
-          index: 1,
+          level: 0,
+          index: 3,
+        },
+        {
+          level: 0,
+          index: 4,
+        },
+      ],
+      [
+        {
+          level: 1,
+          index: 17,
         },
         {
           level: 2,
-          index: 2,
+          index: 29,
         },
       ],
     ],
@@ -271,12 +327,32 @@ export const roads = [
     positions: [
       [
         {
-          level: 2,
-          index: 6,
+          level: 1,
+          index: 1,
+        },
+        {
+          level: 1,
+          index: 2,
+        },
+      ],
+      [
+        {
+          level: 0,
+          index: 5,
+        },
+        {
+          level: 1,
+          index: 15,
+        },
+      ],
+      [
+        {
+          level: 1,
+          index: 2,
         },
         {
           level: 2,
-          index: 7,
+          index: 4,
         },
       ],
     ],
@@ -332,12 +408,12 @@ export const settlements = [
     colour: '#ff0000',
     positions: [
       {
-        level: 0,
-        index: 0,
+        level: 1,
+        index: 8,
       },
       {
         level: 1,
-        index: 2,
+        index: 12,
       },
     ],
   },
@@ -345,8 +421,12 @@ export const settlements = [
     colour: '#00ff00',
     positions: [
       {
-        level: 2,
-        index: 4,
+        level: 0,
+        index: 2,
+      },
+      {
+        level: 1,
+        index: 17,
       },
     ],
   },
@@ -354,8 +434,8 @@ export const settlements = [
     colour: '#0000ff',
     positions: [
       {
-        level: 2,
-        index: 11,
+        level: 1,
+        index: 15,
       },
     ],
   },
