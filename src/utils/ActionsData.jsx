@@ -48,6 +48,9 @@ export const actions = [
   {
     type: 'buy_card',
   },
+  {
+    type: 'end_turn',
+  },
 ];
 
 export default actions;

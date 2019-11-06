@@ -220,6 +220,10 @@ export const buyCard = (id, onSuccess, onFailure) => {
   playAction(id, 'buy_card', null, onSuccess, onFailure);
 };
 
+export const endTurn = (id, onSuccess, onFailure) => {
+  playAction(id, 'end_turn', null, onSuccess, onFailure);
+};
+
 
 login.PropTypes = {
   username: PropTypes.string.isRequired,

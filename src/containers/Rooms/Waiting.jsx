@@ -33,7 +33,7 @@ export const Waiting = ({ username, room, setRoom }) => {
 
   const gameId = !!room && room.game_has_started ? room.game_id : null;
   const iAmOwner = !!room && room.owner === username;
-  const onStart = () => { startGame(id, onFailure); };
+  const onStart = () => { startGame(id, ()=>{}, onFailure); };
   const onCancel = () => { cancelRoom(id); setStage('canceled'); };
 
   // Refresh every 5 seconds and when mounted.
