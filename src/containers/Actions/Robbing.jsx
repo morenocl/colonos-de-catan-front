@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
-  dispatchRunning,
+  dispatchWaiting,
   dispatchError,
   dispatchRobberPayload,
 } from './Actions.ducks';
@@ -40,7 +40,7 @@ export const mapStateToProps = (state, ownProps) => {
 
 export const mapDispatchToProps = {
   setError: dispatchError,
-  setRunning: dispatchRunning,
+  setWaiting: dispatchWaiting,
   setGameRunning: dispatchGameRunning,
   setGameState: dispatchGameState,
   setRobberPayload: dispatchRobberPayload,
@@ -52,12 +52,12 @@ export const Robbing = (props) => {
     draw, payload, position, type, username,
   } = props;
   const { id } = useParams();
-  const { setError, setRobberPayload, setRunning } = props;
+  const { setError, setRobberPayload, setWaiting } = props;
   const { setGameRunning, setGameState } = props;
   const { setInfoOnClick } = props;
 
   const refresh = () => {
-    setRunning();
+    setWaiting();
     setGameRunning();
     getGameStatus(id, setGameState, setError);
   };
@@ -124,7 +124,7 @@ Robbing.propTypes = {
   })).isRequired,
   setError: PropTypes.func.isRequired,
   setRobberPayload: PropTypes.func.isRequired,
-  setRunning: PropTypes.func.isRequired,
+  setWaiting: PropTypes.func.isRequired,
   setGameRunning: PropTypes.func.isRequired,
   setGameState: PropTypes.func.isRequired,
   setInfoOnClick: PropTypes.func.isRequired,
