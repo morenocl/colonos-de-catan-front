@@ -8,18 +8,27 @@ import PropTypes from 'prop-types';
 
 const Robbing = ({ onCancel, onConfirm }) => {
   const head = (
-    <Row><Col><h1>Please choose a position</h1></Col></Row>
+    <Row><Col><h1 data-testid="actions-robbing-head">
+      Please choose a position and a player
+    </h1></Col></Row>
   );
 
   const body = (
     <Row>
       <Col>
-        <Button disabled={!onConfirm} onClick={onConfirm}>
+        <Button
+          disabled={!onConfirm}
+          onClick={onConfirm}
+          data-testid="actions-robbing-confirm"
+        >
           Confirm
         </Button>
       </Col>
       <Col>
-        <Button onClick={onCancel}>
+        <Button
+          onClick={onCancel}
+          data-testid="actions-robbing-cancel"
+        >
           Cancel
         </Button>
       </Col>
@@ -28,7 +37,7 @@ const Robbing = ({ onCancel, onConfirm }) => {
   );
 
   return (
-    <Container>
+    <Container data-testid="actions-robbing">
       {head}
       {body}
     </Container>
