@@ -182,8 +182,32 @@ test('shows 1 available player', () => {
 });
 
 test('shows 3 available players', () => {
+  const players = ['0', '1', '2'];
   const position = { level: 1, index: 2 };
-  const payload = [{ players: ['0', '1', '2'], position }];
+  const payload = [{ players, position }];
+
+  setInfoOnClick.mockImplementationOnce((onClickMaker) => {
+    const wrongPlayers = ['user', 'username', 'test', '', 1];
+
+    // It should call setInfoOnClick with an onClick maker function.
+    players.forEach((username) => {
+      const n = setRobberPayload.mock.calls.length;
+      // It should call setRobberPayload.
+      onClickMaker(username)();
+      expect(setRobberPayload).toHaveBeenCalledTimes(n + 1);
+      expect(setRobberPayload).toHaveBeenCalledWith(position, username);
+    });
+
+    setRobberPayload.mockClear();
+
+    // It should do nothing.
+    wrongPlayers.forEach((username) => {
+      expect(onClickMaker(username)).toBe(null);
+      expect(setRobberPayload).not.toHaveBeenCalled();
+      expect(setRobberPayload).not.toHaveBeenCalledWith(expect.anything());
+    });
+  });
+
   mk(payload, position);
 
   // It should set InfoOnClick.
