@@ -29,7 +29,13 @@ class ActionList extends React.Component {
 
     add(action) {
 	this.setState({
-	    actions: this.state.push(action),
+	    actions: this.state.actions.push(action),
+	});
+    }
+
+    sendOut() {
+	this.setState({
+	    actions: [],
 	});
     }
     
@@ -42,11 +48,12 @@ class ActionList extends React.Component {
 	    </Table>
 	);
     }
-    
+
     render() {
 	return (
 	        <Container>
 		  {this.actionsToTable(this.state.actions)}
+		  <Button onClick={() => {this.sendOut()}}>Send</Button>
 		</Container>
 	);
     }
