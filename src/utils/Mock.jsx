@@ -338,7 +338,7 @@ export const playKnight = (id, position, username, onSuccess, onFailure) => {
   console.log('Playing knight card', id);
 
   // Update info.
-  const localUsername = localStorage.getItem('username') || 'test';
+  const localUsername = localStorage.getItem('username');
   const localUser = data.info.players.find((p) => (
     p && p.username === localUsername));
   localUser.developmentCards -= 1;

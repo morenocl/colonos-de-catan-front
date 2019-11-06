@@ -19,7 +19,6 @@ const PlayerInfo = ({ player, onTurn, playerOnClick }) => {
         disabled={!playerOnClick}
         onClick={playerOnClick}
       >
-          Player:
         {username}
       </Button>
     </Card.Title>
