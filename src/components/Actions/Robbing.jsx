@@ -8,9 +8,13 @@ import PropTypes from 'prop-types';
 
 const Robbing = ({ onCancel, onConfirm }) => {
   const head = (
-    <Row><Col><h1 data-testid="actions-robbing-head">
+    <Row>
+      <Col>
+        <h1 data-testid="actions-robbing-head">
       Please choose a position and a player
-    </h1></Col></Row>
+        </h1>
+      </Col>
+    </Row>
   );
 
   const body = (
