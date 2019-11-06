@@ -6,7 +6,6 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import PropTypes from 'prop-types';
 
 import Error from './Error';
-import './Signup.css';
 
 
 const Signup = (props) => {
@@ -67,7 +66,7 @@ const Signup = (props) => {
   );
 
   return (
-    <div className="Signup">
+    <div className="Forms">
       <h1>Signup</h1>
       {error && <Error message={error} />}
       <form onSubmit={handleSubmit}>

@@ -6,7 +6,6 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import PropTypes from 'prop-types';
 
 import Error from './Error';
-import './Login.css';
 
 
 const Login = (props) => {
@@ -20,11 +19,12 @@ const Login = (props) => {
 
   const userForm = (
     <FormGroup bssize="large">
-      <FormLabel>
+      <FormLabel htmlFor="username">
         Username
       </FormLabel>
       <FormControl
         autoFocus
+        id="username"
         name="username"
         isInvalid={!!usernameError}
         onChange={changeUsername}
@@ -39,10 +39,11 @@ const Login = (props) => {
 
   const passForm = (
     <FormGroup bssize="large">
-      <FormLabel>
+      <FormLabel htmlFor="password">
         Password
       </FormLabel>
       <FormControl
+        id="password"
         name="password"
         isInvalid={!!passwordError}
         onChange={changePassword}
@@ -60,6 +61,7 @@ const Login = (props) => {
       block
       bssize="large"
       disabled={!validate()}
+      data-testid="button"
       type="submit"
     >
       {loading ? 'Loading...' : 'Login'}
@@ -67,7 +69,7 @@ const Login = (props) => {
   );
 
   return (
-    <div className="Login">
+    <div className="Forms">
       <h1>Login</h1>
       {error && <Error message={error} />}
       <form onSubmit={handleSubmit}>
