@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import PropTypes from 'prop-types';
 
 import showVertices from '../../components/Board/ShowVertices';
@@ -60,7 +58,14 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
     case 'end_turn':
       return () => (() => { endTurn(id, refresh, setError); });
 
+    case 'move_robber':
+      return () => (() => {
+        setGameFrozen();
+        setRobbing();
+      });
+
     default:
+      // eslint-disable-next-line no-console
       return () => (() => { console.log('default', type); });
   }
 }

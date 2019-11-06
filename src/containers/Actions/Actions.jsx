@@ -24,11 +24,13 @@ import Robbing from './Robbing';
 import ActionsScreen from '../../components/Actions/Actions';
 import Error from '../../components/Error';
 /* eslint-enable import/no-named-as-default */
+import actionsContainers from './ActionsContainers';
 import { getGameStatus } from '../../utils/Mock';
 
 
 const mapStateToProps = (state) => ({
   draw: state.Board.draw,
+  moveRobber: !!state.Game.actions.find((x) => x && x.type === 'move_robber'),
   stage: state.Actions.stage,
 });
 
@@ -45,7 +47,7 @@ const mapDispatchToProps = ({
 });
 
 export const Actions = (props) => {
-  const { draw, stage } = props;
+  const { draw, moveRobber, stage } = props;
   const {
     setBuilding, setBuying, setError,
     setOnClick, setWaiting, setRobbing,
@@ -87,7 +89,14 @@ export const Actions = (props) => {
       );
     }
 
-    if (stage.endsWith('robbing')) return (<Robbing type="play_knight_card" />);
+    if (stage.endsWith('robbing')) {
+      const type = moveRobber ? 'move_robber' : 'play_knight_card';
+      return (<Robbing type={type} />);
+    }
+  }
+
+  if (moveRobber) {
+    return (actionsContainers.moveRobber);
   }
 
   if (stage === 'waiting') return (<ActionsScreen />);
@@ -104,6 +113,7 @@ Actions.propTypes = {
   draw: PropTypes.shape({
     type: PropTypes.string.isRequired,
   }),
+  moveRobber: PropTypes.bool.isRequired,
   stage: PropTypes.string.isRequired,
   setBuilding: PropTypes.func.isRequired,
   setBuying: PropTypes.func.isRequired,
