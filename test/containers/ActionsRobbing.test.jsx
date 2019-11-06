@@ -67,7 +67,7 @@ afterEach(() => {
 
 const mk = (
   payload = [], position,
-  type = 'move_robber', username,
+  username, type = 'move_robber',
 ) => render(
   <Robbing
     draw={{}}
@@ -130,10 +130,11 @@ test('shows its component', () => {
 });
 
 test('shows available positions', () => {
-  const { queryByTestId } = mk([]);
+  mk([]);
 
   // It should call useParams.
   expect(useParams).toHaveBeenCalledTimes(1);
+  expect(useParams).not.toHaveBeenCalledWith(expect.anything());
 
   // It shouldn't call any of these.
   dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
@@ -141,16 +142,17 @@ test('shows available positions', () => {
 
   // It should show available positions.
   expect(showHCenter).toHaveBeenCalledTimes(1);
-  expect(showHCenter).toHaveBeenCalledWith({}, [], colours.building, expect.anything());
+  expect(showHCenter).toHaveBeenCalledWith({}, [], colours.building, expect.any(Function));
 });
 
 test('shows 0 available players', () => {
   const position = { level: 1, index: 2 };
-  const payload = [ { players: [], position } ]
-  const { queryByTestId } = mk(payload, position);
+  const payload = [{ players: [], position }];
+  mk(payload, position);
 
   // It should call useParams.
   expect(useParams).toHaveBeenCalledTimes(1);
+  expect(useParams).not.toHaveBeenCalledWith(expect.anything());
 
   // It shouldn't call any of these.
   dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
@@ -160,11 +162,12 @@ test('shows 0 available players', () => {
 
 test('shows 1 available player', () => {
   const position = { level: 1, index: 2 };
-  const payload = [ { players: ['player'], position } ]
-  const { queryByTestId } = mk(payload, position);
+  const payload = [{ players: ['player'], position }];
+  mk(payload, position);
 
   // It should call useParams.
   expect(useParams).toHaveBeenCalledTimes(1);
+  expect(useParams).not.toHaveBeenCalledWith(expect.anything());
 
   // It should set robberPayload.
   expect(setRobberPayload).toHaveBeenCalledTimes(1);
@@ -180,14 +183,12 @@ test('shows 1 available player', () => {
 
 test('shows 3 available players', () => {
   const position = { level: 1, index: 2 };
-  const payload = [ { players: ['0', '1', '2'], position } ]
-  const { queryByTestId } = mk(payload, position);
-
-  // It should call useParams.
-  expect(useParams).toHaveBeenCalledTimes(1);
+  const payload = [{ players: ['0', '1', '2'], position }];
+  mk(payload, position);
 
   // It should set InfoOnClick.
   expect(setInfoOnClick).toHaveBeenCalledTimes(1);
+  expect(setInfoOnClick).toHaveBeenCalledWith(expect.any(Function));
 
   // It shouldn't call any of these.
   dispatchs
@@ -195,4 +196,126 @@ test('shows 3 available players', () => {
     .forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
   expect(showHCenter).not.toHaveBeenCalled;
+});
+
+test('calls no functions', () => {
+  const position = { level: 1, index: 2 };
+  mk([], position, 'username');
+
+  // It shouldn't call any of these just yet.
+  dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
+  mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
+  expect(showHCenter).not.toHaveBeenCalled;
+});
+
+test('calls setInfoOnClick and moveRobber', () => {
+  const position = { level: 1, index: 2 };
+  const { queryByTestId } = mk([], position, 'username');
+
+  fireEvent.click(queryByTestId('actions-robbing-confirm'));
+
+  // It should unset InfoOnClick.
+  expect(setInfoOnClick).toHaveBeenCalledTimes(1);
+  expect(setInfoOnClick).toHaveBeenCalledWith(expect.any(Function));
+
+  expect(moveRobber).toHaveBeenCalledTimes(1);
+  expect(moveRobber).toHaveBeenCalledWith(
+    '1', position, 'username', expect.any(Function), expect.any(Function),
+  );
+
+  // It shouldn't call any of these.
+  dispatchs
+    .filter((f) => f !== setInfoOnClick)
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
+  expect(showHCenter).not.toHaveBeenCalled;
+  mockFns
+    .filter((f) => f !== moveRobber)
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
+});
+
+test('calls setInfoOnClick and playKnight', () => {
+  const position = { level: 1, index: 2 };
+  const { queryByTestId } = mk([], position, 'username', 'play_knight_card');
+
+  fireEvent.click(queryByTestId('actions-robbing-confirm'));
+
+  // It should unset InfoOnClick.
+  expect(setInfoOnClick).toHaveBeenCalledTimes(1);
+  expect(setInfoOnClick).toHaveBeenCalledWith(expect.any(Function));
+
+  expect(playKnight).toHaveBeenCalledTimes(1);
+  expect(playKnight).toHaveBeenCalledWith(
+    '1', position, 'username', expect.any(Function), expect.any(Function),
+  );
+
+  // It shouldn't call any of these.
+  dispatchs
+    .filter((f) => f !== setInfoOnClick)
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
+  expect(showHCenter).not.toHaveBeenCalled;
+  mockFns
+    .filter((f) => f !== playKnight)
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
+});
+
+test('calls refresh on confirm', () => {
+  const fun = (id, position, username, onSuccess, onFailure) => {
+    onSuccess();
+  };
+  moveRobber.mockImplementationOnce(fun);
+
+  const position = { level: 1, index: 2 };
+  const { queryByTestId } = mk([], position, 'username');
+
+  fireEvent.click(queryByTestId('actions-robbing-confirm'));
+
+  // It should refresh.
+  expect(setWaiting).toHaveBeenCalledTimes(1);
+  expect(setWaiting).not.toHaveBeenCalledWith(expect.anything());
+  expect(setGameRunning).toHaveBeenCalledTimes(1);
+  expect(setGameRunning).not.toHaveBeenCalledWith(expect.anything());
+  expect(getGameStatus).toHaveBeenCalledTimes(1);
+  expect(getGameStatus).toHaveBeenCalledWith('1', setGameState, setError);
+
+  // It shouldn't call any of these.
+  const calledDispatchs = [setInfoOnClick, setWaiting, setGameRunning];
+  const calledMocks = [moveRobber, getGameStatus];
+  dispatchs
+    .filter((f) => !calledDispatchs.includes(f))
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
+  expect(showHCenter).not.toHaveBeenCalled;
+  mockFns
+    .filter((f) => !calledMocks.includes(f))
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
+});
+
+test('calls refresh on cancel', () => {
+  const fun = (id, position, username, onSuccess, onFailure) => {
+    onSuccess();
+  };
+  moveRobber.mockImplementationOnce(fun);
+
+  const position = { level: 1, index: 2 };
+  const { queryByTestId } = mk([], position, 'username');
+
+  fireEvent.click(queryByTestId('actions-robbing-cancel'));
+
+  // It should refresh.
+  expect(setWaiting).toHaveBeenCalledTimes(1);
+  expect(setWaiting).not.toHaveBeenCalledWith(expect.anything());
+  expect(setGameRunning).toHaveBeenCalledTimes(1);
+  expect(setWaiting).not.toHaveBeenCalledWith(expect.anything());
+  expect(getGameStatus).toHaveBeenCalledTimes(1);
+  expect(getGameStatus).toHaveBeenCalledWith('1', setGameState, setError);
+
+  // It shouldn't call any of these.
+  const calledDispatchs = [setWaiting, setGameRunning];
+  const calledMocks = [getGameStatus];
+  dispatchs
+    .filter((f) => !calledDispatchs.includes(f))
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
+  expect(showHCenter).not.toHaveBeenCalled;
+  mockFns
+    .filter((f) => !calledMocks.includes(f))
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
 });
