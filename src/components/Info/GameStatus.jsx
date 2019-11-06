@@ -36,7 +36,7 @@ const GameStatus = ({ turn, winner }) => {
           <td>
             Dice:
           </td>
-          <td>
+          <td data-testid="dice">
             {`${turn.dice[0]}, ${turn.dice[1]}`}
           </td>
         </tr>
