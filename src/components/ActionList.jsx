@@ -23,7 +23,13 @@ class ActionList extends React.Component {
 
     remove(action) {
 	this.setState({
-	    actions: this.state.actions.filter((a) => a !== action)
+	    actions: this.state.actions.filter((a) => a !== action),
+	});
+    }
+
+    add(action) {
+	this.setState({
+	    actions: this.state.push(action),
 	});
     }
     
