@@ -31,15 +31,15 @@ export const Waiting = ({ username, room, setRoom }) => {
   };
   const onFailure = () => { setStage('error'); };
 
-  const gameId = !!room && room.game_has_started ? room.game_id : null;
-  const iAmOwner = !!room && room.owner === username;
-  const onStart = () => { startGame(id, ()=>{}, onFailure); };
-  const onCancel = () => { cancelRoom(id); setStage('canceled'); };
-
   // Refresh every 5 seconds and when mounted.
   const refresh = () => { getRoom(id, onSuccess, onFailure); };
   useEffect(refresh, []);
   useInterval(() => { if (stage !== 'started') refresh(); }, 5000);
+
+  const gameId = !!room && room.game_has_started ? room.game_id : null;
+  const iAmOwner = !!room && room.owner === username;
+  const onStart = () => { startGame(id, refresh, onFailure); };
+  const onCancel = () => { cancelRoom(id); setStage('canceled'); };
 
   if (stage === 'empty') return (<></>);
 
