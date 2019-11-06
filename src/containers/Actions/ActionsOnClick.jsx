@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import showVertices from '../../components/Board/ShowVertices';
 import showEdges from '../../components/Board/ShowEdges';
-import { buyCard } from '../../utils/Mock';
+import { buyCard, endTurn } from '../../utils/Mock';
 import { buildingRequests } from './ActionsUtils';
 import { colours } from '../../utils/Constants';
 
@@ -56,6 +56,9 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
         setGameFrozen();
         setRobbing();
       });
+
+    case 'end_turn':
+      return () => (() => { endTurn(id, refresh, setError); });
 
     default:
       return () => (() => { console.log('default', type); });

@@ -125,6 +125,7 @@ export const actions = [
       },
     ],
   },
+  { type: 'end_turn' },
 ];
 
 export default actions;
