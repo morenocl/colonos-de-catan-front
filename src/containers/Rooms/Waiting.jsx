@@ -66,7 +66,7 @@ export const Waiting = ({ username, room, setRoom }) => {
         <Error />
         <Link to="/rooms">
           <Button>
-            Volver a Rooms
+            Back to Rooms
           </Button>
         </Link>
       </div>

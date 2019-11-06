@@ -26,11 +26,8 @@ const data = {
   rooms,
   room,
   users,
-  getRoom: false,
-  getRoomCanceled: false,
-  getRooms: false,
-  createRoom: false,
-  createRoomsErrors: [
+  canceledRooms: [],
+  errors: [
     "Oops! That page couldn't be found",
     'The server was unable to complete your request',
     'Sorry, something went wrong',

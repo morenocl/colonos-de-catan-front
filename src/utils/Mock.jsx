@@ -145,8 +145,8 @@ export const getRooms = (onSuccess, onFailure) => {
   mkPromise('rooms')
     .then((rooms) => {
       if (data.getRooms) {
-        const message = Math.floor(Math.random() * data.getRoomsErrors.length);
-        onFailure(Error(data.getRoomsErrors[message]));
+        const message = Math.floor(Math.random() * data.errors.length);
+        onFailure(Error(data.errors[message]));
       } else onSuccess(rooms);
     });
 };
@@ -177,8 +177,8 @@ export const createRoom = (name, boardId, onSuccess, onFailure) => {
   mkPromise()
     .then(() => {
       if (data.createRoom) {
-        const message = Math.floor(Math.random() * data.createRoomsErrors.length);
-        onFailure(Error(data.createRoomsErrors[message]));
+        const message = Math.floor(Math.random() * data.errors.length);
+        onFailure(Error(data.errors[message]));
       } else onSuccess(JSON.parse(JSON.stringify(data.rooms[0])));
     });
 };
@@ -235,7 +235,8 @@ export const getRoom = (id, onSuccess, onFailure) => {
         data.rooms[data.rooms.indexOf(room)] = { ...room };
       }
 
-      if (data.getRoom) onFailure(data.getRoomCanceled ? { status: 404 } : { status: 500 });
+      if (data.getRoom) onFailure({ status: 500 });
+      else if (data.canceledRooms[id]) onFailure({ status: 404 });
       else onSuccess(room);
     });
 };
@@ -260,8 +261,9 @@ export const cancelRoom = (id, onSuccess = () => { }, onFailure) => {
 
   mkPromise()
     .then(() => {
-      const room = data.rooms.find((r) => r && r.id === id);
+      const room = data.rooms.find((r) => r && r.id === Number(id));
       data.rooms.splice(data.rooms.indexOf(room), 1);
+      data.canceledRooms[id] = true;
 
       if (data.cancelRoom) onFailure();
       else onSuccess();
