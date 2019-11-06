@@ -57,7 +57,7 @@ export const hexagons = [
       index: 0,
     },
     terrain: 'desert',
-    token: 0,
+    token: 1,
   },
   {
     position: {
@@ -65,7 +65,7 @@ export const hexagons = [
       index: 0,
     },
     terrain: 'lumber',
-    token: 1,
+    token: 2,
   },
   {
     position: {
@@ -113,7 +113,7 @@ export const hexagons = [
       index: 0,
     },
     terrain: 'ore',
-    token: 7,
+    token: 8,
   },
   {
     position: {
@@ -161,7 +161,7 @@ export const hexagons = [
       index: 6,
     },
     terrain: 'ore',
-    token: 13,
+    token: 2,
   },
   {
     position: {
@@ -169,7 +169,7 @@ export const hexagons = [
       index: 7,
     },
     terrain: 'ore',
-    token: 14,
+    token: 3,
   },
   {
     position: {
@@ -177,7 +177,7 @@ export const hexagons = [
       index: 8,
     },
     terrain: 'ore',
-    token: 15,
+    token: 4,
   },
   {
     position: {
@@ -185,7 +185,7 @@ export const hexagons = [
       index: 9,
     },
     terrain: 'ore',
-    token: 16,
+    token: 5,
   },
   {
     position: {
@@ -193,7 +193,7 @@ export const hexagons = [
       index: 10,
     },
     terrain: 'ore',
-    token: 17,
+    token: 6,
   },
   {
     position: {
@@ -201,7 +201,7 @@ export const hexagons = [
       index: 11,
     },
     terrain: 'ore',
-    token: 18,
+    token: 6,
   },
 ];
 
