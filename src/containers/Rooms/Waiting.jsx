@@ -45,7 +45,10 @@ export const Waiting = ({
 
   if (stage === 'empty') return (<></>);
 
-  if (stage === 'canceled') return (<Redirect to="/rooms" />);
+  if (stage === 'canceled') {
+    setStage('empty');
+    return (<Redirect to="/rooms" />);
+  }
 
   if (stage === 'started') return (<Redirect to={`/game/${gameId}`} />);
 
