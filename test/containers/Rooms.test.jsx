@@ -71,7 +71,7 @@ test('returns rooms and stage', () => {
     stage: state.Rooms.stage,
   };
 
-  expect(mapStateToProps(state)).toEqual(expected);
+  expect(mapStateToProps(state)).toStrictEqual(expected);
 });
 
 test('returns all dispatch functions', () => {
@@ -81,7 +81,7 @@ test('returns all dispatch functions', () => {
     setRooms: dispatchRooms,
     setCreate: dispatchCreate,
   };
-  expect(mapDispatchToProps).toEqual(expected);
+  expect(mapDispatchToProps).toStrictEqual(expected);
 });
 
 test('is empty', () => {

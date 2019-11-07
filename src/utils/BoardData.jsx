@@ -14,10 +14,9 @@ export const boards = [
 ];
 
 export const cards = [
-  'road_building',
-  'road_building',
   'knight',
-  'monopoly',
+  'knight',
+  'knight',
 ];
 
 export const cities = [
@@ -362,10 +361,10 @@ export const roads = [
 export const info = {
   players: [
     {
-      username: 'user0',
+      username: 'test',
       colour: '#ff0000',
-      developmentCards: 0,
-      resourcesCards: 0,
+      developmentCards: 3,
+      resourcesCards: 13,
       victoryPoints: 0,
       lastGained: [
       ],
@@ -374,7 +373,7 @@ export const info = {
       username: 'user2',
       colour: '#00ff00',
       developmentCards: 1,
-      resourcesCards: 1,
+      resourcesCards: 6,
       victoryPoints: 1,
       lastGained: [
         'lumber',
@@ -384,7 +383,7 @@ export const info = {
       username: 'user3',
       colour: '#0000ff',
       developmentCards: 2,
-      resourcesCards: 2,
+      resourcesCards: 5,
       victoryPoints: 2,
       lastGained: [
         'wool',
@@ -393,8 +392,8 @@ export const info = {
     },
   ],
   currentTurn: {
-    user: 'user0',
-    dice: [1, 1],
+    user: 'test',
+    dice: [3, 4],
   },
 };
 

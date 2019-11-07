@@ -19,7 +19,6 @@ const PlayerInfo = ({ player, onTurn, playerOnClick }) => {
         disabled={!playerOnClick}
         onClick={playerOnClick}
       >
-          Player:
         {username}
       </Button>
     </Card.Title>
@@ -76,5 +75,9 @@ PlayerInfo.propTypes = {
     lastGained: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   onTurn: PropTypes.bool.isRequired,
-  playerOnClick: PropTypes.func.isRequired,
+  playerOnClick: PropTypes.func,
+};
+
+PlayerInfo.defaultProps = {
+  playerOnClick: null,
 };
