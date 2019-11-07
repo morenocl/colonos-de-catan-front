@@ -16,7 +16,6 @@ class ActionList extends React.Component {
     }
 
     renderAction(action, remove) {
-	console.log(action)
 	return(
 	    <tr key={action}>
 	      <td> {action} </td> <td> <Button variant="outline-warning" onClick={remove}>X</Button> </td>
