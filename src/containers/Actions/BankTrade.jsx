@@ -3,31 +3,46 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { resourceNames } from '../../utils/Constants';
+import counter from '../../utils/Counter';
 import {
   dispatchError,
-  dispatchRunning,
+  dispatchWaiting,
 } from './Actions.ducks';
+import {
+  setRunning as dispatchGameRunning,
+  setState as dispatchGameState,
+} from '../Game/Game.ducks';
 import BankTradeScreen from '../../components/Actions/BankTrade';
-import { bankTrade } from '../../utils/Mock';
-
+import { bankTrade, getGameStatus } from '../../utils/Mock';
 
 const mapStateToProps = (state) => ({
-  refresh: state.Game.refresh,
+  resources: state.Game.hand.resources,
 });
 
 const mapDispatchToProps = ({
   setError: dispatchError,
-  setRunning: dispatchRunning,
+  setWaiting: dispatchWaiting,
+  setGameRunning: dispatchGameRunning,
+  setGameState: dispatchGameState,
 });
 
 export const BankTrade = (props) => {
-  const { refresh, setRunning, setError } = props;
+  const {
+    setError, setWaiting, setGameRunning, setGameState, resources,
+  } = props;
   const { id } = useParams();
   const [offer, setOffer] = useState('');
   const [request, setRequest] = useState('');
 
+  const refresh = () => {
+    setWaiting();
+    setGameRunning();
+    getGameStatus(id, setGameState, setError);
+  };
+
   const trade = () => {
-    bankTrade(id, offer, request, () => { setRunning(); refresh(); }, setError);
+    bankTrade(id, offer, request, refresh, setError);
   };
 
   return (
@@ -37,14 +52,20 @@ export const BankTrade = (props) => {
       trade={trade}
       offer={offer}
       request={request}
+      cancel={refresh}
+      resources={resourceNames.filter((r) => counter(resources, r) >= 4)}
+      disabled={offer === '' || request === '' || offer === request}
     />
   );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BankTrade);
 
+
 BankTrade.propTypes = {
-  refresh: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
-  setRunning: PropTypes.func.isRequired,
+  setWaiting: PropTypes.func.isRequired,
+  setGameRunning: PropTypes.func.isRequired,
+  setGameState: PropTypes.func.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

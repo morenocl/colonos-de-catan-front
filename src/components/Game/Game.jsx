@@ -7,17 +7,17 @@ import Row from 'react-bootstrap/Row';
 import Actions from '../../containers/Actions/Actions';
 import Board from '../../containers/Board/Board';
 import Hand from '../../containers/Hand';
-import Info from '../../containers/Info';
+import Info from '../../containers/Info/Info';
 /* eslint-enable import/no-named-as-default */
 
 
 const GameScreen = () => (
   <Container>
     <Row>
-      <Col xs={10}>
+      <Col xs={9}>
         <Board />
       </Col>
-      <Col xs={2}>
+      <Col xs={3}>
         <Info />
       </Col>
     </Row>

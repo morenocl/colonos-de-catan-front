@@ -4,13 +4,17 @@ import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
 import PropTypes from 'prop-types';
-import Error from '../Error';
 
+import Error from '../Error';
 import { BoardListType } from '../../utils/ApiTypes';
+
 
 const CreateRoom = (props) => {
   const {
-    boards, roomName, loading, error, roomNameError, boardIdError,
+    boards, roomName, loading, error,
+  } = props;
+  const { roomNameError, boardIdError } = props;
+  const {
     handleSubmit, changeRoomName, changeBoardId, validate,
   } = props;
 
@@ -76,7 +80,7 @@ const CreateRoom = (props) => {
   );
 
   return (
-    <div>
+    <div data-testid="rooms-create">
       <h1>Create Room</h1>
       {error && <Error message={error} />}
       <form onSubmit={handleSubmit}>
@@ -89,6 +93,7 @@ const CreateRoom = (props) => {
 };
 
 export default CreateRoom;
+
 
 CreateRoom.propTypes = {
   boards: PropTypes.arrayOf(BoardListType).isRequired,

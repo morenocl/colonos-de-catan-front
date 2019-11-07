@@ -3,41 +3,41 @@ import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
 
-const GameInfo = ({ turn, winner }) => {
+const GameStatus = ({ turn, winner }) => {
   if (winner) {
     return (
-      <Table>
-        <tr>
-          <td>
-            Winner:
-          </td>
-          <td>
-            {winner}
-          </td>
-        </tr>
+      <Table borderless size="sm">
+        <tbody>
+          <tr>
+            <td>
+              Winner:
+            </td>
+            <td data-testid="winner">
+              {winner}
+            </td>
+          </tr>
+        </tbody>
       </Table>
     );
   }
 
   return (
-    <Table>
+    <Table borderless size="sm">
       <tbody>
         <tr>
           <td>
-              Turn:
+            Turn:
           </td>
-          <td>
+          <td data-testid="turn-user">
             {turn.user}
           </td>
         </tr>
         <tr>
           <td>
-              Dice:
+            Dice:
           </td>
-          <td>
-            {turn.dice[0]}
-              ,
-            {turn.dice[1]}
+          <td data-testid="dice">
+            {`${turn.dice[0]}, ${turn.dice[1]}`}
           </td>
         </tr>
       </tbody>
@@ -45,10 +45,10 @@ const GameInfo = ({ turn, winner }) => {
   );
 };
 
-export default GameInfo;
+export default GameStatus;
 
 
-GameInfo.propTypes = {
+GameStatus.propTypes = {
   turn: PropTypes.shape({
     user: PropTypes.string.isRequired,
     dice: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -56,6 +56,6 @@ GameInfo.propTypes = {
   winner: PropTypes.string,
 };
 
-GameInfo.defaultProps = {
+GameStatus.defaultProps = {
   winner: null,
 };

@@ -1,10 +1,8 @@
-/* eslint-disable no-console */
-
 import PropTypes from 'prop-types';
 
 import showVertices from '../../components/Board/ShowVertices';
 import showEdges from '../../components/Board/ShowEdges';
-import { buyCard } from '../../utils/Mock';
+import { buyCard, endTurn } from '../../utils/Mock';
 import { buildingRequests } from './ActionsUtils';
 import { colours } from '../../utils/Constants';
 
@@ -13,35 +11,36 @@ import { colours } from '../../utils/Constants';
 // takes the action's id and type and returns the
 // appropriate onClick function (given its payload).
 export const actionOnClick = (id, eventHandlers) => ((type) => {
+  const { draw, refresh } = eventHandlers;
   const {
-    draw, refresh, setBuilding, setBuying,
-    setError, setFrozen, setRunning,
+    setBuilding, setBuying, setError, setRobbing,
   } = eventHandlers;
+  const { setGameFrozen } = eventHandlers;
 
   const {
     cBuild, rBuild, sBuild,
-  } = buildingRequests(id, refresh, setError, setRunning);
+  } = buildingRequests(id, refresh, setError);
 
   switch (type) {
     case 'build_settlement':
       return (ps) => (() => {
         setBuilding();
-        setFrozen();
-        showVertices(draw, colours.building, ps, 'settlement', sBuild);
+        setGameFrozen();
+        showVertices(draw, ps, colours.building, 'settlement', sBuild);
       });
 
     case 'build_road':
       return (ps) => (() => {
         setBuilding();
-        setFrozen();
-        showEdges(draw, colours.building, ps, rBuild);
+        setGameFrozen();
+        showEdges(draw, ps, colours.building, rBuild);
       });
 
     case 'upgrade_city':
       return (ps) => (() => {
         setBuilding();
-        setFrozen();
-        showVertices(draw, colours.building, ps, 'city', cBuild);
+        setGameFrozen();
+        showVertices(draw, ps, colours.building, 'city', cBuild);
       });
 
     case 'bank_trade':
@@ -50,7 +49,23 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
     case 'buy_card':
       return () => (() => { buyCard(id, refresh, setError); });
 
+    case 'play_knight_card':
+      return () => (() => {
+        setGameFrozen();
+        setRobbing();
+      });
+
+    case 'end_turn':
+      return () => (() => { endTurn(id, refresh, setError); });
+
+    case 'move_robber':
+      return () => (() => {
+        setGameFrozen();
+        setRobbing();
+      });
+
     default:
+      // eslint-disable-next-line no-console
       return () => (() => { console.log('default', type); });
   }
 }
@@ -69,7 +84,6 @@ actionOnClick.propTypes = {
     setBuilding: PropTypes.func.isRequired,
     setBuying: PropTypes.func.isRequired,
     setError: PropTypes.func.isRequired,
-    setFrozen: PropTypes.func.isRequired,
-    setRunning: PropTypes.func.isRequired,
+    setGameFrozen: PropTypes.func.isRequired,
   }).isRequired,
 };

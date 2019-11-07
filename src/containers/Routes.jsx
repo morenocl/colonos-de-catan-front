@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 /* eslint-disable import/no-named-as-default */
 import CreateRoom from './Rooms/CreateRoom';
 import Game from './Game/Game';
-import Login from './Login/Login';
+import Login from './Login';
 import Rooms from './Rooms/Rooms';
-import Signup from './Signup/Signup';
+import Signup from './Signup';
 import Waiting from './Rooms/Waiting';
 /* eslint-enable import/no-named-as-default */
 

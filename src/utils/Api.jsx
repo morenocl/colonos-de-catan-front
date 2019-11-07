@@ -99,6 +99,17 @@ export const startGame = (id, onSuccess, onFailure) => {
   request(url, option, onSuccess, onFailure);
 };
 
+export const cancelRoom = (id, onSuccess, onFailure) => {
+  const url = `${path}/rooms/${id}/`;
+  const option = {
+    method: 'DELETE',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  };
+  request(url, option, onSuccess, onFailure);
+};
+
 export const joinRoom = (id, onFailure) => {
   const url = `${path}/rooms/${id}/`;
   const option = {
@@ -209,6 +220,18 @@ export const buyCard = (id, onSuccess, onFailure) => {
   playAction(id, 'buy_card', null, onSuccess, onFailure);
 };
 
+export const endTurn = (id, onSuccess, onFailure) => {
+  playAction(id, 'end_turn', null, onSuccess, onFailure);
+};
+
+export const moveRobber = (id, position, username, onSuccess, onFailure) => {
+  playAction(id, 'move_robber', { position, username }, onSuccess, onFailure);
+};
+
+export const playKnight = (id, position, username, onSuccess, onFailure) => {
+  playAction(id, 'play_knight_card', { position, username }, onSuccess, onFailure);
+};
+
 
 login.PropTypes = {
   username: PropTypes.string.isRequired,
@@ -243,6 +266,12 @@ getRoom.PropTypes = {
 };
 
 startGame.PropTypes = {
+  id: PropTypes.number.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+cancelRoom.PropTypes = {
   id: PropTypes.number.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,

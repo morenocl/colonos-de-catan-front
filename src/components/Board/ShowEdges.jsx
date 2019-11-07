@@ -4,7 +4,7 @@ import { roadStroke, vertexCenter } from './BoardUtils';
 import { RoadPosition } from '../../utils/ApiTypes';
 
 
-const showEdges = (draw, colour, ps, onClickMaker = () => null) => {
+const showEdges = (draw, ps, colour, onClickMaker = () => null) => {
   const drawEdge = ([p0, p1]) => {
     const { level: level0, index: index0 } = p0;
     const { level: level1, index: index1 } = p1;

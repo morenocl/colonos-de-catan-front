@@ -7,6 +7,7 @@ import {
 const SET_ERROR = 'game/SET_ERROR';
 const SET_FROZEN = 'game/SET_FROZEN';
 const SET_REFRESH = 'game/SET_REFRESH';
+const SET_RUNNING = 'game/SET_RUNNING';
 const SET_STATE = 'game/SET_STATE';
 
 export const setError = () => ({
@@ -22,12 +23,15 @@ export const setRefresh = (refresh) => ({
   payload: { refresh },
 });
 
-export const setRunningStage = (
+export const setRunning = () => ({
+  type: SET_RUNNING,
+});
+
+export const setState = (
   actions, board, hand, info,
 ) => ({
   type: SET_STATE,
   payload: {
-    stage: 'running',
     actions,
     board,
     hand,
@@ -55,8 +59,12 @@ const reducer = (state = initialState, action = {}) => {
     case SET_REFRESH:
       return { ...state, refresh: action.payload.refresh };
 
+    case SET_RUNNING:
+      return { ...state, stage: 'running' };
+
     case SET_STATE:
-      return { ...state, ...action.payload };
+      if (state.stage !== 'frozen') return { ...state, ...action.payload };
+      return state;
 
     default: return state;
   }
@@ -69,7 +77,7 @@ setRefresh.propTypes = {
   refresh: PropTypes.func.isRequired,
 };
 
-setRunningStage.propTypes = {
+setRunning.propTypes = {
   actions: PropTypes.arrayOf(ActionType),
   board: BoardType,
   hand: HandType,

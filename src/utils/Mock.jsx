@@ -1,10 +1,14 @@
 /* eslint-disable no-console */
 import data from './Data';
+import { resourceNames } from './Constants';
 
 
 const mkPromise = (x) => (
   new Promise((res) => {
-    setTimeout(() => res(data[x]), data.timeout);
+    setTimeout(() => {
+      console.log('Got response');
+      res(x && JSON.parse(JSON.stringify(data[x])));
+    }, Math.random() * data.timeout);
   })
 );
 
@@ -37,7 +41,7 @@ export const buyCard = (id, onSuccess, onFailure) => {
         delete data.actions[actionId];
       }
 
-      data.actions = [...data.actions];
+      data.actions = JSON.parse(JSON.stringify(data.actions));
 
       if (data.buyCard) onFailure();
       else onSuccess();
@@ -50,7 +54,7 @@ export const buildCity = (id, pos, onSuccess, onFailure) => {
   mkPromise()
     .then(() => {
       // Update response.
-      data.board.cities = [...data.board.cities];
+      data.board.cities = JSON.parse(JSON.stringify(data.board.cities));
       data.board.cities[0].positions.push(pos);
 
       // Find action index.
@@ -72,14 +76,18 @@ export const buildRoad = (id, pos, onSuccess, onFailure) => {
   mkPromise()
     .then(() => {
       // Update response.
-      data.board.roads = [...data.board.roads];
+      data.board.roads = JSON.parse(JSON.stringify(data.board.roads));
       data.board.roads[0].positions.push(pos);
 
       // Find action index.
       const actionId = data.actions.findIndex((x) => x && x.type === 'build_road');
+
       // Find payload index.
       const posId = data.actions[actionId].payload
-        .findIndex((x) => x && x[0] === pos[0] && x[1] === pos[1]);
+        .findIndex((x) => (x
+          && x[0].level === pos[0].level && x[0].index === pos[0].index
+          && x[1].level === pos[1].level && x[1].index === pos[1].index));
+
       // Remove from available positions.
       data.actions[actionId].payload.splice(posId, 1);
       if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
@@ -95,7 +103,7 @@ export const buildSettlement = (id, pos, onSuccess, onFailure) => {
   mkPromise()
     .then(() => {
       // Update response.
-      data.board.settlements = [...data.board.settlements];
+      data.board.settlements = JSON.parse(JSON.stringify(data.board.settlements));
       data.board.settlements[0].positions.push(pos);
 
       // Find action index.
@@ -124,9 +132,27 @@ export const bankTrade = (id, offer, request, onSuccess, onFailure) => {
         delete data.actions[actionId];
       }
 
-      data.actions = [...data.actions];
+      data.actions = JSON.parse(JSON.stringify(data.actions));
 
       if (data.bankTrade) onFailure();
+      else onSuccess();
+    });
+};
+
+export const endTurn = (id, onSuccess, onFailure) => {
+  console.log('Ending turn');
+
+  mkPromise()
+    .then(() => {
+      const { players, currentTurn } = data.info;
+      const next = (players.findIndex((p) => p.username === currentTurn.user) + 1) % players.length;
+
+      currentTurn.user = players[next].username;
+      currentTurn.dice = [Math.ceil(Math.random() * 6), Math.ceil(Math.random() * 6)];
+      // Comment next line to see a fluid game.
+      data.actions = [];
+
+      if (data.endTurn) onFailure();
       else onSuccess();
     });
 };
@@ -168,7 +194,7 @@ export const createRoom = (name, boardId, onSuccess, onFailure) => {
   mkPromise()
     .then(() => {
       if (data.joinRoom) onFailure();
-      else onSuccess(data.rooms[0]);
+      else onSuccess(JSON.parse(JSON.stringify(data.rooms[0])));
     });
 };
 
@@ -211,31 +237,138 @@ export const login = (username, password, onSuccess, onFailure) => {
 export const getRoom = (id, onSuccess, onFailure) => {
   console.log('Got room', id);
 
-  const key = String(id);
-  const room = data.rooms.find((r) => r && r.id === id);
+  mkPromise()
+    .then(() => {
+      const room = data.rooms.find((r) => r && r.id === Number(id));
 
-  if (!data.waiting[key]) data.waiting[key] = data.totalWait;
+      if (!data.waiting[id]) data.waiting[id] = data.totalWait;
 
-  data.waiting[key] -= 1;
-  if (data.waiting[key] <= 0) {
-    room.game_has_started = true;
-    room.game_id = 1;
-    data.rooms[data.rooms.indexOf(room)] = { ...room };
-  }
+      data.waiting[id] -= 1;
+      if (data.waiting[id] <= 0) {
+        room.game_has_started = true;
+        room.game_id = 1;
+        data.rooms[data.rooms.indexOf(room)] = { ...room };
+      }
 
-  if (data.getRoom) onFailure();
-  else onSuccess(room);
+      if (data.getRoom) onFailure();
+      else onSuccess(room);
+    });
 };
 
 export const startGame = (id, onSuccess, onFailure) => {
   console.log('Started game');
 
-  // Start game
-  const room = data.rooms.find((r) => r && r.id === id);
-  room.game_has_started = true;
-  room.game_id = 1;
-  data.rooms = [...data.rooms];
+  mkPromise()
+    .then(() => {
+      const room = data.rooms.find((r) => r && r.id === Number(id));
+      room.game_has_started = true;
+      room.game_id = 2;
+      data.rooms = [...data.rooms];
 
-  if (data.startGame) onFailure();
-  else onSuccess();
+      if (data.startGame) onFailure();
+      else onSuccess();
+    });
+};
+
+export const cancelRoom = (id, onSuccess = () => {}, onFailure) => {
+  console.log('Room canceled', id);
+
+  mkPromise()
+    .then(() => {
+      const room = data.rooms.find((r) => r && r.id === Number(id));
+      data.rooms.splice(data.rooms.indexOf(room), 1);
+
+      if (data.cancelRoom) onFailure();
+      else onSuccess();
+    });
+};
+
+const robber = (position, username) => mkPromise().then(() => {
+  data.board.robber = position;
+
+  const targetUser = data.info.players.find((p) => (
+    p && p.username === username));
+
+  if (username && targetUser.resourcesCards >= 1) {
+  // Remove resource from opponent's hand.
+    targetUser.resourcesCards -= 1;
+
+    // Get random resource.
+    const resourceId = Math.floor(Math.random() * resourceNames.length);
+    data.hand.resources.push(resourceNames[resourceId]);
+
+    // Update info.
+    const localUsername = localStorage.getItem('username') || 'test';
+    const localUser = data.info.players.find((p) => (
+      p && p.username === localUsername));
+    localUser.resourcesCards += 1;
+  }
+});
+
+export const moveRobber = (id, position, username, onSuccess, onFailure) => {
+  console.log('Moving robber', id);
+
+  // Remove action.
+  const aId = data.actions.findIndex((x) => x && x.type === 'move_robber');
+  data.actions.splice(aId, 1);
+
+  // If knight card is available, update positions.
+  const kId = data.actions.findIndex((x) => x && x.type === 'play_knight_card');
+
+  if (kId !== -1) {
+    const posId = data.actions[kId].payload.findIndex((x) => (x
+      && x.position.level === position.level
+      && x.position.index === position.index));
+
+    // Remove chosen position.
+    data.actions[kId].payload.splice(posId, 1);
+
+    // Add previous position.
+    data.actions[kId].payload.push({ position: data.board.robber, players: [] });
+  }
+
+  robber(position, username)
+    .then(() => {
+      if (data.moveRobber) onFailure();
+      else onSuccess();
+    });
+};
+
+export const playKnight = (id, position, username, onSuccess, onFailure) => {
+  console.log('Playing knight card', id);
+
+  // Update info.
+  const localUsername = localStorage.getItem('username');
+  const localUser = data.info.players.find((p) => (
+    p && p.username === localUsername));
+  localUser.developmentCards -= 1;
+
+  // Remove card.
+  const cId = data.hand.cards.findIndex((x) => x === 'knight');
+  data.hand.cards.splice(cId, 1);
+
+  const aId = data.actions.findIndex(
+    (x) => x && x.type === 'play_knight_card',
+  );
+
+  // Remove action or position.
+  if (!data.hand.cards.find(((x) => x === 'knight'))) {
+    data.actions.splice(aId, 1);
+  } else {
+    const posId = data.actions[aId].payload.findIndex((x) => (x
+      && x.position.level === position.level
+      && x.position.index === position.index));
+
+    // Remove chosen position.
+    data.actions[aId].payload.splice(posId, 1);
+
+    // Add previous position.
+    data.actions[aId].payload.push({ position: data.board.robber, players: [] });
+  }
+
+  robber(position, username)
+    .then(() => {
+      if (data.moveRobber) onFailure();
+      else onSuccess();
+    });
 };

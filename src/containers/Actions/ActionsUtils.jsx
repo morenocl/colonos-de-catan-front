@@ -9,6 +9,7 @@ export const actionLabels = {
   transaction: 'Trade',
   end_turn: 'End turn',
   buy_card: 'Buy card',
+  move_robber: 'Move robber',
   play_knight_card: 'Play knight',
   play_road_building_card: 'Play 2 roads',
   play_monopoly_card: 'Play monopoly',
@@ -16,22 +17,17 @@ export const actionLabels = {
 };
 
 
-export const buildingRequests = (id, refresh, setError, setRunning) => {
-  const onSuccess = () => {
-    setRunning();
-    refresh();
-  };
-
+export const buildingRequests = (id, refresh, setError) => {
   const cBuild = (position) => () => {
-    buildCity(id, position, onSuccess, setError);
+    buildCity(id, position, refresh, setError);
   };
 
   const rBuild = (position) => () => {
-    buildRoad(id, position, onSuccess, setError);
+    buildRoad(id, position, refresh, setError);
   };
 
   const sBuild = (position) => () => {
-    buildSettlement(id, position, onSuccess, setError);
+    buildSettlement(id, position, refresh, setError);
   };
 
   return ({

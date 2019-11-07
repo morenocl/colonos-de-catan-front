@@ -7,7 +7,7 @@ export const SET_USERNAME = 'app/SET_USERNAME';
 
 export const initialState = {
   auth: !!localStorage.getItem('token'),
-  username: null,
+  username: localStorage.getItem('username'),
 };
 
 const reducer = (state = initialState, action = {}) => {

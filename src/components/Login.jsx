@@ -5,7 +5,7 @@ import FormGroup from 'react-bootstrap/FormGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
 import PropTypes from 'prop-types';
 
-import Error from '../Error';
+import Error from './Error';
 import './Login.css';
 
 

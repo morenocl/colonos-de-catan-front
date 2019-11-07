@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import {
   setAuth as dispatchAuth,
   setUser as dispatchUser,
-} from '../Auth.ducks';
-import LoginScreen from '../../components/Login/Login';
-import { login } from '../../utils/Mock';
-import useForm from '../UseForm';
+} from './Auth.ducks';
+import LoginScreen from '../components/Login';
+import { login } from '../utils/Mock';
+import useForm from './UseForm';
 
 
 const mapDispatchToProps = ({
@@ -24,7 +24,7 @@ const Login = ({ setAuth, setUser }) => {
     validate,
     changeUsername,
     changePassword,
-  } = useForm();
+  } = useForm(() => '', () => '');
 
   // Send data via API.
   const handleSubmit = (event) => {
@@ -37,10 +37,12 @@ const Login = ({ setAuth, setUser }) => {
       setAuth(true);
       setUser(username);
       localStorage.setItem('token', JSON.stringify(res.token));
+      localStorage.setItem('username', username);
     };
 
     const onFailure = (err) => {
       setError(err.message);
+      setLoading(false);
     };
 
     login(username, password, onSuccess, onFailure);
