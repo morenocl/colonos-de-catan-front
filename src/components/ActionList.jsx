@@ -8,7 +8,7 @@ class ActionList extends React.Component {
 
     constructor(props) {
 	super(props);
-	this.remove = props.remove;
+	this.remove = props.removeAction;
 	this.sendOut = props.sendOut;
 	this.state = {
 	    actions: props.actions,
@@ -16,8 +16,9 @@ class ActionList extends React.Component {
     }
 
     renderAction(action, remove) {
+	console.log(action)
 	return(
-	    <tr>
+	    <tr key={action}>
 	      <td> {action} </td> <td> <Button variant="outline-warning" onClick={remove}>X</Button> </td>
 	    </tr>
 	);
@@ -48,4 +49,6 @@ export default ActionList;
 
 ActionList.propTypes = {
     actions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    removeAction: PropTypes.func.isRequired,
+    sendOut: PropTypes.func.isRequired,
 };

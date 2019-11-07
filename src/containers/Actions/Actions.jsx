@@ -46,6 +46,7 @@ export const Actions = (props) => {
     setOnClick, setRunning, setRunningStage, setFrozen,
   } = props;
   const { id } = useParams();
+  const { addAction } = props;  
 
   const refresh = () => {
     getGameStatus(id, setRunningStage, setError);
@@ -61,7 +62,7 @@ export const Actions = (props) => {
     setFrozen,
     setRunning,
   };
-  setOnClick(actionOnClick(id, eventHandlers));
+  setOnClick(actionOnClick(id, eventHandlers, addAction));
 
   // On error, show a dismissible Alert.
   // When dismissed, show actions and refresh.
@@ -108,6 +109,7 @@ Actions.propTypes = {
   setRunning: PropTypes.func.isRequired,
   setRunningStage: PropTypes.func.isRequired,
   stage: PropTypes.string.isRequired,
+  addAction: PropTypes.func.isRequired,
 };
 
 Actions.defaultProps = {

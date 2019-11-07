@@ -36,7 +36,7 @@ const GameScreen = () => {
         <Hand />
       </Col>
       <Col>
-        <Actions />
+        <Actions addAction={addAction} />
       </Col>
     </Row>
   </Container>

@@ -12,7 +12,7 @@ import { colours } from '../../utils/Constants';
 // Returns a function that, given refresh and setError,
 // takes the action's id and type and returns the
 // appropriate onClick function (given its payload).
-export const actionOnClick = (id, eventHandlers) => ((type) => {
+export const actionOnClick = (id, eventHandlers, addAction) => ((type) => {
   const {
     draw, refresh, setBuilding, setBuying,
     setError, setFrozen, setRunning,
@@ -20,7 +20,7 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
 
   const {
     cBuild, rBuild, sBuild,
-  } = buildingRequests(id, refresh, setError, setRunning);
+  } = buildingRequests(id, refresh, setError, setRunning, addAction);
 
   switch (type) {
     case 'build_settlement':
@@ -72,4 +72,5 @@ actionOnClick.propTypes = {
     setFrozen: PropTypes.func.isRequired,
     setRunning: PropTypes.func.isRequired,
   }).isRequired,
+  addAction: PropTypes.func.isRequired,
 };
