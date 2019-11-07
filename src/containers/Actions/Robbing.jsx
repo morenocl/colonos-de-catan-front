@@ -67,6 +67,7 @@ export const Robbing = (props) => {
     request[type](id, position, username, refresh, setError);
   };
   const onCancel = () => {
+    setInfoOnClick(() => null);
     refresh();
   };
 

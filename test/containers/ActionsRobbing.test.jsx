@@ -345,9 +345,11 @@ test('calls refresh on cancel', () => {
   expect(setWaiting).not.toHaveBeenCalledWith(expect.anything());
   expect(getGameStatus).toHaveBeenCalledTimes(1);
   expect(getGameStatus).toHaveBeenCalledWith('1', setGameState, setError);
+  expect(setInfoOnClick).toHaveBeenCalledTimes(1);
+  expect(setInfoOnClick).toHaveBeenCalledWith(expect.any(Function));
 
   // It shouldn't call any of these.
-  const calledDispatchs = [setWaiting, setGameRunning];
+  const calledDispatchs = [setWaiting, setGameRunning, setInfoOnClick];
   const calledMocks = [getGameStatus];
   dispatchs
     .filter((f) => !calledDispatchs.includes(f))
