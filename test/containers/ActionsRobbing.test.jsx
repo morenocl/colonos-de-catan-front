@@ -208,7 +208,10 @@ test('shows 3 available players', () => {
     });
   });
 
-  mk(payload, position);
+  const { queryByTestId } = mk(payload, position);
+
+  // It should force user selection.
+  expect(queryByTestId('actions-robbing-confirm')).toBeDisabled();
 
   // It should set InfoOnClick.
   expect(setInfoOnClick).toHaveBeenCalledTimes(1);
