@@ -140,10 +140,6 @@ export const actions = [
     type: 'move_robber',
     payload: [
       {
-        position: { level: 0, index: 0 },
-        players: ['user2'],
-      },
-      {
         position: { level: 1, index: 0 },
         players: ['user3'],
       },
@@ -220,10 +216,6 @@ export const actions = [
   {
     type: 'play_knight_card',
     payload: [
-      {
-        position: { level: 0, index: 0 },
-        players: ['user2'],
-      },
       {
         position: { level: 1, index: 0 },
         players: ['user3'],
