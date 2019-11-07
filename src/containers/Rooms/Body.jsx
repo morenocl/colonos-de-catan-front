@@ -69,6 +69,10 @@ Body.propTypes = {
   maxPlayers: PropTypes.number.isRequired,
   owner: PropTypes.string.isRequired,
   players: PropTypes.arrayOf(PropTypes.string).isRequired,
-  username: PropTypes.string.isRequired,
+  username: PropTypes.string,
   gameHasStarted: PropTypes.bool.isRequired,
+};
+
+Body.defaultProps = {
+  username: '',
 };
