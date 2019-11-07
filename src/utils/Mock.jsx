@@ -312,6 +312,21 @@ export const moveRobber = (id, position, username, onSuccess, onFailure) => {
   const aId = data.actions.findIndex((x) => x && x.type === 'move_robber');
   data.actions.splice(aId, 1);
 
+  // If knight card is available, update positions.
+  const kId = data.actions.findIndex((x) => x && x.type === 'play_knight_card');
+
+  if (kId !== -1) {
+    const posId = data.actions[kId].payload.findIndex((x) => (x
+      && x.position.level === position.level
+      && x.position.index === position.index));
+
+    // Remove chosen position.
+    data.actions[kId].payload.splice(posId, 1);
+
+    // Add previous position.
+    data.actions[kId].payload.push({ position: data.board.robber, players: [] });
+  }
+
   robber(position, username)
     .then(() => {
       if (data.moveRobber) onFailure();
@@ -323,7 +338,7 @@ export const playKnight = (id, position, username, onSuccess, onFailure) => {
   console.log('Playing knight card', id);
 
   // Update info.
-  const localUsername = localStorage.getItem('username') || 'test';
+  const localUsername = localStorage.getItem('username');
   const localUser = data.info.players.find((p) => (
     p && p.username === localUsername));
   localUser.developmentCards -= 1;

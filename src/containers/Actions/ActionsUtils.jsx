@@ -9,6 +9,7 @@ export const actionLabels = {
   transaction: 'Trade',
   end_turn: 'End turn',
   buy_card: 'Buy card',
+  move_robber: 'Move robber',
   play_knight_card: 'Play knight',
   play_road_building_card: 'Play 2 roads',
   play_monopoly_card: 'Play monopoly',

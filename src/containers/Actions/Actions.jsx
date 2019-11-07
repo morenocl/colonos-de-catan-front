@@ -10,7 +10,7 @@ import {
   dispatchOnClick,
   dispatchError,
   dispatchRobbing,
-  dispatchRunning,
+  dispatchWaiting,
 } from './Actions.ducks';
 import {
   setFrozen as dispatchGameFrozen,
@@ -19,16 +19,16 @@ import {
 } from '../Game/Game.ducks';
 /* eslint-disable import/no-named-as-default */
 import actionOnClick from './ActionsOnClick';
-import BankTrade from './BankTrade';
-import Robbing from './Robbing';
 import ActionsScreen from '../../components/Actions/Actions';
 import Error from '../../components/Error';
 /* eslint-enable import/no-named-as-default */
+import actionsContainers from './ActionsContainers';
 import { getGameStatus } from '../../utils/Mock';
 
 
 const mapStateToProps = (state) => ({
   draw: state.Board.draw,
+  moveRobber: !!state.Game.actions.find((x) => x && x.type === 'move_robber'),
   stage: state.Actions.stage,
 });
 
@@ -38,17 +38,17 @@ const mapDispatchToProps = ({
   setError: dispatchError,
   setOnClick: dispatchOnClick,
   setRobbing: dispatchRobbing,
-  setRunning: dispatchRunning,
+  setWaiting: dispatchWaiting,
   setGameFrozen: dispatchGameFrozen,
   setGameRunning: dispatchGameRunning,
   setGameState: dispatchGameState,
 });
 
 export const Actions = (props) => {
-  const { stage, draw } = props;
+  const { draw, moveRobber, stage } = props;
   const {
     setBuilding, setBuying, setError,
-    setOnClick, setRunning, setRobbing,
+    setOnClick, setWaiting, setRobbing,
   } = props;
   const {
     setGameFrozen, setGameRunning, setGameState,
@@ -56,7 +56,7 @@ export const Actions = (props) => {
   const { id } = useParams();
 
   const refresh = () => {
-    setRunning();
+    setWaiting();
     setGameRunning();
     getGameStatus(id, setGameState, setError);
   };
@@ -73,21 +73,29 @@ export const Actions = (props) => {
   };
   setOnClick(actionOnClick(id, eventHandlers));
 
-  if (stage === 'buying') return (<BankTrade />);
+  if (stage.startsWith('running')) {
+    if (stage.endsWith('buying')) return (actionsContainers.buying);
 
-  if (stage === 'building') {
-    return (
-      <>
-        <h1>Choose a position</h1>
-        <Button onClick={refresh}>
-          Cancel
-        </Button>
-      </>
-    );
+    if (stage.endsWith('building')) {
+      return (
+        <>
+          <h1>Choose a position</h1>
+          <Button onClick={refresh}>
+            Cancel
+          </Button>
+        </>
+      );
+    }
+
+    if (stage.endsWith('robbing')) {
+      if (moveRobber) return (actionsContainers.robberRobbing);
+      return (actionsContainers.knightRobbing);
+    }
   }
 
-  if (stage === 'robbing') return (<Robbing type="play_knight_card" />);
-  if (stage === 'running') return (<ActionsScreen />);
+  if (moveRobber) return (actionsContainers.moveRobber);
+
+  if (stage === 'waiting') return (<ActionsScreen />);
 
   // On error, show a dismissible Alert.
   // When dismissed, show actions and refresh.
@@ -101,13 +109,14 @@ Actions.propTypes = {
   draw: PropTypes.shape({
     type: PropTypes.string.isRequired,
   }),
+  moveRobber: PropTypes.bool.isRequired,
   stage: PropTypes.string.isRequired,
   setBuilding: PropTypes.func.isRequired,
   setBuying: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
   setOnClick: PropTypes.func.isRequired,
   setRobbing: PropTypes.func.isRequired,
-  setRunning: PropTypes.func.isRequired,
+  setWaiting: PropTypes.func.isRequired,
   setGameFrozen: PropTypes.func.isRequired,
   setGameRunning: PropTypes.func.isRequired,
   setGameState: PropTypes.func.isRequired,

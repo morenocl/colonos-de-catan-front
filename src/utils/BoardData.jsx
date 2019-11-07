@@ -24,12 +24,8 @@ export const cities = [
     colour: '#ff0000',
     positions: [
       {
-        level: 1,
-        index: 3,
-      },
-      {
         level: 2,
-        index: 5,
+        index: 15,
       },
     ],
   },
@@ -37,8 +33,8 @@ export const cities = [
     colour: '#00ff00',
     positions: [
       {
-        level: 2,
-        index: 16,
+        level: 1,
+        index: 17,
       },
     ],
   },
@@ -46,8 +42,8 @@ export const cities = [
     colour: '#0000ff',
     positions: [
       {
-        level: 2,
-        index: 18,
+        level: 1,
+        index: 1,
       },
     ],
   },
@@ -60,7 +56,7 @@ export const hexagons = [
       index: 0,
     },
     terrain: 'desert',
-    token: 0,
+    token: 1,
   },
   {
     position: {
@@ -68,7 +64,7 @@ export const hexagons = [
       index: 0,
     },
     terrain: 'lumber',
-    token: 1,
+    token: 2,
   },
   {
     position: {
@@ -116,7 +112,7 @@ export const hexagons = [
       index: 0,
     },
     terrain: 'ore',
-    token: 7,
+    token: 8,
   },
   {
     position: {
@@ -164,7 +160,7 @@ export const hexagons = [
       index: 6,
     },
     terrain: 'ore',
-    token: 13,
+    token: 2,
   },
   {
     position: {
@@ -172,7 +168,7 @@ export const hexagons = [
       index: 7,
     },
     terrain: 'ore',
-    token: 14,
+    token: 3,
   },
   {
     position: {
@@ -180,7 +176,7 @@ export const hexagons = [
       index: 8,
     },
     terrain: 'ore',
-    token: 15,
+    token: 4,
   },
   {
     position: {
@@ -188,7 +184,7 @@ export const hexagons = [
       index: 9,
     },
     terrain: 'ore',
-    token: 16,
+    token: 5,
   },
   {
     position: {
@@ -196,7 +192,7 @@ export const hexagons = [
       index: 10,
     },
     terrain: 'ore',
-    token: 17,
+    token: 6,
   },
   {
     position: {
@@ -204,7 +200,7 @@ export const hexagons = [
       index: 11,
     },
     terrain: 'ore',
-    token: 18,
+    token: 6,
   },
 ];
 
@@ -230,12 +226,62 @@ export const roads = [
     positions: [
       [
         {
-          level: 0,
-          index: 0,
+          level: 1,
+          index: 12,
         },
         {
-          level: 0,
-          index: 1,
+          level: 1,
+          index: 13,
+        },
+      ],
+      [
+        {
+          level: 1,
+          index: 13,
+        },
+        {
+          level: 2,
+          index: 21,
+        },
+      ],
+      [
+        {
+          level: 1,
+          index: 8,
+        },
+        {
+          level: 2,
+          index: 14,
+        },
+      ],
+      [
+        {
+          level: 2,
+          index: 14,
+        },
+        {
+          level: 2,
+          index: 15,
+        },
+      ],
+      [
+        {
+          level: 2,
+          index: 15,
+        },
+        {
+          level: 2,
+          index: 16,
+        },
+      ],
+      [
+        {
+          level: 2,
+          index: 16,
+        },
+        {
+          level: 2,
+          index: 17,
         },
       ],
     ],
@@ -245,22 +291,32 @@ export const roads = [
     positions: [
       [
         {
-          level: 1,
-          index: 1,
+          level: 0,
+          index: 2,
         },
         {
-          level: 1,
-          index: 2,
+          level: 0,
+          index: 3,
         },
       ],
       [
         {
-          level: 2,
-          index: 1,
+          level: 0,
+          index: 3,
+        },
+        {
+          level: 0,
+          index: 4,
+        },
+      ],
+      [
+        {
+          level: 1,
+          index: 17,
         },
         {
           level: 2,
-          index: 2,
+          index: 29,
         },
       ],
     ],
@@ -270,12 +326,32 @@ export const roads = [
     positions: [
       [
         {
-          level: 2,
-          index: 6,
+          level: 1,
+          index: 1,
+        },
+        {
+          level: 1,
+          index: 2,
+        },
+      ],
+      [
+        {
+          level: 0,
+          index: 5,
+        },
+        {
+          level: 1,
+          index: 15,
+        },
+      ],
+      [
+        {
+          level: 1,
+          index: 2,
         },
         {
           level: 2,
-          index: 7,
+          index: 4,
         },
       ],
     ],
@@ -317,7 +393,7 @@ export const info = {
   ],
   currentTurn: {
     user: 'test',
-    dice: [1, 1],
+    dice: [3, 4],
   },
 };
 
@@ -331,12 +407,12 @@ export const settlements = [
     colour: '#ff0000',
     positions: [
       {
-        level: 0,
-        index: 0,
+        level: 1,
+        index: 8,
       },
       {
         level: 1,
-        index: 2,
+        index: 12,
       },
     ],
   },
@@ -344,8 +420,12 @@ export const settlements = [
     colour: '#00ff00',
     positions: [
       {
-        level: 2,
-        index: 4,
+        level: 0,
+        index: 2,
+      },
+      {
+        level: 1,
+        index: 17,
       },
     ],
   },
@@ -353,8 +433,8 @@ export const settlements = [
     colour: '#0000ff',
     positions: [
       {
-        level: 2,
-        index: 11,
+        level: 1,
+        index: 15,
       },
     ],
   },

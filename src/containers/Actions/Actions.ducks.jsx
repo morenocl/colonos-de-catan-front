@@ -1,21 +1,18 @@
 import PropTypes from 'prop-types';
 
 
-const SET_BUILDING = 'actions/SET_BUILDING';
-const SET_BUYING = 'actions/SET_BUYING';
+// General actions.
 const SET_CLICK = 'action/SET_CLICK';
 const SET_ERROR = 'actions/SET_ERROR';
-const SET_ROBBER_PAYLOAD = 'actions/SET_ROBBER_PAYLOAD';
+const SET_WAITING = 'actions/SET_WAITING';
+
+// Running stage.
+const SET_BUILDING = 'actions/SET_BUILDING';
+const SET_BUYING = 'actions/SET_BUYING';
 const SET_ROBBING = 'actions/SET_ROBBING';
-const SET_RUNNING = 'actions/SET_RUNNING';
 
-export const dispatchBuying = () => ({
-  type: SET_BUYING,
-});
-
-export const dispatchBuilding = () => ({
-  type: SET_BUILDING,
-});
+// Only for Robbing container.
+const SET_ROBBER_PAYLOAD = 'actions/SET_ROBBER_PAYLOAD';
 
 export const dispatchOnClick = (actionOnClick) => ({
   type: SET_CLICK,
@@ -26,21 +23,29 @@ export const dispatchError = () => ({
   type: SET_ERROR,
 });
 
-export const dispatchRobberPayload = (position, username) => ({
-  type: SET_ROBBER_PAYLOAD,
-  payload: { position, username },
+export const dispatchWaiting = () => ({
+  type: SET_WAITING,
+});
+
+export const dispatchBuilding = () => ({
+  type: SET_BUILDING,
+});
+
+export const dispatchBuying = () => ({
+  type: SET_BUYING,
 });
 
 export const dispatchRobbing = () => ({
   type: SET_ROBBING,
 });
 
-export const dispatchRunning = () => ({
-  type: SET_RUNNING,
+export const dispatchRobberPayload = (position, username) => ({
+  type: SET_ROBBER_PAYLOAD,
+  payload: { position, username },
 });
 
-export const initialState = {
-  stage: 'running',
+const initialState = {
+  stage: 'waiting',
   actionOnClick: null,
   robberPayload: {},
 };
@@ -50,10 +55,10 @@ const reducer = (state = initialState, action = {}) => {
 
   switch (type) {
     case SET_BUYING:
-      return { ...state, stage: 'buying' };
+      return { ...state, stage: 'running/buying' };
 
     case SET_BUILDING:
-      return { ...state, stage: 'building' };
+      return { ...state, stage: 'running/building' };
 
     case SET_CLICK:
       return { ...state, ...payload };
@@ -65,10 +70,10 @@ const reducer = (state = initialState, action = {}) => {
       return { ...state, robberPayload: payload };
 
     case SET_ROBBING:
-      return { ...state, stage: 'robbing', robberPayload: {} };
+      return { ...state, stage: 'running/robbing', robberPayload: {} };
 
-    case SET_RUNNING:
-      return { ...state, stage: 'running' };
+    case SET_WAITING:
+      return { ...state, stage: 'waiting' };
 
     default: return state;
   }

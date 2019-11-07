@@ -78,7 +78,7 @@ test('player in turn should have font-weight', () => {
 
   const cards = queryAllByTestId('card');
   cards.forEach((card) => {
-    const user = card.querySelector('div button').textContent.substring(7);
+    const user = card.querySelector('div button').textContent;
     if (user === currentTurn.user) {
       expect(card).toHaveStyle('font-weight: bold');
     } else {

@@ -7,7 +7,7 @@ import { resourceNames } from '../../utils/Constants';
 import counter from '../../utils/Counter';
 import {
   dispatchError,
-  dispatchRunning,
+  dispatchWaiting,
 } from './Actions.ducks';
 import {
   setRunning as dispatchGameRunning,
@@ -22,21 +22,21 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = ({
   setError: dispatchError,
-  setRunning: dispatchRunning,
+  setWaiting: dispatchWaiting,
   setGameRunning: dispatchGameRunning,
   setGameState: dispatchGameState,
 });
 
 export const BankTrade = (props) => {
   const {
-    setError, setRunning, setGameRunning, setGameState, resources,
+    setError, setWaiting, setGameRunning, setGameState, resources,
   } = props;
   const { id } = useParams();
   const [offer, setOffer] = useState('');
   const [request, setRequest] = useState('');
 
   const refresh = () => {
-    setRunning();
+    setWaiting();
     setGameRunning();
     getGameStatus(id, setGameState, setError);
   };
@@ -64,7 +64,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(BankTrade);
 
 BankTrade.propTypes = {
   setError: PropTypes.func.isRequired,
-  setRunning: PropTypes.func.isRequired,
+  setWaiting: PropTypes.func.isRequired,
   setGameRunning: PropTypes.func.isRequired,
   setGameState: PropTypes.func.isRequired,
   resources: PropTypes.arrayOf(PropTypes.string).isRequired,
