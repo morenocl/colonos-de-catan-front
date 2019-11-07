@@ -12,7 +12,11 @@ import ActionList from '../ActionList';
 /* eslint-enable import/no-named-as-default */
 
 
-const GameScreen = () => (
+const GameScreen = () => {
+    var actions = [];
+    const addAction = (action) => {actions.push(action)};
+    const removeAction = (action) => {actions = actions.filter((a) => (action !== a))};
+    return (
   <Container>
     <Row>
       <Col xs={10}>
@@ -24,7 +28,7 @@ const GameScreen = () => (
     </Row>
 
     <Row>
-      <ActionList actions={['Build Road', 'Build Road']} />
+      <ActionList actions={actions} removeAction={removeAction} sendOut={() => {}} />
     </Row>
     
     <Row>
@@ -36,6 +40,7 @@ const GameScreen = () => (
       </Col>
     </Row>
   </Container>
-);
+    );
+};
 
 export default GameScreen;

@@ -8,6 +8,8 @@ class ActionList extends React.Component {
 
     constructor(props) {
 	super(props);
+	this.remove = props.remove;
+	this.sendOut = props.sendOut;
 	this.state = {
 	    actions: props.actions,
 	};
@@ -19,24 +21,6 @@ class ActionList extends React.Component {
 	      <td> {action} </td> <td> <Button variant="outline-warning" onClick={remove}>X</Button> </td>
 	    </tr>
 	);
-    }
-
-    remove(action) {
-	this.setState({
-	    actions: this.state.actions.filter((a) => a !== action),
-	});
-    }
-
-    add(action) {
-	this.setState({
-	    actions: this.state.actions.push(action),
-	});
-    }
-
-    sendOut() {
-	this.setState({
-	    actions: [],
-	});
     }
     
     actionsToTable(actions) {
