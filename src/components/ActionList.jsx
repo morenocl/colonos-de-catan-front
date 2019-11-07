@@ -18,7 +18,7 @@ class ActionList extends React.Component {
     renderAction(action, remove) {
 	return(
 	    <tr key={action}>
-	      <td> {action} </td> <td> <Button variant="outline-warning" onClick={remove}>X</Button> </td>
+	      <td> {action} </td><td> <Button variant="outline-warning" onClick={remove}>X</Button></td>
 	    </tr>
 	);
     }
