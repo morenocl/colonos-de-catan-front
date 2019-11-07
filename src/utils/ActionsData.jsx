@@ -140,40 +140,44 @@ export const actions = [
     type: 'move_robber',
     payload: [
       {
+        position: { level: 0, index: 0 },
+        players: ['user2'],
+      },
+      {
         position: { level: 1, index: 0 },
-        players: [],
+        players: ['user3'],
       },
       {
         position: { level: 1, index: 1 },
-        players: [],
+        players: ['user2'],
       },
       {
         position: { level: 1, index: 2 },
-        players: [],
+        players: ['user1', 'user2'],
       },
       {
         position: { level: 1, index: 3 },
-        players: [],
+        players: ['user1'],
       },
       {
         position: { level: 1, index: 4 },
-        players: [],
+        players: ['user1', 'user3'],
       },
       {
         position: { level: 1, index: 5 },
-        players: [],
+        players: ['user2', 'user3'],
       },
       {
         position: { level: 2, index: 0 },
-        players: [],
+        players: ['user2', 'user3'],
       },
       {
         position: { level: 2, index: 1 },
-        players: ['user2'],
+        players: ['user3'],
       },
       {
         position: { level: 2, index: 2 },
-        players: ['user2'],
+        players: [],
       },
       {
         position: { level: 2, index: 3 },
@@ -181,23 +185,23 @@ export const actions = [
       },
       {
         position: { level: 2, index: 4 },
-        players: ['user3'],
+        players: [],
       },
       {
         position: { level: 2, index: 5 },
-        players: ['user3'],
+        players: ['user1'],
       },
       {
         position: { level: 2, index: 6 },
-        players: ['user2'],
+        players: ['user1'],
       },
       {
         position: { level: 2, index: 7 },
-        players: ['user2', 'user3'],
+        players: [],
       },
       {
         position: { level: 2, index: 8 },
-        players: [],
+        players: ['user1'],
       },
       {
         position: { level: 2, index: 9 },
@@ -205,11 +209,11 @@ export const actions = [
       },
       {
         position: { level: 2, index: 10 },
-        players: [],
+        players: ['user3'],
       },
       {
         position: { level: 2, index: 11 },
-        players: [],
+        players: ['user2'],
       },
     ],
   },
@@ -217,40 +221,44 @@ export const actions = [
     type: 'play_knight_card',
     payload: [
       {
+        position: { level: 0, index: 0 },
+        players: ['user2'],
+      },
+      {
         position: { level: 1, index: 0 },
-        players: [],
+        players: ['user3'],
       },
       {
         position: { level: 1, index: 1 },
-        players: [],
+        players: ['user2'],
       },
       {
         position: { level: 1, index: 2 },
-        players: [],
+        players: ['user1', 'user2'],
       },
       {
         position: { level: 1, index: 3 },
-        players: [],
+        players: ['user1'],
       },
       {
         position: { level: 1, index: 4 },
-        players: [],
+        players: ['user1', 'user3'],
       },
       {
         position: { level: 1, index: 5 },
-        players: [],
+        players: ['user2', 'user3'],
       },
       {
         position: { level: 2, index: 0 },
-        players: [],
+        players: ['user2', 'user3'],
       },
       {
         position: { level: 2, index: 1 },
-        players: ['user2'],
+        players: ['user3'],
       },
       {
         position: { level: 2, index: 2 },
-        players: ['user2'],
+        players: [],
       },
       {
         position: { level: 2, index: 3 },
@@ -258,23 +266,23 @@ export const actions = [
       },
       {
         position: { level: 2, index: 4 },
-        players: ['user3'],
+        players: [],
       },
       {
         position: { level: 2, index: 5 },
-        players: ['user3'],
+        players: ['user1'],
       },
       {
         position: { level: 2, index: 6 },
-        players: ['user2'],
+        players: ['user1'],
       },
       {
         position: { level: 2, index: 7 },
-        players: ['user2', 'user3'],
+        players: [],
       },
       {
         position: { level: 2, index: 8 },
-        players: [],
+        players: ['user1'],
       },
       {
         position: { level: 2, index: 9 },
@@ -282,11 +290,11 @@ export const actions = [
       },
       {
         position: { level: 2, index: 10 },
-        players: [],
+        players: ['user3'],
       },
       {
         position: { level: 2, index: 11 },
-        players: [],
+        players: ['user2'],
       },
     ],
   },
