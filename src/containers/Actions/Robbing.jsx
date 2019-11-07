@@ -73,7 +73,13 @@ export const Robbing = (props) => {
   // Shows all available robber positions.
   const showPositions = () => {
     const ps = payload.map((x) => x.position);
-    const onClickMaker = (p) => () => { setRobberPayload(p, null); };
+    const onClickMaker = (p) => () => {
+      // If position changed, we must change InfoOnClick.
+      setInfoOnClick(() => null);
+
+      // We need to create a new position to re-render the component.
+      setRobberPayload(JSON.parse(JSON.stringify(p)), null);
+    };
     showHCenter(draw, ps, colours.building, onClickMaker);
   };
   // Makes players clickable.

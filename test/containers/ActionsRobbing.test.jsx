@@ -130,6 +130,14 @@ test('shows its component', () => {
 });
 
 test('shows available positions', () => {
+  showHCenter.mockImplementationOnce((draw, ps, colour, onClickMaker) => {
+    const position = { level: 0, index: 0 };
+    onClickMaker(position)();
+    expect(setInfoOnClick).toHaveBeenCalledTimes(1);
+    expect(setInfoOnClick).toHaveBeenCalledWith(expect.any(Function));
+    expect(setRobberPayload).toHaveBeenCalledTimes(1);
+    expect(setRobberPayload).toHaveBeenCalledWith(position, null);
+  });
   mk([]);
 
   // It should call useParams.
@@ -137,7 +145,10 @@ test('shows available positions', () => {
   expect(useParams).not.toHaveBeenCalledWith(expect.anything());
 
   // It shouldn't call any of these.
-  dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
+  const calledDispatchs = [setInfoOnClick, setRobberPayload];
+  dispatchs
+    .filter((f) => !calledDispatchs.includes(f))
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
 
   // It should show available positions.

@@ -153,15 +153,15 @@ export const actions = [
       },
       {
         position: { level: 1, index: 2 },
-        players: ['user1', 'user2'],
+        players: ['user2'],
       },
       {
         position: { level: 1, index: 3 },
-        players: ['user1'],
+        players: [],
       },
       {
         position: { level: 1, index: 4 },
-        players: ['user1', 'user3'],
+        players: ['user3'],
       },
       {
         position: { level: 1, index: 5 },
@@ -189,11 +189,11 @@ export const actions = [
       },
       {
         position: { level: 2, index: 5 },
-        players: ['user1'],
+        players: [],
       },
       {
         position: { level: 2, index: 6 },
-        players: ['user1'],
+        players: [],
       },
       {
         position: { level: 2, index: 7 },
@@ -201,7 +201,7 @@ export const actions = [
       },
       {
         position: { level: 2, index: 8 },
-        players: ['user1'],
+        players: [],
       },
       {
         position: { level: 2, index: 9 },
@@ -234,15 +234,15 @@ export const actions = [
       },
       {
         position: { level: 1, index: 2 },
-        players: ['user1', 'user2'],
+        players: ['user2'],
       },
       {
         position: { level: 1, index: 3 },
-        players: ['user1'],
+        players: [],
       },
       {
         position: { level: 1, index: 4 },
-        players: ['user1', 'user3'],
+        players: ['user3'],
       },
       {
         position: { level: 1, index: 5 },
@@ -270,11 +270,11 @@ export const actions = [
       },
       {
         position: { level: 2, index: 5 },
-        players: ['user1'],
+        players: [],
       },
       {
         position: { level: 2, index: 6 },
-        players: ['user1'],
+        players: [],
       },
       {
         position: { level: 2, index: 7 },
@@ -282,7 +282,7 @@ export const actions = [
       },
       {
         position: { level: 2, index: 8 },
-        players: ['user1'],
+        players: [],
       },
       {
         position: { level: 2, index: 9 },
