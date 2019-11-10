@@ -3,10 +3,9 @@ import { buyCard, endTurn } from '../../utils/Mock';
 
 // Returns an onClickMaker function for actions.
 export const actionOnClick = (id, eventHandlers) => ((type) => {
-  const { refresh } = eventHandlers;
   const {
-    setBuying, setError, setRobbing, setBuildingRoad,
-    setBuildingCity, setBuildingSettlement,
+    refresh, setError, setRobbing, setBuying,
+    setBuildingCity, setBuildingRoad, setBuildingSettlement,
   } = eventHandlers;
   const { setGameFrozen } = eventHandlers;
 
@@ -51,27 +50,9 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
       };
 
     default:
-      // eslint-disable-next-line no-console
-      return () => { console.log('default', type); };
+      return setError;
   }
 }
 );
 
 export default actionOnClick;
-
-
-/*
-actionOnClick.propTypes = {
-  id: PropTypes.number.isRequired,
-  eventHandlers: PropTypes.shape({
-    draw: PropTypes.shape({
-      type: PropTypes.string.isRequired,
-    }).isRequired,
-    refresh: PropTypes.func.isRequired,
-    setBuilding: PropTypes.func.isRequired,
-    setBuying: PropTypes.func.isRequired,
-    setError: PropTypes.func.isRequired,
-    setGameFrozen: PropTypes.func.isRequired,
-  }).isRequired,
-};
-*/

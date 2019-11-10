@@ -28,9 +28,9 @@ const mapDispatchToProps = ({
 });
 
 export const BankTrade = (props) => {
-  const {
-    setError, setWaiting, setGameRunning, setGameState, resources,
-  } = props;
+  const { resources } = props;
+  const { setError, setWaiting } = props;
+  const { setGameRunning, setGameState } = props;
   const { id } = useParams();
   const [offer, setOffer] = useState('');
   const [request, setRequest] = useState('');
@@ -45,6 +45,9 @@ export const BankTrade = (props) => {
     bankTrade(id, offer, request, refresh, setError);
   };
 
+  const disabled = offer === '' || request === '' || offer === request;
+  const available = resourceNames.filter((r) => counter(resources, r) >= 4);
+
   return (
     <BankTradeScreen
       setOffer={setOffer}
@@ -53,8 +56,8 @@ export const BankTrade = (props) => {
       offer={offer}
       request={request}
       cancel={refresh}
-      resources={resourceNames.filter((r) => counter(resources, r) >= 4)}
-      disabled={offer === '' || request === '' || offer === request}
+      resources={available}
+      disabled={disabled}
     />
   );
 };

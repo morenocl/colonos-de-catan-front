@@ -51,10 +51,10 @@ export const Robbing = (props) => {
   const {
     draw, payload, position, type, username,
   } = props;
-  const { id } = useParams();
   const { setError, setRobberPayload, setWaiting } = props;
   const { setGameRunning, setGameState } = props;
   const { setInfoOnClick } = props;
+  const { id } = useParams();
 
   const refresh = () => {
     setWaiting();
@@ -62,7 +62,6 @@ export const Robbing = (props) => {
     getGameStatus(id, setGameState, setError);
   };
   const onConfirm = () => {
-    // Force update
     setInfoOnClick(() => null);
     request[type](id, position, username, refresh, setError);
   };

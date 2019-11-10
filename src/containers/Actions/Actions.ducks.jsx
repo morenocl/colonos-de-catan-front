@@ -3,17 +3,17 @@ const SET_ERROR = 'actions/SET_ERROR';
 const SET_WAITING = 'actions/SET_WAITING';
 
 // Running stage.
-const SET_BUILDING = 'actions/SET_BUILDING';
-const SET_BUYING = 'actions/SET_BUYING';
-const SET_ROBBING = 'actions/SET_ROBBING';
 const SET_BUILDING_CITY = 'actions/SET_BUILDING_CITY';
 const SET_BUILDING_ROAD = 'actions/SET_BUILDING_ROAD';
 const SET_BUILDING_SETTLEMENT = 'actions/SET_BUILDING_SETTLEMENT';
+const SET_BUYING = 'actions/SET_BUYING';
+const SET_ROBBING = 'actions/SET_ROBBING';
 
 // Action payloads.
+const SET_EDGE_PAYLOAD = 'actions/SET_VERTEX_EDGE';
 const SET_ROBBER_PAYLOAD = 'actions/SET_ROBBER_PAYLOAD';
 const SET_VERTEX_PAYLOAD = 'actions/SET_VERTEX_PAYLOAD';
-const SET_EDGE_PAYLOAD = 'actions/SET_VERTEX_EDGE';
+
 
 export const dispatchError = () => ({
   type: SET_ERROR,
@@ -21,14 +21,6 @@ export const dispatchError = () => ({
 
 export const dispatchWaiting = () => ({
   type: SET_WAITING,
-});
-
-export const dispatchBuilding = () => ({
-  type: SET_BUILDING,
-});
-
-export const dispatchBuying = () => ({
-  type: SET_BUYING,
 });
 
 export const dispatchBuildingCity = () => ({
@@ -43,8 +35,17 @@ export const dispatchBuildingSettlement = () => ({
   type: SET_BUILDING_SETTLEMENT,
 });
 
+export const dispatchBuying = () => ({
+  type: SET_BUYING,
+});
+
 export const dispatchRobbing = () => ({
   type: SET_ROBBING,
+});
+
+export const dispatchEdgePayload = (position) => ({
+  type: SET_EDGE_PAYLOAD,
+  payload: position,
 });
 
 export const dispatchRobberPayload = (position, username) => ({
@@ -57,10 +58,6 @@ export const dispatchVertexPayload = (position) => ({
   payload: position,
 });
 
-export const dispatchEdgePayload = (position) => ({
-  type: SET_EDGE_PAYLOAD,
-  payload: position,
-});
 
 const initialState = {
   stage: 'waiting',
@@ -76,9 +73,6 @@ const reducer = (state = initialState, action = {}) => {
   switch (type) {
     case SET_BUYING:
       return { ...state, stage: 'running/buying' };
-
-    case SET_BUILDING:
-      return { ...state, stage: 'running/building' };
 
     case SET_BUILDING_CITY:
       return { ...state, stage: 'running/building/city', vertexPayload: null };
@@ -112,23 +106,3 @@ const reducer = (state = initialState, action = {}) => {
 };
 
 export default reducer;
-
-
-/*
-reducer.propTypes = {
-  state: PropTypes.shape({
-    onClick: PropTypes.func.isRequired,
-  }).isRequired,
-  action: PropTypes.shape({
-    type: PropTypes.oneOf([
-      SET_ERROR,
-      SET_WAITING,
-      SET_BUILDING,
-      SET_BUYING,
-      SET_ROBBING,
-      SET_ROBBER_PAYLOAD,
-    ]).isRequired,
-    payload: PropTypes.func.isRequired,
-  }).isRequired,
-};
-*/

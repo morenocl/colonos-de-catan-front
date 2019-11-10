@@ -13,7 +13,7 @@ import {
   dispatchRobbing,
   dispatchWaiting,
 } from './Actions.ducks';
-import { actionLabels } from './ActionsUtils';
+import { actionLabels } from '../../utils/Constants';
 import actionsOnClick from './ActionsOnClick';
 import {
   setFrozen as dispatchGameFrozen,
@@ -48,8 +48,7 @@ export const mapDispatchToProps = ({
 export const ActionButton = (props) => {
   const { actions, C, type } = props;
   const {
-    setBuying, setError,
-    setWaiting, setRobbing,
+    setError, setWaiting, setBuying, setRobbing,
     setBuildingCity, setBuildingRoad, setBuildingSettlement,
   } = props;
   const {
@@ -62,20 +61,19 @@ export const ActionButton = (props) => {
     setGameRunning();
     getGameStatus(id, setGameState, setError);
   };
-
   const eventHandlers = {
     refresh,
+    setError,
+    setBuying,
+    setRobbing,
     setBuildingCity,
     setBuildingRoad,
     setBuildingSettlement,
-    setBuying,
-    setError,
-    setRobbing,
     setGameFrozen,
   };
 
-  const onClickMaker = actionsOnClick(id, eventHandlers);
   const a = actions.find((x) => x && x.type === type);
+  const onClickMaker = actionsOnClick(id, eventHandlers);
   const onClick = a && onClickMaker(type);
 
   return (

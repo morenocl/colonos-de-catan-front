@@ -39,9 +39,7 @@ export const mapDispatchToProps = {
 };
 
 export const BuildingEdge = (props) => {
-  const {
-    draw, payload, position,
-  } = props;
+  const { draw, payload, position } = props;
   const { id } = useParams();
   const { setError, setEdgePayload, setWaiting } = props;
   const { setGameRunning, setGameState } = props;
