@@ -12,6 +12,7 @@ const room = {
   maxPlayers: 4,
   owner: 'owner',
   players: 'owner, not owner',
+  gameStarted: 'game started',
 };
 
 const onClick = jest.fn(() => null);
@@ -42,6 +43,7 @@ const testBody = (body) => {
   expect(body).toHaveTextContent(`Owner: ${room.owner}`);
   expect(body).toHaveTextContent(`Players: ${room.players}`);
   expect(body).toHaveTextContent(`Max players: ${room.maxPlayers}`);
+  expect(body).toHaveTextContent(`${room.gameStarted}`);
 };
 
 const testButton = (button) => {
