@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import showVertices from '../../components/Board/ShowVertices';
 import showEdges from '../../components/Board/ShowEdges';
 import { buyCard, endTurn } from '../../utils/Mock';
@@ -7,9 +5,7 @@ import { buildingRequests } from './ActionsUtils';
 import { colours } from '../../utils/Constants';
 
 
-// Returns a function that, given refresh and setError,
-// takes the action's id and type and returns the
-// appropriate onClick function (given its payload).
+// Returns an onClickMaker function for actions.
 export const actionOnClick = (id, eventHandlers) => ((type) => {
   const { draw, refresh } = eventHandlers;
   const {
@@ -74,6 +70,7 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
 export default actionOnClick;
 
 
+/*
 actionOnClick.propTypes = {
   id: PropTypes.number.isRequired,
   eventHandlers: PropTypes.shape({
@@ -87,3 +84,4 @@ actionOnClick.propTypes = {
     setGameFrozen: PropTypes.func.isRequired,
   }).isRequired,
 };
+*/

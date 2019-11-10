@@ -1,8 +1,4 @@
-import PropTypes from 'prop-types';
-
-
 // General actions.
-const SET_CLICK = 'action/SET_CLICK';
 const SET_ERROR = 'actions/SET_ERROR';
 const SET_WAITING = 'actions/SET_WAITING';
 
@@ -13,11 +9,6 @@ const SET_ROBBING = 'actions/SET_ROBBING';
 
 // Only for Robbing container.
 const SET_ROBBER_PAYLOAD = 'actions/SET_ROBBER_PAYLOAD';
-
-export const dispatchOnClick = (actionOnClick) => ({
-  type: SET_CLICK,
-  payload: { actionOnClick },
-});
 
 export const dispatchError = () => ({
   type: SET_ERROR,
@@ -60,9 +51,6 @@ const reducer = (state = initialState, action = {}) => {
     case SET_BUILDING:
       return { ...state, stage: 'running/building' };
 
-    case SET_CLICK:
-      return { ...state, ...payload };
-
     case SET_ERROR:
       return { ...state, stage: 'error' };
 
@@ -82,16 +70,21 @@ const reducer = (state = initialState, action = {}) => {
 export default reducer;
 
 
-dispatchOnClick.propTypes = {
-  actionOnClick: PropTypes.func.isRequired,
-};
-
+/*
 reducer.propTypes = {
   state: PropTypes.shape({
     onClick: PropTypes.func.isRequired,
   }).isRequired,
   action: PropTypes.shape({
-    type: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([
+      SET_ERROR,
+      SET_WAITING,
+      SET_BUILDING,
+      SET_BUYING,
+      SET_ROBBING,
+      SET_ROBBER_PAYLOAD,
+    ]).isRequired,
     payload: PropTypes.func.isRequired,
   }).isRequired,
 };
+*/
