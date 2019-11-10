@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -52,22 +51,11 @@ export const Actions = (props) => {
     if (s1 === 'buying') return (actionsContainers.buying);
 
     if (s1 === 'building') {
-      if (s2 === 'settlement') {
-        return (actionsContainers.buildingSettlement);
-      }
+      if (s2 === 'city') return (actionsContainers.buildingCity);
 
-      if (s2 === 'city') {
-        return (actionsContainers.buildingCity);
-      }
+      if (s2 === 'road') return (actionsContainers.buildingRoad);
 
-      return (
-        <>
-          <h1>Choose a position</h1>
-          <Button onClick={refresh}>
-              Cancel
-          </Button>
-        </>
-      );
+      if (s2 === 'settlement') return (actionsContainers.buildingSettlement);
     }
 
     if (s1 === 'robbing') {

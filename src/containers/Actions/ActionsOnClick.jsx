@@ -1,66 +1,58 @@
-import showEdges from '../../components/Board/ShowEdges';
 import { buyCard, endTurn } from '../../utils/Mock';
-import { buildingRequests } from './ActionsUtils';
-import { colours } from '../../utils/Constants';
 
 
 // Returns an onClickMaker function for actions.
 export const actionOnClick = (id, eventHandlers) => ((type) => {
-  const { draw, refresh } = eventHandlers;
+  const { refresh } = eventHandlers;
   const {
-    setBuilding, setBuying, setError, setRobbing,
+    setBuying, setError, setRobbing, setBuildingRoad,
     setBuildingCity, setBuildingSettlement,
   } = eventHandlers;
   const { setGameFrozen } = eventHandlers;
 
-  const {
-    rBuild,
-  } = buildingRequests(id, refresh, setError);
-
   switch (type) {
     case 'build_settlement':
-      return () => (() => {
-        setBuildingSettlement();
+      return () => {
         setGameFrozen();
-      });
+        setBuildingSettlement();
+      };
 
     case 'build_road':
-      return (ps) => (() => {
-        setBuilding();
+      return () => {
         setGameFrozen();
-        showEdges(draw, ps, colours.building, rBuild);
-      });
+        setBuildingRoad();
+      };
 
     case 'upgrade_city':
-      return () => (() => {
-        setBuildingCity();
+      return () => {
         setGameFrozen();
-      });
+        setBuildingCity();
+      };
 
     case 'bank_trade':
-      return () => (() => { setBuying(); });
+      return () => { setBuying(); };
 
     case 'buy_card':
-      return () => (() => { buyCard(id, refresh, setError); });
+      return () => { buyCard(id, refresh, setError); };
 
     case 'play_knight_card':
-      return () => (() => {
+      return () => {
         setGameFrozen();
         setRobbing();
-      });
+      };
 
     case 'end_turn':
-      return () => (() => { endTurn(id, refresh, setError); });
+      return () => { endTurn(id, refresh, setError); };
 
     case 'move_robber':
-      return () => (() => {
+      return () => {
         setGameFrozen();
         setRobbing();
-      });
+      };
 
     default:
       // eslint-disable-next-line no-console
-      return () => (() => { console.log('default', type); });
+      return () => { console.log('default', type); };
   }
 }
 );

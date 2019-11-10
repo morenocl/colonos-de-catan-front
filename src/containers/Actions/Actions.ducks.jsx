@@ -57,9 +57,9 @@ export const dispatchVertexPayload = (position) => ({
   payload: position,
 });
 
-export const dispatchEdgePayload = (p0, p1) => ({
+export const dispatchEdgePayload = (position) => ({
   type: SET_EDGE_PAYLOAD,
-  payload: { p0, p1 },
+  payload: position,
 });
 
 const initialState = {

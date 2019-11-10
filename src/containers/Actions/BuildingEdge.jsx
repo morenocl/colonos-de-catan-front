@@ -6,34 +6,27 @@ import PropTypes from 'prop-types';
 import {
   dispatchWaiting,
   dispatchError,
-  dispatchVertexPayload,
+  dispatchEdgePayload,
 } from './Actions.ducks';
 import {
   setRunning as dispatchGameRunning,
   setState as dispatchGameState,
 } from '../Game/Game.ducks';
 import BuildingScreen from '../../components/Actions/Building';
-import showVertices from '../../components/Board/ShowVertices';
+import showEdges from '../../components/Board/ShowEdges';
 import { colours } from '../../utils/Constants';
-import { getGameStatus, buildCity, buildSettlement } from '../../utils/Mock';
-import { BuildingPosition } from '../../utils/ApiTypes';
+import { getGameStatus, buildRoad } from '../../utils/Mock';
+import { RoadPosition } from '../../utils/ApiTypes';
 
 
-const request = {
-  upgrade_city: buildCity,
-  build_settlement: buildSettlement,
-};
-
-export const mapStateToProps = (state, ownProps) => {
-  const { type } = ownProps;
+export const mapStateToProps = (state) => {
   const action = state.Game.actions
-    .find((a) => a && a.type === type);
+    .find((a) => a && a.type === 'build_road');
 
   return ({
     draw: state.Board.draw,
     payload: action.payload,
-    position: state.Actions.vertexPayload,
-    type,
+    position: state.Actions.edgePayload,
   });
 };
 
@@ -42,15 +35,15 @@ export const mapDispatchToProps = {
   setWaiting: dispatchWaiting,
   setGameRunning: dispatchGameRunning,
   setGameState: dispatchGameState,
-  setVertexPayload: dispatchVertexPayload,
+  setEdgePayload: dispatchEdgePayload,
 };
 
-export const BuildingVertex = (props) => {
+export const BuildingEdge = (props) => {
   const {
-    draw, payload, position, type,
+    draw, payload, position,
   } = props;
   const { id } = useParams();
-  const { setError, setVertexPayload, setWaiting } = props;
+  const { setError, setEdgePayload, setWaiting } = props;
   const { setGameRunning, setGameState } = props;
 
   const refresh = () => {
@@ -59,16 +52,15 @@ export const BuildingVertex = (props) => {
     getGameStatus(id, setGameState, setError);
   };
   const onConfirm = () => {
-    request[type](id, position, refresh, setError);
+    buildRoad(id, position, refresh, setError);
   };
 
   const showPositions = () => {
     const onClickMaker = (p) => () => {
       // We need to create a new position to re-render the component.
-      setVertexPayload(JSON.parse(JSON.stringify(p)));
+      setEdgePayload(JSON.parse(JSON.stringify(p)));
     };
-    const buildingType = type === 'upgrade_city' ? 'city' : 'settlement';
-    showVertices(draw, payload, colours.building, buildingType, onClickMaker);
+    showEdges(draw, payload, colours.building, onClickMaker);
   };
 
   if (!position) showPositions();
@@ -81,21 +73,20 @@ export const BuildingVertex = (props) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuildingVertex);
+export default connect(mapStateToProps, mapDispatchToProps)(BuildingEdge);
 
 
-BuildingVertex.propTypes = {
-  position: BuildingPosition,
+BuildingEdge.propTypes = {
+  position: RoadPosition,
   draw: PropTypes.shape({}).isRequired,
-  payload: PropTypes.arrayOf(BuildingPosition).isRequired,
+  payload: PropTypes.arrayOf(RoadPosition).isRequired,
   setError: PropTypes.func.isRequired,
-  setVertexPayload: PropTypes.func.isRequired,
+  setEdgePayload: PropTypes.func.isRequired,
   setWaiting: PropTypes.func.isRequired,
   setGameRunning: PropTypes.func.isRequired,
   setGameState: PropTypes.func.isRequired,
-  type: PropTypes.oneOf(['upgrade_city', 'build_settlement']).isRequired,
 };
 
-BuildingVertex.defaultProps = {
+BuildingEdge.defaultProps = {
   position: null,
 };

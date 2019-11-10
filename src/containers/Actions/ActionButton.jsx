@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 
 import {
-  dispatchBuilding,
   dispatchBuildingCity,
+  dispatchBuildingRoad,
   dispatchBuildingSettlement,
   dispatchBuying,
   dispatchError,
@@ -27,13 +27,12 @@ import { getGameStatus } from '../../utils/Mock';
 export const mapStateToProps = (state, ownProps) => ({
   actions: state.Game.actions,
   C: ownProps.C,
-  draw: state.Board.draw,
   type: ownProps.type,
 });
 
 export const mapDispatchToProps = ({
-  setBuilding: dispatchBuilding,
   setBuildingCity: dispatchBuildingCity,
+  setBuildingRoad: dispatchBuildingRoad,
   setBuildingSettlement: dispatchBuildingSettlement,
   setBuying: dispatchBuying,
   setError: dispatchError,
@@ -48,11 +47,10 @@ export const mapDispatchToProps = ({
 // with the appropriate label, disable and onClick.
 export const ActionButton = (props) => {
   const { actions, C, type } = props;
-  const { draw } = props;
   const {
-    setBuilding, setBuying, setError,
+    setBuying, setError,
     setWaiting, setRobbing,
-    setBuildingCity, setBuildingSettlement,
+    setBuildingCity, setBuildingRoad, setBuildingSettlement,
   } = props;
   const {
     setGameFrozen, setGameRunning, setGameState,
@@ -66,10 +64,9 @@ export const ActionButton = (props) => {
   };
 
   const eventHandlers = {
-    draw,
     refresh,
-    setBuilding,
     setBuildingCity,
+    setBuildingRoad,
     setBuildingSettlement,
     setBuying,
     setError,
@@ -79,7 +76,7 @@ export const ActionButton = (props) => {
 
   const onClickMaker = actionsOnClick(id, eventHandlers);
   const a = actions.find((x) => x && x.type === type);
-  const onClick = a && onClickMaker(type)(a.payload);
+  const onClick = a && onClickMaker(type);
 
   return (
     <C
@@ -99,10 +96,9 @@ ActionButton.propTypes = {
   type: PropTypes.string.isRequired,
   C: PropTypes.elementType,
   actions: PropTypes.arrayOf(ActionType).isRequired,
-  draw: PropTypes.shape({}),
-  setBuilding: PropTypes.func.isRequired,
-  setBuildingSettlement: PropTypes.func.isRequired,
   setBuildingCity: PropTypes.func.isRequired,
+  setBuildingRoad: PropTypes.func.isRequired,
+  setBuildingSettlement: PropTypes.func.isRequired,
   setBuying: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
   setRobbing: PropTypes.func.isRequired,
@@ -114,5 +110,4 @@ ActionButton.propTypes = {
 
 ActionButton.defaultProps = {
   C: Button,
-  draw: null,
 };
