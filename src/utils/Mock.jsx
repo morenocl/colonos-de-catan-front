@@ -60,7 +60,9 @@ export const buildCity = (id, pos, onSuccess, onFailure) => {
       // Find action index.
       const actionId = data.actions.findIndex((x) => x && x.type === 'upgrade_city');
       // Find payload index.
-      const posId = data.actions[actionId].payload.indexOf(pos);
+      const posId = data.actions[actionId].payload
+        .findIndex((x) => (x
+          && x.level === pos.level && x.index === pos.index));
       // Remove from available positions.
       data.actions[actionId].payload.splice(posId, 1);
       if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];
@@ -109,7 +111,9 @@ export const buildSettlement = (id, pos, onSuccess, onFailure) => {
       // Find action index.
       const actionId = data.actions.findIndex((x) => x && x.type === 'build_settlement');
       // Find payload index.
-      const posId = data.actions[actionId].payload.indexOf(pos);
+      const posId = data.actions[actionId].payload
+        .findIndex((x) => (x
+          && x.level === pos.level && x.index === pos.index));
       // Remove from available positions.
       data.actions[actionId].payload.splice(posId, 1);
       if (data.actions[actionId].payload.length === 0) delete data.actions[actionId];

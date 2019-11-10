@@ -46,21 +46,31 @@ export const Actions = (props) => {
     getGameStatus(id, setGameState, setError);
   };
 
-  if (stage.startsWith('running')) {
-    if (stage.endsWith('buying')) return (actionsContainers.buying);
+  const [s0, s1, s2] = stage.split('/');
 
-    if (stage.endsWith('building')) {
+  if (s0 === 'running') {
+    if (s1 === 'buying') return (actionsContainers.buying);
+
+    if (s1 === 'building') {
+      if (s2 === 'settlement') {
+        return (actionsContainers.buildingSettlement);
+      }
+
+      if (s2 === 'city') {
+        return (actionsContainers.buildingCity);
+      }
+
       return (
         <>
           <h1>Choose a position</h1>
           <Button onClick={refresh}>
-            Cancel
+              Cancel
           </Button>
         </>
       );
     }
 
-    if (stage.endsWith('robbing')) {
+    if (s1 === 'robbing') {
       if (moveRobber) return (actionsContainers.robberRobbing);
       return (actionsContainers.knightRobbing);
     }
@@ -68,7 +78,7 @@ export const Actions = (props) => {
 
   if (moveRobber) return (actionsContainers.moveRobber);
 
-  if (stage === 'waiting') return (<ActionsScreen />);
+  if (s0 === 'waiting') return (<ActionsScreen />);
 
   // On error, show a dismissible Alert.
   // When dismissed, show actions and refresh.

@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 
 import {
   dispatchBuilding,
+  dispatchBuildingCity,
+  dispatchBuildingSettlement,
   dispatchBuying,
   dispatchError,
   dispatchRobbing,
@@ -31,6 +33,8 @@ export const mapStateToProps = (state, ownProps) => ({
 
 export const mapDispatchToProps = ({
   setBuilding: dispatchBuilding,
+  setBuildingCity: dispatchBuildingCity,
+  setBuildingSettlement: dispatchBuildingSettlement,
   setBuying: dispatchBuying,
   setError: dispatchError,
   setRobbing: dispatchRobbing,
@@ -48,6 +52,7 @@ export const ActionButton = (props) => {
   const {
     setBuilding, setBuying, setError,
     setWaiting, setRobbing,
+    setBuildingCity, setBuildingSettlement,
   } = props;
   const {
     setGameFrozen, setGameRunning, setGameState,
@@ -64,10 +69,12 @@ export const ActionButton = (props) => {
     draw,
     refresh,
     setBuilding,
+    setBuildingCity,
+    setBuildingSettlement,
     setBuying,
     setError,
-    setGameFrozen,
     setRobbing,
+    setGameFrozen,
   };
 
   const onClickMaker = actionsOnClick(id, eventHandlers);
@@ -94,6 +101,8 @@ ActionButton.propTypes = {
   actions: PropTypes.arrayOf(ActionType).isRequired,
   draw: PropTypes.shape({}),
   setBuilding: PropTypes.func.isRequired,
+  setBuildingSettlement: PropTypes.func.isRequired,
+  setBuildingCity: PropTypes.func.isRequired,
   setBuying: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
   setRobbing: PropTypes.func.isRequired,

@@ -1,4 +1,3 @@
-import showVertices from '../../components/Board/ShowVertices';
 import showEdges from '../../components/Board/ShowEdges';
 import { buyCard, endTurn } from '../../utils/Mock';
 import { buildingRequests } from './ActionsUtils';
@@ -10,19 +9,19 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
   const { draw, refresh } = eventHandlers;
   const {
     setBuilding, setBuying, setError, setRobbing,
+    setBuildingCity, setBuildingSettlement,
   } = eventHandlers;
   const { setGameFrozen } = eventHandlers;
 
   const {
-    cBuild, rBuild, sBuild,
+    rBuild,
   } = buildingRequests(id, refresh, setError);
 
   switch (type) {
     case 'build_settlement':
-      return (ps) => (() => {
-        setBuilding();
+      return () => (() => {
+        setBuildingSettlement();
         setGameFrozen();
-        showVertices(draw, ps, colours.building, 'settlement', sBuild);
       });
 
     case 'build_road':
@@ -33,10 +32,9 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
       });
 
     case 'upgrade_city':
-      return (ps) => (() => {
-        setBuilding();
+      return () => (() => {
+        setBuildingCity();
         setGameFrozen();
-        showVertices(draw, ps, colours.building, 'city', cBuild);
       });
 
     case 'bank_trade':
