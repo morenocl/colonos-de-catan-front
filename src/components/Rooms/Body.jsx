@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 // no button is shown.
 const Body = (props) => {
   const {
-    id, maxPlayers, owner, players,
+    id, maxPlayers, owner, players, gameStarted,
   } = props;
   const { label, disabled, onClick } = props;
 
@@ -37,6 +37,9 @@ const Body = (props) => {
             </tr>
             <tr>
               <td>{`Max players: ${maxPlayers}`}</td>
+            </tr>
+            <tr>
+              <td>{gameStarted}</td>
             </tr>
           </tbody>
         </Table>
