@@ -1,24 +1,17 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
-  dispatchBuilding,
-  dispatchBuying,
-  dispatchOnClick,
   dispatchError,
-  dispatchRobbing,
   dispatchWaiting,
 } from './Actions.ducks';
 import {
-  setFrozen as dispatchGameFrozen,
   setRunning as dispatchGameRunning,
   setState as dispatchGameState,
 } from '../Game/Game.ducks';
 /* eslint-disable import/no-named-as-default */
-import actionOnClick from './ActionsOnClick';
 import ActionsScreen from '../../components/Actions/Actions';
 import Error from '../../components/Error';
 /* eslint-enable import/no-named-as-default */
@@ -26,32 +19,23 @@ import actionsContainers from './ActionsContainers';
 import { getGameStatus } from '../../utils/Mock';
 
 
-const mapStateToProps = (state) => ({
-  draw: state.Board.draw,
-  moveRobber: !!state.Game.actions.find((x) => x && x.type === 'move_robber'),
+export const mapStateToProps = (state) => ({
+  moveRobber: state.Game.actions.some((x) => x && x.type === 'move_robber'),
   stage: state.Actions.stage,
 });
 
-const mapDispatchToProps = ({
-  setBuilding: dispatchBuilding,
-  setBuying: dispatchBuying,
+export const mapDispatchToProps = ({
   setError: dispatchError,
-  setOnClick: dispatchOnClick,
-  setRobbing: dispatchRobbing,
   setWaiting: dispatchWaiting,
-  setGameFrozen: dispatchGameFrozen,
   setGameRunning: dispatchGameRunning,
   setGameState: dispatchGameState,
 });
 
 export const Actions = (props) => {
-  const { draw, moveRobber, stage } = props;
+  const { moveRobber, stage } = props;
   const {
-    setBuilding, setBuying, setError,
-    setOnClick, setWaiting, setRobbing,
-  } = props;
-  const {
-    setGameFrozen, setGameRunning, setGameState,
+    setError, setWaiting,
+    setGameState, setGameRunning,
   } = props;
   const { id } = useParams();
 
@@ -61,44 +45,22 @@ export const Actions = (props) => {
     getGameStatus(id, setGameState, setError);
   };
 
-  // Set onClick generators for buttons.
-  const eventHandlers = {
-    draw,
-    refresh,
-    setBuilding,
-    setBuying,
-    setError,
-    setGameFrozen,
-    setRobbing,
-  };
-  setOnClick(actionOnClick(id, eventHandlers));
+  if (stage === 'running/buying') return (actionsContainers.buying);
 
-  if (stage.startsWith('running')) {
-    if (stage.endsWith('buying')) return (actionsContainers.buying);
+  if (stage === 'running/building/city') return (actionsContainers.buildingCity);
 
-    if (stage.endsWith('building')) {
-      return (
-        <>
-          <h1>Choose a position</h1>
-          <Button onClick={refresh}>
-            Cancel
-          </Button>
-        </>
-      );
-    }
+  if (stage === 'running/building/road') return (actionsContainers.buildingRoad);
 
-    if (stage.endsWith('robbing')) {
-      if (moveRobber) return (actionsContainers.robberRobbing);
-      return (actionsContainers.knightRobbing);
-    }
-  }
+  if (stage === 'running/building/settlement') return (actionsContainers.buildingSettlement);
+
+  if (stage === 'running/robbing' && moveRobber) return (actionsContainers.robberRobbing);
+
+  if (stage === 'running/robbing' && !moveRobber) return (actionsContainers.knightRobbing);
 
   if (moveRobber) return (actionsContainers.moveRobber);
 
   if (stage === 'waiting') return (<ActionsScreen />);
 
-  // On error, show a dismissible Alert.
-  // When dismissed, show actions and refresh.
   return (<Error onClose={refresh} />);
 };
 
@@ -106,22 +68,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(Actions);
 
 
 Actions.propTypes = {
-  draw: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-  }),
   moveRobber: PropTypes.bool.isRequired,
   stage: PropTypes.string.isRequired,
-  setBuilding: PropTypes.func.isRequired,
-  setBuying: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
-  setOnClick: PropTypes.func.isRequired,
-  setRobbing: PropTypes.func.isRequired,
   setWaiting: PropTypes.func.isRequired,
-  setGameFrozen: PropTypes.func.isRequired,
   setGameRunning: PropTypes.func.isRequired,
   setGameState: PropTypes.func.isRequired,
-};
-
-Actions.defaultProps = {
-  draw: null,
 };

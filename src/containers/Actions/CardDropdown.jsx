@@ -42,7 +42,9 @@ export const CardDropdown = ({ actions }) => {
 export default connect(mapStateToProps)(CardDropdown);
 
 
-toButton.propTypes = ActionType;
+toButton.propTypes = {
+  type: PropTypes.oneOf(cardActionNames).isRequired,
+};
 
 CardDropdown.propTypes = {
   actions: PropTypes.arrayOf(
