@@ -93,27 +93,23 @@ export const Robbing = (props) => {
 
   let players;
 
-  // First set a position. Then, show available players, if needed.
-  if (!position) {
-    showPositions();
-  } else if (!username) {
+  showPositions();
+
+  // Once position is set, choose player.
+  if (!!position && !username) {
     // Find available players for the chosen position.
     players = payload.find((x) => (x
       && x.position.level === position.level
       && x.position.index === position.index)).players;
 
-    // If there's only one player, set it.
-    if (players.length === 1) setRobberPayload(position, players[0]);
-
-    // If there are more than one, show every one.
-    if (players.length > 1) showPlayers(players);
+    // Show players if needed.
+    if (players.length >= 1) showPlayers(players);
 
     // If there are no available players, do nothing.
   }
 
-  // If there is more than one available player,
-  // user must choose one.
-  const missingPlayer = username || (players && players.length <= 1);
+  // User must choose a player if they can.
+  const missingPlayer = username || (players && players.length < 1);
 
   return (
     <RobbingScreen
