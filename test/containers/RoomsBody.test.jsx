@@ -61,14 +61,14 @@ test('renders without crashing', () => {
   const bodies = queryAllByTestId('room-body');
 
   // It should render one body.
-  expect(bodies.length).toBe(1);
+  expect(bodies).toHaveLength(1);
 
   // It should render without crashing.
   expect(bodies[0]).toBeInTheDocument();
   expect(bodies[0]).not.toBeEmpty();
 
   // It should have one button.
-  expect(queryAllByTestId('room-body-button').length).toBe(1);
+  expect(queryAllByTestId('room-body-button')).toHaveLength(1);
 });
 
 /* When user is not the owner
@@ -100,7 +100,7 @@ test('is not able to join or enter', () => {
   const { queryAllByTestId } = mk(rooms[1]);
 
   // It should not have a button.
-  expect(queryAllByTestId('room-body-button').length).toBe(0);
+  expect(queryAllByTestId('room-body-button')).toHaveLength(0);
 });
 
 /* When user is not the owner
@@ -111,7 +111,7 @@ test('is not able to join or enter', () => {
   const { queryAllByTestId } = mk(rooms[2]);
 
   // It should not have a button.
-  expect(queryAllByTestId('room-body-button').length).toBe(0);
+  expect(queryAllByTestId('room-body-button')).toHaveLength(0);
 });
 
 /* When user is not the owner
@@ -122,7 +122,7 @@ test('is not able to join or enter', () => {
   const { queryAllByTestId } = mk(rooms[3]);
 
   // It should not have a button.
-  expect(queryAllByTestId('room-body-button').length).toBe(0);
+  expect(queryAllByTestId('room-body-button')).toHaveLength(0);
 });
 
 /* When user is not the owner

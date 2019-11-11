@@ -87,7 +87,7 @@ test('returns all dispatch functions', () => {
 test('is empty', () => {
   const { queryAllByTestId, queryByTestId } = mk([], 'empty');
 
-  expect(queryAllByTestId('rooms-empty').length).toBe(1);
+  expect(queryAllByTestId('rooms-empty')).toHaveLength(1);
 
   const r = queryByTestId('rooms-empty');
   expect(r).toBeEmpty();
@@ -101,7 +101,7 @@ test('shows an error', () => {
 
   const { queryAllByTestId, queryByTestId } = mk([], 'error');
 
-  expect(queryAllByTestId('error').length).toBe(1);
+  expect(queryAllByTestId('error')).toHaveLength(1);
 
   const r = queryByTestId('error');
   expect(r).not.toBeEmpty();
@@ -124,12 +124,12 @@ test('shows no rooms', () => {
   const { queryAllByTestId } = mk([], 'running');
 
   // It should show the rooms screen, a button and an accordion.
-  expect(queryAllByTestId('rooms').length).toBe(1);
-  expect(queryAllByTestId('rooms-button').length).toBe(1);
-  expect(queryAllByTestId('rooms-accordion').length).toBe(1);
+  expect(queryAllByTestId('rooms')).toHaveLength(1);
+  expect(queryAllByTestId('rooms-button')).toHaveLength(1);
+  expect(queryAllByTestId('rooms-accordion')).toHaveLength(1);
 
   // It should show no rooms.
-  expect(queryAllByTestId('rooms-card').length).toBe(0);
+  expect(queryAllByTestId('rooms-card')).toHaveLength(0);
 });
 
 test('refreshes', () => {

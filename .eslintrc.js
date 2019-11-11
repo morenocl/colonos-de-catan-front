@@ -22,4 +22,24 @@ module.exports = {
   ],
   rules: {
   },
+  overrides: [
+    {
+      files: [
+        "**/*.test.jsx"
+      ],
+      env: {
+        jest: true
+      },
+      plugins: ["jest"],
+      rules: {
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "react/jsx-props-no-spreading": "off",
+        "jest/no-identical-title": "off"
+      }
+    }
+  ],
 };
