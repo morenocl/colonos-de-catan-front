@@ -35,12 +35,8 @@ export const Waiting = ({ room, onStart, onCancel }) => {
     </tbody>
   );
 
-  return (
-    <div>
-      <Table borderless size="sm">
-        {head}
-        {body}
-      </Table>
+  const buttons = (
+    <div data-testid="waiting-buttons">
       <Button
         disabled={!onStart}
         onClick={onStart}
@@ -55,6 +51,16 @@ export const Waiting = ({ room, onStart, onCancel }) => {
       >
         Cancel Room
       </Button>
+    </div>
+  );
+
+  return (
+    <div data-testid="waiting-running">
+      <Table borderless size="sm">
+        {head}
+        {body}
+      </Table>
+      {onStart ? buttons : null}
     </div>
   );
 };

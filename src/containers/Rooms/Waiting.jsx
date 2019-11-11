@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Button from 'react-bootstrap/Button';
 import Error from '../../components/Error';
 import WaitingScreen from '../../components/Rooms/Waiting';
 import { getRoom, startGame, cancelRoom } from '../../utils/Mock';
@@ -11,13 +12,13 @@ import { dispatchRoom, dispatchWaiting } from './Rooms.ducks';
 import { RoomType } from '../../utils/ApiTypes';
 
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   username: state.Auth.username,
   room: state.Rooms.room,
   stage: state.Rooms.waitingStage,
 });
 
-const mapDispatchToProps = ({
+export const mapDispatchToProps = ({
   setRoom: dispatchRoom,
   setStage: dispatchWaiting,
 });
@@ -31,7 +32,9 @@ export const Waiting = ({
     setRoom(r);
     setStage(r.game_has_started ? 'started' : 'running');
   };
-  const onFailure = () => { setStage('error'); };
+  const onFailure = (statusText) => {
+    setStage(statusText === 404 ? 'canceled' : 'error');
+  };
 
   // Refresh every 5 seconds and when mounted.
   const refresh = () => { getRoom(id, onSuccess, onFailure); };
@@ -43,7 +46,7 @@ export const Waiting = ({
   const onStart = () => { startGame(id, refresh, onFailure); };
   const onCancel = () => { cancelRoom(id); setStage('canceled'); };
 
-  if (stage === 'empty') return (<></>);
+  if (stage === 'empty') return (<div data-testid="waiting-empty" />);
 
   if (stage === 'canceled') {
     setStage('empty');
@@ -62,7 +65,16 @@ export const Waiting = ({
     );
   }
 
-  return (<Error />);
+  return (
+    <div>
+      <Error />
+      <Link to="/rooms">
+        <Button>
+          Back to Rooms
+        </Button>
+      </Link>
+    </div>
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Waiting);
