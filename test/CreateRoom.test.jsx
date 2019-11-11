@@ -26,7 +26,7 @@ describe('Create Rooms', () => {
     const boardList = await waitForElement(
       () => getAllByTestId('board-name')
     );
-    expect(boardList.length).toBe(3);
+    expect(boardList).toHaveLength(3);
     expect(getByTestId('button')).toBeDisabled();
 
     const roomInput = getByTestId('room-name');
@@ -44,7 +44,7 @@ describe('Create Rooms', () => {
 
   it('insert lobby, select board and redirect', async () => {
     const { getAllByTestId, getByTestId } = render(
-      <CreateRoom setRunning={() => {}}/>
+      <CreateRoom setRunning={() => {}} />
     );
 
     await waitForElement(() => getAllByTestId('board-name'));

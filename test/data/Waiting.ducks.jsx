@@ -10,20 +10,20 @@ export const notOwnerState = {
   onStart: null,
   onCancel: null,
 };
-  
+
 export const ownerState = {
-    room: {
-      id: 1,
-      name: ' ',
-      owner: ' ',
-      players: [],
-      max_players: 2,
-      game_has_started: false,
-    },
-    onStart: () => {},
-    onCancel: () => {},
+  room: {
+    id: 1,
+    name: ' ',
+    owner: ' ',
+    players: [],
+    max_players: 2,
+    game_has_started: false,
+  },
+  onStart: () => {},
+  onCancel: () => {},
 };
-  
+
 export const ownerContainer = {
   username: 'owner',
   room: {
@@ -49,4 +49,3 @@ export const notOwnerContainer = {
   },
   setRoom: () => {},
 };
-

@@ -126,7 +126,7 @@ test('shows its component', () => {
   const { queryAllByTestId } = mk();
 
   const components = queryAllByTestId('actions-robbing');
-  expect(components.length).toBe(1);
+  expect(components).toHaveLength(1);
 });
 
 test('shows available positions', () => {
@@ -168,7 +168,7 @@ test('shows 0 available players', () => {
   // It shouldn't call any of these.
   dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled;
+  expect(showHCenter).not.toHaveBeenCalled();
 });
 
 test('shows 1 available player', () => {
@@ -189,7 +189,7 @@ test('shows 1 available player', () => {
     .filter((f) => f !== setRobberPayload)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled;
+  expect(showHCenter).not.toHaveBeenCalled();
 });
 
 test('shows 3 available players', () => {
@@ -233,7 +233,7 @@ test('shows 3 available players', () => {
     .filter((f) => f !== setInfoOnClick)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled;
+  expect(showHCenter).not.toHaveBeenCalled();
 });
 
 test('calls no functions', () => {
@@ -243,7 +243,7 @@ test('calls no functions', () => {
   // It shouldn't call any of these just yet.
   dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled;
+  expect(showHCenter).not.toHaveBeenCalled();
 });
 
 test('calls setInfoOnClick and moveRobber', () => {
@@ -265,7 +265,7 @@ test('calls setInfoOnClick and moveRobber', () => {
   dispatchs
     .filter((f) => f !== setInfoOnClick)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled;
+  expect(showHCenter).not.toHaveBeenCalled();
   mockFns
     .filter((f) => f !== moveRobber)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
@@ -290,14 +290,14 @@ test('calls setInfoOnClick and playKnight', () => {
   dispatchs
     .filter((f) => f !== setInfoOnClick)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled;
+  expect(showHCenter).not.toHaveBeenCalled();
   mockFns
     .filter((f) => f !== playKnight)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
 });
 
 test('calls refresh on confirm', () => {
-  const fun = (id, position, username, onSuccess, onFailure) => {
+  const fun = (id, position, username, onSuccess) => {
     onSuccess();
   };
   moveRobber.mockImplementationOnce(fun);
@@ -321,14 +321,14 @@ test('calls refresh on confirm', () => {
   dispatchs
     .filter((f) => !calledDispatchs.includes(f))
     .forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled;
+  expect(showHCenter).not.toHaveBeenCalled();
   mockFns
     .filter((f) => !calledMocks.includes(f))
     .forEach((f) => expect(f).not.toHaveBeenCalled());
 });
 
 test('calls refresh on cancel', () => {
-  const fun = (id, position, username, onSuccess, onFailure) => {
+  const fun = (id, position, username, onSuccess) => {
     onSuccess();
   };
   moveRobber.mockImplementationOnce(fun);
@@ -354,7 +354,7 @@ test('calls refresh on cancel', () => {
   dispatchs
     .filter((f) => !calledDispatchs.includes(f))
     .forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled;
+  expect(showHCenter).not.toHaveBeenCalled();
   mockFns
     .filter((f) => !calledMocks.includes(f))
     .forEach((f) => expect(f).not.toHaveBeenCalled());

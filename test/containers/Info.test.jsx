@@ -9,9 +9,7 @@ import { info } from '../../src/utils/BoardData';
 
 const { players, currentTurn } = info;
 
-const playerOnClick = () => ((player) => (() => {
-  console.log(`Clicked by:${player.username}`);
-}));
+const playerOnClick = () => () => () => null;
 
 test('should show previously rolled value', () => {
   const initialState = {
@@ -38,7 +36,7 @@ test('render one card for player', () => {
     />,
   );
   const cards = queryAllByTestId('card');
-  expect(cards.length).toBe(players.length);
+  expect(cards).toHaveLength(players.length);
 });
 
 test('render player in turn', () => {

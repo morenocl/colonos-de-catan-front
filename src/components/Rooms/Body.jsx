@@ -55,6 +55,7 @@ export default Body;
 Body.propTypes = {
   id: PropTypes.number.isRequired,
   disabled: PropTypes.bool.isRequired,
+  gameStarted: PropTypes.string.isRequired,
   maxPlayers: PropTypes.number.isRequired,
   onClick: PropTypes.func,
   owner: PropTypes.string.isRequired,

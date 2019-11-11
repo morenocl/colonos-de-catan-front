@@ -19,7 +19,7 @@ const onClick = jest.fn(() => null);
 
 const extra = {
   label: 'button label',
-  onClick: onClick,
+  onClick,
 };
 
 const mk = (disabled) => render(
@@ -59,10 +59,10 @@ test('shows a body with a enabled button', () => {
   const { queryAllByTestId, queryByTestId } = mk(false);
 
   // It should show one body.
-  expect(queryAllByTestId('room-body').length).toBe(1);
+  expect(queryAllByTestId('room-body')).toHaveLength(1);
 
   // It should show one button.
-  expect(queryAllByTestId('room-body-button').length).toBe(1);
+  expect(queryAllByTestId('room-body-button')).toHaveLength(1);
 
   const body = queryByTestId('room-body');
   testBody(body);
@@ -82,10 +82,10 @@ test('shows a body with a disabled button', () => {
   const { queryAllByTestId, queryByTestId } = mk(true);
 
   // It should show one body.
-  expect(queryAllByTestId('room-body').length).toBe(1);
+  expect(queryAllByTestId('room-body')).toHaveLength(1);
 
   // It should show one button.
-  expect(queryAllByTestId('room-body-button').length).toBe(1);
+  expect(queryAllByTestId('room-body-button')).toHaveLength(1);
 
   // The body should render.
   const body = queryByTestId('room-body');
@@ -112,10 +112,10 @@ test('shows a body with no button', () => {
   );
 
   // It should show one body.
-  expect(queryAllByTestId('room-body').length).toBe(1);
+  expect(queryAllByTestId('room-body')).toHaveLength(1);
 
   // It should show one button.
-  expect(queryAllByTestId('room-body-button').length).toBe(0);
+  expect(queryAllByTestId('room-body-button')).toHaveLength(0);
 
   // The body should render.
   const body = queryByTestId('room-body');
