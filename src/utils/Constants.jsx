@@ -28,7 +28,8 @@ export const colours = {
   blue: '#3f51b5',
   yellow: '#ffeb3b',
   robber: '#666666',
-  building: '#8a4af3',
+  building: '#800080',
+  chosen: '#ee82ee',
 };
 
 export const colourCard = {

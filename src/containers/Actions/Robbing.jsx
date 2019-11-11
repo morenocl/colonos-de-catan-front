@@ -95,17 +95,19 @@ export const Robbing = (props) => {
 
   showPositions();
 
-  // Once position is set, choose player.
-  if (!!position && !username) {
+  // Once position is set, show it.
+  if (position) {
+    showHCenter(draw, [position], colours.chosen, () => () => null);
+
+    if (!username) {
     // Find available players for the chosen position.
-    players = payload.find((x) => (x
+      players = payload.find((x) => (x
       && x.position.level === position.level
       && x.position.index === position.index)).players;
 
-    // Show players if needed.
-    if (players.length >= 1) showPlayers(players);
-
-    // If there are no available players, do nothing.
+      // Show players only if needed.
+      if (players.length >= 1) showPlayers(players);
+    }
   }
 
   // User must choose a player if they can.
