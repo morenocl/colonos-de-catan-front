@@ -45,6 +45,7 @@ export const Body = (props) => {
         onClick={onClick}
         owner={owner}
         players={players.join(', ')}
+        gameStarted={gameHasStarted ? 'Game Started' : 'Waiting to start'}
         label={joined ? 'Enter' : 'Join'}
       />
     );
