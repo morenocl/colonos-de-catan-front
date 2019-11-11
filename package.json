@@ -66,18 +66,16 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "ignore-styles": "^5.0.1",
     "mocha": "^6.2.2",
-    "redux-devtools": "^3.5.0",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "redux-devtools": "^3.5.0"
   },
   "jest": {
-      "coveragePathIgnorePatterns": [
-          "/node_modules/",
-          "/src/utils/.*Data.jsx",
-          "/src/utils/Mock.jsx",
-          "/src/utils/ApiTypes.jsx",
-          "/src/utils/Constants.jsx",
-          "/test/data/"
-      ]
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/src/utils/.*Data.jsx",
+      "/src/utils/Mock.jsx",
+      "/src/utils/ApiTypes.jsx",
+      "/src/utils/Constants.jsx",
+      "/test/data/"
+    ]
   }
 }
