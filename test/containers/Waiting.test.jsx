@@ -67,6 +67,7 @@ const mk = (stage, username = '', room = defaultRoom) => render(
 
 jest.mock('react-router-dom', () => ({
   useParams: jest.fn(() => ({ id: '1' })),
+  Redirect: jest.fn(() => null),
 }));
 
 jest.mock('../../src/utils/Mock', () => ({
@@ -136,8 +137,10 @@ test('if the server returns 404 set stage to canceled', () => {
 test('if the stage is canceled redirect to rooms', () => {
   mk('canceled');
 
-  // expect(setStage).toHaveBeenCalledTimes(1);
-  // expect(setStage).toHaveBeenCalledWith('empty');
+  expect(setStage).toHaveBeenCalledTimes(1);
+  expect(setStage).toHaveBeenCalledWith('empty');
+  expect(Redirect).toHaveBeenCalledTimes(1);
+  expect(Redirect).toHaveBeenCalledWith({ to: '/rooms' }, {});
 });
 
 test('is running and I am the owner', () => {
@@ -146,11 +149,6 @@ test('is running and I am the owner', () => {
   const ps = queryAllByTestId('waiting-running');
   expect(ps.length).toBe(1);
   expect(ps[0]).not.toBeEmpty();
-
-  const container = queryAllByTestId('waiting-buttons');
-  expect(container[0]).not.toBeEmpty();
-  expect(container[0]).toHaveTextContent(/Start game/i);
-  expect(container[0]).toHaveTextContent(/Cancel room/i);
 });
 
 test('is running and I am not the owner', () => {

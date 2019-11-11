@@ -1,36 +1,22 @@
-import { expect } from 'chai';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 
 import { Waiting } from '../../src/components/Rooms/Waiting';
 import { ownerState, notOwnerState } from '../data/Waiting.ducks';
 
-// This connects enzyme to the react adapter.
-configure({ adapter: new Adapter() });
+const mk = (state) => render(<Waiting {...state} />);
 
-// eslint-disable-next-line react/jsx-props-no-spreading
-const mk = (p) => shallow(<Waiting {...p} />);
+test('should be enable buttons', () => {
+  const { queryAllByTestId } = mk(ownerState);
+  const container = queryAllByTestId('waiting-buttons');
+  expect(container[0]).not.toBeEmpty();
+  expect(container[0]).toHaveTextContent(/Start game/i);
+  expect(container[0]).toHaveTextContent(/Cancel room/i);
+});
 
-describe('Waiting', () => {
-  it('should be enable button', () => {
-    const r = mk(ownerState);
-    const button = (
-      <Button disabled={false}>
-        Cancel Room
-      </Button>
-    );
-    expect(r.find('Button.cancel').matchesElement(button), r.debug()).to.be.true;
-  });
-
-  it('should be disable button', () => {
-    const r = mk(notOwnerState);
-    const button = (
-      <Button disabled>
-        Cancel Room
-      </Button>
-    );
-    expect(r.find('Button.cancel').matchesElement(button), r.debug()).to.be.true;
-  });
+test('should be disable buttons', () => {
+  const { queryAllByTestId } = mk(notOwnerState);
+  const container = queryAllByTestId('waiting-buttons');
+  expect(container.length).toBe(0);
 });
