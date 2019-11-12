@@ -18,7 +18,7 @@ const Positioning = ({ message, onCancel, onConfirm }) => {
   );
 
   const body = (
-    <Row>
+    <Row data-testid="actions-positioning-body">
       <Col>
         <Button
           disabled={!onConfirm}

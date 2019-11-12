@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Redirect, useParams, Link } from 'react-router-dom';
@@ -101,7 +101,7 @@ test('is empty', () => {
   const { queryAllByTestId } = mk('empty');
 
   const ps = queryAllByTestId('waiting-empty');
-  expect(ps.length).toBe(1);
+  expect(ps).toHaveLength(1);
   expect(ps[0]).toBeEmpty();
 
   expect(useParams).toHaveBeenCalledTimes(1);
@@ -146,7 +146,7 @@ test('is running and I am the owner', () => {
   const { queryAllByTestId } = mk('running', 'owner');
 
   const ps = queryAllByTestId('waiting-running');
-  expect(ps.length).toBe(1);
+  expect(ps).toHaveLength(1);
   expect(ps[0]).not.toBeEmpty();
 });
 
@@ -154,18 +154,18 @@ test('is running and I am not the owner', () => {
   const { queryAllByTestId } = mk('running', 'username');
 
   const ps = queryAllByTestId('waiting-running');
-  expect(ps.length).toBe(1);
+  expect(ps).toHaveLength(1);
   expect(ps[0]).not.toBeEmpty();
 
   const container = queryAllByTestId('waiting-buttons');
-  expect(container.length).toBe(0);
+  expect(container).toHaveLength(0);
 });
 
 test('shows an error', () => {
   const { queryAllByTestId } = mk('error');
 
   const ps = queryAllByTestId('error');
-  expect(ps.length).toBe(1);
+  expect(ps).toHaveLength(1);
 
   expect(getRoom).toHaveBeenCalledTimes(1);
   expect(getRoom).toHaveBeenCalledWith('1', expect.any(Function), expect.any(Function));
@@ -185,7 +185,7 @@ test('shows an error', () => {
   const { queryAllByTestId } = mk('not existent');
 
   const ps = queryAllByTestId('error');
-  expect(ps.length).toBe(1);
+  expect(ps).toHaveLength(1);
 
   expect(getRoom).toHaveBeenCalledTimes(1);
   expect(getRoom).toHaveBeenCalledWith('1', expect.any(Function), expect.any(Function));

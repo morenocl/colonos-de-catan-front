@@ -18,5 +18,5 @@ test('should be enable buttons', () => {
 test('should be disable buttons', () => {
   const { queryAllByTestId } = mk(notOwnerState);
   const container = queryAllByTestId('waiting-buttons');
-  expect(container.length).toBe(0);
+  expect(container).toHaveLength(0);
 });
