@@ -1,15 +1,13 @@
-import React from 'react';
-import {
-  render, fireEvent,
-} from '@testing-library/react';
+import React, { Children } from 'react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams, Link } from 'react-router-dom';
 
 import {
   Waiting, mapStateToProps, mapDispatchToProps,
 } from '../../src/containers/Rooms/Waiting';
 import { dispatchRoom, dispatchWaiting } from '../../src/containers/Rooms/Rooms.ducks';
-import { getRoom, startGame, cancelRoom } from '../../src/utils/Mock';
+import { getRoom } from '../../src/utils/Mock';
 import useInterval from '../../src/utils/UseInterval';
 
 
@@ -68,6 +66,7 @@ const mk = (stage, username = '', room = defaultRoom) => render(
 jest.mock('react-router-dom', () => ({
   useParams: jest.fn(() => ({ id: '1' })),
   Redirect: jest.fn(() => null),
+  Link: jest.fn(() => null),
 }));
 
 jest.mock('../../src/utils/Mock', () => ({
@@ -79,7 +78,7 @@ jest.mock('../../src/utils/UseInterval', () => ({
   default: jest.fn(() => null),
 }));
 
-const mockFns = [useParams, getRoom, useInterval];
+const mockFns = [useParams, getRoom, useInterval, Redirect, Link];
 
 afterEach(() => {
   dispatchs.forEach((f) => f.mockClear());
@@ -162,7 +161,7 @@ test('is running and I am not the owner', () => {
   expect(container.length).toBe(0);
 });
 
-xtest('shows an error', () => {
+test('shows an error', () => {
   const { queryAllByTestId } = mk('error');
 
   const ps = queryAllByTestId('error');
@@ -170,12 +169,19 @@ xtest('shows an error', () => {
 
   expect(getRoom).toHaveBeenCalledTimes(1);
   expect(getRoom).toHaveBeenCalledWith('1', expect.any(Function), expect.any(Function));
-
+  expect(Link).toHaveBeenCalledTimes(1);
+  expect(Link).toBeCalledWith(
+    expect.objectContaining({
+      to: '/rooms',
+      children: expect.any(Object),
+    }),
+    expect.any(Object),
+  );
   dispatchs
     .forEach((f) => expect(f).not.toHaveBeenCalled());
 });
 
-xtest('shows an error', () => {
+test('shows an error', () => {
   const { queryAllByTestId } = mk('not existent');
 
   const ps = queryAllByTestId('error');
@@ -183,6 +189,14 @@ xtest('shows an error', () => {
 
   expect(getRoom).toHaveBeenCalledTimes(1);
   expect(getRoom).toHaveBeenCalledWith('1', expect.any(Function), expect.any(Function));
+  expect(Link).toHaveBeenCalledTimes(1);
+  expect(Link).toBeCalledWith(
+    expect.objectContaining({
+      to: '/rooms',
+      children: expect.any(Object),
+    }),
+    expect.any(Object),
+  );
 
   dispatchs
     .forEach((f) => expect(f).not.toHaveBeenCalled());
