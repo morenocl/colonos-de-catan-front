@@ -10,8 +10,9 @@ import Robbing from '../../src/components/Actions/Robbing';
 const onCancel = jest.fn(() => null);
 const onConfirm = jest.fn(() => null);
 
-const mk = () => render(
+const mk = (message) => render(
   <Robbing
+    message={message}
     onCancel={onCancel}
     onConfirm={onConfirm}
   />,
@@ -23,7 +24,7 @@ afterEach(() => {
 });
 
 test('shows a title and two buttons', () => {
-  const { queryAllByTestId } = mk();
+  const { queryAllByTestId } = mk('message');
 
   const component = queryAllByTestId('actions-robbing');
   const head = queryAllByTestId('actions-robbing-head');
@@ -47,12 +48,12 @@ test('shows a title and two buttons', () => {
   expect(bCancel[0]).toBeEnabled();
   expect(bConfirm[0]).toBeEnabled();
 
-  const expected = /^Please choose a position and a player$/;
+  const expected = /^message$/i;
   expect(head[0]).toHaveTextContent(expected);
 });
 
 test('calls onCancel', () => {
-  const { queryByTestId } = mk();
+  const { queryByTestId } = mk('');
 
   const b = queryByTestId('actions-robbing-cancel');
 
@@ -66,7 +67,7 @@ test('calls onCancel', () => {
 });
 
 test('calls onCofirm', () => {
-  const { queryByTestId } = mk();
+  const { queryByTestId } = mk('');
 
   const b = queryByTestId('actions-robbing-confirm');
 

@@ -111,12 +111,17 @@ export const Robbing = (props) => {
   }
 
   // User must choose a player if they can.
-  const missingPlayer = username || (players && players.length < 1);
+  const playerSet = username || (players && players.length < 1);
+
+  let message = 'Choose a position';
+  if (position && !playerSet) message = 'Choose a player';
+  if (playerSet) message = 'Confirm';
 
   return (
     <RobbingScreen
+      message={message}
       onCancel={onCancel}
-      onConfirm={position && missingPlayer ? onConfirm : null}
+      onConfirm={position && playerSet ? onConfirm : null}
     />
   );
 };
