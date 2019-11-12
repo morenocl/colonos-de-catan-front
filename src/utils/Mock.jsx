@@ -254,7 +254,8 @@ export const getRoom = (id, onSuccess, onFailure) => {
         data.rooms[data.rooms.indexOf(room)] = { ...room };
       }
 
-      if (data.getRoom) onFailure();
+      if (data.getRoom) onFailure(500);
+      else if (data.canceledRooms) onFailure(404);
       else onSuccess(room);
     });
 };
@@ -269,7 +270,7 @@ export const startGame = (id, onSuccess, onFailure) => {
       room.game_id = 2;
       data.rooms = [...data.rooms];
 
-      if (data.startGame) onFailure();
+      if (data.startGame) onFailure(500);
       else onSuccess();
     });
 };
