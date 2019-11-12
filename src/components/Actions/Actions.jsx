@@ -28,14 +28,8 @@ const secondRow = [
 
 export const Actions = () => (
   <>
-    <Table>
-      <thead>
-        <tr>
-          <td>
-            Actions
-          </td>
-        </tr>
-      </thead>
+    <h1>Actions</h1>
+    <Table borderless size="sm">
       <tbody>
         <tr>
           {firstRow.map(toButton)}
