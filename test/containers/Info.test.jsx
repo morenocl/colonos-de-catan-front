@@ -39,18 +39,6 @@ test('render one card for player', () => {
   expect(cards).toHaveLength(players.length);
 });
 
-test('render player in turn', () => {
-  const { getByTestId } = render(
-    <Info
-      players={players}
-      turn={currentTurn}
-      playerOnClick={playerOnClick}
-    />,
-  );
-  const td = getByTestId('turn-user');
-  expect(td).toHaveTextContent(currentTurn.user);
-});
-
 test('render the winning player', () => {
   const winner = 'user3';
   const { getByTestId } = render(

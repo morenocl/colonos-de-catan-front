@@ -80,25 +80,21 @@ const BankTrade = (props) => {
   );
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>
-            Please choose.
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          {offerOpts}
-          {requestOpts}
-        </tr>
-        <tr>
-          {confirmTrade}
-          {cancelTrade}
-        </tr>
-      </tbody>
-    </Table>
+    <div>
+      <h1>Please choose.</h1>
+      <Table borderless size="sm">
+        <tbody>
+          <tr>
+            {offerOpts}
+            {requestOpts}
+          </tr>
+          <tr>
+            {confirmTrade}
+            {cancelTrade}
+          </tr>
+        </tbody>
+      </Table>
+    </div>
   );
 };
 

@@ -52,7 +52,7 @@ export const Routes = ({ auth }) => (
 
     {/* Default. */}
     <Route>
-      <Error message={'Page not found'} />
+      <Error message="Page not found" />
     </Route>
   </Switch>
 );

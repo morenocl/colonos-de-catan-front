@@ -55,7 +55,7 @@ describe('Hand', () => {
     const h = mk(initialHand).dive();
     // Should render two entries for each card,
     // and two title entries.
-    const expected = 2 * (cardNames.length + resourceNames.length + 1);
+    const expected = 2 * (cardNames.length + resourceNames.length);
     expect(h.find('td'), h.debug()).to.have.lengthOf(expected);
   });
 });
