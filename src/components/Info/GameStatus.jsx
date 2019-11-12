@@ -26,14 +26,6 @@ const GameStatus = ({ turn, winner }) => {
       <tbody>
         <tr>
           <td>
-            Turn:
-          </td>
-          <td data-testid="turn-user">
-            {turn.user}
-          </td>
-        </tr>
-        <tr>
-          <td>
             Dice:
           </td>
           <td data-testid="dice">
