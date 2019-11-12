@@ -18,7 +18,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
-    "svg.js": "^2.7.1"
+    "svg.js": "^2.7.1",
+    "webpack": "^4.41.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -64,6 +65,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "identity-obj-proxy": "^3.0.0",
     "ignore-styles": "^5.0.1",
     "mocha": "^6.2.2",
     "redux-devtools": "^3.5.0"
@@ -76,6 +78,9 @@
       "/src/utils/ApiTypes.jsx",
       "/src/utils/Constants.jsx",
       "/test/data/"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   }
 }

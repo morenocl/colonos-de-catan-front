@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 
+import './PlayerInfo.css';
+
 
 const PlayerInfo = ({ player, onTurn, playerOnClick }) => {
   const {
@@ -14,8 +16,8 @@ const PlayerInfo = ({ player, onTurn, playerOnClick }) => {
   const title = (
     <Card.Title>
       <Button
+        id="player-button"
         block
-        variant="link"
         disabled={!playerOnClick}
         onClick={playerOnClick}
       >
