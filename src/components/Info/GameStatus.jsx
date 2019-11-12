@@ -9,12 +9,8 @@ const GameStatus = ({ turn, winner }) => {
       <Table borderless size="sm">
         <tbody>
           <tr>
-            <td>
-              Winner:
-            </td>
-            <td data-testid="winner">
-              {winner}
-            </td>
+            <td>Winner:</td>
+            <td data-testid="winner">{winner}</td>
           </tr>
         </tbody>
       </Table>
@@ -25,17 +21,7 @@ const GameStatus = ({ turn, winner }) => {
     <Table borderless size="sm">
       <tbody>
         <tr>
-          <td>
-            Turn:
-          </td>
-          <td data-testid="turn-user">
-            {turn.user}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Dice:
-          </td>
+          <td>Dice:</td>
           <td data-testid="dice">
             {`${turn.dice[0]}, ${turn.dice[1]}`}
           </td>

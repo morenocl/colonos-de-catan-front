@@ -28,28 +28,23 @@ export const resToTable = (resources) => {
   return (
     <tbody>
       <tr>
-        <td>
-        Resources
-        </td>
-      </tr>
-      <tr>
-        <td>lumber: </td>
+        <td>Lumber: </td>
         <td>{lumber}</td>
       </tr>
       <tr>
-        <td>wool: </td>
+        <td>Wool: </td>
         <td>{wool}</td>
       </tr>
       <tr>
-        <td>ore: </td>
+        <td>Ore: </td>
         <td>{ore}</td>
       </tr>
       <tr>
-        <td>grain: </td>
+        <td>Grain: </td>
         <td>{grain}</td>
       </tr>
       <tr>
-        <td>brick: </td>
+        <td>Brick: </td>
         <td>{brick}</td>
       </tr>
     </tbody>
@@ -66,28 +61,23 @@ export const cardsToTable = (cards) => {
   return (
     <tbody>
       <tr>
-        <td>
-        Cards
-        </td>
-      </tr>
-      <tr>
-        <td>road_building: </td>
+        <td>Road building: </td>
         <td>{roadBuilding}</td>
       </tr>
       <tr>
-        <td>year_of_plenty: </td>
+        <td>Year of plenty: </td>
         <td>{yearOfPlenty}</td>
       </tr>
       <tr>
-        <td>monopoly: </td>
+        <td>Monopoly: </td>
         <td>{monopoly}</td>
       </tr>
       <tr>
-        <td>victory_point: </td>
+        <td>Victory point: </td>
         <td>{victoryPoint}</td>
       </tr>
       <tr>
-        <td>knight: </td>
+        <td>Knight: </td>
         <td>{knight}</td>
       </tr>
     </tbody>
@@ -99,12 +89,14 @@ const Hand = ({ cards, resources }) => (
   <Container>
     <Row>
       <Col>
-        <Table>
+        <h1>Resources</h1>
+        <Table borderless size="sm">
           {resToTable(resources)}
         </Table>
       </Col>
       <Col>
-        <Table>
+        <h1>Cards</h1>
+        <Table borderless size="sm">
           {cardsToTable(cards)}
         </Table>
       </Col>
