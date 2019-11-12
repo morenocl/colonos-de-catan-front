@@ -14,7 +14,7 @@ import Waiting from './Rooms/Waiting';
 
 import ConditionalRoute from '../components/ConditionalRoute';
 import Landing from '../components/Landing';
-import NotFound from '../components/NotFound';
+import Error from '../components/Error';
 
 
 const mapStateToProps = (state) => ({
@@ -51,7 +51,9 @@ export const Routes = ({ auth }) => (
     ].map(toCondRoute(!auth, '/rooms'))}
 
     {/* Default. */}
-    <Route component={NotFound} />
+    <Route>
+      <Error message={'Page not found'} />
+    </Route>
   </Switch>
 );
 
