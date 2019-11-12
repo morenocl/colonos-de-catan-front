@@ -18,8 +18,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
-    "svg.js": "^2.7.1",
-    "webpack": "^4.41.2"
+    "svg.js": "^2.7.1"
   },
   "scripts": {
     "start": "react-scripts start",
