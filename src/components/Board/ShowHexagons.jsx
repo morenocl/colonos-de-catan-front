@@ -18,7 +18,8 @@ const showHexagons = (draw, hexagons) => {
       .fill(colour[terrain]);
 
     draw.text(String(token))
-      .center(x, y);
+      .center(x, y)
+      .font({ size: 20 });
   };
 
   hexagons.forEach(showHexagon);

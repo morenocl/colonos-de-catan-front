@@ -377,3 +377,48 @@ export const playKnight = (id, position, username, onSuccess, onFailure) => {
       else onSuccess();
     });
 };
+
+export const play2Roads = (id, p0, p1, onSuccess, onFailure) => {
+  console.log('Playing 2 Roads', id);
+
+  mkPromise()
+    .then(() => {
+      data.board.roads[0].positions.push(p0);
+      data.board.roads[0].positions.push(p1);
+
+      // Update info.
+      const localUsername = localStorage.getItem('username');
+      const localUser = data.info.players.find((p) => (
+        p && p.username === localUsername));
+      localUser.developmentCards -= 1;
+
+      // Remove card.
+      const cId = data.hand.cards.findIndex((x) => x === 'road_building');
+      data.hand.cards.splice(cId, 1);
+
+      const aId = data.actions.findIndex(
+        (x) => x && x.type === 'play_road_building_card',
+      );
+
+      // Remove action or position.
+      if (!data.hand.cards.some(((x) => x === 'road_building'))) {
+        data.actions.splice(aId, 1);
+      } else {
+        const pId0 = data.actions[aId].payload
+          .findIndex((x) => (x
+            && x[0].level === p0[0].level && x[0].index === p0[0].index
+            && x[1].level === p0[1].level && x[1].index === p0[1].index));
+        const pId1 = data.actions[aId].payload
+          .findIndex((x) => (x
+            && x[0].level === p1[0].level && x[0].index === p1[0].index
+            && x[1].level === p1[1].level && x[1].index === p1[1].index));
+
+        // Remove chosen position.
+        data.actions[aId].payload.splice(pId0, 1);
+        data.actions[aId].payload.splice(pId1, 1);
+      }
+
+      if (data.play2Roads) onFailure();
+      else onSuccess();
+    });
+};

@@ -8,11 +8,13 @@ const SET_BUILDING_ROAD = 'actions/SET_BUILDING_ROAD';
 const SET_BUILDING_SETTLEMENT = 'actions/SET_BUILDING_SETTLEMENT';
 const SET_BUYING = 'actions/SET_BUYING';
 const SET_ROBBING = 'actions/SET_ROBBING';
+const SET_2ROADS = 'actions/SET_2ROADS';
 
 // Action payloads.
 const SET_EDGE_PAYLOAD = 'actions/SET_EDGE_PAYLOAD';
 const SET_ROBBER_PAYLOAD = 'actions/SET_ROBBER_PAYLOAD';
 const SET_VERTEX_PAYLOAD = 'actions/SET_VERTEX_PAYLOAD';
+const SET_2ROADS_PAYLOAD = 'actions/SET_2ROADS_PAYLOAD';
 
 
 export const dispatchError = () => ({ type: SET_ERROR });
@@ -31,6 +33,8 @@ export const dispatchBuying = () => ({ type: SET_BUYING });
 
 export const dispatchRobbing = () => ({ type: SET_ROBBING });
 
+export const dispatch2Roads = () => ({ type: SET_2ROADS });
+
 export const dispatchEdgePayload = (position) => ({
   type: SET_EDGE_PAYLOAD,
   payload: position,
@@ -46,6 +50,11 @@ export const dispatchVertexPayload = (position) => ({
   payload: position,
 });
 
+export const dispatch2RoadsPayload = (p0, p1) => ({
+  type: SET_2ROADS_PAYLOAD,
+  payload: { p0, p1 },
+});
+
 
 const initialState = {
   stage: 'waiting',
@@ -53,6 +62,7 @@ const initialState = {
   robberPayload: {},
   vertexPayload: null,
   edgePayload: null,
+  roadsPayload: {},
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -80,6 +90,9 @@ const reducer = (state = initialState, action = {}) => {
     case SET_ROBBING:
       return { ...state, stage: 'running/robbing', robberPayload: {} };
 
+    case SET_2ROADS:
+      return { ...state, stage: 'running/2roads', roadsPayload: {} };
+
     case SET_EDGE_PAYLOAD:
       return { ...state, edgePayload: payload };
 
@@ -88,6 +101,9 @@ const reducer = (state = initialState, action = {}) => {
 
     case SET_VERTEX_PAYLOAD:
       return { ...state, vertexPayload: payload };
+
+    case SET_2ROADS_PAYLOAD:
+      return { ...state, roadsPayload: payload };
 
     default: return state;
   }

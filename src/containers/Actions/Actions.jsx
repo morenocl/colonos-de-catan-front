@@ -47,15 +47,29 @@ export const Actions = (props) => {
 
   if (stage === 'running/buying') return (actionsContainers.buying);
 
-  if (stage === 'running/building/city') return (actionsContainers.buildingCity);
+  if (stage === 'running/building/city') {
+    return (actionsContainers.buildingCity);
+  }
 
-  if (stage === 'running/building/road') return (actionsContainers.buildingRoad);
+  if (stage === 'running/building/road') {
+    return (actionsContainers.buildingRoad);
+  }
 
-  if (stage === 'running/building/settlement') return (actionsContainers.buildingSettlement);
+  if (stage === 'running/building/settlement') {
+    return (actionsContainers.buildingSettlement);
+  }
 
-  if (stage === 'running/robbing' && moveRobber) return (actionsContainers.robberRobbing);
+  if (stage === 'running/robbing' && moveRobber) {
+    return (actionsContainers.robberRobbing);
+  }
 
-  if (stage === 'running/robbing' && !moveRobber) return (actionsContainers.knightRobbing);
+  if (stage === 'running/robbing' && !moveRobber) {
+    return (actionsContainers.knightRobbing);
+  }
+
+  if (stage === 'running/2roads') {
+    return (actionsContainers.roads);
+  }
 
   if (moveRobber) return (actionsContainers.moveRobber);
 
