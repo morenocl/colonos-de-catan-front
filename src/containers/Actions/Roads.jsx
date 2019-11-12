@@ -60,11 +60,8 @@ export const Roads = (props) => {
   const showPositions = () => {
     const onClickMaker = (p) => () => {
       // We need to create a new position to re-render the component.
-      if (!p0) {
-        set2RoadsPayload(JSON.parse(JSON.stringify(p)), p1);
-      } else {
-        set2RoadsPayload(p0, JSON.parse(JSON.stringify(p)));
-      }
+      if (!p0) set2RoadsPayload(JSON.parse(JSON.stringify(p)), p1);
+      else set2RoadsPayload(p0, JSON.parse(JSON.stringify(p)));
     };
     showEdges(draw, payload, colours.building, onClickMaker);
   };
