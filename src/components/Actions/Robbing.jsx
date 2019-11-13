@@ -6,12 +6,12 @@ import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
 
 
-const Robbing = ({ onCancel, onConfirm }) => {
+const Robbing = ({ message, onCancel, onConfirm }) => {
   const head = (
     <Row>
       <Col>
         <h1 data-testid="actions-robbing-head">
-      Please choose a position and a player
+          {message}
         </h1>
       </Col>
     </Row>
@@ -54,6 +54,7 @@ export default Robbing;
 Robbing.propTypes = {
   onConfirm: PropTypes.func,
   onCancel: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
 };
 
 Robbing.defaultProps = {

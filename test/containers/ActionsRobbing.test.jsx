@@ -48,6 +48,7 @@ jest.mock('../../src/utils/Mock', () => ({
   moveRobber: jest.fn(() => null),
   playKnight: jest.fn(() => null),
 }));
+
 const mockFns = [
   getGameStatus,
   moveRobber,
@@ -138,6 +139,7 @@ test('shows available positions', () => {
     expect(setRobberPayload).toHaveBeenCalledTimes(1);
     expect(setRobberPayload).toHaveBeenCalledWith(position, null);
   });
+
   mk([]);
 
   // It should call useParams.
@@ -165,10 +167,16 @@ test('shows 0 available players', () => {
   expect(useParams).toHaveBeenCalledTimes(1);
   expect(useParams).not.toHaveBeenCalledWith(expect.anything());
 
+  // It should show positions.
+  expect(showHCenter).toHaveBeenCalledTimes(2);
+  expect(showHCenter)
+    .toHaveBeenNthCalledWith(1, {}, [position], colours.building, expect.any(Function));
+  expect(showHCenter)
+    .toHaveBeenNthCalledWith(2, {}, [position], colours.chosen, expect.any(Function));
+
   // It shouldn't call any of these.
   dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled();
 });
 
 test('shows 1 available player', () => {
@@ -180,16 +188,22 @@ test('shows 1 available player', () => {
   expect(useParams).toHaveBeenCalledTimes(1);
   expect(useParams).not.toHaveBeenCalledWith(expect.anything());
 
-  // It should set robberPayload.
-  expect(setRobberPayload).toHaveBeenCalledTimes(1);
-  expect(setRobberPayload).toHaveBeenCalledWith(position, 'player');
+  // It should show positions.
+  expect(showHCenter).toHaveBeenCalledTimes(2);
+  expect(showHCenter)
+    .toHaveBeenNthCalledWith(1, {}, [position], colours.building, expect.any(Function));
+  expect(showHCenter)
+    .toHaveBeenNthCalledWith(2, {}, [position], colours.chosen, expect.any(Function));
+
+  // It should show available players.
+  expect(setInfoOnClick).toHaveBeenCalledTimes(1);
+  expect(setInfoOnClick).toHaveBeenCalledWith(expect.any(Function));
 
   // It shouldn't call any of these.
   dispatchs
-    .filter((f) => f !== setRobberPayload)
+    .filter((f) => f !== setInfoOnClick)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled();
 });
 
 test('shows 3 available players', () => {
@@ -228,22 +242,26 @@ test('shows 3 available players', () => {
   expect(setInfoOnClick).toHaveBeenCalledTimes(1);
   expect(setInfoOnClick).toHaveBeenCalledWith(expect.any(Function));
 
+  expect(showHCenter).toHaveBeenCalledTimes(2);
+  expect(showHCenter)
+    .toHaveBeenNthCalledWith(1, {}, [position], colours.building, expect.any(Function));
+  expect(showHCenter)
+    .toHaveBeenNthCalledWith(2, {}, [position], colours.chosen, expect.any(Function));
+
   // It shouldn't call any of these.
   dispatchs
     .filter((f) => f !== setInfoOnClick)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled();
 });
 
-test('calls no functions', () => {
+test('calls no functions but showHCenter', () => {
   const position = { level: 1, index: 2 };
   mk([], position, 'username');
 
   // It shouldn't call any of these just yet.
   dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled();
 });
 
 test('calls setInfoOnClick and moveRobber', () => {
@@ -257,15 +275,14 @@ test('calls setInfoOnClick and moveRobber', () => {
   expect(setInfoOnClick).toHaveBeenCalledWith(expect.any(Function));
 
   expect(moveRobber).toHaveBeenCalledTimes(1);
-  expect(moveRobber).toHaveBeenCalledWith(
-    '1', position, 'username', expect.any(Function), expect.any(Function),
-  );
+  expect(moveRobber)
+    .toHaveBeenCalledWith('1', position, 'username',
+      expect.any(Function), expect.any(Function));
 
   // It shouldn't call any of these.
   dispatchs
     .filter((f) => f !== setInfoOnClick)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled();
   mockFns
     .filter((f) => f !== moveRobber)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
@@ -282,15 +299,14 @@ test('calls setInfoOnClick and playKnight', () => {
   expect(setInfoOnClick).toHaveBeenCalledWith(expect.any(Function));
 
   expect(playKnight).toHaveBeenCalledTimes(1);
-  expect(playKnight).toHaveBeenCalledWith(
-    '1', position, 'username', expect.any(Function), expect.any(Function),
-  );
+  expect(playKnight)
+    .toHaveBeenCalledWith('1', position, 'username',
+      expect.any(Function), expect.any(Function));
 
   // It shouldn't call any of these.
   dispatchs
     .filter((f) => f !== setInfoOnClick)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled();
   mockFns
     .filter((f) => f !== playKnight)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
@@ -321,7 +337,6 @@ test('calls refresh on confirm', () => {
   dispatchs
     .filter((f) => !calledDispatchs.includes(f))
     .forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled();
   mockFns
     .filter((f) => !calledMocks.includes(f))
     .forEach((f) => expect(f).not.toHaveBeenCalled());
@@ -354,7 +369,6 @@ test('calls refresh on cancel', () => {
   dispatchs
     .filter((f) => !calledDispatchs.includes(f))
     .forEach((f) => expect(f).not.toHaveBeenCalled());
-  expect(showHCenter).not.toHaveBeenCalled();
   mockFns
     .filter((f) => !calledMocks.includes(f))
     .forEach((f) => expect(f).not.toHaveBeenCalled());
