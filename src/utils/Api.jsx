@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { colours } from './Constants';
 
 
@@ -232,72 +231,6 @@ export const playKnight = (id, position, username, onSuccess, onFailure) => {
   playAction(id, 'play_knight_card', { position, username }, onSuccess, onFailure);
 };
 
-
-login.PropTypes = {
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-signup.PropTypes = {
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-createRoom.PropTypes = {
-  name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-getRooms.PropTypes = {
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-getRoom.PropTypes = {
-  id: PropTypes.number.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-startGame.PropTypes = {
-  id: PropTypes.number.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-cancelRoom.PropTypes = {
-  id: PropTypes.number.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-joinRoom.PropTypes = {
-  id: PropTypes.number.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-getGameStatus.PropTypes = {
-  id: PropTypes.number.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-playAction.PropTypes = {
-  id: PropTypes.number.isRequired,
-  actions: PropTypes.string.isRequired,
-  payload: PropTypes.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
-};
-
-getBoards.PropTypes = {
-  onSuccess: PropTypes.func.isRequired,
-  onFailure: PropTypes.func.isRequired,
+export const play2Roads = (id, p0, p1, onSuccess, onFailure) => {
+  playAction(id, 'play_road_building_card', [p0, p1], onSuccess, onFailure);
 };

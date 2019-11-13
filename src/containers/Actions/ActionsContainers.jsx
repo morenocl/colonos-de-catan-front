@@ -6,6 +6,7 @@ import BankTrade from './BankTrade';
 import Robbing from './Robbing';
 import BuildingVertex from './BuildingVertex';
 import BuildingEdge from './BuildingEdge';
+import Roads from './Roads';
 /* eslint-enable import/no-named-as-default */
 
 
@@ -17,6 +18,7 @@ const actionsContainers = {
   buildingCity: <BuildingVertex type="upgrade_city" />,
   buildingRoad: <BuildingEdge />,
   buildingSettlement: <BuildingVertex type="build_settlement" />,
+  roads: <Roads />,
 };
 
 export default actionsContainers;

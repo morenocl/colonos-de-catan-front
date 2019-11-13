@@ -4,7 +4,7 @@ import { buyCard, endTurn } from '../../utils/Mock';
 // Returns an onClickMaker function for actions.
 export const actionOnClick = (id, eventHandlers) => ((type) => {
   const {
-    refresh, setError, setRobbing, setBuying,
+    refresh, setError, setRobbing, setBuying, set2Roads,
     setBuildingCity, setBuildingRoad, setBuildingSettlement,
   } = eventHandlers;
   const { setGameFrozen } = eventHandlers;
@@ -47,6 +47,12 @@ export const actionOnClick = (id, eventHandlers) => ((type) => {
       return () => {
         setGameFrozen();
         setRobbing();
+      };
+
+    case 'play_road_building_card':
+      return () => {
+        setGameFrozen();
+        set2Roads();
       };
 
     default:

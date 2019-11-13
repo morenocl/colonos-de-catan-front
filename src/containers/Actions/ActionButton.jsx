@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 
 import {
+  dispatch2Roads,
   dispatchBuildingCity,
   dispatchBuildingRoad,
   dispatchBuildingSettlement,
@@ -31,6 +32,7 @@ export const mapStateToProps = (state, ownProps) => ({
 });
 
 export const mapDispatchToProps = ({
+  set2Roads: dispatch2Roads,
   setBuildingCity: dispatchBuildingCity,
   setBuildingRoad: dispatchBuildingRoad,
   setBuildingSettlement: dispatchBuildingSettlement,
@@ -48,7 +50,7 @@ export const mapDispatchToProps = ({
 export const ActionButton = (props) => {
   const { actions, C, type } = props;
   const {
-    setError, setWaiting, setBuying, setRobbing,
+    setError, setWaiting, setBuying, setRobbing, set2Roads,
     setBuildingCity, setBuildingRoad, setBuildingSettlement,
   } = props;
   const {
@@ -66,6 +68,7 @@ export const ActionButton = (props) => {
     setError,
     setBuying,
     setRobbing,
+    set2Roads,
     setBuildingCity,
     setBuildingRoad,
     setBuildingSettlement,
@@ -100,6 +103,7 @@ ActionButton.propTypes = {
   setBuying: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
   setRobbing: PropTypes.func.isRequired,
+  set2Roads: PropTypes.func.isRequired,
   setWaiting: PropTypes.func.isRequired,
   setGameFrozen: PropTypes.func.isRequired,
   setGameRunning: PropTypes.func.isRequired,
