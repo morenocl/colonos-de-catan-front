@@ -4,7 +4,7 @@ import {
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import Robbing from '../../src/components/Actions/Robbing';
+import Robbing from '../../src/components/Actions/Positioning';
 
 
 const onCancel = jest.fn(() => null);
@@ -26,10 +26,10 @@ afterEach(() => {
 test('shows a title and two buttons', () => {
   const { queryAllByTestId } = mk('message');
 
-  const component = queryAllByTestId('actions-robbing');
-  const head = queryAllByTestId('actions-robbing-head');
-  const bConfirm = queryAllByTestId('actions-robbing-confirm');
-  const bCancel = queryAllByTestId('actions-robbing-cancel');
+  const component = queryAllByTestId('actions-positioning');
+  const head = queryAllByTestId('actions-positioning-head');
+  const bConfirm = queryAllByTestId('actions-positioning-confirm');
+  const bCancel = queryAllByTestId('actions-positioning-cancel');
 
   // It should show one component and one button of each.
   expect(component).toHaveLength(1);
@@ -55,7 +55,7 @@ test('shows a title and two buttons', () => {
 test('calls onCancel', () => {
   const { queryByTestId } = mk('');
 
-  const b = queryByTestId('actions-robbing-cancel');
+  const b = queryByTestId('actions-positioning-cancel');
 
   expect(onCancel).not.toHaveBeenCalled();
   expect(onConfirm).not.toHaveBeenCalled();
@@ -69,7 +69,7 @@ test('calls onCancel', () => {
 test('calls onCofirm', () => {
   const { queryByTestId } = mk('');
 
-  const b = queryByTestId('actions-robbing-confirm');
+  const b = queryByTestId('actions-positioning-confirm');
 
   expect(onCancel).not.toHaveBeenCalled();
   expect(onConfirm).not.toHaveBeenCalled();
