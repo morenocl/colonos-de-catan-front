@@ -1,7 +1,7 @@
 import { colours } from './Constants';
 
 
-const path = 'http://demo7974963.mockable.io';
+const path = process.env.REACT_APP_PATH || 'http://localhost:8000';
 
 const request = (url, options, onSuccess, onFailure) => {
   fetch(url, options)
