@@ -72,7 +72,10 @@ const Login = (props) => {
     <div className="Forms">
       <h1>Login</h1>
       {error && <Error message={error} />}
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        data-testid="login-form"
+      >
         {userForm}
         {passForm}
         {button}

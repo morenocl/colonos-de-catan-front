@@ -1,39 +1,81 @@
 import React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { render, fireEvent, waitForElement } from '@testing-library/react';
+import {
+  render, fireEvent,
+} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { Redirect } from 'react-router-dom';
 
-import reducer, { initialState, setAuth, setUser } from '../../src/containers/Auth.ducks';
-import Login from '../../src/containers/Login';
+import { Login, mapDispatchToProps } from '../../src/containers/Login';
+import {
+  setAuth as dispatchAuth,
+  setUser as dispatchUser,
+} from '../../src/containers/Auth.ducks';
+import { login } from '../../src/utils/Mock';
+import useForm from '../../src/containers/UseForm';
 
+jest.mock('react-router-dom', () => ({
+  Redirect: jest.fn(() => null),
+}));
 
-function renderWithRedux(
-  ui,
-  { initialState, store = createStore(reducer, initialState) } = {},
-) {
-  return {
-    ...render(<Provider store={store}>{ui}</Provider>),
-    // adding `store` to the returned utilities to allow us
-    // to reference it in our tests (just try to avoid using
-    // this to test implementation details).
-    store,
-  };
-}
+jest.mock('../../src/utils/Mock', () => ({
+  login: jest.fn(() => null),
+}));
 
-test('can render with redux with defaults', () => {
-  expect(setAuth(false)).toEqual({
-    type: 'app/SET_AUTH',
-    payload: false,
-  });
+jest.mock('../../src/containers/UseForm', () => ({
+  __esModule: true,
+  default: jest.fn(() => null),
+}));
 
-  expect(setUser(null)).toEqual({
-    type: 'app/SET_USERNAME',
-    payload: null,
-  });
+const setError = jest.fn(() => null);
+const setLoading = jest.fn(() => null);
+const setAuth = jest.fn(() => null);
+const setUser = jest.fn(() => null);
+
+const dispatchs = [setError, setLoading, setAuth, setUser];
+const mockFns = [Redirect, login, useForm];
+
+afterEach(() => {
+  dispatchs.forEach((f) => f.mockClear());
+  mockFns.forEach((f) => f.mockClear());
 });
 
-test('render the form without successful login', async () => {
+
+const mk = () => render(
+  <Login
+    setAuth={setAuth}
+    setUser={setUser}
+  />,
+);
+
+test('returns all dispatch functions', () => {
+  const expected = {
+    setAuth: dispatchAuth,
+    setUser: dispatchUser,
+  };
+  expect(mapDispatchToProps).toEqual(expected);
+});
+
+test('render and Form is load', () => {
+  useForm.mockImplementationOnce((validateUsername, validatePassword) => {
+    validateUsername();
+    validatePassword();
+    return {
+      changeUsername: null,
+      changePassword: null,
+      validate: (() => true),
+      values: {},
+    };
+  });
+  const { queryAllByTestId, queryByTestId } = mk();
+
+  expect(queryAllByTestId('login-form').length).toBe(1);
+  const form = queryByTestId('login-form');
+  expect(form).not.toBeEmpty();
+
+  expect(useForm).toHaveBeenCalledTimes(1);
+});
+
+xtest('render the form without successful login', async () => {
   const { getByLabelText, getByTestId, getByRole } = renderWithRedux(<Login />);
 
   expect(getByTestId('button')).toBeDisabled();
