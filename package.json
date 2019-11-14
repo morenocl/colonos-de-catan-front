@@ -67,7 +67,8 @@
     "identity-obj-proxy": "^3.0.0",
     "ignore-styles": "^5.0.1",
     "mocha": "^6.2.2",
-    "redux-devtools": "^3.5.0"
+    "redux-devtools": "^3.5.0",
+    "webpack": "^4.41.0"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
