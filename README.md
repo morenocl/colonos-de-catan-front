@@ -1,5 +1,5 @@
 # Los colonos de Catan
-El siguiente proyecto implementa el fronted del clásico juego de mesa para un subconjunto de sus reglas. 
+El siguiente proyecto implementa el fronted del clásico juego de mesa para un subconjunto de sus reglas.
 
 Para una introducción al juego se recomienda  leer sus reglas [básicas] en principio y luego sus reglas [detalladas].
 
@@ -10,12 +10,23 @@ Para una introducción al juego se recomienda  leer sus reglas [básicas] en pri
 
 ### Prerequisitos
 
-Se necesita la instalacion de:
+Se requieren:
 
- * node 12.10.0
- * npm 6.10.3
+ * node ^12.13.0
+ * npm ^6.12.0
 
-### Instalacion
+Para instalarlos (en linux) hacer lo siguiente:
+1. En el directorio `$HOME` correr `wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash`. Esto instala `nvm`, el controlador de versiones de NodeJS.
+2. Si el comando anterior se ejecutó correctamente, correr `. .bashrc`. Si hubo un error, referirse a la [página] de nvm.
+3. El comando `nvm --version` debería ahora devolver la versión, en este caso `0.35.1`.
+4. Por último, para instalar `node` y `npm`, correr `nvm install 12.13`. Ahora es posible correr `node -v` y `npm -v`, que deberían devolver las verisiones (en este caso, `v12.13.0` y `6.12.0` respectivamente).
+
+Para instalar en otro sistemas operativos referirse a la [página] antes mencionada.
+
+[página]: https://github.com/nvm-sh/nvm#installation-and-update
+
+
+### Instalación
 Descargar el repositorio e instalar:
 ```bash
 $ git clone https://gitlab.com/chrism4/auxtmp.git
@@ -23,13 +34,15 @@ $ cd auxtmp
 $ npm install
 ```
 
+Es importante **no** correr `npm update`, al menos por el momento, pues `react-scripts` no soporta las versiones nuevas de webpack.
+
 ## Usage
 
 En el directorio raíz del repositorio ejecutar:
 ```bash
 npm start
 ```
-Después de que la aplicación completa su carga ir al navegador en la siguiente ruta: http://localhost:3000
+Después de que la aplicación completa su carga ir al navegador en la siguiente ruta: `http://localhost:3000`.
 
 
 ## Running the tests
@@ -37,7 +50,7 @@ Después de que la aplicación completa su carga ir al navegador en la siguiente
 ### Coding Style
 
 Nosotros seguimos el code style [airbnb javascript].
-Para ejecutar la prueba de violación de estilo: 
+Para ejecutar la prueba de violación de estilo:
 
 ```bash
 $ ./node_modules/.bin/eslint yourfile.js
@@ -47,32 +60,8 @@ $ ./node_modules/.bin/eslint yourfile.js
 
 ### Unit tests
 
-Para probar los componentes se requiere la instalación del siguiente conjunto de librerías:
+Esto se ve ejecutando:
 
 ```bash
-$ npm install @babel/core @babel/preset-env @babel/preset-react @babel/register babel-loader babel-preset-es2015 babel-preset-react babel-preset-react-app-babel-7 chai enzyme enzyme-adapter-react-16 ignore-styles mocha --save-dev
-``` 
-
-A continuación editar el archivo *.babelrc* agregando:
-```bash
-{                                                                                                                                                                                
-    "presets": ["react-app"],
-    "plugins": ["@babel/plugin-transform-modules-commonjs"]
-}
+$ npm run coverage
 ```
-
-Por ultimo editamos la sección *"scripts"* del archivo *package.json* agregado la siguiente linea de *"test"*:
-```bash
-"scripts": {
-	"start": "react-scripts start",
-	"build": "react-scripts build",
-	"test": "NODE_ENV=test mocha --require @babel/register --require ignore-styles test/*.test.*",
-	"eject": "react-scripts eject"
-},
-```
-Para ejecutar nuestros tests simplemente invocamos:
-
-```bash
-$ npm test
-```
-
