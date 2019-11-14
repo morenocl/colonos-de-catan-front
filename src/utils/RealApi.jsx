@@ -1,139 +1,108 @@
+import { path, getToken, request } from './ApiUtils';
 import { colours } from './Constants';
 
 
-const path = process.env.REACT_APP_PATH || 'http://localhost:8000';
+/* Users */
 
-const request = (url, options, onSuccess, onFailure) => {
-  fetch(url, options)
-    .then((r) => {
-      if (!r.ok) return onFailure(Error(r.statusText));
-      return r.json().then(onSuccess);
-    })
-    .catch(onFailure);
+export const signup = (username, password, onSuccess, onFailure) => {
+  const url = `${path}/users/`;
+  const data = { user: username, pass: password };
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(data),
+  };
+
+  request(url, options, onSuccess, onFailure);
 };
 
 export const login = (username, password, onSuccess, onFailure) => {
   const url = `${path}/users/login/`;
   const data = { user: username, pass: password };
-  const option = {
+  const options = {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
   };
 
-  request(url, option, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure);
 };
 
-export const signup = (username, password, onSuccess, onFailure) => {
-  const url = `${path}/users/`;
-  const data = { user: username, pass: password };
-  const option = {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  request(url, option, onSuccess, onFailure);
+
+/* Boards */
+
+export const getBoards = (onSuccess, onFailure) => {
+  const url = `${path}/boards`;
+  const options = { method: 'GET' };
+
+  request(url, options, onSuccess, onFailure);
 };
+
+
+/* Rooms */
 
 export const getRooms = (onSuccess, onFailure) => {
   const url = `${path}/rooms/`;
-  const option = {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
+  const options = { method: 'GET' };
 
-  request(url, option, onSuccess, onFailure);
-};
-
-export const getBoards = (onSuccess, onFailure) => {
-  const url = `${path}/boards/`;
-  const option = {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-
-  request(url, option, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure);
 };
 
 export const createRoom = (name, id, onSuccess, onFailure) => {
   const url = `${path}/rooms/`;
   const data = { name, board_id: id };
-  const option = {
+  const options = {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
   };
-  request(url, option, onSuccess, onFailure);
+
+  request(url, options, onSuccess, onFailure);
 };
 
 export const getRoom = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
-  const option = {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-  request(url, option, onSuccess, onFailure);
+  const options = { method: 'GET' };
+
+  request(url, options, onSuccess, onFailure);
 };
 
 export const startGame = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
-  const option = {
-    method: 'PATCH',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-  request(url, option, onSuccess, onFailure);
+  const options = { method: 'PATCH' };
+
+  request(url, options, onSuccess, onFailure);
 };
 
 export const cancelRoom = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
-  const option = {
-    method: 'DELETE',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-  request(url, option, onSuccess, onFailure);
+  const options = { method: 'DELETE' };
+  request(url, options, onSuccess, onFailure);
 };
 
 export const joinRoom = (id, onFailure) => {
   const url = `${path}/rooms/${id}/`;
-  const option = {
-    method: 'PUT',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
+  const options = { method: 'PUT' };
 
-  request(url, option, () => {}, onFailure);
+  request(url, options, () => {}, onFailure);
 };
+
+
+/* Games */
 
 const getFromPlayers = (ps) => ({
   settlements: ps.map((player) => ({
     colour: colours[player.colour],
     settlements: player.settlements,
   })),
+
   cities: ps.map((player) => ({
     colour: colours[player.colour],
     cities: player.cities,
   })),
+
   roads: ps.map((player) => ({
     colour: colours[player.colour],
     roads: player.roads,
   })),
+
   players: ps.map((player) => ({
     username: player.username,
     colour: colours[player.colour],
@@ -149,16 +118,15 @@ export const getGameStatus = (id, onSuccess, onFailure) => {
   const board = `${path}/games/${id}/board`;
   const hand = `${path}/games/${id}/player`;
   const info = `${path}/games/${id}`;
+
   const endPoints = [actions, board, hand, info];
 
-  const option = {
+  const options = {
     method: 'GET',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
+    headers: { Authorization: `Token ${getToken()}` },
   };
 
-  Promise.all(endPoints.map((e) => fetch(e, option)))
+  Promise.all(endPoints.map((e) => fetch(e, options)))
     .then((rs) => rs.map((r) => (r.ok ? r.json() : onFailure(Error(r.statusText)))))
     .then((rs) => {
       const {
@@ -185,22 +153,22 @@ export const getGameStatus = (id, onSuccess, onFailure) => {
     .catch(onFailure);
 };
 
-export const playAction = (id, action, payload, onSuccess, onFailure) => {
+
+// Actions
+
+export const playAction = (id, type, payload, onSuccess, onFailure) => {
   const url = `${path}/games/${id}/player/actions`;
-  const data = { type: action, payload };
-  const option = {
+  const data = { type, payload };
+  const options = {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
   };
 
-  request(url, option, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure);
 };
 
 export const bankTrade = (id, give, receive, onSuccess, onFailure) => {
-  playAction(id, 'buy_bank', { give, receive }, onSuccess, onFailure);
+  playAction(id, 'bank_trade', { give, receive }, onSuccess, onFailure);
 };
 
 export const buildCity = (id, pos, onSuccess, onFailure) => {
