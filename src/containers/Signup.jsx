@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import SignupScreen from '../components/Signup';
-import { signup } from '../utils/Mock';
+import { signup } from '../utils/Api';
 import useForm from './UseForm';
 import { validateUsername, validatePassword } from './FormValid';
 

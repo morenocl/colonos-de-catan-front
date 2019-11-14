@@ -15,7 +15,7 @@ import {
 import RoadsScreen from '../../components/Actions/Positioning';
 import showEdges from '../../components/Board/ShowEdges';
 import { colours } from '../../utils/Constants';
-import { getGameStatus, play2Roads } from '../../utils/Mock';
+import { getGameStatus, play2Roads } from '../../utils/Api';
 import { RoadPosition } from '../../utils/ApiTypes';
 
 

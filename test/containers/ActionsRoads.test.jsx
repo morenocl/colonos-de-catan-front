@@ -19,7 +19,7 @@ import {
   setState as dispatchGameState,
 } from '../../src/containers/Game/Game.ducks';
 import { colours } from '../../src/utils/Constants';
-import { getGameStatus, play2Roads } from '../../src/utils/Mock';
+import { getGameStatus, play2Roads } from '../../src/utils/Api';
 
 
 const setError = jest.fn(() => null);
@@ -40,7 +40,7 @@ jest.mock('../../src/components/Board/ShowEdges', () => ({
   default: jest.fn(() => null),
 }));
 
-jest.mock('../../src/utils/Mock', () => ({
+jest.mock('../../src/utils/Api', () => ({
   getGameStatus: jest.fn(() => null),
   play2Roads: jest.fn(() => null),
 }));

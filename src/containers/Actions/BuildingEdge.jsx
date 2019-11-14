@@ -15,7 +15,7 @@ import {
 import BuildingScreen from '../../components/Actions/Building';
 import showEdges from '../../components/Board/ShowEdges';
 import { colours } from '../../utils/Constants';
-import { getGameStatus, buildRoad } from '../../utils/Mock';
+import { getGameStatus, buildRoad } from '../../utils/Api';
 import { RoadPosition } from '../../utils/ApiTypes';
 
 

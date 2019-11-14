@@ -14,7 +14,7 @@ import {
   dispatchRooms,
   dispatchCreate,
 } from '../../src/containers/Rooms/Rooms.ducks';
-import { getRooms } from '../../src/utils/Mock';
+import { getRooms } from '../../src/utils/Api';
 import useInterval from '../../src/utils/UseInterval';
 
 
@@ -22,7 +22,7 @@ jest.mock('react-router-dom', () => ({
   Redirect: jest.fn(() => null),
 }));
 
-jest.mock('../../src/utils/Mock', () => ({
+jest.mock('../../src/utils/Api', () => ({
   getRooms: jest.fn(() => null),
 }));
 

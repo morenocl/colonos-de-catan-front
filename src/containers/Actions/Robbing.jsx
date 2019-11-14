@@ -16,7 +16,7 @@ import { dispatchOnClick } from '../Info/Info.ducks';
 import RobbingScreen from '../../components/Actions/Robbing';
 import showHCenter from '../../components/Board/ShowHCenter';
 import { colours } from '../../utils/Constants';
-import { getGameStatus, moveRobber, playKnight } from '../../utils/Mock';
+import { getGameStatus, moveRobber, playKnight } from '../../utils/Api';
 import { HexagonPosition } from '../../utils/ApiTypes';
 
 

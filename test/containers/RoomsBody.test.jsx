@@ -7,14 +7,14 @@ import { Redirect } from 'react-router-dom';
 
 import { Body, mapStateToProps } from '../../src/containers/Rooms/Body';
 import { rooms } from '../../src/utils/RoomData';
-import { joinRoom } from '../../src/utils/Mock';
+import { joinRoom } from '../../src/utils/Api';
 
 
 jest.mock('react-router-dom', () => ({
   Redirect: jest.fn(() => null),
 }));
 
-jest.mock('../../src/utils/Mock', () => ({
+jest.mock('../../src/utils/Api', () => ({
   joinRoom: jest.fn((id, onSuccess, onFailure) => {
     if (id === 1) onSuccess();
     else onFailure();

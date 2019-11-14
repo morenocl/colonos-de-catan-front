@@ -20,7 +20,7 @@ import {
 } from '../../src/containers/Game/Game.ducks';
 import { dispatchOnClick } from '../../src/containers/Info/Info.ducks';
 import { colours } from '../../src/utils/Constants';
-import { getGameStatus, moveRobber, playKnight } from '../../src/utils/Mock';
+import { getGameStatus, moveRobber, playKnight } from '../../src/utils/Api';
 
 
 const setError = jest.fn(() => null);
@@ -43,7 +43,7 @@ jest.mock('../../src/components/Board/ShowHCenter', () => ({
   default: jest.fn(() => null),
 }));
 
-jest.mock('../../src/utils/Mock', () => ({
+jest.mock('../../src/utils/Api', () => ({
   getGameStatus: jest.fn(() => null),
   moveRobber: jest.fn(() => null),
   playKnight: jest.fn(() => null),

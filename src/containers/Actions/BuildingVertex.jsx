@@ -15,7 +15,7 @@ import {
 import BuildingScreen from '../../components/Actions/Building';
 import showVertices from '../../components/Board/ShowVertices';
 import { colours } from '../../utils/Constants';
-import { getGameStatus, buildCity, buildSettlement } from '../../utils/Mock';
+import { getGameStatus, buildCity, buildSettlement } from '../../utils/Api';
 import { BuildingPosition } from '../../utils/ApiTypes';
 
 

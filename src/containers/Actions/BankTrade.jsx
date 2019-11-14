@@ -14,7 +14,7 @@ import {
   setState as dispatchGameState,
 } from '../Game/Game.ducks';
 import BankTradeScreen from '../../components/Actions/BankTrade';
-import { bankTrade, getGameStatus } from '../../utils/Mock';
+import { bankTrade, getGameStatus } from '../../utils/Api';
 
 const mapStateToProps = (state) => ({
   resources: state.Game.hand.resources,

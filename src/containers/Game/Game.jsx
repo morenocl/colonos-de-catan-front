@@ -10,7 +10,7 @@ import {
 } from './Game.ducks';
 import Error from '../../components/Error';
 import GameScreen from '../../components/Game/Game';
-import { getGameStatus } from '../../utils/Mock';
+import { getGameStatus } from '../../utils/Api';
 import useInterval from '../../utils/UseInterval';
 
 
