@@ -25,12 +25,12 @@ export const roadStroke = (colour) => ({
 });
 
 export const colour = {
-  brick: '#ff6600',
-  lumber: '#663300',
-  wool: '#ffffe6',
-  grain: '#ffcc00',
-  ore: '#c0c0c0',
-  desert: '#ffff00',
+  brick: '#cb7341',
+  lumber: '#5a3300',
+  wool: '#e8e8e8',
+  grain: '#ecc16f',
+  ore: '#7b7167',
+  desert: '#c19a40',
 };
 
 export const hexPath = [[-L / 2, -l],

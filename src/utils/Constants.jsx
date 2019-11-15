@@ -27,9 +27,10 @@ export const colours = {
   Green: '#7cdc39',
   Blue: '#3f51b5',
   Yellow: '#ffeb3b',
-  Robber: '#666666',
-  Building: '#ffffff',
-  Chosen: '#ee82ee',
+
+  Robber: '#000000',
+  Building: '#e600bf',
+  Chosen: '#660055',
 };
 
 export const colourCard = {
