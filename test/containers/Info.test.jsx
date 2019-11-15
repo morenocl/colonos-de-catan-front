@@ -31,7 +31,7 @@ test('render one card for player', () => {
   const { queryAllByTestId } = render(
     <Info
       players={players}
-      turn={currentTurn}
+      currentTurn={currentTurn}
       playerOnClick={playerOnClick}
     />,
   );
@@ -44,7 +44,7 @@ test('render the winning player', () => {
   const { getByTestId } = render(
     <Info
       players={players}
-      turn={currentTurn}
+      currentTurn={currentTurn}
       winner={winner}
       playerOnClick={playerOnClick}
     />,
@@ -57,7 +57,7 @@ test('player in turn should have font-weight', () => {
   const { queryAllByTestId } = render(
     <Info
       players={players}
-      turn={currentTurn}
+      currentTurn={currentTurn}
       playerOnClick={playerOnClick}
     />,
   );

@@ -8,7 +8,7 @@ const { currentTurn } = info;
 
 test('render GameStatus with no winner', () => {
   const { queryAllByTestId } = render(
-    <GameStatus turn={currentTurn} />,
+    <GameStatus currentTurn={currentTurn} />,
   );
 
   const dice = queryAllByTestId('dice');
@@ -21,7 +21,7 @@ test('render GameStatus with no winner', () => {
 
 test('render GameStatus with one winner', () => {
   const { queryAllByTestId } = render(
-    <GameStatus turn={currentTurn} winner="winner" />,
+    <GameStatus currentTurn={currentTurn} winner="winner" />,
   );
 
   const winners = queryAllByTestId('winner');

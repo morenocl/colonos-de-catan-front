@@ -80,7 +80,7 @@ export const Robbing = (props) => {
       // We need to create a new position to re-render the component.
       setRobberPayload(JSON.parse(JSON.stringify(p)), null);
     };
-    showHCenter(draw, ps, colours.building, onClickMaker);
+    showHCenter(draw, ps, colours.Building, onClickMaker);
   };
   // Makes players clickable.
   const showPlayers = (players) => {
@@ -97,7 +97,7 @@ export const Robbing = (props) => {
 
   // Once position is set, show it.
   if (position) {
-    showHCenter(draw, [position], colours.chosen, () => () => null);
+    showHCenter(draw, [position], colours.Chosen, () => () => null);
 
     if (!username) {
     // Find available players for the chosen position.

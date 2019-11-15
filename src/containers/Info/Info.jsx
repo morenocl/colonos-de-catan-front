@@ -9,14 +9,14 @@ import { PlayerType } from '../../utils/ApiTypes';
 
 export const mapStateToProps = (state) => ({
   players: state.Game.info.players,
-  turn: state.Game.info.currentTurn,
+  currentTurn: state.Game.info.currentTurn,
   winner: state.Game.info.winner,
   playerOnClick: state.Info.playerOnClick,
 });
 
 export const Info = (props) => {
   const {
-    players, turn, winner, playerOnClick,
+    players, currentTurn, winner, playerOnClick,
   } = props;
 
   return (
@@ -25,11 +25,11 @@ export const Info = (props) => {
         <PlayerInfo
           player={player}
           key={player.username}
-          onTurn={player.username === turn.user}
+          onTurn={player.username === currentTurn.user}
           playerOnClick={playerOnClick(player.username)}
         />
       ))}
-      <GameStatus turn={turn} winner={winner} />
+      <GameStatus currentTurn={currentTurn} winner={winner} />
     </>
   );
 };
@@ -39,7 +39,7 @@ export default connect(mapStateToProps)(Info);
 
 Info.propTypes = {
   players: PropTypes.arrayOf(PlayerType).isRequired,
-  turn: PropTypes.shape({
+  currentTurn: PropTypes.shape({
     user: PropTypes.string.isRequired,
     dice: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,

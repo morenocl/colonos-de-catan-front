@@ -68,7 +68,7 @@ export const BuildingVertex = (props) => {
       setVertexPayload(JSON.parse(JSON.stringify(p)));
     };
     const buildingType = type === 'upgrade_city' ? 'city' : 'settlement';
-    showVertices(draw, payload, colours.building, buildingType, onClickMaker);
+    showVertices(draw, payload, colours.Building, buildingType, onClickMaker);
   };
 
   if (!position) showPositions();

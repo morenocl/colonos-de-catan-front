@@ -138,7 +138,7 @@ test('shows available positions', () => {
 
   // It should show available positions.
   expect(showEdges).toHaveBeenCalledTimes(1);
-  expect(showEdges).toHaveBeenCalledWith({}, [], colours.building, expect.any(Function));
+  expect(showEdges).toHaveBeenCalledWith({}, [], colours.Building, expect.any(Function));
 });
 
 test('shows available positions and a chosen one', () => {
@@ -166,9 +166,9 @@ test('shows available positions and a chosen one', () => {
   // It should show available positions.
   expect(showEdges).toHaveBeenCalledTimes(2);
   expect(showEdges)
-    .toHaveBeenNthCalledWith(1, {}, [], colours.building, expect.any(Function));
+    .toHaveBeenNthCalledWith(1, {}, [], colours.Building, expect.any(Function));
   expect(showEdges)
-    .toHaveBeenNthCalledWith(2, {}, [p0], colours.chosen, expect.any(Function));
+    .toHaveBeenNthCalledWith(2, {}, [p0], colours.Chosen, expect.any(Function));
 });
 
 test('shows no available positions and two chosen ones', () => {

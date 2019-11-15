@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
 
-const GameStatus = ({ turn, winner }) => {
+const GameStatus = ({ currentTurn, winner }) => {
   if (winner) {
     return (
       <Table borderless size="sm">
@@ -23,7 +23,7 @@ const GameStatus = ({ turn, winner }) => {
         <tr>
           <td>Dice:</td>
           <td data-testid="dice">
-            {`${turn.dice[0]}, ${turn.dice[1]}`}
+            {`${currentTurn.dice[0]}, ${currentTurn.dice[1]}`}
           </td>
         </tr>
       </tbody>
@@ -35,7 +35,7 @@ export default GameStatus;
 
 
 GameStatus.propTypes = {
-  turn: PropTypes.shape({
+  currentTurn: PropTypes.shape({
     user: PropTypes.string.isRequired,
     dice: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,

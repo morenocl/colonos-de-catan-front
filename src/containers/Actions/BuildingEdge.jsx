@@ -58,7 +58,7 @@ export const BuildingEdge = (props) => {
       // We need to create a new position to re-render the component.
       setEdgePayload(JSON.parse(JSON.stringify(p)));
     };
-    showEdges(draw, payload, colours.building, onClickMaker);
+    showEdges(draw, payload, colours.Building, onClickMaker);
   };
 
   if (!position) showPositions();

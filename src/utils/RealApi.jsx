@@ -1,5 +1,6 @@
-import { path, getToken, request } from './ApiUtils';
-import { colours } from './Constants';
+import {
+  getFromPlayers, getToken, path, request,
+} from './ApiUtils';
 
 
 /* Users */
@@ -87,68 +88,52 @@ export const joinRoom = (id, onFailure) => {
 
 /* Games */
 
-const getFromPlayers = (ps) => ({
-  settlements: ps.map((player) => ({
-    colour: colours[player.colour],
-    settlements: player.settlements,
-  })),
-
-  cities: ps.map((player) => ({
-    colour: colours[player.colour],
-    cities: player.cities,
-  })),
-
-  roads: ps.map((player) => ({
-    colour: colours[player.colour],
-    roads: player.roads,
-  })),
-
-  players: ps.map((player) => ({
-    username: player.username,
-    colour: colours[player.colour],
-    developmentCards: player.development_cards,
-    resourceCards: player.resources_cards,
-    victoryPoints: player.victory_points,
-    lastGained: player.last_gained,
-  })),
-});
-
 export const getGameStatus = (id, onSuccess, onFailure) => {
-  const actions = `${path}/games/${id}/player/actions`;
-  const board = `${path}/games/${id}/board`;
-  const hand = `${path}/games/${id}/player`;
-  const info = `${path}/games/${id}`;
-
-  const endPoints = [actions, board, hand, info];
+  const endPoints = [
+    `${path}/games/${id}/player/actions`,
+    `${path}/games/${id}/board`,
+    `${path}/games/${id}/player`,
+    `${path}/games/${id}`,
+  ];
 
   const options = {
     method: 'GET',
-    headers: { Authorization: `Token ${getToken()}` },
+    headers: {
+      Authorization: `Token ${getToken()}`,
+      'Content-Type': 'application/json',
+    },
   };
 
+  // Fetch data from all endpoints.
   Promise.all(endPoints.map((e) => fetch(e, options)))
-    .then((rs) => rs.map((r) => (r.ok ? r.json() : onFailure(Error(r.statusText)))))
-    .then((rs) => {
+
+  // Once resolved, get json content.
+    .then((rs) => Promise.all(
+      rs.map((r) => (
+        r.ok ? r.json() : onFailure(Error(r.statusText))
+      )),
+    ))
+
+  // Return json content.
+    .then(([actions, { hexes: hexagons }, hand, gameData]) => {
       const {
         settlements, cities, roads, players,
-      } = getFromPlayers(rs[3].players);
+      } = getFromPlayers(gameData.players);
 
-      onSuccess({
-        actions: rs[0],
-        board: {
-          hexagons: rs[1],
-          robber: rs[3].robber,
-          settlements,
-          cities,
-          roads,
-        },
-        hand: rs[2],
-        info: {
-          players,
-          turn: rs[3].current_turn,
-          winner: rs[3].winner,
-        },
-      });
+      const board = {
+        hexagons,
+        robber: gameData.robber,
+        settlements,
+        cities,
+        roads,
+      };
+      const info = {
+        players,
+        currentTurn: gameData.current_turn,
+        winner: gameData.winner,
+      };
+
+      onSuccess(actions, board, hand, info);
     })
     .catch(onFailure);
 };
