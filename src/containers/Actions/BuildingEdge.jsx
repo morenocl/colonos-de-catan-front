@@ -15,7 +15,7 @@ import {
 import BuildingScreen from '../../components/Actions/Positioning';
 import showEdges from '../../components/Board/ShowEdges';
 import { colours } from '../../utils/Constants';
-import { getGameStatus, buildRoad } from '../../utils/Mock';
+import { getGameStatus, buildRoad } from '../../utils/Api';
 import { RoadPosition } from '../../utils/ApiTypes';
 
 
@@ -58,7 +58,7 @@ export const BuildingEdge = (props) => {
       // We need to create a new position to re-render the component.
       setEdgePayload(JSON.parse(JSON.stringify(p)));
     };
-    showEdges(draw, payload, colours.building, onClickMaker);
+    showEdges(draw, payload, colours.Building, onClickMaker);
   };
 
   if (!position) showPositions();

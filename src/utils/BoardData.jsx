@@ -219,7 +219,7 @@ export const info = {
       username: 'test',
       colour: '#ff0000',
       developmentCards: 5,
-      resourcesCards: 13,
+      resourceCards: 13,
       victoryPoints: 0,
       lastGained: [
       ],
@@ -228,7 +228,7 @@ export const info = {
       username: 'user2',
       colour: '#00ff00',
       developmentCards: 1,
-      resourcesCards: 6,
+      resourceCards: 6,
       victoryPoints: 1,
       lastGained: [
         'lumber',
@@ -238,7 +238,7 @@ export const info = {
       username: 'user3',
       colour: '#0000ff',
       developmentCards: 2,
-      resourcesCards: 5,
+      resourceCards: 5,
       victoryPoints: 2,
       lastGained: [
         'wool',

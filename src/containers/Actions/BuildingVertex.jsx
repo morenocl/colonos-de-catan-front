@@ -15,7 +15,7 @@ import {
 import BuildingScreen from '../../components/Actions/Positioning';
 import showVertices from '../../components/Board/ShowVertices';
 import { colours } from '../../utils/Constants';
-import { getGameStatus, buildCity, buildSettlement } from '../../utils/Mock';
+import { getGameStatus, buildCity, buildSettlement } from '../../utils/Api';
 import { BuildingPosition } from '../../utils/ApiTypes';
 
 
@@ -68,7 +68,7 @@ export const BuildingVertex = (props) => {
       setVertexPayload(JSON.parse(JSON.stringify(p)));
     };
     const buildingType = type === 'upgrade_city' ? 'city' : 'settlement';
-    showVertices(draw, payload, colours.building, buildingType, onClickMaker);
+    showVertices(draw, payload, colours.Building, buildingType, onClickMaker);
   };
 
   if (!position) showPositions();

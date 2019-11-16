@@ -23,13 +23,14 @@ export const resourceNames = [
 ];
 
 export const colours = {
-  red: '#f44336',
-  green: '#7cdc39',
-  blue: '#3f51b5',
-  yellow: '#ffeb3b',
-  robber: '#666666',
-  building: '#800080',
-  chosen: '#ee82ee',
+  Red: '#f44336',
+  Green: '#7cdc39',
+  Blue: '#3f51b5',
+  Yellow: '#ffeb3b',
+
+  Robber: '#000000',
+  Building: '#e600bf',
+  Chosen: '#660055',
 };
 
 export const colourCard = {

@@ -15,7 +15,7 @@ import {
 import RoadsScreen from '../../components/Actions/Positioning';
 import showEdges from '../../components/Board/ShowEdges';
 import { colours } from '../../utils/Constants';
-import { getGameStatus, play2Roads } from '../../utils/Mock';
+import { getGameStatus, play2Roads } from '../../utils/Api';
 import { RoadPosition } from '../../utils/ApiTypes';
 
 
@@ -63,20 +63,20 @@ export const Roads = (props) => {
       if (!p0) set2RoadsPayload(JSON.parse(JSON.stringify(p)), p1);
       else set2RoadsPayload(p0, JSON.parse(JSON.stringify(p)));
     };
-    showEdges(draw, payload, colours.building, onClickMaker);
+    showEdges(draw, payload, colours.Building, onClickMaker);
   };
 
   // If both roads are set, no need to choose.
-  if (p0 && p1) showEdges(draw, payload, colours.building, () => () => null);
+  if (p0 && p1) showEdges(draw, payload, colours.Building, () => () => null);
 
   // If either position is unset, show available positions.
   if (!p0 || !p1) showPositions();
 
   // If p0 is set, show it as such.
-  if (p0) showEdges(draw, [p0], colours.chosen, () => () => null);
+  if (p0) showEdges(draw, [p0], colours.Chosen, () => () => null);
 
   // If p1 is set, show it as such.
-  if (p1) showEdges(draw, [p1], colours.chosen, () => () => null);
+  if (p1) showEdges(draw, [p1], colours.Chosen, () => () => null);
 
   return (
     <RoadsScreen

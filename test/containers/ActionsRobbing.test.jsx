@@ -20,7 +20,7 @@ import {
 } from '../../src/containers/Game/Game.ducks';
 import { dispatchOnClick } from '../../src/containers/Info/Info.ducks';
 import { colours } from '../../src/utils/Constants';
-import { getGameStatus, moveRobber, playKnight } from '../../src/utils/Mock';
+import { getGameStatus, moveRobber, playKnight } from '../../src/utils/Api';
 
 
 const setError = jest.fn(() => null);
@@ -43,7 +43,7 @@ jest.mock('../../src/components/Board/ShowHCenter', () => ({
   default: jest.fn(() => null),
 }));
 
-jest.mock('../../src/utils/Mock', () => ({
+jest.mock('../../src/utils/Api', () => ({
   getGameStatus: jest.fn(() => null),
   moveRobber: jest.fn(() => null),
   playKnight: jest.fn(() => null),
@@ -155,7 +155,7 @@ test('shows available positions', () => {
 
   // It should show available positions.
   expect(showHCenter).toHaveBeenCalledTimes(1);
-  expect(showHCenter).toHaveBeenCalledWith({}, [], colours.building, expect.any(Function));
+  expect(showHCenter).toHaveBeenCalledWith({}, [], colours.Building, expect.any(Function));
 });
 
 test('shows 0 available players', () => {
@@ -170,9 +170,9 @@ test('shows 0 available players', () => {
   // It should show positions.
   expect(showHCenter).toHaveBeenCalledTimes(2);
   expect(showHCenter)
-    .toHaveBeenNthCalledWith(1, {}, [position], colours.building, expect.any(Function));
+    .toHaveBeenNthCalledWith(1, {}, [position], colours.Building, expect.any(Function));
   expect(showHCenter)
-    .toHaveBeenNthCalledWith(2, {}, [position], colours.chosen, expect.any(Function));
+    .toHaveBeenNthCalledWith(2, {}, [position], colours.Chosen, expect.any(Function));
 
   // It shouldn't call any of these.
   dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
@@ -191,9 +191,9 @@ test('shows 1 available player', () => {
   // It should show positions.
   expect(showHCenter).toHaveBeenCalledTimes(2);
   expect(showHCenter)
-    .toHaveBeenNthCalledWith(1, {}, [position], colours.building, expect.any(Function));
+    .toHaveBeenNthCalledWith(1, {}, [position], colours.Building, expect.any(Function));
   expect(showHCenter)
-    .toHaveBeenNthCalledWith(2, {}, [position], colours.chosen, expect.any(Function));
+    .toHaveBeenNthCalledWith(2, {}, [position], colours.Chosen, expect.any(Function));
 
   // It should show available players.
   expect(setInfoOnClick).toHaveBeenCalledTimes(1);
@@ -244,9 +244,9 @@ test('shows 3 available players', () => {
 
   expect(showHCenter).toHaveBeenCalledTimes(2);
   expect(showHCenter)
-    .toHaveBeenNthCalledWith(1, {}, [position], colours.building, expect.any(Function));
+    .toHaveBeenNthCalledWith(1, {}, [position], colours.Building, expect.any(Function));
   expect(showHCenter)
-    .toHaveBeenNthCalledWith(2, {}, [position], colours.chosen, expect.any(Function));
+    .toHaveBeenNthCalledWith(2, {}, [position], colours.Chosen, expect.any(Function));
 
   // It shouldn't call any of these.
   dispatchs

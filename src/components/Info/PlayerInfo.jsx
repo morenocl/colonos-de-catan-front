@@ -10,7 +10,7 @@ import './PlayerInfo.css';
 const PlayerInfo = ({ player, onTurn, playerOnClick }) => {
   const {
     username, colour, developmentCards,
-    resourcesCards, victoryPoints, lastGained,
+    resourceCards, victoryPoints, lastGained,
   } = player;
 
   const title = (
@@ -39,7 +39,7 @@ const PlayerInfo = ({ player, onTurn, playerOnClick }) => {
         </tr>
         <tr>
           <td>Resources:</td>
-          <td>{resourcesCards}</td>
+          <td>{resourceCards}</td>
         </tr>
         <tr>
           <td>Gained:</td>
@@ -72,7 +72,7 @@ PlayerInfo.propTypes = {
     username: PropTypes.string.isRequired,
     colour: PropTypes.string.isRequired,
     developmentCards: PropTypes.number.isRequired,
-    resourcesCards: PropTypes.number.isRequired,
+    resourceCards: PropTypes.number.isRequired,
     victoryPoints: PropTypes.number.isRequired,
     lastGained: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,

@@ -1,206 +1,159 @@
-import { colours } from './Constants';
+import {
+  getFromPlayers, getToken, path, request,
+} from './ApiUtils';
 
 
-const path = 'http://demo7974963.mockable.io';
+/* Users */
 
-const request = (url, options, onSuccess, onFailure) => {
-  fetch(url, options)
-    .then((r) => {
-      if (!r.ok) return onFailure(Error(r.statusText));
-      return r.json().then(onSuccess);
-    })
-    .catch(onFailure);
+export const signup = (username, password, onSuccess, onFailure) => {
+  const url = `${path}/users/`;
+  const data = { user: username, pass: password };
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(data),
+  };
+
+  request(url, options, onSuccess, onFailure);
 };
 
 export const login = (username, password, onSuccess, onFailure) => {
   const url = `${path}/users/login/`;
   const data = { user: username, pass: password };
-  const option = {
+  const options = {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
   };
 
-  request(url, option, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure);
 };
 
-export const signup = (username, password, onSuccess, onFailure) => {
-  const url = `${path}/users/`;
-  const data = { user: username, pass: password };
-  const option = {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  request(url, option, onSuccess, onFailure);
+
+/* Boards */
+
+export const getBoards = (onSuccess, onFailure) => {
+  const url = `${path}/boards`;
+  const options = { method: 'GET' };
+
+  request(url, options, onSuccess, onFailure);
 };
+
+
+/* Rooms */
 
 export const getRooms = (onSuccess, onFailure) => {
   const url = `${path}/rooms/`;
-  const option = {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
+  const options = { method: 'GET' };
 
-  request(url, option, onSuccess, onFailure);
-};
-
-export const getBoards = (onSuccess, onFailure) => {
-  const url = `${path}/boards/`;
-  const option = {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-
-  request(url, option, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure);
 };
 
 export const createRoom = (name, id, onSuccess, onFailure) => {
   const url = `${path}/rooms/`;
   const data = { name, board_id: id };
-  const option = {
+  const options = {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
   };
-  request(url, option, onSuccess, onFailure);
+
+  request(url, options, onSuccess, onFailure);
 };
 
 export const getRoom = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
-  const option = {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-  request(url, option, onSuccess, onFailure);
+  const options = { method: 'GET' };
+
+  request(url, options, onSuccess, onFailure);
 };
 
 export const startGame = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
-  const option = {
-    method: 'PATCH',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-  request(url, option, onSuccess, onFailure);
+  const options = { method: 'PATCH' };
+
+  request(url, options, onSuccess, onFailure);
 };
 
 export const cancelRoom = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
-  const option = {
-    method: 'DELETE',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
-  request(url, option, onSuccess, onFailure);
+  const options = { method: 'DELETE' };
+  request(url, options, onSuccess, onFailure);
 };
 
 export const joinRoom = (id, onFailure) => {
   const url = `${path}/rooms/${id}/`;
-  const option = {
-    method: 'PUT',
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
-  };
+  const options = { method: 'PUT' };
 
-  request(url, option, () => {}, onFailure);
+  request(url, options, () => {}, onFailure);
 };
 
-const getFromPlayers = (ps) => ({
-  settlements: ps.map((player) => ({
-    colour: colours[player.colour],
-    settlements: player.settlements,
-  })),
-  cities: ps.map((player) => ({
-    colour: colours[player.colour],
-    cities: player.cities,
-  })),
-  roads: ps.map((player) => ({
-    colour: colours[player.colour],
-    roads: player.roads,
-  })),
-  players: ps.map((player) => ({
-    username: player.username,
-    colour: colours[player.colour],
-    developmentCards: player.development_cards,
-    resourceCards: player.resources_cards,
-    victoryPoints: player.victory_points,
-    lastGained: player.last_gained,
-  })),
-});
+
+/* Games */
 
 export const getGameStatus = (id, onSuccess, onFailure) => {
-  const actions = `${path}/games/${id}/player/actions`;
-  const board = `${path}/games/${id}/board`;
-  const hand = `${path}/games/${id}/player`;
-  const info = `${path}/games/${id}`;
-  const endPoints = [actions, board, hand, info];
+  const endPoints = [
+    `${path}/games/${id}/player/actions`,
+    `${path}/games/${id}/board`,
+    `${path}/games/${id}/player`,
+    `${path}/games/${id}`,
+  ];
 
-  const option = {
+  const options = {
     method: 'GET',
     headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
+      Authorization: `Token ${getToken()}`,
+      'Content-Type': 'application/json',
     },
   };
 
-  Promise.all(endPoints.map((e) => fetch(e, option)))
-    .then((rs) => rs.map((r) => (r.ok ? r.json() : onFailure(Error(r.statusText)))))
-    .then((rs) => {
+  // Fetch data from all endpoints.
+  Promise.all(endPoints.map((e) => fetch(e, options)))
+
+  // Once resolved, get json content.
+    .then((rs) => Promise.all(
+      rs.map((r) => (
+        r.ok ? r.json() : onFailure(Error(r.statusText))
+      )),
+    ))
+
+  // Return json content.
+    .then(([actions, { hexes: hexagons }, hand, gameData]) => {
       const {
         settlements, cities, roads, players,
-      } = getFromPlayers(rs[3].players);
+      } = getFromPlayers(gameData.players);
 
-      onSuccess({
-        actions: rs[0],
-        board: {
-          hexagons: rs[1],
-          robber: rs[3].robber,
-          settlements,
-          cities,
-          roads,
-        },
-        hand: rs[2],
-        info: {
-          players,
-          turn: rs[3].current_turn,
-          winner: rs[3].winner,
-        },
-      });
+      const board = {
+        hexagons,
+        robber: gameData.robber,
+        settlements,
+        cities,
+        roads,
+      };
+      const info = {
+        players,
+        currentTurn: gameData.current_turn,
+        winner: gameData.winner,
+      };
+
+      onSuccess(actions, board, hand, info);
     })
     .catch(onFailure);
 };
 
-export const playAction = (id, action, payload, onSuccess, onFailure) => {
+
+// Actions
+
+export const playAction = (id, type, payload, onSuccess, onFailure) => {
   const url = `${path}/games/${id}/player/actions`;
-  const data = { type: action, payload };
-  const option = {
+  const data = { type, payload };
+  const options = {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: {
-      Authorization: `JWT ${localStorage.getItem('token')}`,
-    },
   };
 
-  request(url, option, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure);
 };
 
 export const bankTrade = (id, give, receive, onSuccess, onFailure) => {
-  playAction(id, 'buy_bank', { give, receive }, onSuccess, onFailure);
+  playAction(id, 'bank_trade', { give, receive }, onSuccess, onFailure);
 };
 
 export const buildCity = (id, pos, onSuccess, onFailure) => {

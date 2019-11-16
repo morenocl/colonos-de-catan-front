@@ -11,7 +11,7 @@ import {
 } from './Rooms.ducks';
 import Error from '../../components/Error';
 import RoomsScreen from '../../components/Rooms/Rooms';
-import { getRooms } from '../../utils/Mock';
+import { getRooms } from '../../utils/Api';
 import { RoomType, RoomsStateType } from '../../utils/ApiTypes';
 import useInterval from '../../utils/UseInterval';
 

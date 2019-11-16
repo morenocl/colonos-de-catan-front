@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Error from '../../components/Error';
 import WaitingScreen from '../../components/Rooms/Waiting';
-import { getRoom, startGame, cancelRoom } from '../../utils/Mock';
+import { getRoom, startGame, cancelRoom } from '../../utils/Api';
 import useInterval from '../../utils/UseInterval';
 import { dispatchRoom, dispatchWaiting } from './Rooms.ducks';
 import { RoomType } from '../../utils/ApiTypes';

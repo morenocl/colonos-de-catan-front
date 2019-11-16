@@ -22,7 +22,7 @@ import {
   setState as dispatchGameState,
 } from '../Game/Game.ducks';
 import { ActionType } from '../../utils/ApiTypes';
-import { getGameStatus } from '../../utils/Mock';
+import { getGameStatus } from '../../utils/Api';
 
 
 export const mapStateToProps = (state, ownProps) => ({

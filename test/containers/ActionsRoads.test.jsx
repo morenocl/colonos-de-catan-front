@@ -19,7 +19,7 @@ import {
   setState as dispatchGameState,
 } from '../../src/containers/Game/Game.ducks';
 import { colours } from '../../src/utils/Constants';
-import { getGameStatus, play2Roads } from '../../src/utils/Mock';
+import { getGameStatus, play2Roads } from '../../src/utils/Api';
 
 
 const setError = jest.fn(() => null);
@@ -40,7 +40,7 @@ jest.mock('../../src/components/Board/ShowEdges', () => ({
   default: jest.fn(() => null),
 }));
 
-jest.mock('../../src/utils/Mock', () => ({
+jest.mock('../../src/utils/Api', () => ({
   getGameStatus: jest.fn(() => null),
   play2Roads: jest.fn(() => null),
 }));
@@ -138,7 +138,7 @@ test('shows available positions', () => {
 
   // It should show available positions.
   expect(showEdges).toHaveBeenCalledTimes(1);
-  expect(showEdges).toHaveBeenCalledWith({}, [], colours.building, expect.any(Function));
+  expect(showEdges).toHaveBeenCalledWith({}, [], colours.Building, expect.any(Function));
 });
 
 test('shows available positions and a chosen one', () => {
@@ -166,9 +166,9 @@ test('shows available positions and a chosen one', () => {
   // It should show available positions.
   expect(showEdges).toHaveBeenCalledTimes(2);
   expect(showEdges)
-    .toHaveBeenNthCalledWith(1, {}, [], colours.building, expect.any(Function));
+    .toHaveBeenNthCalledWith(1, {}, [], colours.Building, expect.any(Function));
   expect(showEdges)
-    .toHaveBeenNthCalledWith(2, {}, [p0], colours.chosen, expect.any(Function));
+    .toHaveBeenNthCalledWith(2, {}, [p0], colours.Chosen, expect.any(Function));
 });
 
 test('shows no available positions and two chosen ones', () => {

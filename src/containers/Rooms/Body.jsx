@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Error from '../../components/Error';
 import RoomBody from '../../components/Rooms/Body';
-import { joinRoom } from '../../utils/Mock';
+import { joinRoom } from '../../utils/Api';
 
 
 export const mapStateToProps = (state, ownProps) => ({

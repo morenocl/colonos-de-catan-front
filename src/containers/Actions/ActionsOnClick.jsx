@@ -1,4 +1,4 @@
-import { buyCard, endTurn } from '../../utils/Mock';
+import { buyCard, endTurn } from '../../utils/Api';
 
 
 // Returns an onClickMaker function for actions.

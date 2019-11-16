@@ -7,7 +7,7 @@ import {
   Waiting, mapStateToProps, mapDispatchToProps,
 } from '../../src/containers/Rooms/Waiting';
 import { dispatchRoom, dispatchWaiting } from '../../src/containers/Rooms/Rooms.ducks';
-import { getRoom } from '../../src/utils/Mock';
+import { getRoom } from '../../src/utils/Api';
 import useInterval from '../../src/utils/UseInterval';
 
 
@@ -69,7 +69,7 @@ jest.mock('react-router-dom', () => ({
   Link: jest.fn(() => null),
 }));
 
-jest.mock('../../src/utils/Mock', () => ({
+jest.mock('../../src/utils/Api', () => ({
   getRoom: jest.fn(() => null),
 }));
 

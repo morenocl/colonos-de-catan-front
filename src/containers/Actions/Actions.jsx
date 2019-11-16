@@ -16,7 +16,7 @@ import ActionsScreen from '../../components/Actions/Actions';
 import Error from '../../components/Error';
 /* eslint-enable import/no-named-as-default */
 import actionsContainers from './ActionsContainers';
-import { getGameStatus } from '../../utils/Mock';
+import { getGameStatus } from '../../utils/Api';
 
 
 export const mapStateToProps = (state) => ({

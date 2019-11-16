@@ -2,7 +2,7 @@ import { hexCenter, robberShape, robberSize } from './BoardUtils';
 import { colours } from '../../utils/Constants';
 
 
-const showHCenter = (draw, ps, colour = colours.robber, onClickMaker = () => null) => {
+const showHCenter = (draw, ps, colour = colours.Robber, onClickMaker = () => null) => {
   const drawPosition = ({ level, index }) => {
     const { x, y } = hexCenter[level][index];
     draw[robberShape](robberSize)
