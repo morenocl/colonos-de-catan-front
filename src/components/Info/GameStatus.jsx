@@ -9,8 +9,10 @@ const GameStatus = ({ turn, winner }) => {
       <Table borderless size="sm">
         <tbody>
           <tr>
-            <td>Winner:</td>
-            <td data-testid="winner">{winner}</td>
+            <td><h1>Winner:</h1></td>
+          </tr>
+          <tr>
+            <td data-testid="winner"><h1>{winner}</h1></td>
           </tr>
         </tbody>
       </Table>
