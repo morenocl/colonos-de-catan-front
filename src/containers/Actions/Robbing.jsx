@@ -13,7 +13,7 @@ import {
   setState as dispatchGameState,
 } from '../Game/Game.ducks';
 import { dispatchOnClick } from '../Info/Info.ducks';
-import RobbingScreen from '../../components/Actions/Robbing';
+import RobbingScreen from '../../components/Actions/Positioning';
 import showHCenter from '../../components/Board/ShowHCenter';
 import { colours } from '../../utils/Constants';
 import { getGameStatus, moveRobber, playKnight } from '../../utils/Mock';

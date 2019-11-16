@@ -126,7 +126,7 @@ test('returns all dispatch functions', () => {
 test('shows its component', () => {
   const { queryAllByTestId } = mk();
 
-  const components = queryAllByTestId('actions-robbing');
+  const components = queryAllByTestId('actions-positioning');
   expect(components).toHaveLength(1);
 });
 
@@ -236,7 +236,7 @@ test('shows 3 available players', () => {
   const { queryByTestId } = mk(payload, position);
 
   // It should force user selection.
-  expect(queryByTestId('actions-robbing-confirm')).toBeDisabled();
+  expect(queryByTestId('actions-positioning-confirm')).toBeDisabled();
 
   // It should set InfoOnClick.
   expect(setInfoOnClick).toHaveBeenCalledTimes(1);
@@ -268,7 +268,7 @@ test('calls setInfoOnClick and moveRobber', () => {
   const position = { level: 1, index: 2 };
   const { queryByTestId } = mk([], position, 'username');
 
-  fireEvent.click(queryByTestId('actions-robbing-confirm'));
+  fireEvent.click(queryByTestId('actions-positioning-confirm'));
 
   // It should unset InfoOnClick.
   expect(setInfoOnClick).toHaveBeenCalledTimes(1);
@@ -292,7 +292,7 @@ test('calls setInfoOnClick and playKnight', () => {
   const position = { level: 1, index: 2 };
   const { queryByTestId } = mk([], position, 'username', 'play_knight_card');
 
-  fireEvent.click(queryByTestId('actions-robbing-confirm'));
+  fireEvent.click(queryByTestId('actions-positioning-confirm'));
 
   // It should unset InfoOnClick.
   expect(setInfoOnClick).toHaveBeenCalledTimes(1);
@@ -321,7 +321,7 @@ test('calls refresh on confirm', () => {
   const position = { level: 1, index: 2 };
   const { queryByTestId } = mk([], position, 'username');
 
-  fireEvent.click(queryByTestId('actions-robbing-confirm'));
+  fireEvent.click(queryByTestId('actions-positioning-confirm'));
 
   // It should refresh.
   expect(setWaiting).toHaveBeenCalledTimes(1);
@@ -351,7 +351,7 @@ test('calls refresh on cancel', () => {
   const position = { level: 1, index: 2 };
   const { queryByTestId } = mk([], position, 'username');
 
-  fireEvent.click(queryByTestId('actions-robbing-cancel'));
+  fireEvent.click(queryByTestId('actions-positioning-cancel'));
 
   // It should refresh.
   expect(setWaiting).toHaveBeenCalledTimes(1);

@@ -12,7 +12,7 @@ import {
   setRunning as dispatchGameRunning,
   setState as dispatchGameState,
 } from '../Game/Game.ducks';
-import BuildingScreen from '../../components/Actions/Building';
+import BuildingScreen from '../../components/Actions/Positioning';
 import showEdges from '../../components/Board/ShowEdges';
 import { colours } from '../../utils/Constants';
 import { getGameStatus, buildRoad } from '../../utils/Mock';
@@ -65,6 +65,7 @@ export const BuildingEdge = (props) => {
 
   return (
     <BuildingScreen
+      message="Please choose a position"
       onCancel={refresh}
       onConfirm={position && onConfirm}
     />

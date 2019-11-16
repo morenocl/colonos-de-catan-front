@@ -12,7 +12,7 @@ import {
   setRunning as dispatchGameRunning,
   setState as dispatchGameState,
 } from '../Game/Game.ducks';
-import BuildingScreen from '../../components/Actions/Building';
+import BuildingScreen from '../../components/Actions/Positioning';
 import showVertices from '../../components/Board/ShowVertices';
 import { colours } from '../../utils/Constants';
 import { getGameStatus, buildCity, buildSettlement } from '../../utils/Mock';
@@ -75,6 +75,7 @@ export const BuildingVertex = (props) => {
 
   return (
     <BuildingScreen
+      message="Please choose a position"
       onCancel={refresh}
       onConfirm={position && onConfirm}
     />
