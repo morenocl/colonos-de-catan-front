@@ -109,9 +109,10 @@ export const getGameStatus = (id, onSuccess, onFailure) => {
 
   // Once resolved, get json content.
     .then((rs) => Promise.all(
-      rs.map((r) => (
-        r.ok ? r.json() : onFailure(Error(r.statusText))
-      )),
+      rs.map((r) => {
+        if (r.ok) return r.json();
+        throw Error(r.statusText);
+      }),
     ))
 
   // Return json content.
