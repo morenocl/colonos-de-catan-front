@@ -177,6 +177,10 @@ export const joinRoom = (id, onSuccess, onFailure) => {
 
   mkPromise()
     .then(() => {
+      const username = localStorage.getItem('username');
+      const room = data.rooms.find((r) => r && r.id === Number(id));
+      room.players.push(username);
+
       if (data.joinRoom) onFailure();
       else onSuccess();
     });

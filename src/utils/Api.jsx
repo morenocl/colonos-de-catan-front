@@ -78,11 +78,11 @@ export const cancelRoom = (id, onSuccess, onFailure) => {
   request(url, options, onSuccess, onFailure);
 };
 
-export const joinRoom = (id, onFailure) => {
+export const joinRoom = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
   const options = { method: 'PUT' };
 
-  request(url, options, () => {}, onFailure);
+  request(url, options, onSuccess, onFailure);
 };
 
 
