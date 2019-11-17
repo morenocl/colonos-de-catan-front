@@ -7,7 +7,7 @@ import {
   setUser as dispatchUser,
 } from './Auth.ducks';
 import LoginScreen from '../components/Login';
-import { login } from '../utils/Mock';
+import { login } from '../utils/Api';
 import useForm from './UseForm';
 
 
