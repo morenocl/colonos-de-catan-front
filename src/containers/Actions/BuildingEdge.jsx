@@ -61,7 +61,12 @@ export const BuildingEdge = (props) => {
     showEdges(draw, payload, colours.Building, onClickMaker);
   };
 
-  if (!position) showPositions();
+  showPositions();
+
+  // Once position is set, show it.
+  if (position) {
+    showEdges(draw, [position], colours.Chosen, () => () => null);
+  }
 
   return (
     <BuildingScreen
