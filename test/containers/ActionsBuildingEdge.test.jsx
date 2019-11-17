@@ -5,53 +5,49 @@ import {
 import '@testing-library/jest-dom/extend-expect';
 import { useParams } from 'react-router-dom';
 
-import showVertices from '../../src/components/Board/ShowVertices';
+import showEdges from '../../src/components/Board/ShowEdges';
 import {
-  BuildingVertex, mapStateToProps, mapDispatchToProps,
-} from '../../src/containers/Actions/BuildingVertex';
+  BuildingEdge, mapStateToProps, mapDispatchToProps,
+} from '../../src/containers/Actions/BuildingEdge';
 import {
   dispatchWaiting,
   dispatchError,
-  dispatchVertexPayload,
+  dispatchEdgePayload,
 } from '../../src/containers/Actions/Actions.ducks';
 import {
   setRunning as dispatchGameRunning,
   setState as dispatchGameState,
 } from '../../src/containers/Game/Game.ducks';
 import { colours } from '../../src/utils/Constants';
-import {
-  getGameStatus, buildCity, buildSettlement,
-} from '../../src/utils/Api';
+import { getGameStatus, buildRoad } from '../../src/utils/Api';
 
 
 const setError = jest.fn(() => null);
 const setWaiting = jest.fn(() => null);
 const setGameRunning = jest.fn(() => null);
 const setGameState = jest.fn(() => null);
-const setVertexPayload = jest.fn(() => null);
+const setEdgePayload = jest.fn(() => null);
 const dispatchs = [
   setError,
   setWaiting,
   setGameRunning,
   setGameState,
-  setVertexPayload,
+  setEdgePayload,
 ];
 
-jest.mock('../../src/components/Board/ShowVertices', () => ({
+jest.mock('../../src/components/Board/ShowEdges', () => ({
   __esModule: true,
   default: jest.fn(() => null),
 }));
 
 jest.mock('../../src/utils/Api', () => ({
   getGameStatus: jest.fn(() => null),
-  buildCity: jest.fn(() => null),
-  buildSettlement: jest.fn(() => null),
+  buildRoad: jest.fn(() => null),
 }));
 
 const mockFns = [
   getGameStatus,
-  buildCity,
-  buildSettlement,
+  buildRoad,
 ];
 
 jest.mock('react-router-dom', () => ({
@@ -62,40 +58,37 @@ afterEach(() => {
   dispatchs.forEach((f) => { f.mockClear(); });
   mockFns.forEach((f) => { f.mockClear(); });
   useParams.mockClear();
-  showVertices.mockClear();
+  showEdges.mockClear();
 });
 
 const mk = (
-  payload, type, position,
+  payload, position,
 ) => render(
-  <BuildingVertex
+  <BuildingEdge
     draw={{}}
     payload={payload}
     position={position}
-    type={type}
     setError={setError}
     setWaiting={setWaiting}
     setGameRunning={setGameRunning}
     setGameState={setGameState}
-    setVertexPayload={setVertexPayload}
+    setEdgePayload={setEdgePayload}
   />,
 );
 
 test('returns draw, payload, position and type', () => {
-  const type = 'type';
   const position = { level: 0, index: 0 };
   const payload = [];
   const state = {
     Board: { draw: {} },
-    Game: { actions: [{ type, payload }] },
-    Actions: { vertexPayload: position },
+    Game: { actions: [{ type: 'build_road', payload }] },
+    Actions: { edgePayload: position },
   };
-  const ownProps = { type };
   const expected = {
-    draw: {}, payload, position, type,
+    draw: {}, payload, position,
   };
 
-  expect(mapStateToProps(state, ownProps)).toStrictEqual(expected);
+  expect(mapStateToProps(state)).toStrictEqual(expected);
 });
 
 test('returns all dispatch functions', () => {
@@ -104,22 +97,22 @@ test('returns all dispatch functions', () => {
     setWaiting: dispatchWaiting,
     setGameRunning: dispatchGameRunning,
     setGameState: dispatchGameState,
-    setVertexPayload: dispatchVertexPayload,
+    setEdgePayload: dispatchEdgePayload,
   };
 
   expect(mapDispatchToProps).toStrictEqual(expected);
 });
 
-test('shows available city positions', () => {
-  showVertices.mockImplementationOnce((draw, ps, colour,
-    type, onClickMaker) => {
-    const p = { level: 0, index: 0 };
-    onClickMaker(p)();
-    expect(setVertexPayload).toHaveBeenCalledTimes(1);
-    expect(setVertexPayload).toHaveBeenCalledWith(p);
+test('shows available positions', () => {
+  showEdges.mockImplementationOnce((draw, ps, colour, onClickMaker) => {
+    const p0 = { level: 0, index: 0 };
+    const p1 = { level: 1, index: 1 };
+    onClickMaker([p0, p1])();
+    expect(setEdgePayload).toHaveBeenCalledTimes(1);
+    expect(setEdgePayload).toHaveBeenCalledWith([p0, p1]);
   });
 
-  mk([], 'upgrade_city');
+  mk([]);
 
   // It should call useParams.
   expect(useParams).toHaveBeenCalledTimes(1);
@@ -127,52 +120,32 @@ test('shows available city positions', () => {
 
   // It shouldn't call any of these.
   dispatchs
-    .filter((f) => f !== setVertexPayload)
+    .filter((f) => f !== setEdgePayload)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
 
   // It should show available positions.
-  expect(showVertices).toHaveBeenCalledTimes(1);
-  expect(showVertices).toHaveBeenCalledWith({}, [], colours.Building, 'city', expect.any(Function));
-});
-
-test('shows available settlement positions', () => {
-  showVertices.mockImplementationOnce((draw, ps, colour,
-    type, onClickMaker) => {
-    const p = { level: 0, index: 0 };
-    onClickMaker(p)();
-    expect(setVertexPayload).toHaveBeenCalledTimes(1);
-    expect(setVertexPayload).toHaveBeenCalledWith(p);
-  });
-
-  mk([], 'build_settlement');
-
-  // It should call useParams.
-  expect(useParams).toHaveBeenCalledTimes(1);
-  expect(useParams).not.toHaveBeenCalledWith(expect.anything());
-
-  // It shouldn't call any of these.
-  dispatchs
-    .filter((f) => f !== setVertexPayload)
-    .forEach((f) => expect(f).not.toHaveBeenCalled());
-  mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
-
-  // It should show available positions.
-  expect(showVertices).toHaveBeenCalledTimes(1);
-  expect(showVertices).toHaveBeenCalledWith({}, [], colours.Building, 'settlement', expect.any(Function));
+  expect(showEdges).toHaveBeenCalledTimes(1);
+  expect(showEdges).toHaveBeenCalledWith({}, [], colours.Building,
+    expect.any(Function));
 });
 
 test('shows available positions and a chosen one', () => {
-  const position = { level: 0, index: 0 };
+  const p0 = { level: 0, index: 0 };
+  const p1 = { level: 1, index: 1 };
 
-  showVertices.mockImplementation((draw, ps, colour, type, onClickMaker) => {
-    if (ps.length === 1 && ps[0].level === position.level && ps[0].index === position.index) {
-      expect(onClickMaker(position)()).toBe(null);
-      expect(onClickMaker({})()).toBe(null);
+  showEdges.mockImplementation((draw, ps, colour, onClickMaker) => {
+    if (ps.length === 1
+      && ps[0][0].level === p0.level
+      && ps[0][0].index === p0.index
+      && ps[0][1].level === p1.level
+      && ps[0][1].index === p1.index) {
+      expect(onClickMaker([p0, p1])()).toBe(null);
+      expect(onClickMaker([])()).toBe(null);
     }
   });
 
-  mk([], 'build_settlement', position);
+  mk([], [p0, p1]);
 
   // It should call useParams.
   expect(useParams).toHaveBeenCalledTimes(1);
@@ -180,36 +153,38 @@ test('shows available positions and a chosen one', () => {
 
   // It shouldn't call any of these.
   dispatchs
-    .filter((f) => f !== setVertexPayload)
+    .filter((f) => f !== setEdgePayload)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
 
   // It should show available positions.
-  expect(showVertices).toHaveBeenCalledTimes(2);
-  expect(showVertices)
+  expect(showEdges).toHaveBeenCalledTimes(2);
+  expect(showEdges)
     .toHaveBeenNthCalledWith(1, {}, [],
-      colours.Building, 'settlement', expect.any(Function));
-  expect(showVertices)
-    .toHaveBeenNthCalledWith(2, {}, [position],
-      colours.Chosen, 'settlement', expect.any(Function));
+      colours.Building, expect.any(Function));
+  expect(showEdges)
+    .toHaveBeenNthCalledWith(2, {}, [[p0, p1]],
+      colours.Chosen, expect.any(Function));
 
-  showVertices.mockImplementation(() => null);
+  showEdges.mockImplementation(() => null);
 });
 
 test('calls refresh on confirm', () => {
-  buildSettlement.mockImplementationOnce((id, pos, onSuccess) => {
+  buildRoad.mockImplementationOnce((id, pos, onSuccess) => {
     onSuccess();
   });
 
-  const position = { level: 0, index: 0 };
+  const p0 = { level: 0, index: 0 };
+  const p1 = { level: 1, index: 1 };
+  const position = [p0, p1];
 
-  const { queryByTestId } = mk([], 'build_settlement', position);
+  const { queryByTestId } = mk([], position);
 
   fireEvent.click(queryByTestId('actions-positioning-confirm'));
 
-  // It should call buildSettlement.
-  expect(buildSettlement).toHaveBeenCalledTimes(1);
-  expect(buildSettlement).toHaveBeenCalledWith('1', position, expect.any(Function), setError);
+  // It should call buildRoad.
+  expect(buildRoad).toHaveBeenCalledTimes(1);
+  expect(buildRoad).toHaveBeenCalledWith('1', position, expect.any(Function), setError);
 
   // It should refresh.
   expect(setWaiting).toHaveBeenCalledTimes(1);
@@ -220,7 +195,7 @@ test('calls refresh on confirm', () => {
   expect(getGameStatus).toHaveBeenCalledWith('1', setGameState, setError);
 
   const calledDispatchs = [setWaiting, setGameRunning];
-  const calledMocks = [buildSettlement, getGameStatus];
+  const calledMocks = [buildRoad, getGameStatus];
 
   // It shouldn't call any of these.
   dispatchs
@@ -232,8 +207,11 @@ test('calls refresh on confirm', () => {
 });
 
 test('calls refresh on cancel', () => {
-  const position = { level: 1, index: 2 };
-  const { queryByTestId } = mk([], 'upgrade_city', position);
+  const p0 = { level: 0, index: 0 };
+  const p1 = { level: 1, index: 1 };
+  const position = [p0, p1];
+
+  const { queryByTestId } = mk([], position);
 
   fireEvent.click(queryByTestId('actions-positioning-cancel'));
 

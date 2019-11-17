@@ -357,10 +357,6 @@ test('calls refresh on confirm', () => {
 });
 
 test('calls refresh on cancel', () => {
-  moveRobber.mockImplementationOnce((id, position, username, onSuccess) => {
-    onSuccess();
-  });
-
   setInfoOnClick.mockImplementationOnce((fun) => {
     expect(fun()).toBe(null);
   });
