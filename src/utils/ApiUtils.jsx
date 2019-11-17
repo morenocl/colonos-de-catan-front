@@ -20,9 +20,10 @@ export const request = (url, opts, onSuccess, onFailure) => {
 
   fetch(url, options)
     .then((r) => {
-      if (!r.ok) return onFailure(Error(r.statusText));
-      return r.json().then(onSuccess);
+      if (r.ok) return r.json();
+      throw Error(r.statusText);
     })
+    .then(onSuccess)
     .catch(onFailure);
 };
 
