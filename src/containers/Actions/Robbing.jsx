@@ -28,13 +28,13 @@ const request = {
 export const mapStateToProps = (state, ownProps) => {
   const { type } = ownProps;
   const action = state.Game.actions.find((a) => a && a.type === type);
-  const { position, username } = state.Actions.robberPayload;
+  const { position, player } = state.Actions.robberPayload;
 
   return ({
     draw: state.Board.draw,
     payload: action.payload,
     position,
-    username,
+    player,
   });
 };
 
@@ -49,7 +49,7 @@ export const mapDispatchToProps = {
 
 export const Robbing = (props) => {
   const {
-    draw, payload, position, type, username,
+    draw, payload, position, type, player,
   } = props;
   const { setError, setRobberPayload, setWaiting } = props;
   const { setGameRunning, setGameState } = props;
@@ -63,7 +63,7 @@ export const Robbing = (props) => {
   };
   const onConfirm = () => {
     setInfoOnClick(() => null);
-    request[type](id, position, username, refresh, setError);
+    request[type](id, position, player, refresh, setError);
   };
   const onCancel = () => {
     setInfoOnClick(() => null);
@@ -84,9 +84,9 @@ export const Robbing = (props) => {
   };
   // Makes players clickable.
   const showPlayers = (players) => {
-    setInfoOnClick((player) => {
+    setInfoOnClick((p) => {
       // If user can be chosen, make them clickable.
-      if (players.includes(player)) return () => { setRobberPayload(position, player); };
+      if (players.includes(p)) return () => { setRobberPayload(position, p); };
       return null;
     });
   };
@@ -99,7 +99,7 @@ export const Robbing = (props) => {
   if (position) {
     showHCenter(draw, [position], colours.Chosen, () => () => null);
 
-    if (!username) {
+    if (!player) {
     // Find available players for the chosen position.
       players = payload.find((x) => (x
       && x.position.level === position.level
@@ -111,7 +111,7 @@ export const Robbing = (props) => {
   }
 
   // User must choose a player if they can.
-  const playerSet = username || (players && players.length < 1);
+  const playerSet = player || (players && players.length < 1);
 
   let message = 'Choose a position';
   if (position && !playerSet) message = 'Choose a player';
@@ -131,7 +131,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Robbing);
 
 Robbing.propTypes = {
   position: HexagonPosition,
-  username: PropTypes.string,
+  player: PropTypes.string,
   draw: PropTypes.shape({}).isRequired,
   payload: PropTypes.arrayOf(PropTypes.exact({
     players: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -148,5 +148,5 @@ Robbing.propTypes = {
 
 Robbing.defaultProps = {
   position: null,
-  username: null,
+  player: null,
 };
