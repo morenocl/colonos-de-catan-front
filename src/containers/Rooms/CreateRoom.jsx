@@ -19,7 +19,7 @@ const initialState = {
 
 };
 
-const mapDispatchToProps = ({
+export const mapDispatchToProps = ({
   setRunning: dispatchRunning,
 });
 
