@@ -178,11 +178,15 @@ export const endTurn = (id, onSuccess, onFailure) => {
 };
 
 export const moveRobber = (id, position, player, onSuccess, onFailure) => {
-  playAction(id, 'move_robber', { position, player }, onSuccess, onFailure);
+  const body = player ? { position, player } : { position };
+
+  playAction(id, 'move_robber', body, onSuccess, onFailure);
 };
 
 export const playKnight = (id, position, player, onSuccess, onFailure) => {
-  playAction(id, 'play_knight_card', { position, player }, onSuccess, onFailure);
+  const body = player ? { position, player } : { position };
+
+  playAction(id, 'play_knight_card', body, onSuccess, onFailure);
 };
 
 export const play2Roads = (id, p0, p1, onSuccess, onFailure) => {
