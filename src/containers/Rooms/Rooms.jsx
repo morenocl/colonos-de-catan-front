@@ -39,7 +39,8 @@ export const Rooms = (props) => {
   };
 
   // Refresh every 5 seconds and when mounted.
-  useEffect(refresh, []);
+  const init = () => { setTimeout(refresh, 1); };
+  useEffect(init, []);
   useInterval(refresh, 5000);
 
   if (stage === 'empty') {
