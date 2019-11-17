@@ -131,6 +131,10 @@ test('shows its component', () => {
 });
 
 test('shows available positions', () => {
+  setInfoOnClick.mockImplementationOnce((fun) => {
+    expect(fun()).toBe(null);
+  });
+
   showHCenter.mockImplementationOnce((draw, ps, colour, onClickMaker) => {
     const position = { level: 0, index: 0 };
     onClickMaker(position)();
@@ -161,6 +165,11 @@ test('shows available positions', () => {
 test('shows 0 available players', () => {
   const position = { level: 1, index: 2 };
   const payload = [{ players: [], position }];
+
+  showHCenter.mockImplementation((draw, ps, colour, onClickMaker) => {
+    if (showHCenter.mock.calls.length === 2) expect(onClickMaker(position)()).toBe(null);
+  });
+
   mk(payload, position);
 
   // It should call useParams.
@@ -177,6 +186,8 @@ test('shows 0 available players', () => {
   // It shouldn't call any of these.
   dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
   mockFns.forEach((f) => expect(f).not.toHaveBeenCalled());
+
+  showHCenter.mockImplementation(() => null);
 });
 
 test('shows 1 available player', () => {
@@ -313,10 +324,13 @@ test('calls setInfoOnClick and playKnight', () => {
 });
 
 test('calls refresh on confirm', () => {
-  const fun = (id, position, username, onSuccess) => {
+  moveRobber.mockImplementationOnce((id, position, username, onSuccess) => {
     onSuccess();
-  };
-  moveRobber.mockImplementationOnce(fun);
+  });
+
+  setInfoOnClick.mockImplementationOnce((fun) => {
+    expect(fun()).toBe(null);
+  });
 
   const position = { level: 1, index: 2 };
   const { queryByTestId } = mk([], position, 'username');
@@ -343,10 +357,13 @@ test('calls refresh on confirm', () => {
 });
 
 test('calls refresh on cancel', () => {
-  const fun = (id, position, username, onSuccess) => {
+  moveRobber.mockImplementationOnce((id, position, username, onSuccess) => {
     onSuccess();
-  };
-  moveRobber.mockImplementationOnce(fun);
+  });
+
+  setInfoOnClick.mockImplementationOnce((fun) => {
+    expect(fun()).toBe(null);
+  });
 
   const position = { level: 1, index: 2 };
   const { queryByTestId } = mk([], position, 'username');
