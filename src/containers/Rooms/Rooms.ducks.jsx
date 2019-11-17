@@ -9,6 +9,7 @@ const SET_ROOM = 'waiting/SET_ROOM';
 const SET_ROOMS = 'rooms/SET_ROOMS';
 const SET_RUNNING = 'rooms/SET_RUNNING';
 const SET_STAGE = 'waiting/SET_STAGE';
+const SET_LOADING = 'waiting/SET_LOADING';
 
 export const dispatchCreate = () => ({
   type: SET_CREATE,
@@ -37,9 +38,15 @@ export const dispatchWaiting = (stage) => ({
   payload: stage,
 });
 
+export const dispatchLoading = (loading) => ({
+  type: SET_LOADING,
+  payload: loading,
+});
+
 export const initialState = {
   stage: 'empty',
   waitingStage: 'empty',
+  createLoading: false,
   refresh: null,
   rooms: [],
   room: null,
@@ -66,6 +73,9 @@ const reducer = (state = initialState, action = {}) => {
 
     case SET_STAGE:
       return { ...state, waitingStage: payload };
+
+    case SET_LOADING:
+      return { ...state, createLoading: payload };
 
     default: return state;
   }
