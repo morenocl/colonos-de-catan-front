@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  render, wait, waitForElement, fireEvent,
+  render, fireEvent, wait,
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Redirect } from 'react-router-dom';
-import { createRoom, getBoards } from '../src/utils/Api';
+import { createRoom, getBoards, joinRoom } from '../src/utils/Api';
 import { CreateRoom, mapDispatchToProps } from '../src/containers/Rooms/CreateRoom';
 import { dispatchRunning } from '../src/containers/Rooms/Rooms.ducks';
 
@@ -14,13 +14,19 @@ jest.mock('react-router-dom', () => ({
 }));
 
 jest.mock('../src/utils/Api', () => ({
-  getBoards: jest.fn(() => null),
   createRoom: jest.fn(() => null),
+  getBoards: jest.fn(() => null),
+  joinRoom: jest.fn(() => null),
 }));
 
 const setRunning = jest.fn(() => null);
 const dispatchs = [setRunning];
-const mockFns = [getBoards, Redirect];
+const mockFns = [
+  createRoom,
+  getBoards,
+  joinRoom,
+  Redirect
+];
 
 afterEach(() => {
   dispatchs.forEach((f) => f.mockClear());
@@ -54,14 +60,12 @@ test('should have all dispatchs', () => {
   expect(mapDispatchToProps).toStrictEqual(expected);
 });
 
-test('insert lobby name, select board', async () => {
+test('insert lobby name, select board', () => {
   const { getAllByTestId, getByTestId } = render(
     <CreateRoom setRunning={setRunning} />,
   );
 
-  const boardList = await waitForElement(
-    () => getAllByTestId('board-name'),
-  );
+  const boardList = getAllByTestId('board-name');
   expect(boardList).toHaveLength(3);
   expect(getByTestId('button')).toBeDisabled();
 
@@ -81,19 +85,25 @@ test('insert lobby name, select board', async () => {
 test('insert lobby, select board and redirect', async () => {
   createRoom.mockImplementationOnce((roomName, boardId, onSuccess, onFailure) => {
     onSuccess(defaultRoom);
+    expect(joinRoom).toHaveBeenCalledTimes(1);
+  });
+
+  joinRoom.mockImplementationOnce((id, onSuccess, onFailure) => {
+    onSuccess(defaultRoom);
     expect(setRunning).toHaveBeenCalledTimes(1);
   });
+
   const { getAllByTestId, getByTestId } = render(
     <CreateRoom setRunning={setRunning} />,
   );
 
-  await waitForElement(() => getAllByTestId('board-name'));
   const roomInput = getByTestId('room-name');
   const input = { target: { value: defaultRoom.name } };
   fireEvent.change(roomInput, input);
 
   const select = { target: { value: defaultBoards[1].id } };
   fireEvent.change(getByTestId('board-select'), select);
+
   const button = getByTestId('button');
   fireEvent.click(button);
 
@@ -101,7 +111,6 @@ test('insert lobby, select board and redirect', async () => {
     expect(Redirect).toHaveBeenCalledTimes(1);
   });
 
-  // assert that our redirect was called with the correct path for redirection
   const redirect = `/waiting/${defaultRoom.id}`;
   expect(Redirect).toHaveBeenCalledWith({ to: redirect }, {});
 });
