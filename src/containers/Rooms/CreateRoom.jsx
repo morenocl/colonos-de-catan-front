@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import CreateScreen from '../../components/Rooms/CreateRoom';
-import { getBoards, createRoom } from '../../utils/Mock';
+import { getBoards, createRoom } from '../../utils/Api';
 import { dispatchRunning } from './Rooms.ducks';
 
 
@@ -19,7 +19,7 @@ const initialState = {
 
 };
 
-const mapDispatchToProps = ({
+export const mapDispatchToProps = ({
   setRunning: dispatchRunning,
 });
 
