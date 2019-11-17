@@ -42,6 +42,7 @@ export const Waiting = ({
   const buttons = (
     <div data-testid="waiting-buttons">
       <Button
+        data-testid="start-button"
         disabled={!roomIsFull}
         onClick={onStart}
         className="start"
@@ -49,6 +50,7 @@ export const Waiting = ({
         {loading ? 'Loading...' : 'Start game'}
       </Button>
       <Button
+        data-testid="cancel-button"
         disabled={!onCancel}
         onClick={onCancel}
         className="cancel"
