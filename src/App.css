@@ -20,3 +20,14 @@
 .App-link {
   color: #09d3ac;
 }
+
+@media all and (min-width: 480px) {
+  .Forms {
+    padding: 60px 0;
+  }
+
+  form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}
