@@ -19,11 +19,12 @@ const Signup = (props) => {
 
   const userForm = (
     <FormGroup bssize="large">
-      <FormLabel>
+      <FormLabel htmlFor="username">
         Username
       </FormLabel>
       <FormControl
         autoFocus
+        id="username"
         name="username"
         isInvalid={!!usernameError}
         onChange={changeUsername}
@@ -38,10 +39,11 @@ const Signup = (props) => {
 
   const passForm = (
     <FormGroup bssize="large">
-      <FormLabel>
+      <FormLabel htmlFor="password">
         Password
       </FormLabel>
       <FormControl
+        id="password"
         name="password"
         isInvalid={!!passwordError}
         onChange={changePassword}
@@ -59,6 +61,7 @@ const Signup = (props) => {
       block
       bssize="large"
       disabled={!validate()}
+      data-testid="button"
       type="submit"
     >
       {loading ? 'Loading...' : 'Signup'}
@@ -69,7 +72,10 @@ const Signup = (props) => {
     <div className="Forms">
       <h1>Signup</h1>
       {error && <Error message={error} />}
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        data-testid="signup-form"
+      >
         {userForm}
         {passForm}
         {button}
