@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { dispatchRunning } from './Rooms.ducks';
+import Error from '../../components/Error';
 import CreateScreen from '../../components/Rooms/CreateRoom';
 import { createRoom, getBoards, joinRoom } from '../../utils/Api';
 
@@ -26,7 +27,7 @@ export const mapDispatchToProps = ({
 export const CreateRoom = ({ setRunning }) => {
   const [boards, setBoards] = useState([]);
   const [error, setError] = useState('');
-  const [response, setResponse] = useState(undefined);
+  const [redir, setRedir] = useState(null);
   const [formData, setFormData] = useState(initialState);
 
   useEffect(() => {
@@ -86,7 +87,7 @@ export const CreateRoom = ({ setRunning }) => {
     e.preventDefault();
 
     const onJoinSuccess = (id) => () => {
-      setResponse(<Redirect to={`/waiting/${id}`} />);
+      setRedir(id);
       setRunning();
     };
 
@@ -110,22 +111,22 @@ export const CreateRoom = ({ setRunning }) => {
     roomName, roomNameError, boardIdError, loading,
   } = formData;
 
+  if (redir) return (<Redirect to={`/waiting/${redir}`} />);
+
+  if (error) return (<Error message={error} onClose={() => setError(null)} />);
+
   return (
-    response
-    || (
-      <CreateScreen
-        boards={boards}
-        loading={loading}
-        error={error}
-        roomName={roomName}
-        roomNameError={roomNameError}
-        boardIdError={boardIdError}
-        handleSubmit={handleSubmit}
-        changeRoomName={changeRoomName}
-        changeBoardId={changeBoardId}
-        validate={validate}
-      />
-    )
+    <CreateScreen
+      boards={boards}
+      loading={loading}
+      roomName={roomName}
+      roomNameError={roomNameError}
+      boardIdError={boardIdError}
+      handleSubmit={handleSubmit}
+      changeRoomName={changeRoomName}
+      changeBoardId={changeBoardId}
+      validate={validate}
+    />
   );
 };
 

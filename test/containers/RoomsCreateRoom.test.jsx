@@ -4,16 +4,16 @@ import {
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Redirect } from 'react-router-dom';
-import { createRoom, getBoards, joinRoom } from '../src/utils/Api';
-import { CreateRoom, mapDispatchToProps } from '../src/containers/Rooms/CreateRoom';
-import { dispatchRunning } from '../src/containers/Rooms/Rooms.ducks';
+import { createRoom, getBoards, joinRoom } from '../../src/utils/Api';
+import { CreateRoom, mapDispatchToProps } from '../../src/containers/Rooms/CreateRoom';
+import { dispatchRunning } from '../../src/containers/Rooms/Rooms.ducks';
 
 // mock out Redirect so that we can assert on it
 jest.mock('react-router-dom', () => ({
   Redirect: jest.fn(() => null),
 }));
 
-jest.mock('../src/utils/Api', () => ({
+jest.mock('../../src/utils/Api', () => ({
   createRoom: jest.fn(() => null),
   getBoards: jest.fn(() => null),
   joinRoom: jest.fn(() => null),
@@ -48,11 +48,11 @@ const defaultRoom = {
   game_has_started: false,
 };
 
-getBoards.mockImplementation((onSuccess, onFailure) => {
+getBoards.mockImplementation((onSuccess) => {
   onSuccess(defaultBoards);
 });
 
-test('should have all dispatchs', () => {
+test('returns all dispatchs', () => {
   const expected = {
     setRunning: dispatchRunning,
   };
@@ -60,7 +60,7 @@ test('should have all dispatchs', () => {
   expect(mapDispatchToProps).toStrictEqual(expected);
 });
 
-test('insert lobby name, select board', () => {
+test('inserts lobby name, selects board', () => {
   const { getAllByTestId, getByTestId } = render(
     <CreateRoom setRunning={setRunning} />,
   );
@@ -77,23 +77,23 @@ test('insert lobby name, select board', () => {
   const boardInput = getByTestId('board-select');
   const select = { target: { value: defaultBoards[1].id } };
   fireEvent.change(boardInput, select);
-  expect(parseInt(boardInput.value)).toEqual(defaultBoards[1].id);
+  expect(Number(boardInput.value)).toEqual(defaultBoards[1].id);
 
   expect(getByTestId('button')).toBeEnabled();
 });
 
-test('insert lobby, select board and redirect', async () => {
-  createRoom.mockImplementationOnce((roomName, boardId, onSuccess, onFailure) => {
+test('inserts lobby, selects board and redirects', async () => {
+  createRoom.mockImplementationOnce((roomName, boardId, onSuccess) => {
     onSuccess(defaultRoom);
     expect(joinRoom).toHaveBeenCalledTimes(1);
   });
 
-  joinRoom.mockImplementationOnce((id, onSuccess, onFailure) => {
+  joinRoom.mockImplementationOnce((id, onSuccess) => {
     onSuccess(defaultRoom);
     expect(setRunning).toHaveBeenCalledTimes(1);
   });
 
-  const { getAllByTestId, getByTestId } = render(
+  const { getByTestId } = render(
     <CreateRoom setRunning={setRunning} />,
   );
 
@@ -113,4 +113,31 @@ test('insert lobby, select board and redirect', async () => {
 
   const redirect = `/waiting/${defaultRoom.id}`;
   expect(Redirect).toHaveBeenCalledWith({ to: redirect }, {});
+});
+
+xtest('shows an error', async () => {
+  createRoom.mockImplementationOnce((roomName, boardId, onSuccess, onFailure) => {
+    onFailure(defaultRoom);
+  });
+
+  const { getByTestId } = render(
+    <CreateRoom setRunning={setRunning} />,
+  );
+
+  const roomInput = getByTestId('room-name');
+  const input = { target: { value: defaultRoom.name } };
+  fireEvent.change(roomInput, input);
+
+  const select = { target: { value: defaultBoards[1].id } };
+  fireEvent.change(getByTestId('board-select'), select);
+
+  const button = getByTestId('button');
+  fireEvent.click(button);
+
+  await wait(() => {
+    const error = getByTestId('error');
+    expect(error).not.toBe(null);
+  });
+
+  expect(Redirect).not.toHaveBeenCalled();
 });
