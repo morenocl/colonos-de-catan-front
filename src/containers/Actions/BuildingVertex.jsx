@@ -52,6 +52,7 @@ export const BuildingVertex = (props) => {
   const { id } = useParams();
   const { setError, setVertexPayload, setWaiting } = props;
   const { setGameRunning, setGameState } = props;
+  const buildingType = type === 'upgrade_city' ? 'city' : 'settlement';
 
   const refresh = () => {
     setWaiting();
@@ -67,11 +68,16 @@ export const BuildingVertex = (props) => {
       // We need to create a new position to re-render the component.
       setVertexPayload(JSON.parse(JSON.stringify(p)));
     };
-    const buildingType = type === 'upgrade_city' ? 'city' : 'settlement';
     showVertices(draw, payload, colours.Building, buildingType, onClickMaker);
   };
 
-  if (!position) showPositions();
+  showPositions();
+
+  // Once position is set, show it.
+  if (position) {
+    showVertices(draw, [position], colours.Chosen,
+      buildingType, () => () => null);
+  }
 
   return (
     <BuildingScreen
