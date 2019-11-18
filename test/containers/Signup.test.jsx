@@ -89,7 +89,7 @@ test('render the form and signup fails', () => {
 });
 
 test('render the form and signup success', () => {
-  signup.mockImplementationOnce((username, password, onSuccess, onFailure) => {
+  signup.mockImplementationOnce((username, password, onSuccess) => {
     onSuccess();
   });
   const {

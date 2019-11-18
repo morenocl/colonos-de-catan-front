@@ -69,7 +69,7 @@ test('returns all dispatch functions', () => {
 test('render and the form is load', () => {
   const { queryAllByTestId, queryByTestId } = mk();
 
-  expect(queryAllByTestId('login-form').length).toBe(1);
+  expect(queryAllByTestId('login-form')).toHaveLength(1);
   const form = queryByTestId('login-form');
   const b = queryByTestId('button');
 
@@ -127,7 +127,7 @@ test('render the form and login fails', () => {
 
 test('render the form and login success', () => {
   const response = { token: 'token' };
-  login.mockImplementationOnce((username, password, onSuccess, onFailure) => {
+  login.mockImplementationOnce((username, password, onSuccess) => {
     onSuccess(response);
     expect(setAuth).toHaveBeenCalledTimes(1);
     expect(setAuth).toHaveBeenCalledWith(true);
