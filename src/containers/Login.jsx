@@ -34,10 +34,10 @@ export const Login = ({ setAuth, setUser }) => {
     const { username, password } = values;
 
     const onSuccess = (res) => {
-      setAuth(true);
-      setUser(username);
       localStorage.setItem('token', JSON.stringify(res.token));
       localStorage.setItem('username', username);
+      setAuth(true);
+      setUser(username);
     };
 
     const onFailure = (err) => {
