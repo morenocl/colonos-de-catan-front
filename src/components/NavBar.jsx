@@ -10,17 +10,17 @@ const NavBar = ({ auth, logout }) => {
   const items = (
     <>
       <LinkContainer to="/signup">
-        <Button>Signup</Button>
+        <Button data-testid="nav-bar-signup-button">Signup</Button>
       </LinkContainer>
       <LinkContainer to="/login">
-        <Button>Login</Button>
+        <Button data-testid="nav-bar-login-button">Login</Button>
       </LinkContainer>
     </>
   );
 
   const logoutButton = (
     <LinkContainer to="/">
-      <Button onClick={logout}>
+      <Button onClick={logout} data-testid="nav-bar-logout-button">
         Logout
       </Button>
     </LinkContainer>
