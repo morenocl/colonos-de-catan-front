@@ -14,7 +14,7 @@ import { getGameStatus } from '../../utils/Api';
 import useInterval from '../../utils/UseInterval';
 
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   actions: state.Game.actions,
   board: state.Game.board,
   hand: state.Game.hand,
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
   stage: state.Game.stage,
 });
 
-const mapDispatchToProps = ({
+export const mapDispatchToProps = ({
   setError: dispatchError,
   setRunning: dispatchRunning,
   setState: dispatchState,
@@ -47,7 +47,7 @@ export const Game = (props) => {
   // Fetch data from API every 5 seconds.
   useInterval(() => { if (stage !== 'frozen') getGameStatus(id, setState, setError); }, 5000);
 
-  if (stage === 'empty') return (<></>);
+  if (stage === 'empty') return (<div data-testid="game-empty"/>);
 
   if (stage === 'running' || stage === 'frozen') return (<GameScreen />);
 
