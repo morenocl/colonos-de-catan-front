@@ -40,9 +40,9 @@ export const dispatchEdgePayload = (position) => ({
   payload: position,
 });
 
-export const dispatchRobberPayload = (position, username) => ({
+export const dispatchRobberPayload = (position, player) => ({
   type: SET_ROBBER_PAYLOAD,
-  payload: { position, username },
+  payload: { position, player },
 });
 
 export const dispatchVertexPayload = (position) => ({
@@ -58,7 +58,6 @@ export const dispatch2RoadsPayload = (p0, p1) => ({
 
 const initialState = {
   stage: 'waiting',
-  actionOnClick: null,
   robberPayload: {},
   vertexPayload: null,
   edgePayload: null,

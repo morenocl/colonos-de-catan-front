@@ -6,7 +6,6 @@ import {
 
 const SET_ERROR = 'game/SET_ERROR';
 const SET_FROZEN = 'game/SET_FROZEN';
-const SET_REFRESH = 'game/SET_REFRESH';
 const SET_RUNNING = 'game/SET_RUNNING';
 const SET_STATE = 'game/SET_STATE';
 
@@ -16,11 +15,6 @@ export const setError = () => ({
 
 export const setFrozen = () => ({
   type: SET_FROZEN,
-});
-
-export const setRefresh = (refresh) => ({
-  type: SET_REFRESH,
-  payload: { refresh },
 });
 
 export const setRunning = () => ({
@@ -56,9 +50,6 @@ const reducer = (state = initialState, action = {}) => {
     case SET_FROZEN:
       return { ...state, stage: 'frozen' };
 
-    case SET_REFRESH:
-      return { ...state, refresh: action.payload.refresh };
-
     case SET_RUNNING:
       return { ...state, stage: 'running' };
 
@@ -72,10 +63,6 @@ const reducer = (state = initialState, action = {}) => {
 
 export default reducer;
 
-
-setRefresh.propTypes = {
-  refresh: PropTypes.func.isRequired,
-};
 
 setRunning.propTypes = {
   actions: PropTypes.arrayOf(ActionType),

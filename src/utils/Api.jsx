@@ -13,7 +13,7 @@ export const signup = (username, password, onSuccess, onFailure) => {
     body: JSON.stringify(data),
   };
 
-  request(url, options, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
 export const login = (username, password, onSuccess, onFailure) => {
@@ -69,20 +69,20 @@ export const startGame = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
   const options = { method: 'PATCH' };
 
-  request(url, options, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
 export const cancelRoom = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
   const options = { method: 'DELETE' };
-  request(url, options, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
-export const joinRoom = (id, onFailure) => {
+export const joinRoom = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
   const options = { method: 'PUT' };
 
-  request(url, options, () => {}, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
 
@@ -150,7 +150,7 @@ export const playAction = (id, type, payload, onSuccess, onFailure) => {
     body: JSON.stringify(data),
   };
 
-  request(url, options, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
 export const bankTrade = (id, give, receive, onSuccess, onFailure) => {
@@ -177,12 +177,16 @@ export const endTurn = (id, onSuccess, onFailure) => {
   playAction(id, 'end_turn', null, onSuccess, onFailure);
 };
 
-export const moveRobber = (id, position, username, onSuccess, onFailure) => {
-  playAction(id, 'move_robber', { position, username }, onSuccess, onFailure);
+export const moveRobber = (id, position, player, onSuccess, onFailure) => {
+  const body = player ? { position, player } : { position };
+
+  playAction(id, 'move_robber', body, onSuccess, onFailure);
 };
 
-export const playKnight = (id, position, username, onSuccess, onFailure) => {
-  playAction(id, 'play_knight_card', { position, username }, onSuccess, onFailure);
+export const playKnight = (id, position, player, onSuccess, onFailure) => {
+  const body = player ? { position, player } : { position };
+
+  playAction(id, 'play_knight_card', body, onSuccess, onFailure);
 };
 
 export const play2Roads = (id, p0, p1, onSuccess, onFailure) => {

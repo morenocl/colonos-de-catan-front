@@ -11,12 +11,12 @@ import { login } from '../utils/Api';
 import useForm from './UseForm';
 
 
-const mapDispatchToProps = ({
+export const mapDispatchToProps = ({
   setAuth: dispatchAuth,
   setUser: dispatchUser,
 });
 
-const Login = ({ setAuth, setUser }) => {
+export const Login = ({ setAuth, setUser }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const {
@@ -34,10 +34,10 @@ const Login = ({ setAuth, setUser }) => {
     const { username, password } = values;
 
     const onSuccess = (res) => {
-      setAuth(true);
-      setUser(username);
       localStorage.setItem('token', JSON.stringify(res.token));
       localStorage.setItem('username', username);
+      setAuth(true);
+      setUser(username);
     };
 
     const onFailure = (err) => {
