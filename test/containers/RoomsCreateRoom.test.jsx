@@ -128,14 +128,12 @@ test('shows an error when getBoards fails', () => {
     onFailure();
   });
 
-  Error.mockImplementationOnce(({ message, onClose }) => {
+  Error.mockImplementationOnce(({ message }) => {
     expect(message).toBe('Connection error, the boards could not be obtained');
     return null;
   });
 
-  const { queryByTestId } = render(
-    <CreateRoom setRunning={setRunning} />,
-  );
+  render(<CreateRoom setRunning={setRunning} />);
 
   expect(Error).toHaveBeenCalledTimes(1);
   expect(getBoards).toHaveBeenCalledTimes(1);

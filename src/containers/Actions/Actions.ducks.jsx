@@ -58,7 +58,6 @@ export const dispatch2RoadsPayload = (p0, p1) => ({
 
 const initialState = {
   stage: 'waiting',
-  actionOnClick: null,
   robberPayload: {},
   vertexPayload: null,
   edgePayload: null,
