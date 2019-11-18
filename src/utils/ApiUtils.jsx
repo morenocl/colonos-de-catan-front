@@ -5,7 +5,7 @@ export const path = process.env.REACT_APP_PATH || 'http://localhost:8000';
 
 export const getToken = () => JSON.parse(localStorage.getItem('token'));
 
-export const request = (url, opts, onSuccess, onFailure) => {
+export const request = (url, opts, onSuccess, onFailure, emptyBody) => {
   const options = { ...opts };
 
   // Add headers.
@@ -20,8 +20,11 @@ export const request = (url, opts, onSuccess, onFailure) => {
 
   fetch(url, options)
     .then((r) => {
-      if (r.ok) return r.json();
-      throw Error(r.statusText);
+      if (!r.ok) throw Error(r.statusText);
+
+      if (emptyBody) return new Promise((f) => f());
+
+      return r.json();
     })
     .then(onSuccess)
     .catch(onFailure);
