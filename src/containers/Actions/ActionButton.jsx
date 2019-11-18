@@ -79,9 +79,12 @@ export const ActionButton = (props) => {
   const onClickMaker = actionsOnClick(id, eventHandlers);
   const onClick = a && onClickMaker(type);
 
+  const as = ['build_settlement', 'build_road', 'upgrade_city'];
+  const disabled = !a || (as.includes(a.type) && a.payload.length === 0);
+
   return (
     <C
-      disabled={!a}
+      disabled={disabled}
       onClick={onClick}
       size="sm"
     >
