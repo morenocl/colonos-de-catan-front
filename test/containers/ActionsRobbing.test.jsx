@@ -68,14 +68,14 @@ afterEach(() => {
 
 const mk = (
   payload = [], position,
-  username, type = 'move_robber',
+  player, type = 'move_robber',
 ) => render(
   <Robbing
     draw={{}}
     payload={payload}
     position={position}
     type={type}
-    username={username}
+    player={player}
     setError={setError}
     setWaiting={setWaiting}
     setGameRunning={setGameRunning}
@@ -87,15 +87,15 @@ const mk = (
 
 test('returns draw, actionPayload and robberPayload ', () => {
   const position = { level: 1, index: 2 };
-  const username = 'username';
+  const player = 'player';
   const payload = [
-    { players: ['player'], position: { level: 2, index: 3 } },
+    { players: ['other player'], position: { level: 2, index: 3 } },
   ];
 
   const state = {
     Board: { draw: {} },
     Game: { actions: [{ type: 'type', payload }] },
-    Actions: { robberPayload: { position, username } },
+    Actions: { robberPayload: { position, player } },
   };
   const ownProps = {
     type: 'type',
@@ -104,7 +104,7 @@ test('returns draw, actionPayload and robberPayload ', () => {
     draw: {},
     payload,
     position,
-    username,
+    player,
   };
 
   expect(mapStateToProps(state, ownProps)).toStrictEqual(expected);
@@ -223,22 +223,22 @@ test('shows 3 available players', () => {
   const payload = [{ players, position }];
 
   setInfoOnClick.mockImplementationOnce((onClickMaker) => {
-    const wrongPlayers = ['user', 'username', 'test', '', 1];
+    const wrongPlayers = ['user', 'player', 'test', '', 1];
 
     // It should call setInfoOnClick with an onClick maker function.
-    players.forEach((username) => {
+    players.forEach((player) => {
       const n = setRobberPayload.mock.calls.length;
       // It should call setRobberPayload.
-      onClickMaker(username)();
+      onClickMaker(player)();
       expect(setRobberPayload).toHaveBeenCalledTimes(n + 1);
-      expect(setRobberPayload).toHaveBeenCalledWith(position, username);
+      expect(setRobberPayload).toHaveBeenCalledWith(position, player);
     });
 
     setRobberPayload.mockClear();
 
     // It should do nothing.
-    wrongPlayers.forEach((username) => {
-      expect(onClickMaker(username)).toBe(null);
+    wrongPlayers.forEach((player) => {
+      expect(onClickMaker(player)).toBe(null);
       expect(setRobberPayload).not.toHaveBeenCalled();
       expect(setRobberPayload).not.toHaveBeenCalledWith(expect.anything());
     });
@@ -268,7 +268,7 @@ test('shows 3 available players', () => {
 
 test('calls no functions but showHCenter', () => {
   const position = { level: 1, index: 2 };
-  mk([], position, 'username');
+  mk([], position, 'player');
 
   // It shouldn't call any of these just yet.
   dispatchs.forEach((f) => expect(f).not.toHaveBeenCalled());
@@ -277,7 +277,7 @@ test('calls no functions but showHCenter', () => {
 
 test('calls setInfoOnClick and moveRobber', () => {
   const position = { level: 1, index: 2 };
-  const { queryByTestId } = mk([], position, 'username');
+  const { queryByTestId } = mk([], position, 'player');
 
   fireEvent.click(queryByTestId('actions-positioning-confirm'));
 
@@ -287,7 +287,7 @@ test('calls setInfoOnClick and moveRobber', () => {
 
   expect(moveRobber).toHaveBeenCalledTimes(1);
   expect(moveRobber)
-    .toHaveBeenCalledWith('1', position, 'username',
+    .toHaveBeenCalledWith('1', position, 'player',
       expect.any(Function), expect.any(Function));
 
   // It shouldn't call any of these.
@@ -301,7 +301,7 @@ test('calls setInfoOnClick and moveRobber', () => {
 
 test('calls setInfoOnClick and playKnight', () => {
   const position = { level: 1, index: 2 };
-  const { queryByTestId } = mk([], position, 'username', 'play_knight_card');
+  const { queryByTestId } = mk([], position, 'player', 'play_knight_card');
 
   fireEvent.click(queryByTestId('actions-positioning-confirm'));
 
@@ -311,7 +311,7 @@ test('calls setInfoOnClick and playKnight', () => {
 
   expect(playKnight).toHaveBeenCalledTimes(1);
   expect(playKnight)
-    .toHaveBeenCalledWith('1', position, 'username',
+    .toHaveBeenCalledWith('1', position, 'player',
       expect.any(Function), expect.any(Function));
 
   // It shouldn't call any of these.
@@ -324,7 +324,7 @@ test('calls setInfoOnClick and playKnight', () => {
 });
 
 test('calls refresh on confirm', () => {
-  moveRobber.mockImplementationOnce((id, position, username, onSuccess) => {
+  moveRobber.mockImplementationOnce((id, position, player, onSuccess) => {
     onSuccess();
   });
 
@@ -333,7 +333,7 @@ test('calls refresh on confirm', () => {
   });
 
   const position = { level: 1, index: 2 };
-  const { queryByTestId } = mk([], position, 'username');
+  const { queryByTestId } = mk([], position, 'player');
 
   fireEvent.click(queryByTestId('actions-positioning-confirm'));
 
@@ -362,7 +362,7 @@ test('calls refresh on cancel', () => {
   });
 
   const position = { level: 1, index: 2 };
-  const { queryByTestId } = mk([], position, 'username');
+  const { queryByTestId } = mk([], position, 'player');
 
   fireEvent.click(queryByTestId('actions-positioning-cancel'));
 
