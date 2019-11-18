@@ -6,7 +6,9 @@ import Table from 'react-bootstrap/Table';
 import { RoomType } from '../../utils/ApiTypes';
 
 
-export const Waiting = ({ room, onStart, onCancel }) => {
+export const Waiting = ({
+  room, onStart, onCancel, loading,
+}) => {
   const {
     // eslint-disable-next-line camelcase
     max_players, name, owner, players,
@@ -35,17 +37,21 @@ export const Waiting = ({ room, onStart, onCancel }) => {
     </tbody>
   );
 
+  const roomIsFull = room.players.length === room.max_players;
+
   const buttons = (
     <div data-testid="waiting-buttons">
       <Button
-        disabled={!onStart}
+        data-testid="start-button"
+        disabled={!onStart || !roomIsFull || loading}
         onClick={onStart}
         className="start"
       >
-        Start game
+        {loading ? 'Loading...' : 'Start game'}
       </Button>
       <Button
-        disabled={!onCancel}
+        data-testid="cancel-button"
+        disabled={!onCancel || loading}
         onClick={onCancel}
         className="cancel"
       >
@@ -71,6 +77,7 @@ Waiting.propTypes = {
   room: RoomType.isRequired,
   onStart: PropTypes.func,
   onCancel: PropTypes.func,
+  loading: PropTypes.bool.isRequired,
 };
 
 Waiting.defaultProps = {

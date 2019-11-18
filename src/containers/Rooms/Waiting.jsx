@@ -8,7 +8,7 @@ import Error from '../../components/Error';
 import WaitingScreen from '../../components/Rooms/Waiting';
 import { getRoom, startGame, cancelRoom } from '../../utils/Api';
 import useInterval from '../../utils/UseInterval';
-import { dispatchRoom, dispatchWaiting } from './Rooms.ducks';
+import { dispatchRoom, dispatchWaiting, dispatchLoading } from './Rooms.ducks';
 import { RoomType } from '../../utils/ApiTypes';
 
 
@@ -16,15 +16,17 @@ export const mapStateToProps = (state) => ({
   username: state.Auth.username,
   room: state.Rooms.room,
   stage: state.Rooms.waitingStage,
+  loading: state.Rooms.createLoading,
 });
 
 export const mapDispatchToProps = ({
   setRoom: dispatchRoom,
   setStage: dispatchWaiting,
+  setLoading: dispatchLoading,
 });
 
 export const Waiting = ({
-  username, room, setRoom, setStage, stage,
+  username, room, setRoom, setStage, setLoading, stage, loading,
 }) => {
   const { id } = useParams();
 
@@ -34,6 +36,7 @@ export const Waiting = ({
   };
   const onFailure = (statusText) => {
     setStage(statusText === 404 ? 'canceled' : 'error');
+    setLoading(false);
   };
 
   // Refresh every 5 seconds and when mounted.
@@ -43,7 +46,7 @@ export const Waiting = ({
 
   const gameId = !!room && room.game_has_started ? room.game_id : null;
   const iAmOwner = !!room && room.owner === username;
-  const onStart = () => { startGame(id, refresh, onFailure); };
+  const onStart = () => { setLoading(true); startGame(id, refresh, onFailure); };
   const onCancel = () => { cancelRoom(id); setStage('canceled'); };
 
   if (stage === 'empty') return (<div data-testid="waiting-empty" />);
@@ -61,6 +64,7 @@ export const Waiting = ({
         room={room}
         onStart={iAmOwner ? onStart : null}
         onCancel={iAmOwner ? onCancel : null}
+        loading={loading}
       />
     );
   }
@@ -85,7 +89,9 @@ Waiting.propTypes = {
   room: RoomType,
   setRoom: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
   stage: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 Waiting.defaultProps = {
