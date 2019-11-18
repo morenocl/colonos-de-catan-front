@@ -67,6 +67,16 @@ const isFullRoom = {
   game_has_started: false,
 };
 
+const startedRoom = {
+  id: 1,
+  name: 'room',
+  owner: 'owner',
+  players: ['1', '2', '3', '4'],
+  max_players: 4,
+  game_has_started: true,
+  game_id: 3,
+};
+
 const mk = (stage, username = '', room = defaultRoom) => render(
   <Waiting
     username={username}
@@ -94,7 +104,14 @@ jest.mock('../../src/utils/UseInterval', () => ({
   default: jest.fn(() => null),
 }));
 
-const mockFns = [useParams, getRoom, startGame, useInterval, Redirect, Link];
+const mockFns = [
+  useParams,
+  getRoom,
+  startGame,
+  useInterval,
+  Redirect,
+  Link
+];
 
 afterEach(() => {
   dispatchs.forEach((f) => f.mockClear());
@@ -114,6 +131,10 @@ test('is empty', () => {
     expect(setStage).toHaveBeenCalledWith('running');
   });
 
+  useInterval.mockImplementationOnce((fun) => {
+    fun();
+  });
+
   const { queryAllByTestId } = mk('empty');
 
   const ps = queryAllByTestId('waiting-empty');
@@ -124,8 +145,11 @@ test('is empty', () => {
   expect(useParams).not.toHaveBeenCalledWith(expect.anything());
   expect(useParams).toHaveReturnedTimes(1);
 
-  expect(getRoom).toHaveBeenCalledTimes(1);
-  expect(getRoom).toHaveBeenCalledWith('1', expect.any(Function), expect.any(Function));
+  expect(getRoom).toHaveBeenCalledTimes(2);
+  expect(getRoom).toHaveBeenNthCalledWith(1, '1',
+    expect.any(Function), expect.any(Function));
+  expect(getRoom).toHaveBeenNthCalledWith(2, '1',
+    expect.any(Function), expect.any(Function));
 
   expect(useInterval).toHaveBeenCalledTimes(1);
   expect(useInterval).toHaveBeenCalledWith(expect.any(Function), 5000);
@@ -203,17 +227,36 @@ test('room is not complete and StartGame button disabled', () => {
   expect(button[0]).toBeDisabled();
 });
 
-test('press start game button and loading message shows', () => {
-  startGame.mockImplementationOnce((id, onSuccess, onFailure) => {
+test('shows loading message', () => {
+  startGame.mockImplementationOnce((id, onSuccess) => {
     onSuccess();
     expect(getRoom).toHaveBeenCalledTimes(2);
   });
-  const { queryAllByTestId } = mk('running', 'owner', isFullRoom);
-  const button = queryAllByTestId('start-button');
-  expect(button).toHaveLength(1);
-  expect(button[0]).toBeEnabled();
 
-  fireEvent.click(button[0]);
+  const { queryAllByTestId } = mk('running', 'owner', isFullRoom);
+  const buttons = queryAllByTestId('start-button');
+  expect(buttons).toHaveLength(1);
+  expect(buttons[0]).toBeEnabled();
+
+  fireEvent.click(buttons[0]);
+
+  expect(startGame).toHaveBeenCalledTimes(1);
+  expect(setLoading).toHaveBeenCalledTimes(1);
+  expect(setLoading).toHaveBeenCalledWith(true);
+});
+
+test('redirects to rooms', () => {
+  startGame.mockImplementationOnce((id, onSuccess) => {
+    onSuccess();
+    expect(getRoom).toHaveBeenCalledTimes(2);
+  });
+
+  const { queryAllByTestId } = mk('running', 'owner', isFullRoom);
+  const buttons = queryAllByTestId('start-button');
+  expect(buttons).toHaveLength(1);
+  expect(buttons[0]).toBeEnabled();
+
+  fireEvent.click(buttons[0]);
 
   expect(startGame).toHaveBeenCalledTimes(1);
   expect(setLoading).toHaveBeenCalledTimes(1);
@@ -256,6 +299,23 @@ test('shows an error', () => {
     }),
     expect.any(Object),
   );
+
+  dispatchs
+    .forEach((f) => expect(f).not.toHaveBeenCalled());
+});
+
+test('redirects', () => {
+  useInterval.mockImplementationOnce((fun) => {
+    fun();
+  });
+
+  mk('started', '', startedRoom);
+
+  expect(getRoom).toHaveBeenCalledTimes(1);
+  expect(getRoom).toHaveBeenCalledWith('1', expect.any(Function), expect.any(Function));
+
+  expect(Redirect).toHaveBeenCalledTimes(1);
+  expect(Redirect).toBeCalledWith({ to: '/game/3' }, {});
 
   dispatchs
     .forEach((f) => expect(f).not.toHaveBeenCalled());

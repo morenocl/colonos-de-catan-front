@@ -43,7 +43,7 @@ export const Waiting = ({
     <div data-testid="waiting-buttons">
       <Button
         data-testid="start-button"
-        disabled={!roomIsFull}
+        disabled={!onStart || !roomIsFull || loading}
         onClick={onStart}
         className="start"
       >
@@ -51,7 +51,7 @@ export const Waiting = ({
       </Button>
       <Button
         data-testid="cancel-button"
-        disabled={!onCancel}
+        disabled={!onCancel || loading}
         onClick={onCancel}
         className="cancel"
       >
