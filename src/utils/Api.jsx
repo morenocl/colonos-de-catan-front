@@ -13,7 +13,7 @@ export const signup = (username, password, onSuccess, onFailure) => {
     body: JSON.stringify(data),
   };
 
-  request(url, options, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
 export const login = (username, password, onSuccess, onFailure) => {
@@ -69,20 +69,20 @@ export const startGame = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
   const options = { method: 'PATCH' };
 
-  request(url, options, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
 export const cancelRoom = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
   const options = { method: 'DELETE' };
-  request(url, options, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
 export const joinRoom = (id, onSuccess, onFailure) => {
   const url = `${path}/rooms/${id}/`;
   const options = { method: 'PUT' };
 
-  request(url, options, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
 
@@ -150,7 +150,7 @@ export const playAction = (id, type, payload, onSuccess, onFailure) => {
     body: JSON.stringify(data),
   };
 
-  request(url, options, onSuccess, onFailure);
+  request(url, options, onSuccess, onFailure, true);
 };
 
 export const bankTrade = (id, give, receive, onSuccess, onFailure) => {
