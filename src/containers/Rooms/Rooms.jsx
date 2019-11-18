@@ -40,7 +40,7 @@ export const Rooms = (props) => {
 
   // Refresh every 5 seconds and when mounted.
   useEffect(refresh, []);
-  useInterval(refresh, 5000);
+  useInterval(refresh, 2000);
 
   if (stage === 'empty') {
     return (<div data-testid="rooms-empty" />);

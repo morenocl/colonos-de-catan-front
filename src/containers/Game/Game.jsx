@@ -45,7 +45,7 @@ export const Game = (props) => {
   }, [id, setError, setRunning, setState]);
 
   // Fetch data from API every 5 seconds.
-  useInterval(() => { if (stage !== 'frozen') getGameStatus(id, setState, setError); }, 5000);
+  useInterval(() => { if (stage !== 'frozen') getGameStatus(id, setState, setError); }, 2000);
 
   if (stage === 'empty') return (<></>);
 

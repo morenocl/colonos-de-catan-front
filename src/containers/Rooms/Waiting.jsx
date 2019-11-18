@@ -42,7 +42,7 @@ export const Waiting = ({
   // Refresh every 5 seconds and when mounted.
   const refresh = () => { getRoom(id, onSuccess, onFailure); };
   useEffect(refresh, []);
-  useInterval(() => { if (stage !== 'started') refresh(); }, 5000);
+  useInterval(() => { if (stage !== 'started') refresh(); }, 2000);
 
   const gameId = !!room && room.game_has_started ? room.game_id : null;
   const iAmOwner = !!room && room.owner === username;
@@ -56,7 +56,10 @@ export const Waiting = ({
     return (<Redirect to="/rooms" />);
   }
 
-  if (stage === 'started') return (<Redirect to={`/game/${gameId}`} />);
+  if (stage === 'started') {
+    setStage('empty');
+    return (<Redirect to={`/game/${gameId}`} />);
+  }
 
   if (stage === 'running') {
     return (
