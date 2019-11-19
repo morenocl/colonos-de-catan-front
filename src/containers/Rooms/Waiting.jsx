@@ -46,8 +46,13 @@ export const Waiting = ({
 
   const gameId = !!room && room.game_has_started ? room.game_id : null;
   const iAmOwner = !!room && room.owner === username;
-  const onStart = () => { setLoading(true); startGame(id, refresh, onFailure); };
-  const onCancel = () => { cancelRoom(id); setStage('canceled'); };
+  const onStart = () => {
+    setLoading(true);
+    startGame(id, refresh, onFailure);
+  };
+  const onCancel = () => {
+    cancelRoom(id, () => setStage('canceled'), () => setStage('error'));
+  };
 
   if (stage === 'empty') return (<div data-testid="waiting-empty" />);
 

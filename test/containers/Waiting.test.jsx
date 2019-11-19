@@ -152,7 +152,7 @@ test('is empty', () => {
     expect.any(Function), expect.any(Function));
 
   expect(useInterval).toHaveBeenCalledTimes(1);
-  expect(useInterval).toHaveBeenCalledWith(expect.any(Function), 5000);
+  expect(useInterval).toHaveBeenCalledWith(expect.any(Function), 2000);
 
   const calledDispatchs = [setRoom, setStage, setLoading];
   dispatchs
@@ -316,7 +316,10 @@ test('redirects', () => {
 
   expect(Redirect).toHaveBeenCalledTimes(1);
   expect(Redirect).toBeCalledWith({ to: '/game/3' }, {});
+  expect(setStage).toHaveBeenCalledTimes(1);
+  expect(setStage).toBeCalledWith('empty');
 
   dispatchs
+    .filter((f) => f !== setStage)
     .forEach((f) => expect(f).not.toHaveBeenCalled());
 });
