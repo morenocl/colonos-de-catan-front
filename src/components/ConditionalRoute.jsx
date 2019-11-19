@@ -15,7 +15,7 @@ const ConditionalRoute = ({
       condition
       // eslint-disable-next-line react/jsx-props-no-spreading
         ? <C {...props} />
-        : <Redirect to={redir} />
+        : <Redirect to={redir} push />
     )}
   />
 );

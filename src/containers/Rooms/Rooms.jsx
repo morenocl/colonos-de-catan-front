@@ -42,16 +42,11 @@ export const Rooms = (props) => {
   useEffect(refresh, []);
   useInterval(refresh, 2000);
 
-  if (stage === 'empty') {
-    return (<div data-testid="rooms-empty" />);
-  }
+  if (stage === 'empty') return (<div data-testid="rooms-empty" />);
 
   if (stage === 'create') {
-    return (
-      <Redirect
-        to="/create"
-      />
-    );
+    setRunning();
+    return (<Redirect to="/create" push />);
   }
 
   if (stage === 'running') {

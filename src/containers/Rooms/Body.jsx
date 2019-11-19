@@ -51,13 +51,7 @@ export const Body = (props) => {
     );
   }
 
-  if (stage === 'redirect') {
-    return (
-      <Redirect
-        to={`/waiting/${id}`}
-      />
-    );
-  }
+  if (stage === 'redirect') return (<Redirect to={`/waiting/${id}`} push />);
 
   return (<Error />);
 };

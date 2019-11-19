@@ -110,7 +110,7 @@ const mockFns = [
   startGame,
   useInterval,
   Redirect,
-  Link
+  Link,
 ];
 
 afterEach(() => {
@@ -164,7 +164,7 @@ test('if the server returns 404 set stage to canceled', () => {
   getRoom.mockImplementationOnce((id, onSuccess, onFailure) => {
     onFailure(404);
     expect(setStage).toHaveBeenCalledTimes(1);
-    expect(setStage).toHaveBeenCalledWith('canceled');
+    expect(setStage).toHaveBeenCalledWith('error');
     expect(setLoading).toHaveBeenCalledTimes(1);
     expect(setLoading).toHaveBeenCalledWith(false);
   });
@@ -181,7 +181,7 @@ test('if the stage is canceled redirect to rooms', () => {
   expect(setStage).toHaveBeenCalledTimes(1);
   expect(setStage).toHaveBeenCalledWith('empty');
   expect(Redirect).toHaveBeenCalledTimes(1);
-  expect(Redirect).toHaveBeenCalledWith({ to: '/rooms' }, {});
+  expect(Redirect).toHaveBeenCalledWith({ to: '/rooms', push: true }, {});
 });
 
 test('is running and I am the owner', () => {
@@ -315,7 +315,7 @@ test('redirects', () => {
   expect(getRoom).toHaveBeenCalledWith('1', expect.any(Function), expect.any(Function));
 
   expect(Redirect).toHaveBeenCalledTimes(1);
-  expect(Redirect).toBeCalledWith({ to: '/game/3' }, {});
+  expect(Redirect).toBeCalledWith({ to: '/game/3', push: true }, {});
   expect(setStage).toHaveBeenCalledTimes(1);
   expect(setStage).toBeCalledWith('empty');
 

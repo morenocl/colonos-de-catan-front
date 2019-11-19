@@ -23,7 +23,7 @@ const Signup = () => {
     setLoading(true);
 
     const onSuccess = () => {
-      setResponse(<Redirect to="/login" />);
+      setResponse(<Redirect to="/login" push />);
     };
     const onFailure = (err) => {
       setError(err.message);

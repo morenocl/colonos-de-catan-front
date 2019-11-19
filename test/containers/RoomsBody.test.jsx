@@ -89,7 +89,7 @@ test('is able to join', () => {
   fireEvent.click(button);
   expect(joinRoom).toHaveBeenCalledTimes(1);
   expect(Redirect).toHaveBeenCalledTimes(1);
-  expect(Redirect).toHaveBeenCalledWith({ to: '/waiting/1' }, {});
+  expect(Redirect).toHaveBeenCalledWith({ to: '/waiting/1', push: true }, {});
 });
 
 /* When user is not the owner

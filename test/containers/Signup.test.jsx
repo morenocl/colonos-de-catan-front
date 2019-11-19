@@ -123,5 +123,5 @@ test('render the form and signup success', () => {
   expect(signup).toHaveBeenCalledTimes(1);
   expect(signup).toHaveBeenCalledWith('test', 'test', expect.any(Function), expect.any(Function));
   expect(Redirect).toHaveBeenCalledTimes(1);
-  expect(Redirect).toHaveBeenCalledWith({ to: '/login' }, {});
+  expect(Redirect).toHaveBeenCalledWith({ to: '/login', push: true }, {});
 });

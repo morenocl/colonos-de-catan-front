@@ -117,7 +117,7 @@ test('redirects to /create', () => {
   expect(getRooms).toHaveBeenCalledTimes(1);
   expect(useInterval).toHaveBeenCalledTimes(1);
   expect(Redirect).toHaveBeenCalledTimes(1);
-  expect(Redirect).toHaveBeenCalledWith({ to: '/create' }, {});
+  expect(Redirect).toHaveBeenCalledWith({ to: '/create', push: true }, {});
 });
 
 test('shows no rooms', () => {

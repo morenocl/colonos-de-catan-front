@@ -111,7 +111,7 @@ export const CreateRoom = ({ setRunning }) => {
     roomName, roomNameError, boardIdError, loading,
   } = formData;
 
-  if (redir) return (<Redirect to={`/waiting/${redir}`} />);
+  if (redir) return (<Redirect to={`/waiting/${redir}`} push />);
 
   if (error) return (<Error message={error} onClose={() => setError(null)} />);
 

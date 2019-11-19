@@ -34,8 +34,8 @@ export const Waiting = ({
     setRoom(r);
     setStage(r.game_has_started ? 'started' : 'running');
   };
-  const onFailure = (statusText) => {
-    setStage(statusText === 404 ? 'canceled' : 'error');
+  const onFailure = () => {
+    setStage('error');
     setLoading(false);
   };
 
@@ -58,12 +58,12 @@ export const Waiting = ({
 
   if (stage === 'canceled') {
     setStage('empty');
-    return (<Redirect to="/rooms" />);
+    return (<Redirect to="/rooms" push />);
   }
 
   if (stage === 'started') {
     setStage('empty');
-    return (<Redirect to={`/game/${gameId}`} />);
+    return (<Redirect to={`/game/${gameId}`} push />);
   }
 
   if (stage === 'running') {

@@ -120,7 +120,7 @@ test('inserts lobby, selects board and redirects', () => {
   expect(Redirect).toHaveBeenCalledTimes(1);
 
   const redirect = `/waiting/${defaultRoom.id}`;
-  expect(Redirect).toHaveBeenCalledWith({ to: redirect }, {});
+  expect(Redirect).toHaveBeenCalledWith({ to: redirect, push: true }, {});
 });
 
 test('shows an error when getBoards fails', () => {
